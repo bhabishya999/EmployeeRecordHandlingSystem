@@ -65,12 +65,12 @@ The Laravel framework is open-sourced software licensed under the [MIT license](
 
 ## Project setup
 
-To setup this project you should first download latest version of docker,php and composer whose download links are mentioned below:
+To setup this project first download latest version of docker,php and composer whose download links are mentioned below:
 Docker: https://docs.docker.com/get-docker/\
 PHP: https://www.php.net/downloads.php
 Composer: https://getcomposer.org/download/
 
-After downloading docker,php and composer you should clone remote repository(git@github.com:IntroCept/Talent-Management.git.) Succeeding git clone you have to make .env file in the root of the project folder where you have to copy contents of .env.example file into .env file and replace  
+After downloading docker,php and composer clone remote repository(git@github.com:IntroCept/Talent-Management.git.) Succeeding git clone,copy contents of .env.example file into .env file which should be created in the root of the project folder and replace  
 
 DB_CONNECTION=mysql
 DB_HOST=127.0.0.1
@@ -88,7 +88,7 @@ DB_DATABASE=talent
 DB_USERNAME=root
 DB_PASSWORD=root
 
-Moving forward if you use Mac OS or Linux operationg system then run following commands in terminal one after another which are mentioned below,
+Moving forward for Mac OS or Linux operationg system user run following commands in terminal one after another which are mentioned below,
 => docker compose build
 => docker compose up -d
 => docker compose exec php bash
@@ -98,7 +98,7 @@ Moving forward if you use Mac OS or Linux operationg system then run following c
       -> php artisan migrate
       -> php artisan db:seed
 
-If you use Windows operating system then you have to first set up hosts which can be done by running Notepad as a administrator. After running notepad as a administrator select option->File->Open->system32->drivers->etc folder. If you see hosts file in etc folder then everything is ok but if you don't see any hosts file in etc folder then  add /hosts in the path section after C:\Windows\System32\drivers\etc where hosts file will get opened in notepad and add 127.0.1.1 talent.local inside hosts file and save it.
+Incase of Windows operating system first set up hosts which can be done by running Notepad as a administrator. After running notepad as a administrator select option->File->Open->system32->drivers->etc folder. If you see hosts file in etc folder then everything is ok but if you don't see any hosts file in etc folder then type /hosts in the path section after C:\Windows\System32\drivers\etc where hosts file will get opened in notepad and add 127.0.1.1 talent.local inside hosts file and save it.
 Hereafter run following commands in the terminal one after another which are mentioned below:
 
 => docker compose build
@@ -110,13 +110,13 @@ Hereafter run following commands in the terminal one after another which are men
       -> php artisan migrate
       -> php artisan db:seed
 
-So, at last if you are frontend developer then run,
+So, at last for frontend developer run,
 => npm install
 => npm run dev
-in the new terminal and when you type talent.local/ in your browser you should be able to run the project.
+in the new terminal and type talent.local/ to run the project.
 
-And if you are backend developer then run,
+And for backend developer run,
  => npm install 
-in the new terminal and when you type talent.local/ in your browser you should be able to run the project.
+in the new terminal and do same as above.
 
 
