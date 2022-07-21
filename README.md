@@ -62,3 +62,61 @@ If you discover a security vulnerability within Laravel, please send an e-mail t
 ## License
 
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+
+## Project setup
+
+To setup this project you should first download latest version of docker,php and composer whose download links are mentioned below:
+Docker: https://docs.docker.com/get-docker/\
+PHP: https://www.php.net/downloads.php
+Composer: https://getcomposer.org/download/
+
+After downloading docker,php and composer you should clone remote repository(git@github.com:IntroCept/Talent-Management.git.) Succeeding git clone you have to make .env file in the root of the project folder where you have to copy contents of .env.example file into .env file and replace  
+
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=employeehandlingsystem
+DB_USERNAME=root
+DB_PASSWORD=
+
+with 
+
+DB_CONNECTION=mysql
+DB_HOST=mysql
+DB_PORT=3306
+DB_DATABASE=talent
+DB_USERNAME=root
+DB_PASSWORD=root
+
+Moving forward if you use Mac OS or Linux operationg system then run following commands in terminal one after another which are mentioned below,
+=> docker compose build
+=> docker compose up -d
+=> docker compose exec php bash
+   ->Inside that:
+      -> composer install
+      -> php artisan key:generate
+      -> php artisan migrate
+      -> php artisan db:seed
+
+If you use Windows operating system then you have to first set up hosts which can be done by running Notepad as a administrator. After running notepad as a administrator select option->File->Open->system32->drivers->etc folder. If you see hosts file in etc folder then everything is ok but if you don't see any hosts file in etc folder then  add /hosts in the path section after C:\Windows\System32\drivers\etc where hosts file will get opened in notepad and add 127.0.1.1 talent.local inside hosts file and save it.
+Hereafter run following commands in the terminal one after another which are mentioned below:
+
+=> docker compose build
+=> docker compose up -d
+=> docker compose exec php bash
+   ->Inside that:
+      -> composer install
+      -> php artisan key:generate
+      -> php artisan migrate
+      -> php artisan db:seed
+
+So, at last if you are frontend developer then run,
+=> npm install
+=> npm run dev
+in the new terminal and when you type talent.local/ in your browser you should be able to run the project.
+
+And if you are backend developer then run,
+ => npm install 
+in the new terminal and when you type talent.local/ in your browser you should be able to run the project.
+
+
