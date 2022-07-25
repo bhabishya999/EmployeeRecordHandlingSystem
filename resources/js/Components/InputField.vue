@@ -1,16 +1,33 @@
 <script setup>
 import Input from "@/Components/Input.vue";
 import Label from "@/Components/Label.vue";
-import { useForm } from "@inertiajs/inertia-vue3";
-
-
+import {
+    useForm
+} from "@inertiajs/inertia-vue3";
 
 const form = useForm({
     email: " ",
     remember: false,
 });
 
+// data(){
+//     return{
+//         email:" ",
+//         remember: false,
+//     }
+// }
+</script>
 
+<script>
+export default {
+    name: "InputField",
+    data() {
+        return {
+            email: " ",
+            remember: false,
+        }
+    }
+}
 </script>
 
 <template>
