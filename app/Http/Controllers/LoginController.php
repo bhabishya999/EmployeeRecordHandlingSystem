@@ -24,19 +24,11 @@ class LoginController extends Controller
         $email=$request->email;
         $password=$request->password;
         
-        if (Auth::attempt(['email' => $email, 'password' => $password,'role'=>'admin'])) {
+        if (Auth::attempt(['email' => $email, 'password' => $password])) {
             $token = $request->user()->createToken($request->email)->plainTextToken;
             return response([
                 'token'=>$token,
-                'message'=>'Admin logged in successfully',
-            ],200);
-        }
-        
-        if (Auth::attempt(['email' => $email, 'password' => $password,'role'=>'user'])) {
-            $token = $request->user()->createToken($request->email)->plainTextToken;
-            return response([
-                'token'=>$token,
-                'message'=>'User logged in successfully',
+                'message'=>'Logged in successfully',
             ],200);
         }
          if (!password_verify('password',$password)){
