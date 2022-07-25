@@ -19,7 +19,7 @@ class LoginController extends Controller
     {
         $validated = $request->validated();
        
-        if(Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
+        if(Auth::attempt(['email' => $validated['email'], 'password' => $validated['password']])) {
             $token = $request->user()->createToken($request->email)->plainTextToken;
             return response([
                 'token'=>$token,
@@ -27,7 +27,7 @@ class LoginController extends Controller
             ],Response::HTTP_OK);
         }
         
-        if(!password_verify('password',$request->password)){
+        if(!password_verify('password',$validated['password'])){
             return response([
                 'message'=>'Incorrect password.Try again or click Forgot Password to reset it',
             ],Response::HTTP_UNAUTHORIZED);
