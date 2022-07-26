@@ -1,8 +1,6 @@
 <script setup>
 import { onMounted, ref } from "vue";
-
-defineProps(["modelValue"]);
-
+import Label from "@/Components/Label.vue";
 defineEmits(["update:modelValue"]);
 
 const input = ref(null);
@@ -15,6 +13,7 @@ onMounted(() => {
 </script>
 
 <template>
+    <Label for="password" value="Password" />
     <div class="border-0 relative">
         <input
             class="relative pb-3.5 pt-4 pl-4 w-full rounded-md text-sm leading-[150.69%] text-[#718096] font-normal font-sans border-solid border-2 border-[#E2E8F0] active:border-[#4C51BF]"
@@ -22,14 +21,14 @@ onMounted(() => {
             placeholder="your password"
             @input="$emit('update:modelValue', $event.target.value)"
             ref="input"
-            :type="type"
+            :type="visible ? 'password' : 'text'"
         />
         <div
             class="absolute inset-y-0 right-0 pr-5 flex items-center"
-            v-on:click="toggle"
+            v-on:click="togglePassword"
         >
             <svg
-                v-if="icon"
+                v-if="visible"
                 width="21"
                 height="16"
                 fill="none"
@@ -52,7 +51,7 @@ onMounted(() => {
             </svg>
 
             <svg
-                v-else="icon"
+                v-else
                 width="21"
                 height="17"
                 fill="none"
@@ -73,19 +72,17 @@ onMounted(() => {
 export default {
     data() {
         return {
-            type: "password",
-            icon: true,
+            visible: true,
         };
     },
+    props: {
+        modelValue: {
+            required: true,
+        },
+    },
     methods: {
-        toggle() {
-            if (this.type == "password") {
-                this.type = "text";
-                this.icon = false;
-            } else {
-                this.type = "password";
-                this.icon = true;
-            }
+        togglePassword() {
+            this.visible = !this.visible;
         },
     },
 };
