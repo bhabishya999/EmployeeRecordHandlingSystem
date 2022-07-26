@@ -3,7 +3,7 @@ import Button from "@/Components/Button.vue";
 
 import GuestLayout from "@/Layouts/Guest.vue";
 import PasswordInput from "@/Components/PasswordInput.vue";
-import Label from "@/Components/Label.vue";
+
 import ValidationErrors from "@/Components/ValidationErrors.vue";
 import { Head, Link, useForm } from "@inertiajs/inertia-vue3";
 
@@ -38,7 +38,6 @@ const submit = () => {
         <form @submit.prevent="submit">
             <div class="w-full">
                 <div class="mt-4 w-full">
-                    <Label for="password" value="Password" />
                     <PasswordInput
                         id="password"
                         class="mt-1 w-full"
@@ -68,3 +67,5 @@ const submit = () => {
         </form>
     </GuestLayout>
 </template>
+<script>
+
