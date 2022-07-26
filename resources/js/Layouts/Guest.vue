@@ -1,5 +1,5 @@
 <script setup>
-import BreezeApplicationLogo from "@/Components/ApplicationLogo.vue";
+// import BreezeApplicationLogo from "@/Components/ApplicationLogo.vue";
 import { Link } from "@inertiajs/inertia-vue3";
 </script>
 
@@ -8,16 +8,16 @@ import { Link } from "@inertiajs/inertia-vue3";
         id="login-background"
         class="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0 bg-no-repeat bg-cover"
     >
-        <div>
+        <!-- <div>
             <Link href="/">
                 <BreezeApplicationLogo
                     class="w-20 h-20 fill-current text-gray-500"
                 />
             </Link>
-        </div>
+        </div> -->
 
         <div
-            class="w-full sm:max-w-[400px] mt-6 px-6 py-4 bg-white shadow-md overflow-hidden sm:rounded-lg"
+            class="w-[628px] py-[86px] px-[86px] mt-6 px-6 py-4 bg-white shadow rounded"
         >
             <slot />
         </div>

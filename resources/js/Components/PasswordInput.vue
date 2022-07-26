@@ -13,7 +13,7 @@ onMounted(() => {
 </script>
 
 <template>
-    <Label for="password" value="Password" />
+    <Label for="password" Label="Password" />
     <div class="border-0 relative">
         <input
             class="relative pb-3.5 pt-4 pl-4 w-full rounded-md text-sm leading-[150.69%] text-[#718096] font-normal font-sans border-solid border-2 border-[#E2E8F0] active:border-[#4C51BF]"
@@ -78,6 +78,10 @@ export default {
     props: {
         modelValue: {
             required: true,
+        },
+        Label: {
+            required: true,
+            type: String,
         },
     },
     methods: {
