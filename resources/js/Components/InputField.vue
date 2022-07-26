@@ -10,12 +10,7 @@ const form = useForm({
     remember: false,
 });
 
-// data(){
-//     return{
-//         email:" ",
-//         remember: false,
-//     }
-// }
+
 </script>
 
 <script>

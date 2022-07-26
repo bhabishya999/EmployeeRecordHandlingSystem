@@ -24,11 +24,7 @@ components:{
     <GuestLayout>
         <Head title="Log in" />
 
-        <!-- <ValidationErrors class="mb-4" /> -->
-
-        <!-- <div v-if="status" class="mb-4 font-medium text-sm text-green-600">
-            {{ status }}
-        </div> -->
+        
 
         <form @submit.prevent="submit">
             <div class="m-6">
