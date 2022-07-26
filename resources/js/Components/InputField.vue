@@ -20,12 +20,13 @@ export default {
         return {
             email: " ",
             remember: false,
+            label:"Email Address"
         }
     }
 }
 </script>
 
 <template>
-<Label for="email" value="Email Address" />
+<Label :value="label"/>
 <Input id="email" type="email" placeholder="Your email@introcept.co" v-model="form.email" required autocomplete="username" />
 </template>

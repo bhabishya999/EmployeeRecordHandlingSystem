@@ -3,7 +3,7 @@
 import GuestLayout from "@/Layouts/Guest.vue";
 import TalentApplicationLogo from "@/Components/ApplicationLogo.vue";
 
-import { Head } from "@inertiajs/inertia-vue3";
+
 
 
 </script>
@@ -19,7 +19,7 @@ components:{
 
 <template>
     <GuestLayout>
-        <Head title="Log in" />
+        
 
         
 
