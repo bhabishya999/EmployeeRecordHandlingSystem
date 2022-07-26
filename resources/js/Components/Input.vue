@@ -17,7 +17,8 @@ onMounted(() => {
 export default {
 props: {
         modelValue: {
-            required: true,
+            required:true,
+            type:string,
         },
     },
 }
