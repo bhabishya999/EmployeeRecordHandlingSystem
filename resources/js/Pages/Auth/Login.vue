@@ -13,11 +13,11 @@ const form = useForm({
     remember: false,
 });
 
-const submit = () => {
-    form.post(route("login"), {
-        onFinish: () => form.reset("password"),
-    });
-};
+// const submit = () => {
+//     form.post(route("login"), {
+//         onFinish: () => form.reset("password"),
+//     });
+// };
 </script>
 
 <template>
@@ -44,6 +44,7 @@ const submit = () => {
                 </div>
 
                 <Button
+                    type="submit"
                     class="w-full mt-[30px] mb-9"
                     :class="{ 'opacity-25': form.processing }"
                     :disabled="form.processing"
@@ -64,6 +65,8 @@ const submit = () => {
 </template>
 
 <script>
+import axios from "axios";
+
 export default {
     props: {
         canResetPassword: {
@@ -73,6 +76,21 @@ export default {
         status: {
             required: true,
             type: String,
+        },
+    },
+    methods: {
+        submit() {
+            axios
+                .post("http://talent.local/api/login", {
+                    email: "sunita.gurau@introcept.co",
+                    password: "password",
+                })
+                .then(function (response) {
+                    console.log("sucessful message", response);
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
         },
     },
 };
