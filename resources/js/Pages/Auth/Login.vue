@@ -14,10 +14,7 @@ export default {
 components:{
     InputField,
 }
-
 }
-
-
 </script>
 
 <template>
