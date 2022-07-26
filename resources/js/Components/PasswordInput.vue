@@ -79,10 +79,6 @@ export default {
         modelValue: {
             required: true,
         },
-        Label: {
-            required: true,
-            type: String,
-        },
     },
     methods: {
         togglePassword() {

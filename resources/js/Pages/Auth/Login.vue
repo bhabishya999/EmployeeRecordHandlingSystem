@@ -7,11 +7,6 @@ import PasswordInput from "@/Components/PasswordInput.vue";
 import ValidationErrors from "@/Components/ValidationErrors.vue";
 import { Head, Link, useForm } from "@inertiajs/inertia-vue3";
 
-defineProps({
-    canResetPassword: Boolean,
-    status: String,
-});
-
 const form = useForm({
     email: "",
     password: "",
@@ -67,5 +62,18 @@ const submit = () => {
         </form>
     </GuestLayout>
 </template>
-<script>
 
+<script>
+export default {
+    props: {
+        canResetPassword: {
+            required: true,
+            type: Boolean,
+        },
+        status: {
+            required: true,
+            type: String,
+        },
+    },
+};
+</script>
