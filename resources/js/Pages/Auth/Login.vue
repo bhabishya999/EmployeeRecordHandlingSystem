@@ -3,40 +3,30 @@ import Button from "@/Components/Button.vue";
 
 import GuestLayout from "@/Layouts/Guest.vue";
 import PasswordInput from "@/Components/PasswordInput.vue";
-
-import ValidationErrors from "@/Components/ValidationErrors.vue";
-import { Head, Link, useForm } from "@inertiajs/inertia-vue3";
-
-const form = useForm({
-    email: "",
-    password: "",
-    remember: false,
-});
-
-// const submit = () => {
-//     form.post(route("login"), {
-//         onFinish: () => form.reset("password"),
-//     });
-// };
+import ApplicationLogo from "@/Components/ApplicationLogo.vue";
 </script>
 
 <template>
     <GuestLayout>
-        <Head title="Log in" />
-
-        <ValidationErrors class="mb-4" />
-
-        <div v-if="status" class="mb-4 font-medium text-sm text-green-600">
-            {{ status }}
-        </div>
-
-        <form @submit.prevent="submit">
+        <form>
             <div class="w-full">
+                <div>
+                    <ApplicationLogo />
+                </div>
+                <div class="space-y-2">
+                    <custom-input
+                        label="Email Address"
+                        v-model="email"
+                        required
+                        autocomplete="current-password"
+                        placeholder=" Email@introcept.co"
+                    />
+                </div>
                 <div class="mt-4 w-full">
                     <PasswordInput
                         id="password"
                         class="mt-1 w-full"
-                        v-model="form.password"
+                        v-model="password"
                         required
                         autocomplete="current-password"
                         placeholder="your password"
@@ -46,8 +36,8 @@ const form = useForm({
                 <Button
                     type="submit"
                     class="w-full mt-[30px] mb-9"
-                    :class="{ 'opacity-25': form.processing }"
-                    :disabled="form.processing"
+                    :class="{ 'opacity-25': processing }"
+                    :disabled="processing"
                 >
                     login
                 </Button>
@@ -66,8 +56,20 @@ const form = useForm({
 
 <script>
 import axios from "axios";
-
+import CustomInput from "@/Components/CustomInput.vue";
 export default {
+    compoenents: {
+        CustomInput,
+    },
+
+    data() {
+        return {
+            email: "",
+            password: "",
+            remember: false,
+        };
+    },
+
     props: {
         canResetPassword: {
             required: true,
