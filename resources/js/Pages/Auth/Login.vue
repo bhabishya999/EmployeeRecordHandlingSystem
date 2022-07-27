@@ -1,67 +1,97 @@
 <script setup>
-import BreezeButton from '@/Components/Button.vue';
-import BreezeCheckbox from '@/Components/Checkbox.vue';
-import BreezeGuestLayout from '@/Layouts/Guest.vue';
-import BreezeInput from '@/Components/Input.vue';
-import BreezeLabel from '@/Components/Label.vue';
-import BreezeValidationErrors from '@/Components/ValidationErrors.vue';
-import { Head, Link, useForm } from '@inertiajs/inertia-vue3';
+import Button from "@/Components/Button.vue";
 
-defineProps({
-    canResetPassword: Boolean,
-    status: String,
-});
+import GuestLayout from "@/Layouts/Guest.vue";
+import PasswordInput from "@/Components/PasswordInput.vue";
+
+import ValidationErrors from "@/Components/ValidationErrors.vue";
+import { Head, Link, useForm } from "@inertiajs/inertia-vue3";
 
 const form = useForm({
-    email: '',
-    password: '',
-    remember: false
+    email: "",
+    password: "",
+    remember: false,
 });
 
-const submit = () => {
-    form.post(route('login'), {
-        onFinish: () => form.reset('password'),
-    });
-};
+// const submit = () => {
+//     form.post(route("login"), {
+//         onFinish: () => form.reset("password"),
+//     });
+// };
 </script>
 
 <template>
-    <BreezeGuestLayout>
+    <GuestLayout>
         <Head title="Log in" />
 
-        <BreezeValidationErrors class="mb-4" />
+        <ValidationErrors class="mb-4" />
 
         <div v-if="status" class="mb-4 font-medium text-sm text-green-600">
             {{ status }}
         </div>
 
         <form @submit.prevent="submit">
-            <div>
-                <BreezeLabel for="email" value="Email" />
-                <BreezeInput id="email" type="email" class="mt-1 block w-full" v-model="form.email" required autofocus autocomplete="username" />
-            </div>
+            <div class="w-full">
+                <div class="mt-4 w-full">
+                    <PasswordInput
+                        id="password"
+                        class="mt-1 w-full"
+                        v-model="form.password"
+                        required
+                        autocomplete="current-password"
+                        placeholder="your password"
+                    />
+                </div>
 
-            <div class="mt-4">
-                <BreezeLabel for="password" value="Password" />
-                <BreezeInput id="password" type="password" class="mt-1 block w-full" v-model="form.password" required autocomplete="current-password" />
-            </div>
+                <Button
+                    type="submit"
+                    class="w-full mt-[30px] mb-9"
+                    :class="{ 'opacity-25': form.processing }"
+                    :disabled="form.processing"
+                >
+                    login
+                </Button>
 
-            <div class="block mt-4">
-                <label class="flex items-center">
-                    <BreezeCheckbox name="remember" v-model:checked="form.remember" />
-                    <span class="ml-2 text-sm text-gray-600">Remember me</span>
-                </label>
-            </div>
-
-            <div class="flex items-center justify-end mt-4">
-                <Link v-if="canResetPassword" :href="route('password.request')" class="underline text-sm text-gray-600 hover:text-gray-900">
-                    Forgot your password?
+                <Link
+                    v-if="canResetPassword"
+                    :href="route('password.request')"
+                    class="flex flex-col justify-center items-center text-[#4C51BF] font-bold text-base leading-[150.69%] font-sans"
+                >
+                    Forgot password?
                 </Link>
-
-                <BreezeButton class="ml-4" :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
-                    Log in
-                </BreezeButton>
             </div>
         </form>
-    </BreezeGuestLayout>
+    </GuestLayout>
 </template>
+
+<script>
+import axios from "axios";
+
+export default {
+    props: {
+        canResetPassword: {
+            required: true,
+            type: Boolean,
+        },
+        status: {
+            required: true,
+            type: String,
+        },
+    },
+    methods: {
+        submit() {
+            axios
+                .post("http://talent.local/api/login", {
+                    email: "sunita.gurau@introcept.co",
+                    password: "password",
+                })
+                .then(function (response) {
+                    console.log("sucessful message", response);
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
+        },
+    },
+};
+</script>
