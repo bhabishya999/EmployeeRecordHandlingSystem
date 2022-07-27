@@ -32,7 +32,7 @@ class PasswordResetController extends Controller
             // The passwords match...
             return response([
 
-                'message'=>'Reset password should not same as old password!',
+                'message'=>'New password should not same as old password!',
                 'status' => 'failed'
 
             ], 404);
@@ -46,8 +46,9 @@ class PasswordResetController extends Controller
         PasswordReset::where('email', $user->email)->delete();
 
         return response([
-            'message' => 'Password reset sucesss!', 
-            'status' => 'sucess'
+            'message' => 'Password reset success!', 
+            'status' => 'success'
+            
         ],200);
 
     }
