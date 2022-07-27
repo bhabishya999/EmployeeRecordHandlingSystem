@@ -8,8 +8,8 @@ import ApplicationLogo from "@/Components/ApplicationLogo.vue";
 
 <template>
     <GuestLayout>
-        <form>
-            <div class="w-full">
+        <form @submit.prevent="submit">
+            <div class="m-6">
                 <div>
                     <ApplicationLogo />
                 </div>
@@ -83,12 +83,16 @@ export default {
     methods: {
         submit() {
             axios
-                .post("http://talent.local/api/login", {
-                    email: "sunita.gurau@introcept.co",
-                    password: "password",
+                .post("/api/login", {
+                    email: this.email,
+                    password: this.password,
                 })
-                .then(function (response) {
-                    console.log("sucessful message", response);
+                .then(({ data }) => {
+                    const { token } = data;
+                    localStorage.setItem("token", token);
+                    this.$router.push({
+                        path: "/dashboard",
+                    });
                 })
                 .catch(function (error) {
                     console.log(error);
