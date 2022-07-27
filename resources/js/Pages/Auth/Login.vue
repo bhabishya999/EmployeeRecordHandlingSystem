@@ -83,6 +83,7 @@ export default {
     methods: {
         submit() {
             axios
+
                 .post("/api/login", {
                     email: this.email,
                     password: this.password,
