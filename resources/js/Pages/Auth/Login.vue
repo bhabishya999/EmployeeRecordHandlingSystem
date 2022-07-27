@@ -87,7 +87,7 @@ export default {
                     password: this.password,
                 })
                 .then(({ data }) => {
-                    const { token } = data;g
+                    const { token } = data;
                     localStorage.setItem("token", token);
                     this.$router.push({
                         path: "/dashboard",
