@@ -81,7 +81,10 @@ export default {
         return {
             email: "",
             password: "",
+<<<<<<< HEAD
             error: false,
+=======
+>>>>>>> 4a160c56393d6b0c47f7d8826ab4b6b4b3744893
         };
     },
 
@@ -96,6 +99,7 @@ export default {
         },
     },
     methods: {
+<<<<<<< HEAD
         login() {
             // if (this.password) {
             //     console.log("Login function called");
@@ -106,6 +110,24 @@ export default {
             //     this.error = true;
             // }
             this.error = !this.password;
+=======
+        submit() {
+            axios
+                .post("/api/login", {
+                    email: this.email,
+                    password: this.password,
+                })
+                .then(({ data }) => {
+                    const { token } = data;
+                    localStorage.setItem("token", token);
+                    this.$router.push({
+                        path: "/dashboard",
+                    });
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
+>>>>>>> 4a160c56393d6b0c47f7d8826ab4b6b4b3744893
         },
     },
 };
