@@ -1,8 +1,7 @@
-<script setup></script>
-
 <template>
-    <label class="block font-medium text-sm text-gray-700 pb-2.5">
-        <span v-if="Label">{{ Label }}</span>
+    <label class="text-[#718096] font-medium font-sans text-base not-italic">
+        <span v-if="value">{{ value }}</span>
+
         <span v-else><slot /></span>
     </label>
 </template>
