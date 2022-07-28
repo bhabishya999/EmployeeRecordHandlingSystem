@@ -7,6 +7,7 @@ use App\Models\PasswordReset;
 use Illuminate\Support\Facades\Hash; 
 use App\Http\Requests\StorePasswordResetRequest;
 use App\Models\User;
+use Illuminate\Http\Response;
 
 class PasswordResetController extends Controller
 {
@@ -22,11 +23,17 @@ class PasswordResetController extends Controller
                 'message' =>'Token is Invalid or Expired!',
                 'status' =>'failed'
 
-            ],404);
+            ],Response::HTTP_UNAUTHORIZED);
 
         }
 
         $user = User::where('email', $passwordreset->email)->first();
+        if(!$user){
+            return response([
+                'message' => 'User not registered!', 
+                'status' => 'failed'
+            ],Response::HTTP_NOT_FOUND);
+        }
 
         if (Hash::check($request->password, $user->password)) {
             // The passwords match...
@@ -35,7 +42,7 @@ class PasswordResetController extends Controller
                 'message'=>'New password should not same as old password!',
                 'status' => 'failed'
 
-            ], 404);
+            ],Response::HTTP_CONFLICT);
 
         }
 
@@ -49,7 +56,7 @@ class PasswordResetController extends Controller
             'message' => 'Password reset success!', 
             'status' => 'success'
             
-        ],200);
+        ],Response::HTTP_OK);
 
     }
 }

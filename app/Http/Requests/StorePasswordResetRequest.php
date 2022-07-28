@@ -24,7 +24,13 @@ class StorePasswordResetRequest extends FormRequest
     public function rules()
     {
         return [
-            'password'=>'required|confirmed|min:8|regex:/[a-z]/|regex:/[A-Z]/|regex:/[0-9]/|regex:/[@$!%*#?&]/'
+            'password'=>'required|confirmed|min:8|regex:/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/'
+        ];
+    }
+
+    public function messages(){
+        return [
+            'password.regex' => 'Password must contain at least one number and both uppercase and lowercase letters and a special character!.'
         ];
     }
 }
