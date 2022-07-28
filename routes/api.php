@@ -20,4 +20,4 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 Route::post('/login',[LoginController::class,'login']);
 Route::middleware('auth:sanctum')->post('/logout',[LogoutController::class,'logout']);
-Route::post('send-email', [PasswordResetController::class,'reset_email']);
+Route::post('send-email', [PasswordResetController::class,'resetEmail']);

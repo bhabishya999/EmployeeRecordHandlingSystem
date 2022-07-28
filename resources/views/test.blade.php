@@ -9,7 +9,7 @@
     <p>Hi {{ $user->name }},</p>
     <p>We've received a request to set a new password for this  {{ $user->email }}</p>
     {{-- In href there will be get request / {{ $token }} --}}
-    <button onclick="window.location.href='{{ $token }}'>
+    <button onclick="window.location.href='{{ $token }}'">
       Reset password
     </button>    
   </body>
