@@ -6,18 +6,30 @@ import GuestLayout from "@/Layouts/Guest.vue";
 
 <template>
     <GuestLayout>
-        <form @submit.prevent="login">
-            <div>
-                <PasswordInput
-                    :error="error"
-                    label="Password"
-                    id="password"
-                    class=""
-                    v-model="password"
-                    required
-                    autocomplete="current-password"
-                    placeholder="your password"
-                />
+        <form>
+            <div class="w-full">
+                <div>
+                    <ApplicationLogo />
+                </div>
+                <div class="space-y-1">
+                    <custom-input
+                        label="Email Address"
+                        v-model="email"
+                        required
+                        autocomplete="current-password"
+                        placeholder=" Email@introcept.co"
+                    />
+                </div>
+                <div class="mt-4 w-full">
+                    <PasswordInput
+                        id="password"
+                        class="mt-1 w-full"
+                        v-model="password"
+                        required
+                        autocomplete="current-password"
+                        placeholder="your password"
+                    />
+                </div>
 
                 <div v-if="error" class="flex items-center w-full mt-[9px]">
                     <div>
