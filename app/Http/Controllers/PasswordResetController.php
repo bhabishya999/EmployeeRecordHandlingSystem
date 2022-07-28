@@ -23,7 +23,7 @@ class PasswordResetController extends Controller
                 'message' =>'Token is Invalid or Expired!',
                 'status' =>'failed'
 
-            ],Response::HTTP_UNAUTHORIZED);
+            ],Response::HTTP_NOT_FOUND);
 
         }
 
@@ -35,7 +35,10 @@ class PasswordResetController extends Controller
             ],Response::HTTP_NOT_FOUND);
         }
 
-        if (Hash::check($request->password, $user->password)) {
+        $validated = $request->validated();
+       
+
+        if (Hash::check($validated['password'], $user->password)) {
             // The passwords match...
             return response([
 
