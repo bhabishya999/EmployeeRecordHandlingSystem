@@ -25,7 +25,6 @@ import ApplicationLogo from "@/Components/ApplicationLogo.vue";
                 <div class="mt-5">
                     <PasswordInput
                         id="password"
-                        class="mt-1"
                         v-model="password"
                         required
                         autocomplete="current-password"
