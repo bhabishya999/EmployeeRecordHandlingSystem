@@ -1,38 +1,55 @@
 <script setup>
 import Button from "@/Components/Button.vue";
-
 import GuestLayout from "@/Layouts/Guest.vue";
-import PasswordInput from "@/Components/PasswordInput.vue";
-import ApplicationLogo from "@/Components/ApplicationLogo.vue";
 </script>
 
 <template>
     <GuestLayout>
-        <form @submit.prevent="submit">
-            <div class="m-6">
-                <div>
-                    <ApplicationLogo />
-                </div>
-                <div class="space-y-1">
-                    <custom-input
-                        label="Email Address"
-                        v-model="email"
-                        required
-                        autocomplete="username"
-                        placeholder=" your email@introcept.co"
-                    />
-                </div>
-                <div class="mt-5">
-                    <PasswordInput
-                        id="password"
-                        class="mt-1"
-                        v-model="password"
-                        required
-                        autocomplete="current-password"
-                        placeholder="your password"
-                    />
-                </div>
+        <form @submit.prevent="login">
+            <div>
+                <PasswordInput
+                    :error="error"
+                    label="Password"
+                    id="password"
+                    class=""
+                    v-model="password"
+                    required
+                    autocomplete="current-password"
+                    placeholder="your password"
+                />
 
+                <div v-if="error" class="flex items-center w-full mt-[9px]">
+                    <div>
+                        <svg
+                            width="17"
+                            height="17"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                        >
+                            <path
+                                d="M8.5 16a7.5 7.5 0 1 0 0-15 7.5 7.5 0 0 0 0 15Z"
+                                fill="#D93025"
+                                stroke="#fff"
+                                stroke-width="2"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                            />
+                            <path
+                                d="M8.5 5.5v3M8.5 11.5h.008"
+                                stroke="#fff"
+                                stroke-width="2"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                            />
+                        </svg>
+                    </div>
+                    <p
+                        class="text-[#D93025] font-normal text-sm leading-[150%] ml-[8px]"
+                    >
+                        Incorrect password. Try again or click Forgot Password
+                        to reset it.
+                    </p>
+                </div>
                 <Button
                     type="submit"
                     class="w-full mt-[30px] mb-9"
@@ -41,7 +58,6 @@ import ApplicationLogo from "@/Components/ApplicationLogo.vue";
                 >
                     login
                 </Button>
-
                 <Link
                     v-if="canResetPassword"
                     :href="route('password.request')"
@@ -55,17 +71,20 @@ import ApplicationLogo from "@/Components/ApplicationLogo.vue";
 </template>
 
 <script>
-import axios from "axios";
-import CustomInput from "@/Components/CustomInput.vue";
+import PasswordInput from "@/Components/PasswordInput.vue";
 export default {
-    compoenents: {
-        CustomInput,
+    components: {
+        PasswordInput,
     },
 
     data() {
         return {
             email: "",
             password: "",
+<<<<<<< HEAD
+            error: false,
+=======
+>>>>>>> 4a160c56393d6b0c47f7d8826ab4b6b4b3744893
         };
     },
 
@@ -80,6 +99,18 @@ export default {
         },
     },
     methods: {
+<<<<<<< HEAD
+        login() {
+            // if (this.password) {
+            //     console.log("Login function called");
+            //     this.error = false;
+            // }
+
+            // if (!this.password) {
+            //     this.error = true;
+            // }
+            this.error = !this.password;
+=======
         submit() {
             axios
                 .post("/api/login", {
@@ -96,6 +127,7 @@ export default {
                 .catch(function (error) {
                     console.log(error);
                 });
+>>>>>>> 4a160c56393d6b0c47f7d8826ab4b6b4b3744893
         },
     },
 };
