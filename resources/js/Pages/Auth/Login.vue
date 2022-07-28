@@ -1,6 +1,7 @@
 <script setup>
 import Button from "@/Components/Button.vue";
 import GuestLayout from "@/Layouts/Guest.vue";
+
 </script>
 
 <template>
