@@ -1,6 +1,7 @@
 <?php
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\LogoutController;
+use App\Http\Controllers\PasswordResetController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -19,3 +20,4 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 Route::post('/login',[LoginController::class,'login']);
 Route::middleware('auth:sanctum')->post('/logout',[LogoutController::class,'logout']);
+Route::post('send-email', [PasswordResetController::class,'reset_email']);
