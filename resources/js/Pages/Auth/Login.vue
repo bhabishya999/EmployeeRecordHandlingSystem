@@ -13,7 +13,7 @@ import ApplicationLogo from "@/Components/ApplicationLogo.vue";
                 <div>
                     <ApplicationLogo />
                 </div>
-                <div class="space-y-2">
+                <div class="space-y-1">
                     <custom-input
                         label="Email Address"
                         v-model="email"
