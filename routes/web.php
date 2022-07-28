@@ -17,7 +17,7 @@ use Inertia\Inertia;
 
 
 Route::get("/email",function(){
-    return view('emailtemplate');
+    return view('Email');
     });
 
 
