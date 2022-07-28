@@ -16,7 +16,7 @@ use Inertia\Inertia;
 */
 
 
-Route::get('/email',function(){
+Route::get("/email",function(){
     return view('emailtemplate');
     });
 

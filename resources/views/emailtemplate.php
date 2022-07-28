@@ -81,7 +81,7 @@ margin-top:30px;
 margin-bottom:30px;
 border:0;
 width: 355px;
-height: 44px;
+height: 45px;
 background: #4C51BF;
 box-shadow: 0px 10px 15px rgba(0, 0, 0, 0.08);
 border-radius: 6px;
