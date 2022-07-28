@@ -8,6 +8,7 @@ use App\Models\PasswordReset;
 use App\Models\User;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\PasswordResetMail;
+use Carbon\Carbon;
 
 class PasswordResetController extends Controller
 {
@@ -17,6 +18,7 @@ class PasswordResetController extends Controller
         PasswordReset::create([
             'email'=>$validated['email'],
             'token'=>$token,
+            'created_at'=>Carbon::now(),
         ]);
         $user=User::where('email',$validated['email'])->first();
         $mail=Mail::to($validated['email'])->send(new PasswordResetMail($user,$token));
