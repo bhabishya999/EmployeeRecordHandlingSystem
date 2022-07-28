@@ -71,6 +71,7 @@ import GuestLayout from "@/Layouts/Guest.vue";
 </template>
 
 <script>
+import axios from "axios";
 import PasswordInput from "@/Components/PasswordInput.vue";
 export default {
     components: {
