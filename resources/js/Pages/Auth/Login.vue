@@ -97,15 +97,22 @@ export default {
     },
     methods: {
         login() {
-            // if (this.password) {
-            //     console.log("Login function called");
-            //     this.error = false;
-            // }
+            var regularExpression =
+                /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,20}$/;
+            if (password.length < 8 || password.length > 20) {
+                return (this.error = true);
+            }
 
-            // if (!this.password) {
-            //     this.error = true;
-            // }
-            this.error = !this.password;
+            if (!regularExpression.test(this.password)) {
+                return (this.error = true);
+            }
+            if (this.password) {
+                console.log("Login function called");
+                this.error = false;
+            }
+            if (!this.password) {
+                this.error = true;
+            }
         },
     },
 };
