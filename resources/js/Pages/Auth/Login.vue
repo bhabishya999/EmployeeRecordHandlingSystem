@@ -89,7 +89,7 @@ export default {
                     const { token } = data;
                     localStorage.setItem("token", token);
                     this.$router.push({
-                        path: "/dashboard",
+                        path: "/dashboarddd",
                     });
                 })
                 .catch(function (error) {
