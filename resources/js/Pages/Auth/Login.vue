@@ -98,28 +98,15 @@ export default {
     },
     methods: {
         login() {
-            if (this.password) {
-                axios
-                    .post("/api/login", {
-                        email: this.email,
-                        password: this.password,
-                    })
-                    .then(({ data }) => {
-                        const { token } = data;
-                        localStorage.setItem("token", token);
-                        this.$router.push({
-                            path: "/dashboard",
-                        });
-                    })
-                    .catch(function (error) {
-                        console.log(error);
-                    });
-                this.error = false;
-            }
+            this.error = !this.password;
+            // if (this.password) {
+            //     this.error = false;
+            //     console.log(this.password);
+            // }
 
-            if (!this.password) {
-                this.error = true;
-            }
+            // if (!this.password) {
+            //     this.error = true;
+            // }
         },
     },
 };
