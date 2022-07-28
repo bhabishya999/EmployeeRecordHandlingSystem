@@ -111,14 +111,6 @@ export default {
     methods: {
         login() {
             this.error = !this.password;
-            // if (this.password) {
-            //     this.error = false;
-            //     console.log(this.password);
-            // }
-
-            // if (!this.password) {
-            //     this.error = true;
-            // }
         },
     },
 };
