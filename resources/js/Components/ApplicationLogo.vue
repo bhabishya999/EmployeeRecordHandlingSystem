@@ -43,7 +43,8 @@
         <h1
             class="font-bold font-sans text-center text-base text-[#1A202C] not-italic ml-40 mr-40 mb-3"
         >
-            IntroCept Employee Portal
+            IntroCept <br />
+            Portal
         </h1>
     </div>
 
