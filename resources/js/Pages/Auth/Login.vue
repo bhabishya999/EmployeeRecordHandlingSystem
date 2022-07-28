@@ -6,7 +6,7 @@ import GuestLayout from "@/Layouts/Guest.vue";
 <template>
     <GuestLayout>
         <form @submit.prevent="login">
-
+            <div>
                 <PasswordInput
                     :error="error"
                     label="Password"
