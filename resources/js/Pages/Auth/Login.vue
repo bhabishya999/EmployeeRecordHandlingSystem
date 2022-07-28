@@ -5,7 +5,7 @@ import GuestLayout from "@/Layouts/Guest.vue";
 
 <template>
     <GuestLayout>
-        <form>
+        <form @submit.prevent="submit">
             <div class="w-full">
                 <div>
                     <ApplicationLogo />
@@ -109,8 +109,23 @@ export default {
         },
     },
     methods: {
-        login() {
+        submit() {
             this.error = !this.password;
+            axios
+                .post("/api/login", {
+                    email: this.email,
+                    password: this.password,
+                })
+                .then(({ data }) => {
+                    const { token } = data;
+                    localStorage.setItem("token", token);
+                    this.$router.push({
+                        path: "/dashboarddd",
+                    });
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
         },
     },
 };
