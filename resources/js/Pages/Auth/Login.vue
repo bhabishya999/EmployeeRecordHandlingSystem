@@ -9,23 +9,23 @@ import ApplicationLogo from "@/Components/ApplicationLogo.vue";
 <template>
     <GuestLayout>
         <form>
-            <div class="w-full">
+            <div class="p-10">
                 <div>
                     <ApplicationLogo />
                 </div>
-                <div class="space-y-2">
+                <div class="space-y-1">
                     <custom-input
                         label="Email Address"
                         v-model="email"
                         required
-                        autocomplete="current-password"
-                        placeholder=" Email@introcept.co"
+                        autocomplete="username"
+                        placeholder=" your email@introcept.co"
                     />
                 </div>
-                <div class="mt-4 w-full">
+                <div class="mt-5">
                     <PasswordInput
                         id="password"
-                        class="mt-1 w-full"
+                        class="mt-1"
                         v-model="password"
                         required
                         autocomplete="current-password"
