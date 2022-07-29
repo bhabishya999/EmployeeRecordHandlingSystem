@@ -121,16 +121,15 @@ export default {
                         password: this.password,
                     })
                     .then(({ data }) => {
-                        const { token } = data;
-                        localStorage.setItem("token", token);
+                        const { talent_token } = data;
+                        localStorage.setItem("talent_token", talent_token);
                         this.$router.push({
                             path: "/dashboarddd",
                         });
                     })
                     .catch(function (error) {
-                        console.log(error);
+                        alert("error");
                     });
-               
             }
             if (!this.password) {
                 this.error = true;
