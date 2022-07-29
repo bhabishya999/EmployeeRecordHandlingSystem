@@ -2,21 +2,32 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+
 use App\Models\PasswordReset;
-use Illuminate\Support\Facades\Hash; 
+use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\StorePasswordResetRequest;
 use App\Models\User;
+use App\Talent\User\Manager;
 use Illuminate\Http\Response;
+
+
 
 class PasswordResetController extends Controller
 {
+
+    public function __construct(private PasswordReset $passwordReset, private User $user, private Manager $userManager, private Manager $passwordManager)
+    {
+        
+    }
     
-    public function reset(StorePasswordResetRequest $request, $token){
+    public function reset(StorePasswordResetRequest $request):Response
+    {
+        $validated = $request->validated();
 
-        $passwordreset = PasswordReset::where('token', $token)->first();
+        // $passwordReset = $this->passwordReset->where('token',$validated['token'] )->first();
+        $passwordReset = $this->passwordManager->findByToken($validated['token']);
 
-        if(!$passwordreset){
+        if(!$passwordReset){
 
             return response([
 
@@ -27,7 +38,7 @@ class PasswordResetController extends Controller
 
         }
 
-        $user = User::where('email', $passwordreset->email)->first();
+        $user = $this->userManager->findByEmail($passwordReset->email);
         if(!$user){
             return response([
                 'message' => 'User not registered!', 
@@ -35,8 +46,6 @@ class PasswordResetController extends Controller
             ],Response::HTTP_NOT_FOUND);
         }
 
-        $validated = $request->validated();
-       
 
         if (Hash::check($validated['password'], $user->password)) {
             // The passwords match...
@@ -53,7 +62,7 @@ class PasswordResetController extends Controller
         $user->save();
 
         //Delete the token after resetting the password
-        PasswordReset::where('email', $user->email)->delete();
+        $this->passwordReset->where('email', $user->email)->delete();
 
         return response([
             'message' => 'Password reset success!', 

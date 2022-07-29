@@ -17,5 +17,5 @@ use App\Http\Controllers\PasswordResetController;
 */
 
 Route::post('/login',[LoginController::class,'login']);
-Route::post('/reset-password/{token}',[PasswordResetController::class, 'reset']);
+Route::post('/reset-password',[PasswordResetController::class, 'reset']);
 
