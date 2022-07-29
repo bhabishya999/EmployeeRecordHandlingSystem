@@ -1,4 +1,4 @@
-<template>
+<!-- <template>
     <GuestLayout>
         <div id="password-background">
             <MatchPsError></MatchPsError>
@@ -20,4 +20,4 @@ export default {
 <style>
 #password-background {
 }
-</style>
+</style> -->
