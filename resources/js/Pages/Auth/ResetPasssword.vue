@@ -61,7 +61,9 @@
         </p>
         <div>
             <PasswordInput
+                :error="error"
                 label="Create new password"
+                v-model="newPassword"
                 id="password"
                 class="mt-1 w-full"
                 required
@@ -70,19 +72,87 @@
         </div>
 
         <p
+            v-if="!msg.password"
             class="text-[#718096] font-normal text-sm leading-[150.69%] mt-[20px] mb-[30px]"
         >
             Password must have atleast 8 characters,1lowercase, 1 uppercase, 1
             number and 1 special character
         </p>
+        <div v-if="msg.password" class="flex items-center w-full mt-[9px]">
+            <div>
+                <svg
+                    width="17"
+                    height="17"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                >
+                    <path
+                        d="M8.5 16a7.5 7.5 0 1 0 0-15 7.5 7.5 0 0 0 0 15Z"
+                        fill="#D93025"
+                        stroke="#fff"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                    />
+                    <path
+                        d="M8.5 5.5v3M8.5 11.5h.008"
+                        stroke="#fff"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                    />
+                </svg>
+            </div>
+            <p
+                class="text-[#D93025] font-normal text-sm leading-[150%] ml-[8px]"
+            >
+                {{ msg.password }}
+            </p>
+        </div>
         <div>
             <PasswordInput
+                v-model="confirmPassword"
+                :error="error"
                 label="Re-enter new password"
                 id="password"
                 class="mt-1 w-full"
                 required
                 autocomplete="current-password"
             />
+        </div>
+        <div
+            v-if="msg.confirmPassword"
+            class="flex items-center w-full mt-[9px]"
+        >
+            <div>
+                <svg
+                    width="17"
+                    height="17"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                >
+                    <path
+                        d="M8.5 16a7.5 7.5 0 1 0 0-15 7.5 7.5 0 0 0 0 15Z"
+                        fill="#D93025"
+                        stroke="#fff"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                    />
+                    <path
+                        d="M8.5 5.5v3M8.5 11.5h.008"
+                        stroke="#fff"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                    />
+                </svg>
+            </div>
+            <p
+                class="text-[#D93025] font-normal text-sm leading-[150%] ml-[8px]"
+            >
+                {{ msg.confirmPassword }}
+            </p>
         </div>
 
         <Button type="submit" class="w-full mt-[41px]"> Reset Password </Button>
@@ -104,8 +174,48 @@ export default {
     },
     data() {
         return {
-            password: "",
+            newPassword: "",
+            confirmPassword: "",
+            error: false,
+            msg: [],
+            previousPassword: "Sunita",
         };
+    },
+    watch: {
+        newPassword(value) {
+            this.newPassword = value;
+            this.validateNewPassword(value);
+        },
+        confirmPassword(value) {
+            this.confirmPassword = value;
+            this.validateConfirmPassword(value);
+        },
+    },
+    methods: {
+        validateNewPassword(value) {
+            if (
+                /^(?=.*[0-9])(?=.*[A-Z])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,20}$/.test(
+                    value
+                )
+            ) {
+                this.msg["password"] = "";
+                this.error = false;
+            } else {
+                this.error = true;
+                this.msg["password"] =
+                    "Password must have atleast 8 characters,1lowercase, 1 uppercase, 1 number and 1 special character ";
+            }
+        },
+        validateConfirmPassword(value) {
+            if (this.newPassword == this.confirmPassword) {
+                this.msg["confirmPassword"] = "";
+                this.error = false;
+            } else {
+                this.error = true;
+                this.msg["confirmPassword"] =
+                    "The password you entered do not match. ";
+            }
+        },
     },
 };
 </script>
