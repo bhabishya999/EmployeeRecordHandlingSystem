@@ -55,10 +55,45 @@
         </p>
 
         <p
+            v-if="!msg.previousPassword"
             class="text-[#718096] font-normal text-sm leading-[150.69%] mt-[9px] mb-[30px]"
         >
             Your new password must be diffrent from previous used one
         </p>
+        <div
+            v-if="msg.previousPassword"
+            class="flex items-center w-full mt-[9px]"
+        >
+            <div>
+                <svg
+                    width="17"
+                    height="17"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                >
+                    <path
+                        d="M8.5 16a7.5 7.5 0 1 0 0-15 7.5 7.5 0 0 0 0 15Z"
+                        fill="#D93025"
+                        stroke="#fff"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                    />
+                    <path
+                        d="M8.5 5.5v3M8.5 11.5h.008"
+                        stroke="#fff"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                    />
+                </svg>
+            </div>
+            <p
+                class="text-[#D93025] font-normal text-sm leading-[150%] ml-[8px]"
+            >
+                {{ msg.previousPassword }}
+            </p>
+        </div>
         <div>
             <PasswordInput
                 :error="error"
@@ -155,7 +190,33 @@
             </p>
         </div>
 
-        <Button type="submit" class="w-full mt-[41px]"> Reset Password </Button>
+        <Button type="submit" class="w-full mt-[41px]" @click="ResetPassword">
+            Reset Password
+        </Button>
+        <Popup :open="isOpen" @close="isOpen = !isOpen">
+            <svg
+                width="120"
+                height="120"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+            >
+                <path
+                    d="M59.78 119.56c33.016 0 59.78-26.764 59.78-59.78C119.56 26.764 92.796 0 59.78 0 26.764 0 0 26.764 0 59.78c0 33.016 26.764 59.78 59.78 59.78Z"
+                    fill="#C53030"
+                />
+                <path
+                    d="M54.176 93.406h11.209V82.197h-11.21v11.21Zm0-70.989V70.99h11.209V22.417h-11.21Z"
+                    fill="#E6E6E6"
+                />
+            </svg>
+
+            <p
+                class="text-[#4C51BF] leading-[150%] text-2xl font-bold my-[20px]"
+            >
+                Create a new password that <br />
+                isn’t your current password.
+            </p>
+        </Popup>
     </GuestLayout>
 </template>
 
@@ -164,6 +225,8 @@ import Button from "@/Components/Button.vue";
 import GuestLayout from "@/Layouts/Guest.vue";
 import Label from "@/Components/Label.vue";
 import PasswordInput from "@/Components/PasswordInput.vue";
+import Popup from "@/Components/Popup.vue";
+import { ref } from "vue";
 export default {
     name: "ResettPassword",
     components: {
@@ -171,6 +234,14 @@ export default {
         GuestLayout,
         Label,
         PasswordInput,
+        Popup,
+    },
+    setup() {
+        const isOpen = ref(false);
+
+        return {
+            isOpen,
+        };
     },
     data() {
         return {
@@ -178,7 +249,7 @@ export default {
             confirmPassword: "",
             error: false,
             msg: [],
-            previousPassword: "Sunita",
+            previousPassword: "Sunita@123",
         };
     },
     watch: {
@@ -214,6 +285,16 @@ export default {
                 this.error = true;
                 this.msg["confirmPassword"] =
                     "The password you entered do not match. ";
+            }
+        },
+        ResetPassword() {
+            if (this.newPassword == this.previousPassword) {
+                this.isOpen = true;
+                this.error = true;
+                this.msg["previousPassword"] =
+                    "Create a new password that isn’t your current password. ";
+            } else {
+                alert("password reset sucessfully");
             }
         },
     },
