@@ -1,5 +1,6 @@
 <template>
-    <GuestLayout>
+    <!-- :class="isOpen ? 'blur-sm' : 'blur-none'" -->
+    <GuestLayout class="relative">
         <div
             class="flex flex-col justify-center items-center border-b-2 border-solid border-b-gray-200"
         >
@@ -193,7 +194,11 @@
         <Button type="submit" class="w-full mt-[41px]" @click="ResetPassword">
             Reset Password
         </Button>
-        <Popup :open="isOpen" @close="isOpen = !isOpen">
+        <Popup
+            :open="isOpen"
+            @close="isOpen = !isOpen"
+            class="absolute z-10 top-1/2 left-1/2 !transform !-translate-x-1/2 !-translate-y-1/2 z-10"
+        >
             <svg
                 width="120"
                 height="120"
