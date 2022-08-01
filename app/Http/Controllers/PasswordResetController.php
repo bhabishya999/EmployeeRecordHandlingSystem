@@ -8,17 +8,20 @@ use App\Models\PasswordReset;
 use App\Models\User;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\PasswordResetMail;
+use App\Talent\User\UserManager;
+use App\Talent\PasswordReset\PasswordResetManager;
 
 class PasswordResetController extends Controller
 {
+    public function __construct(private UserManager $userManager, private PasswordResetManager $passwordManager)
+    {
+        
+    }
     public function resetEmail(PasswordResetRequest $request){
         $validated = $request->validated();
         $token=Str::random(60);
-        PasswordReset::create([
-            'email'=>$validated['email'],
-            'token'=>$token,
-        ]);
-        $user=User::where('email',$validated['email'])->first();
+        $passwordReset=$this->passwordManager->store($validated['email'],$token);
+        $user=$this->userManager->findbyEmail($validated['email']);
         $mail=Mail::to($validated['email'])->send(new PasswordResetMail($user,$token));
         if($mail){
             return response([

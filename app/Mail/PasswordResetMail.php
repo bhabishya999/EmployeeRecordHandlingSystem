@@ -35,7 +35,7 @@ class PasswordResetMail extends Mailable
      */
     public function build()
     {
-        return $this->view('test')
+        return $this->view('Email')
         ->subject('Here’s your link to sign in to your Introcept Employee Portal Account');
     }
 }
