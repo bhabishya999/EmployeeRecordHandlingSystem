@@ -17,5 +17,10 @@ use App\Http\Controllers\PasswordResetController;
 */
 
 Route::post('/login',[LoginController::class,'login']);
-Route::post('/reset-password',[PasswordResetController::class, 'reset']);
+Route::post('/reset-password',[PasswordResetController::class, 'reset'])->name('reset');
+
+Route::get('/expiry-link', [PasswordResetController::class, 'expiryLink'])->name('expiry-link');
+Route::get('/reset-password',[PasswordResetController::class, 'resetPassword'])->name('reset');
+
+
 
