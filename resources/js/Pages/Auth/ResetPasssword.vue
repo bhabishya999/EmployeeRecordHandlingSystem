@@ -194,34 +194,39 @@
         <Button type="submit" class="w-full mt-[41px]" @click="ResetPassword">
             Reset Password
         </Button>
-        <Popup
-            :open="isOpen"
-            @close="isOpen = !isOpen"
-            class="absolute z-10 top-1/2 left-1/2 !transform !-translate-x-1/2 !-translate-y-1/2 z-10"
+        <div
+            v-if="togglePopUp"
+            class="fixed inset-0 w-full h-screen flex items-center justify-center bg-black bg-opacity-50"
         >
-            <svg
-                width="120"
-                height="120"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
+            <TogglePopUp
+                :togglePopUp="togglePopUp"
+                @close="togglePopUp = !togglePopUp"
+                class="absolute z-10 top-1/2 left-1/2 !transform !-translate-x-1/2 !-translate-y-1/2"
             >
-                <path
-                    d="M59.78 119.56c33.016 0 59.78-26.764 59.78-59.78C119.56 26.764 92.796 0 59.78 0 26.764 0 0 26.764 0 59.78c0 33.016 26.764 59.78 59.78 59.78Z"
-                    fill="#C53030"
-                />
-                <path
-                    d="M54.176 93.406h11.209V82.197h-11.21v11.21Zm0-70.989V70.99h11.209V22.417h-11.21Z"
-                    fill="#E6E6E6"
-                />
-            </svg>
+                <svg
+                    width="120"
+                    height="120"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                >
+                    <path
+                        d="M59.78 119.56c33.016 0 59.78-26.764 59.78-59.78C119.56 26.764 92.796 0 59.78 0 26.764 0 0 26.764 0 59.78c0 33.016 26.764 59.78 59.78 59.78Z"
+                        fill="#C53030"
+                    />
+                    <path
+                        d="M54.176 93.406h11.209V82.197h-11.21v11.21Zm0-70.989V70.99h11.209V22.417h-11.21Z"
+                        fill="#E6E6E6"
+                    />
+                </svg>
 
-            <p
-                class="text-[#4C51BF] leading-[150%] text-2xl font-bold my-[20px]"
-            >
-                Create a new password that <br />
-                isn’t your current password.
-            </p>
-        </Popup>
+                <p
+                    class="text-[#4C51BF] leading-[150%] text-2xl font-bold my-[20px]"
+                >
+                    Create a new password that <br />
+                    isn’t your current password.
+                </p>
+            </TogglePopUp>
+        </div>
     </GuestLayout>
 </template>
 
@@ -230,7 +235,7 @@ import Button from "@/Components/Button.vue";
 import GuestLayout from "@/Layouts/Guest.vue";
 import Label from "@/Components/Label.vue";
 import PasswordInput from "@/Components/PasswordInput.vue";
-import Popup from "@/Components/Popup.vue";
+import TogglePopUp from "@/Components/TogglePopUp.vue";
 import { ref } from "vue";
 export default {
     name: "ResettPassword",
@@ -239,13 +244,13 @@ export default {
         GuestLayout,
         Label,
         PasswordInput,
-        Popup,
+        TogglePopUp,
     },
     setup() {
-        const isOpen = ref(false);
+        const togglePopUp = ref(false);
 
         return {
-            isOpen,
+            togglePopUp,
         };
     },
     data() {
@@ -294,7 +299,7 @@ export default {
         },
         ResetPassword() {
             if (this.newPassword == this.previousPassword) {
-                this.isOpen = true;
+                this.togglePopUp = true;
                 this.error = true;
                 this.msg["previousPassword"] =
                     "Create a new password that isn’t your current password. ";
