@@ -9,7 +9,8 @@ use App\Http\Requests\StorePasswordResetRequest;
 use App\Models\User;
 use App\Talent\User\Manager;
 use Illuminate\Http\Response;
-use Illuminate\Support\Facades\URL;
+use Carbon\Carbon;
+
 use Illuminate\Http\Request;
 
 
@@ -23,7 +24,7 @@ class PasswordResetController extends Controller
     }
     
     
-    public function reset(StorePasswordResetRequest $request):Response
+    public function reset(StorePasswordResetRequest $request) :Response
     {
         
 
@@ -32,34 +33,21 @@ class PasswordResetController extends Controller
         
         $passwordReset = $this->passwordManager->findByToken($validated['token']);
 
-        if(!$passwordReset){
 
-            return response([
+        // $isTokenValid =  $passwordReset->created_at->addDays(4)->equalTo(Carbon::now());
+        $isTokenValid = (Carbon::now())->lessThanOrEqualTo( $passwordReset->created_at->addDays(4));
 
-                'message' =>'Token is Invalid or Expired!',
-                'status' =>'Failed'
+        if(!$isTokenValid){
 
-            ],Response::HTTP_NOT_FOUND);
+            return notFound();
 
         }
 
         $user = $this->userManager->findByEmail($passwordReset->email);
-        if(!$user){
-            return response([
-                'message' => 'User not registered!', 
-                'status' => 'Failed'
-            ],Response::HTTP_NOT_FOUND);
-        }
-
 
         if (Hash::check($validated['password'], $user->password)) {
-            // The passwords match...
-            return response([
-
-                'message'=>'New password should not same as old password!',
-                'status' => 'Failed'
-
-            ],Response::HTTP_CONFLICT);
+           
+            return conflict();
 
         }
 
@@ -70,31 +58,29 @@ class PasswordResetController extends Controller
 
         $this->passwordManager->deleteEmail($user->email);
 
-        return response([
-            'message' => 'Password reset success!', 
-            'status' => 'Success'
+        return success('Password reset success!');
+
+    }
+
+
+    public function validateToken(Request $request):Response
+    {
+        $token = $request->get('token');
+
+        $passwordResetInstance = $this ->passwordManager->findByToken($token);
+
+        $isTokenValid = (Carbon::now())->lessThanOrEqualTo($passwordResetInstance->created_at->addDays(4));
+
+       if(!$isTokenValid)
+       {
             
-        ],Response::HTTP_OK);
+        return success('Token is Invalid or Expired!');
+            
+       }else{
 
-    }
+        return notFound();
 
+       }
 
-    public function expiryLink()
-    {
-        return URL::temporarySignedRoute(
-            'reset', now()->addDay(4)
-        );
-    }
-
-    
-    public function resetPassword(Request $request)
-    {
-        if (! $request->hasValidSignature()) {
-            return response([
-                'message'=>'Link expried please try again',
-                "status" => 'Failed'
-            ],Response::HTTP_NOT_FOUND);
-        }
-        return 'display form';
     }
 }

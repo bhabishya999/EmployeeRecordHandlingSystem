@@ -13,8 +13,8 @@ class Manager
 
     public function findByEmail(string $email):User
     {
-
-        $user = $this->user->where('email',$email)->FirstOrFail();
+        
+        $user = $this->user->where('email','=',$email)->FirstOrFail();
         return $user;
 
     }
@@ -23,7 +23,7 @@ class Manager
     public function findByToken(string $token):PasswordReset
     {
 
-        $user = $this->passwordReset->where('token',$token)->FirstOrFail();
+        $user = $this->passwordReset->where('token','=',$token)->FirstOrFail();
         return $user;
 
     }
