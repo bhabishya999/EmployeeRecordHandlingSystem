@@ -10,7 +10,6 @@ use App\Models\User;
 use App\Talent\User\Manager;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\URL;
-use Illuminate\Support\Carbon;
 use Illuminate\Http\Request;
 
 
@@ -24,14 +23,13 @@ class PasswordResetController extends Controller
     }
     
     
-    
     public function reset(StorePasswordResetRequest $request):Response
     {
         
 
         $validated = $request->validated();
 
-        // $passwordReset = $this->passwordReset->where('token',$validated['token'] )->first();
+        
         $passwordReset = $this->passwordManager->findByToken($validated['token']);
 
         if(!$passwordReset){
@@ -39,7 +37,7 @@ class PasswordResetController extends Controller
             return response([
 
                 'message' =>'Token is Invalid or Expired!',
-                'status' =>'failed'
+                'status' =>'Failed'
 
             ],Response::HTTP_NOT_FOUND);
 
@@ -49,7 +47,7 @@ class PasswordResetController extends Controller
         if(!$user){
             return response([
                 'message' => 'User not registered!', 
-                'status' => 'failed'
+                'status' => 'Failed'
             ],Response::HTTP_NOT_FOUND);
         }
 
@@ -59,7 +57,7 @@ class PasswordResetController extends Controller
             return response([
 
                 'message'=>'New password should not same as old password!',
-                'status' => 'failed'
+                'status' => 'Failed'
 
             ],Response::HTTP_CONFLICT);
 
@@ -69,11 +67,12 @@ class PasswordResetController extends Controller
         $user->save();
 
         //Delete the token after resetting the password
-        $this->passwordReset->where('email', $user->email)->delete();
+
+        $this->passwordManager->deleteEmail($user->email);
 
         return response([
             'message' => 'Password reset success!', 
-            'status' => 'success'
+            'status' => 'Success'
             
         ],Response::HTTP_OK);
 
@@ -83,7 +82,7 @@ class PasswordResetController extends Controller
     public function expiryLink()
     {
         return URL::temporarySignedRoute(
-            'reset', now()->addSecond(5)
+            'reset', now()->addDay(4)
         );
     }
 
@@ -93,7 +92,7 @@ class PasswordResetController extends Controller
         if (! $request->hasValidSignature()) {
             return response([
                 'message'=>'Link expried please try again',
-                "status" => 'failed'
+                "status" => 'Failed'
             ],Response::HTTP_NOT_FOUND);
         }
         return 'display form';

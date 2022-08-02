@@ -28,5 +28,11 @@ class Manager
 
     }
 
+    public function deleteEmail(string $email)
+    {
+        $user = $this ->passwordReset->where('email', $email) -> delete();
+        
+    }
+
     
 }
