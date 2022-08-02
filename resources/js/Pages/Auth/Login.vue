@@ -118,7 +118,7 @@ import ApplicationLogo from "@/Components/ApplicationLogo.vue";
 import axios from "axios";
 import PasswordInput from "@/Components/PasswordInput.vue";
 import CustomInput from "@/Components/CustomInput.vue";
-// import * as validate from "../../validation";
+
 export default {
     components: {
         PasswordInput,
@@ -135,7 +135,6 @@ export default {
     },
     watch: {
         email(value) {
-            // binding this to the data value in the email input
             this.email = value;
             this.validateEmail(value);
         },
@@ -186,8 +185,8 @@ export default {
                     email: this.email,
                     password: this.password,
                 })
-                .then(({ data }) => {
-                    const { talent_token } = data;
+                .then(({ token }) => {
+                    const { talent_token } = token;
                     localStorage.setItem("talent_token", talent_token);
                     this.$router.push({
                         path: "/dashboard",
