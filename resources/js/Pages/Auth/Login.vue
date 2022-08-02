@@ -1,71 +1,115 @@
 <script setup>
 import Button from "@/Components/Button.vue";
 import GuestLayout from "@/Layouts/Guest.vue";
+import ApplicationLogo from "@/Components/ApplicationLogo.vue";
 </script>
 
 <template>
     <GuestLayout>
-        <form @submit.prevent="login">
+        <form @submit.prevent="submit">
             <div>
+                <ApplicationLogo />
+            </div>
+            <div class="space-y-1">
+                <CustomInput
+                    :error="error"
+                    label="Email Address"
+                    v-model="email"
+                    required
+                    autocomplete="current-password"
+                    placeholder="your email@introcept.co"
+                />
+            </div>
+            <div v-if="msg.email" class="flex items-center w-full mt-[9px]">
+                <div>
+                    <svg
+                        width="17"
+                        height="17"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                    >
+                        <path
+                            d="M8.5 16a7.5 7.5 0 1 0 0-15 7.5 7.5 0 0 0 0 15Z"
+                            fill="#D93025"
+                            stroke="#fff"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                        />
+                        <path
+                            d="M8.5 5.5v3M8.5 11.5h.008"
+                            stroke="#fff"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                        />
+                    </svg>
+                </div>
+                <p
+                    class="text-[#D93025] font-normal text-sm leading-[150%] ml-[8px]"
+                >
+                    {{ msg.email }}
+                </p>
+            </div>
+            <div class="mt-4 w-full">
                 <PasswordInput
                     :error="error"
-                    label="Password"
                     id="password"
-                    class=""
+                    label="Password"
+                    class="mt-1 w-full"
                     v-model="password"
                     required
                     autocomplete="current-password"
                     placeholder="your password"
                 />
-
-                <div v-if="error" class="flex items-center w-full mt-[9px]">
-                    <div>
-                        <svg
-                            width="17"
-                            height="17"
-                            fill="none"
-                            xmlns="http://www.w3.org/2000/svg"
-                        >
-                            <path
-                                d="M8.5 16a7.5 7.5 0 1 0 0-15 7.5 7.5 0 0 0 0 15Z"
-                                fill="#D93025"
-                                stroke="#fff"
-                                stroke-width="2"
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                            />
-                            <path
-                                d="M8.5 5.5v3M8.5 11.5h.008"
-                                stroke="#fff"
-                                stroke-width="2"
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                            />
-                        </svg>
-                    </div>
-                    <p
-                        class="text-[#D93025] font-normal text-sm leading-[150%] ml-[8px]"
-                    >
-                        Incorrect password. Try again or click Forgot Password
-                        to reset it.
-                    </p>
-                </div>
-                <Button
-                    type="submit"
-                    class="w-full mt-[30px] mb-9"
-                    :class="{ 'opacity-25': processing }"
-                    :disabled="processing"
-                >
-                    login
-                </Button>
-                <Link
-                    v-if="canResetPassword"
-                    :href="route('password.request')"
-                    class="flex flex-col justify-center items-center text-[#4C51BF] font-bold text-base leading-[150.69%] font-sans"
-                >
-                    Forgot password?
-                </Link>
             </div>
+
+            <div v-if="msg.password" class="flex items-center w-full mt-[9px]">
+                <div>
+                    <svg
+                        width="17"
+                        height="17"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                    >
+                        <path
+                            d="M8.5 16a7.5 7.5 0 1 0 0-15 7.5 7.5 0 0 0 0 15Z"
+                            fill="#D93025"
+                            stroke="#fff"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                        />
+                        <path
+                            d="M8.5 5.5v3M8.5 11.5h.008"
+                            stroke="#fff"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                        />
+                    </svg>
+                </div>
+                <p
+                    class="text-[#D93025] font-normal text-sm leading-[150%] ml-[8px]"
+                >
+                    {{ msg.password }}
+                </p>
+            </div>
+            <Button
+                type="submit"
+                class="w-full mt-[30px] mb-9"
+                :class="{ 'opacity-25': processing }"
+                :disabled="processing"
+            >
+                login
+            </Button>
+            <Link
+                v-if="canResetPassword"
+                :href="route('password.request')"
+                class="flex flex-col justify-center items-center text-[#4C51BF] font-bold text-base leading-[150.69%] font-sans"
+            >
+                Forgot password?
+            </Link>
         </form>
     </GuestLayout>
 </template>
@@ -73,9 +117,12 @@ import GuestLayout from "@/Layouts/Guest.vue";
 <script>
 import axios from "axios";
 import PasswordInput from "@/Components/PasswordInput.vue";
+import CustomInput from "@/Components/CustomInput.vue";
+
 export default {
     components: {
         PasswordInput,
+        CustomInput,
     },
 
     data() {
@@ -83,7 +130,18 @@ export default {
             email: "",
             password: "",
             error: false,
+            msg: [],
         };
+    },
+    watch: {
+        email(value) {
+            this.email = value;
+            this.validateEmail(value);
+        },
+        password(value) {
+            this.password = value;
+            this.validatePassword(value);
+        },
     },
 
     props: {
@@ -97,23 +155,46 @@ export default {
         },
     },
     methods: {
-        login() {
-            var regularExpression =
-                /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,20}$/;
-            if (password.length < 8 || password.length > 20) {
-                return (this.error = true);
-            }
-
-            if (!regularExpression.test(this.password)) {
-                return (this.error = true);
-            }
-            if (this.password) {
-                console.log("Login function called");
+        validateEmail(value) {
+            if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(value)) {
+                this.msg["email"] = "";
                 this.error = false;
-            }
-            if (!this.password) {
+            } else {
                 this.error = true;
+                this.msg["email"] =
+                    "Sorry, we don’t recognise this email address";
             }
+        },
+        validatePassword(value) {
+            if (
+                /^(?=.*[0-9])(?=.*[A-Z])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,20}$/.test(
+                    value
+                )
+            ) {
+                this.msg["password"] = "";
+                this.error = false;
+            } else {
+                this.error = true;
+                this.msg["password"] =
+                    "Incorrect password. Try again or click Forgot Password to reset it.";
+            }
+        },
+        submit() {
+            axios
+                .post("/api/login", {
+                    email: this.email,
+                    password: this.password,
+                })
+                .then(({ token }) => {
+                    const { talent_token } = token;
+                    localStorage.setItem("talent_token", talent_token);
+                    this.$router.push({
+                        path: "/dashboard",
+                    });
+                })
+                .catch(function (error) {
+                    alert(error);
+                });
         },
     },
 };

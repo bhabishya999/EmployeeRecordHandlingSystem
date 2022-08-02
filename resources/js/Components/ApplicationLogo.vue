@@ -41,9 +41,9 @@
         </svg>
 
         <h1
-            class="font-bold font-sans text-center text-base text-[#1A202C] not-italic ml-40 mr-40 mb-3"
+            class="font-bold font-sans text-center text-base text-[#1A202C] not-italic mb-3"
         >
-            IntroCept <br />
+            IntroCept Employee <br />
             Portal
         </h1>
     </div>

@@ -15,9 +15,10 @@ onMounted(() => {
 <template>
     <Label :for="id" :Label="label" />
     <input
+        :class="error"
         :id="id"
         :type="type"
-        class="relative pb-3.5 pt-4 pl-4 w-full rounded-md text-sm leading-[150.69%] text-[#718096] font-normal font-sans border-solid border-2 outline-[#4C51BF] outline-2 border-[#E2E8F0] active:border-[#4C51BF]"
+        class="bg-white pb-3.5 pt-4 pl-4 w-full rounded-md text-sm leading-[150.69%] text-[#718096] font-normal font-sans border-solid border-2 outline-[#4C51BF] outline-2 border-[#E2E8F0] active:border-[#4C51BF]"
         :placeholder="placeholder"
         :value="modelValue"
         @input="$emit('update:modelValue', $event.target.value)"
@@ -47,6 +48,16 @@ export default {
         placeholder: {
             type: String,
             required: true,
+        },
+        error: {
+            type: Boolean,
+        },
+    },
+    computed: {
+        error() {
+            return {
+                "border-red-500": this.error,
+            };
         },
     },
 };
