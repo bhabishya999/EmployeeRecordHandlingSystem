@@ -118,17 +118,20 @@ import ApplicationLogo from "@/Components/ApplicationLogo.vue";
             >
         </form>
     </GuestLayout>
+    <AddEmployeeDetails></AddEmployeeDetails>
 </template>
 
 <script>
 import axios from "axios";
 import PasswordInput from "@/Components/PasswordInput.vue";
 import CustomInput from "@/Components/CustomInput.vue";
+import AddEmployeeDetails from "@/Pages/Auth/AddEmployeeDetails.vue";
 
 export default {
     components: {
         PasswordInput,
         CustomInput,
+        AddEmployeeDetails,
     },
 
     data() {
