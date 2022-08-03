@@ -7,9 +7,9 @@ use Illuminate\Support\Str;
 use App\Models\PasswordReset;
 use App\Models\User;
 use Illuminate\Support\Facades\Mail;
-use App\Mail\PasswordResetMail;
 use App\Talent\User\UserManager;
 use App\Talent\PasswordReset\PasswordResetManager;
+use App\Events\ResetMail;
 
 class PasswordResetController extends Controller
 {
@@ -22,14 +22,9 @@ class PasswordResetController extends Controller
         $token=Str::random(60);
         $passwordReset=$this->passwordManager->store($validated['email'],$token);
         $user=$this->userManager->findbyEmail($validated['email']);
-        $mail=Mail::to($validated['email'])->send(new PasswordResetMail($user,$token));
-        if($mail){
-            return response([
-                'message'=>"Password reset email sent suceesfully",
-            ],Response::HTTP_OK);
-        }
+        event(new ResetMail($validated['email'],$user,$token));
         return response([
-            'message'=>"Failed to send passport reset email",
-        ],Response::HTTP_INTERNAL_SERVER_ERROR);
+                'message'=>"Password reset email sent suceesfully",
+        ],Response::HTTP_OK);
     }
 }

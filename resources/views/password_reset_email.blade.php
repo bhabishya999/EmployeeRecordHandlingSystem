@@ -162,12 +162,11 @@ margin:0;
 </div>
 
 <div class="user_name">
-<h4>Hi, {{ $user->name }}</h4>
+    <h4>Hi, {{$user->name}}</h4>
 </div>
-
 <div class="email_text">
 <p>We've received a request to set a new password for this<br>
-account: <span class="user_email">{{ $user->email }}</span></p>
+account: <span class="user_email">{{$user->email}}</span></p>
 </div>
     <button class="reset_button" onclick="window.location.href='{{ $token }}'">
     Reset Password</button>

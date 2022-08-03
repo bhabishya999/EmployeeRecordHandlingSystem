@@ -12,8 +12,6 @@ class PasswordResetMail extends Mailable
 {
     use Queueable, SerializesModels;
 
-    public $user;
-    public $token;
      /**
      * The order instance.
      *
@@ -23,7 +21,7 @@ class PasswordResetMail extends Mailable
      *
      * @return void
      */
-    public function __construct($user,$token)
+    public function __construct(public User|Model $user,public string $token)
     {
         $this->user=$user;
         $this->token=$token;
@@ -35,7 +33,7 @@ class PasswordResetMail extends Mailable
      */
     public function build()
     {
-        return $this->view('Email')
+        return $this->view('password_reset_email')
         ->subject('Here’s your link to sign in to your Introcept Employee Portal Account');
     }
 }
