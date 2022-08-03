@@ -22,18 +22,5 @@ class ResetMail
      */
     public function __construct(public string $email,public User|Model $user,public string $token)
     {
-        $this->email=$email;
-        $this->user=$user;
-        $this->token=$token;
-    }
-
-    /**
-     * Get the channels the event should broadcast on.
-     *
-     * @return \Illuminate\Broadcasting\Channel|array
-     */
-    public function broadcastOn()
-    {
-        return new PrivateChannel('channel-name');
     }
 }

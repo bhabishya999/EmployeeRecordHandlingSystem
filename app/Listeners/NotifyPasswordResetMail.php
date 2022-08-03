@@ -11,22 +11,6 @@ use Illuminate\Support\Facades\Mail;
 
 class NotifyPasswordResetMail
 {
-    /**
-     * Create the event listener.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        //
-    }
-
-    /**
-     * Handle the event.
-     *
-     * @param  \App\Events\ResetMail  $event
-     * @return void
-     */
     public function handle(ResetMail $event)
     {
           $mail=Mail::to($event->email)->send(new PasswordResetMail($event->user,$event->token));

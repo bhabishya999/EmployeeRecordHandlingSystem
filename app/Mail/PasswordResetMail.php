@@ -23,8 +23,7 @@ class PasswordResetMail extends Mailable
      */
     public function __construct(public User|Model $user,public string $token)
     {
-        $this->user=$user;
-        $this->token=$token;
+    
     }
     /**
      * Build the message.
