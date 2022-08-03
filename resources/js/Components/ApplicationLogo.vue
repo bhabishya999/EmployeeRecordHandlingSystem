@@ -47,12 +47,4 @@
             Portal
         </h1>
     </div>
-
-    <div>
-        <h1
-            class="font-bold font-sans text-lg not-italic text-[#1A202C] mt-8 mb-8"
-        >
-            Login to your account
-        </h1>
-    </div>
 </template>

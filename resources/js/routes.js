@@ -1,0 +1,23 @@
+import Login from '@/Pages/Auth/Login.vue';
+import ForgotPassword from '@/Pages/Auth/ForgotPassword.vue';
+import { createWebHistory, createRouter } from 'vue-router'
+const routes = [
+    {
+        name: 'Login',
+        path: '/login',
+        component: Login
+    },
+    {
+        name: 'ForgotPassword',
+        path: '/forgot-password',
+        component: ForgotPassword
+    },
+
+];
+
+const router = createRouter({
+    history: createWebHistory(),
+    routes
+})
+export default router
+
