@@ -9,6 +9,13 @@ import ApplicationLogo from "@/Components/ApplicationLogo.vue";
         <form @submit.prevent="submit">
             <div>
                 <ApplicationLogo />
+                <div>
+                    <h1
+                        class="font-bold font-sans text-lg not-italic text-[#1A202C] mt-8 mb-8"
+                    >
+                        Login to your account
+                    </h1>
+                </div>
             </div>
             <div class="space-y-1">
                 <CustomInput
@@ -103,13 +110,12 @@ import ApplicationLogo from "@/Components/ApplicationLogo.vue";
             >
                 login
             </Button>
-            <Link
-                v-if="canResetPassword"
-                :href="route('password.request')"
+
+            <router-link
+                to="/forgot-password"
                 class="flex flex-col justify-center items-center text-[#4C51BF] font-bold text-base leading-[150.69%] font-sans"
+                >Forgot password?</router-link
             >
-                Forgot password?
-            </Link>
         </form>
     </GuestLayout>
 </template>
