@@ -1,5 +1,6 @@
 <?php
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\LogoutController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PasswordResetController;
 
@@ -18,3 +19,4 @@ use App\Http\Controllers\PasswordResetController;
 Route::post('/login',[LoginController::class,'login']);
 Route::post('/reset-password',[PasswordResetController::class, 'reset']);
 Route::get('/validate-token', [PasswordResetController::class, 'validateToken']);
+Route::middleware('auth:sanctum')->post('/logout',[LogoutController::class,'logout']);
