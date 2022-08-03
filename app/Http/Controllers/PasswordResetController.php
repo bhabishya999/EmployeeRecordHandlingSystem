@@ -38,7 +38,7 @@ class PasswordResetController extends Controller
 
         if(!$isTokenValid){
 
-            return failed('Token Expired Or Invalid');
+            return responseHelper('Token Expired Or Invalid', Response::HTTP_NOT_FOUND, 'Failed');
 
         }
 
@@ -46,7 +46,7 @@ class PasswordResetController extends Controller
 
         if (Hash::check($validated['password'], $user->password)) {
            
-            return failed('New password should not same as old password!', Response::HTTP_CONFLICT);
+            return responseHelper('New password should not same as old password!', Response::HTTP_CONFLICT, 'Failed');
 
         }
 
@@ -57,7 +57,7 @@ class PasswordResetController extends Controller
 
         $this->passwordManager->deleteEmail($user->email);
 
-        return success('Password reset success!');
+        return responseHelper('Password reset success!');
 
     }
 
@@ -74,11 +74,11 @@ class PasswordResetController extends Controller
        {
             
         
-        return failed('Token Expired Or Invalid');
+        return responseHelper('Token Expired Or Invalid', Response::HTTP_NOT_FOUND, 'Failed');
             
        }
 
-        return success('OK');
+        return responseHelper('OK');
 
     }
 }

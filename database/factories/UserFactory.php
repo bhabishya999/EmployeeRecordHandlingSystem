@@ -23,8 +23,8 @@ class UserFactory extends Factory
     {
         return [
             
-            'name' => 'sushant',
-            'email' => 'sushant.paneru@introcept.co',
+            'name' => $this->faker->name(),
+            'email' => $this->faker->unique()->safeEmail(),
             'password' => Hash::make('paneru'),
             'role' => 'admin'
            

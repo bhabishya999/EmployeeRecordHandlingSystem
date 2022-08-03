@@ -2,12 +2,12 @@
 
 use Illuminate\Http\Response;
 
-function success($message, int $code = Response::HTTP_OK  ){
+function responseHelper($message, int $code = Response::HTTP_OK , string $status = 'Success'){
 
     return response(
         [
         "message" => $message,
-        "status" =>  'Success'
+        "status" =>  $status,
         ], $code );
     
 }
