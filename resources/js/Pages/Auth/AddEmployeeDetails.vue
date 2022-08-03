@@ -51,6 +51,7 @@ import Details from "@/Layouts/Details.vue";
                     <div class="flex flex-row justify-between mb-2.5">
                         <div class="w-full mr-10">
                             <CustomInput
+                                type="text"
                                 :error="error"
                                 label="First Name*"
                                 v-model="firstName"
@@ -60,6 +61,7 @@ import Details from "@/Layouts/Details.vue";
                         </div>
                         <div class="w-full">
                             <CustomInput
+                                type="text"
                                 :error="error"
                                 label="Last Name*"
                                 v-model="lasttName"
@@ -70,6 +72,7 @@ import Details from "@/Layouts/Details.vue";
                     </div>
                     <div class="mb-2.5">
                         <CustomInput
+                            type="email"
                             :error="error"
                             label="Email Address*"
                             v-model="email"
@@ -80,6 +83,7 @@ import Details from "@/Layouts/Details.vue";
                     <div class="flex flex-row justify-between mb-2.5">
                         <div class="w-full mr-10">
                             <CustomInput
+                                type="number"
                                 :error="error"
                                 label="Contact Number*"
                                 v-model="contactNumber"
@@ -87,33 +91,20 @@ import Details from "@/Layouts/Details.vue";
                                 placeholder="Enter Contact Number"
                             ></CustomInput>
                         </div>
-                        <div class="w-full relative">
+                        <div class="w-full">
                             <CustomInput
+                                type="date"
                                 :error="error"
                                 label="Date of Birth*"
                                 v-model="dateOfBirth"
                                 required
                                 placeholder="DD-MM-YYYY"
                             ></CustomInput>
-                            <div
-                                class="absolute inset-y-0 right-0 pr-5 pt-7 flex items-center"
-                            >
-                                <svg
-                                    width="14"
-                                    height="16"
-                                    fill="none"
-                                    xmlns="http://www.w3.org/2000/svg"
-                                >
-                                    <path
-                                        d="M0 14.5A1.5 1.5 0 0 0 1.5 16h11a1.5 1.5 0 0 0 1.5-1.5V6H0v8.5Zm10-6.125c0-.206.169-.375.375-.375h1.25c.206 0 .375.169.375.375v1.25a.376.376 0 0 1-.375.375h-1.25A.376.376 0 0 1 10 9.625v-1.25Zm0 4c0-.206.169-.375.375-.375h1.25c.206 0 .375.169.375.375v1.25a.376.376 0 0 1-.375.375h-1.25a.376.376 0 0 1-.375-.375v-1.25Zm-4-4C6 8.169 6.169 8 6.375 8h1.25c.206 0 .375.169.375.375v1.25a.376.376 0 0 1-.375.375h-1.25A.376.376 0 0 1 6 9.625v-1.25Zm0 4c0-.206.169-.375.375-.375h1.25c.206 0 .375.169.375.375v1.25a.376.376 0 0 1-.375.375h-1.25A.376.376 0 0 1 6 13.625v-1.25Zm-4-4C2 8.169 2.169 8 2.375 8h1.25c.206 0 .375.169.375.375v1.25a.376.376 0 0 1-.375.375h-1.25A.376.376 0 0 1 2 9.625v-1.25Zm0 4c0-.206.169-.375.375-.375h1.25c.206 0 .375.169.375.375v1.25a.376.376 0 0 1-.375.375h-1.25A.376.376 0 0 1 2 13.625v-1.25ZM12.5 2H11V.5c0-.275-.225-.5-.5-.5h-1c-.275 0-.5.225-.5.5V2H5V.5c0-.275-.225-.5-.5-.5h-1c-.275 0-.5.225-.5.5V2H1.5A1.5 1.5 0 0 0 0 3.5V5h14V3.5A1.5 1.5 0 0 0 12.5 2Z"
-                                        fill="#718096"
-                                    />
-                                </svg>
-                            </div>
                         </div>
                     </div>
                     <div class="mb-2.5">
                         <CustomInput
+                            type="email"
                             :error="error"
                             label="Current Address*"
                             v-model="currentAddress"
@@ -124,6 +115,7 @@ import Details from "@/Layouts/Details.vue";
                     <div class="flex flex-row justify-between mb-2.5">
                         <div class="w-full mr-10">
                             <CustomInput
+                                type="number"
                                 :error="error"
                                 label="PAN Number"
                                 v-model="panNumber"
@@ -132,6 +124,7 @@ import Details from "@/Layouts/Details.vue";
                         </div>
                         <div class="w-full">
                             <CustomInput
+                                type="number"
                                 :error="error"
                                 label="Bank Account Number"
                                 v-model="accountNumber"
@@ -139,6 +132,8 @@ import Details from "@/Layouts/Details.vue";
                             ></CustomInput>
                         </div>
                     </div>
+                    <DropZone v-model="files"></DropZone>
+                    <span class="mt-[15px] mb-[8px]">{{ files }}</span>
                 </div>
                 <div class="w-1/3 flex flex-col text-center items-center">
                     <div class="mb-4">
@@ -182,6 +177,7 @@ import Details from "@/Layouts/Details.vue";
                     Save and Continue
                 </button>
                 <button
+                    type="button"
                     class="mr-2.5 py-[7px] px-2.5 bg-[#F4F7FA] rounded-md shadow text-base font-bold"
                 >
                     Cancel
@@ -192,10 +188,17 @@ import Details from "@/Layouts/Details.vue";
 </template>
 <script>
 import CustomInput from "@/Components/CustomInput.vue";
+import DropZone from "@/Components/DropZone.vue";
 export default {
     name: "AddEmployeeDetails",
+    data() {
+        return {
+            files: [],
+        };
+    },
     Components: {
         CustomInput,
+        DropZone,
     },
 };
 </script>

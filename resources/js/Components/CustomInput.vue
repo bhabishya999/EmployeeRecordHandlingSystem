@@ -52,6 +52,9 @@ export default {
         error: {
             type: Boolean,
         },
+        type: {
+            type: String,
+        },
     },
     computed: {
         error() {
