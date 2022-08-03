@@ -34,12 +34,11 @@ class PasswordResetController extends Controller
         $passwordReset = $this->passwordManager->findByToken($validated['token']);
 
 
-        // $isTokenValid =  $passwordReset->created_at->addDays(4)->equalTo(Carbon::now());
         $isTokenValid = (Carbon::now())->lessThanOrEqualTo( $passwordReset->created_at->addDays(4));
 
         if(!$isTokenValid){
 
-            return notFound();
+            return failed('Token Expired Or Invalid');
 
         }
 
@@ -47,7 +46,7 @@ class PasswordResetController extends Controller
 
         if (Hash::check($validated['password'], $user->password)) {
            
-            return conflict();
+            return failed('New password should not same as old password!', Response::HTTP_CONFLICT);
 
         }
 
@@ -74,13 +73,12 @@ class PasswordResetController extends Controller
        if(!$isTokenValid)
        {
             
-        return success('Token is Invalid or Expired!');
+        
+        return failed('Token Expired Or Invalid');
             
-       }else{
-
-        return notFound();
-
        }
+
+        return success('OK');
 
     }
 }

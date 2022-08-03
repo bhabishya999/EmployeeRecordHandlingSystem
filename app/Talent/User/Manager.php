@@ -28,9 +28,9 @@ class Manager
 
     }
 
-    public function deleteEmail(string $email)
+    public function deleteEmail(string $email): Void
     {
-        $user = $this ->passwordReset->where('email', $email) -> delete();
+         $this ->passwordReset->where('email', $email) -> delete();
         
     }
 

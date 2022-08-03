@@ -2,34 +2,23 @@
 
 use Illuminate\Http\Response;
 
-function notFound(){
-
-    return response(
-        [
-        "message" => 'Token is Invalid or Expired!',
-        "status" =>  'Failed'
-        ], Response::HTTP_NOT_FOUND);
-        
-}
-
-function conflict(){
-
-    return response(
-        [
-        "message" => 'New password should not same as old password!',
-        "status" =>  'Failed'
-        ], Response::HTTP_CONFLICT );
-    
-}
-
-
-function success($message){
+function success($message, int $code = Response::HTTP_OK  ){
 
     return response(
         [
         "message" => $message,
         "status" =>  'Success'
-        ], Response::HTTP_OK );
+        ], $code );
     
 }
 
+
+function failed(string $message, int $code = Response::HTTP_NOT_FOUND){
+
+    return response(
+        [
+        "message" => $message,
+        "status" =>  'Failed'
+        ], $code );
+    
+}

@@ -26,7 +26,6 @@ class StorePasswordResetRequest extends FormRequest
             ],
             'token' => 'required|exists:password_resets',
             
-            
         ];
     }
 }
