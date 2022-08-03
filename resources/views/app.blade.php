@@ -15,6 +15,11 @@
         @inertiaHead
     </head>
     <body class="font-sans antialiased">
-        @inertia
+        <!-- @routes
+        @inertia -->
+    
+    <div id="app">
+      <router-view></router-view>
+    </div>
     </body>
 </html>

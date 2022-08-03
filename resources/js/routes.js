@@ -3,6 +3,11 @@ import ForgotPassword from '@/Pages/Auth/ForgotPassword.vue';
 import { createWebHistory, createRouter } from 'vue-router'
 const routes = [
     {
+        name: 'Home',
+        redirect: '/login',
+
+    },
+    {
         name: 'Login',
         path: '/login',
         component: Login
