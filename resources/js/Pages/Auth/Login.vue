@@ -1,67 +1,133 @@
 <script setup>
-import BreezeButton from '@/Components/Button.vue';
-import BreezeCheckbox from '@/Components/Checkbox.vue';
-import BreezeGuestLayout from '@/Layouts/Guest.vue';
-import BreezeInput from '@/Components/Input.vue';
-import BreezeLabel from '@/Components/Label.vue';
-import BreezeValidationErrors from '@/Components/ValidationErrors.vue';
-import { Head, Link, useForm } from '@inertiajs/inertia-vue3';
+import Button from "@/Components/Button.vue";
+import GuestLayout from "@/Layouts/Guest.vue";
 
-defineProps({
-    canResetPassword: Boolean,
-    status: String,
-});
-
-const form = useForm({
-    email: '',
-    password: '',
-    remember: false
-});
-
-const submit = () => {
-    form.post(route('login'), {
-        onFinish: () => form.reset('password'),
-    });
-};
 </script>
 
 <template>
-    <BreezeGuestLayout>
-        <Head title="Log in" />
+    <GuestLayout>
+        <form>
+            <div class="w-full">
+                <div>
+                    <ApplicationLogo />
+                </div>
+                <div class="space-y-1">
+                    <custom-input
+                        label="Email Address"
+                        v-model="email"
+                        required
+                        autocomplete="current-password"
+                        placeholder=" Email@introcept.co"
+                    />
+                </div>
+                <div class="mt-4 w-full">
+                    <PasswordInput
+                        id="password"
+                        class="mt-1 w-full"
+                        v-model="password"
+                        required
+                        autocomplete="current-password"
+                        placeholder="your password"
+                    />
+                </div>
 
-        <BreezeValidationErrors class="mb-4" />
-
-        <div v-if="status" class="mb-4 font-medium text-sm text-green-600">
-            {{ status }}
-        </div>
-
-        <form @submit.prevent="submit">
-            <div>
-                <BreezeLabel for="email" value="Email" />
-                <BreezeInput id="email" type="email" class="mt-1 block w-full" v-model="form.email" required autofocus autocomplete="username" />
-            </div>
-
-            <div class="mt-4">
-                <BreezeLabel for="password" value="Password" />
-                <BreezeInput id="password" type="password" class="mt-1 block w-full" v-model="form.password" required autocomplete="current-password" />
-            </div>
-
-            <div class="block mt-4">
-                <label class="flex items-center">
-                    <BreezeCheckbox name="remember" v-model:checked="form.remember" />
-                    <span class="ml-2 text-sm text-gray-600">Remember me</span>
-                </label>
-            </div>
-
-            <div class="flex items-center justify-end mt-4">
-                <Link v-if="canResetPassword" :href="route('password.request')" class="underline text-sm text-gray-600 hover:text-gray-900">
-                    Forgot your password?
+                <div v-if="error" class="flex items-center w-full mt-[9px]">
+                    <div>
+                        <svg
+                            width="17"
+                            height="17"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                        >
+                            <path
+                                d="M8.5 16a7.5 7.5 0 1 0 0-15 7.5 7.5 0 0 0 0 15Z"
+                                fill="#D93025"
+                                stroke="#fff"
+                                stroke-width="2"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                            />
+                            <path
+                                d="M8.5 5.5v3M8.5 11.5h.008"
+                                stroke="#fff"
+                                stroke-width="2"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                            />
+                        </svg>
+                    </div>
+                    <p
+                        class="text-[#D93025] font-normal text-sm leading-[150%] ml-[8px]"
+                    >
+                        Incorrect password. Try again or click Forgot Password
+                        to reset it.
+                    </p>
+                </div>
+                <Button
+                    type="submit"
+                    class="w-full mt-[30px] mb-9"
+                    :class="{ 'opacity-25': processing }"
+                    :disabled="processing"
+                >
+                    login
+                </Button>
+                <Link
+                    v-if="canResetPassword"
+                    :href="route('password.request')"
+                    class="flex flex-col justify-center items-center text-[#4C51BF] font-bold text-base leading-[150.69%] font-sans"
+                >
+                    Forgot password?
                 </Link>
-
-                <BreezeButton class="ml-4" :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
-                    Log in
-                </BreezeButton>
             </div>
         </form>
-    </BreezeGuestLayout>
+    </GuestLayout>
 </template>
+
+<script>
+import axios from "axios";
+import PasswordInput from "@/Components/PasswordInput.vue";
+export default {
+    components: {
+        PasswordInput,
+    },
+
+    data() {
+        return {
+            email: "",
+            password: "",
+            error: false,
+        };
+    },
+
+    props: {
+        canResetPassword: {
+            required: true,
+            type: Boolean,
+        },
+        status: {
+            required: true,
+            type: String,
+        },
+    },
+    methods: {
+        login() {
+            var regularExpression =
+                /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,20}$/;
+            if (password.length < 8 || password.length > 20) {
+                return (this.error = true);
+            }
+
+            if (!regularExpression.test(this.password)) {
+                return (this.error = true);
+            }
+            if (this.password) {
+                console.log("Login function called");
+                this.error = false;
+            }
+            if (!this.password) {
+                this.error = true;
+            }
+        },
+    },
+};
+</script>

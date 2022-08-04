@@ -1,4 +1,4 @@
-<script setup>
+<!-- <script setup>
 import { computed } from 'vue';
 import { usePage } from '@inertiajs/inertia-vue3';
 
@@ -15,4 +15,4 @@ const hasErrors = computed(() => Object.keys(errors.value).length > 0);
             <li v-for="(error, key) in errors" :key="key">{{ error }}</li>
         </ul>
     </div>
-</template>
+</template> -->
