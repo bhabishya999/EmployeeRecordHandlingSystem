@@ -1,11 +1,89 @@
 <script setup>
 import Button from "@/Components/Button.vue";
 import GuestLayout from "@/Layouts/Guest.vue";
+<<<<<<< HEAD
+
+=======
 import ApplicationLogo from "@/Components/ApplicationLogo.vue";
+>>>>>>> 316645c693bde6c8ffb17a7a0b3553d56bd85e2d
 </script>
 
 <template>
     <GuestLayout>
+<<<<<<< HEAD
+        <form>
+            <div class="w-full">
+                <div>
+                    <ApplicationLogo />
+                </div>
+                <div class="space-y-1">
+                    <custom-input
+                        label="Email Address"
+                        v-model="email"
+                        required
+                        autocomplete="current-password"
+                        placeholder=" Email@introcept.co"
+                    />
+                </div>
+                <div class="mt-4 w-full">
+                    <PasswordInput
+                        id="password"
+                        class="mt-1 w-full"
+                        v-model="password"
+                        required
+                        autocomplete="current-password"
+                        placeholder="your password"
+                    />
+                </div>
+
+                <div v-if="error" class="flex items-center w-full mt-[9px]">
+                    <div>
+                        <svg
+                            width="17"
+                            height="17"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                        >
+                            <path
+                                d="M8.5 16a7.5 7.5 0 1 0 0-15 7.5 7.5 0 0 0 0 15Z"
+                                fill="#D93025"
+                                stroke="#fff"
+                                stroke-width="2"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                            />
+                            <path
+                                d="M8.5 5.5v3M8.5 11.5h.008"
+                                stroke="#fff"
+                                stroke-width="2"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                            />
+                        </svg>
+                    </div>
+                    <p
+                        class="text-[#D93025] font-normal text-sm leading-[150%] ml-[8px]"
+                    >
+                        Incorrect password. Try again or click Forgot Password
+                        to reset it.
+                    </p>
+                </div>
+                <Button
+                    type="submit"
+                    class="w-full mt-[30px] mb-9"
+                    :class="{ 'opacity-25': processing }"
+                    :disabled="processing"
+                >
+                    login
+                </Button>
+                <Link
+                    v-if="canResetPassword"
+                    :href="route('password.request')"
+                    class="flex flex-col justify-center items-center text-[#4C51BF] font-bold text-base leading-[150.69%] font-sans"
+                >
+                    Forgot password?
+                </Link>
+=======
         <form @submit.prevent="submit">
             <div>
                 <ApplicationLogo />
@@ -69,6 +147,7 @@ import ApplicationLogo from "@/Components/ApplicationLogo.vue";
                     autocomplete="current-password"
                     placeholder="your password"
                 />
+>>>>>>> 316645c693bde6c8ffb17a7a0b3553d56bd85e2d
             </div>
 
             <div v-if="msg.password" class="flex items-center w-full mt-[9px]">
