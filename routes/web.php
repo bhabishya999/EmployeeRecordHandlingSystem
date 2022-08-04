@@ -15,12 +15,6 @@ use Inertia\Inertia;
 |
 */
 
-
-Route::get("/email",function(){
-    return view('Email');
-    });
-
-
 Route::get('/', function () {
     return Inertia::render('Welcome', [
         'canLogin' => Route::has('login'),
