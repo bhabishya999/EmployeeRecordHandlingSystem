@@ -25,6 +25,13 @@
         Login to your account
     </h1>
 </div>
+        <h1
+            class="font-bold font-sans text-center text-base text-[#1A202C] not-italic mb-3"
+        >
+            IntroCept Employee <br />
+            Portal
+        </h1>
+    </div>
 </template>
 
 <script></script>

@@ -4,12 +4,6 @@ import Label from "@/Components/Label.vue";
 defineEmits(["update:modelValue"]);
 
 const input = ref(null);
-
-onMounted(() => {
-    if (input.value.hasAttribute("autofocus")) {
-        input.value.focus();
-    }
-});
 </script>
 
 <template>
@@ -18,7 +12,7 @@ onMounted(() => {
         <input
             :id="id"
             :class="error"
-            class="relative pb-3.5 pt-4 pl-4 w-full rounded-md text-sm leading-[150.69%] text-[#718096] font-normal font-sans border-solid border-2 border-[#E2E8F0] outline-2"
+            class="relative bg-white pb-3.5 pt-4 pl-4 w-full rounded-md text-sm leading-[150.69%] text-[#718096] font-normal font-sans border-solid border-2 outline-[#4C51BF] outline-2 border-[#E2E8F0] active:border-[#4C51BF]"
             :value="modelValue"
             :placeholder="placeholder"
             @input="$emit('update:modelValue', $event.target.value)"
