@@ -15,7 +15,7 @@ use Illuminate\Http\Request;
 
 
 
-class PasswordResetController extends Controller
+class ForgotPasswordController extends Controller
 {
 
     public function __construct(private PasswordReset $passwordReset, private User $user, private Manager $userManager, private Manager $passwordManager)
