@@ -22,4 +22,4 @@ Route::post('/login',[LoginController::class,'login']);
 Route::post('/reset-password',[PasswordResetController::class, 'reset']);
 Route::get('/validate-token', [PasswordResetController::class, 'validateToken']);
 Route::middleware('auth:sanctum')->post('/logout',[LogoutController::class,'logout']);
-Route::post('/forget-password', [ForgotPasswordController::class,'resetEmail']);
+Route::post('/send-email', [ForgotPasswordController::class,'resetEmail']);
