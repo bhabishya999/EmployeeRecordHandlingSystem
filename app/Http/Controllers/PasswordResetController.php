@@ -1,8 +1,6 @@
 <?php
 
 namespace App\Http\Controllers;
-
-
 use App\Models\PasswordReset;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\StorePasswordResetRequest;
@@ -10,10 +8,7 @@ use App\Models\User;
 use App\Talent\User\Manager;
 use Illuminate\Http\Response;
 use Carbon\Carbon;
-
 use Illuminate\Http\Request;
-
-
 
 class PasswordResetController extends Controller
 {

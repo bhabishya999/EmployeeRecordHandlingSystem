@@ -3,7 +3,6 @@ namespace App\Talent\User;
 use App\Models\User;
 use App\Models\PasswordReset;
 
-
 class Manager
 {
     public function __construct(private User $user, private PasswordReset $passwordReset)
