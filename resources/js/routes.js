@@ -17,5 +17,18 @@ const routes = [
         path: '/forgot-password',
         component: ForgotPassword
     },
+    {
+        name: 'AddEmployeeDetails',
+        path: '/employee-details',
+        component: AddEmployeeDetails
+
+    },
 
 ];
+
+const router = createRouter({
+    history: createWebHistory(),
+    routes
+})
+export default router
+

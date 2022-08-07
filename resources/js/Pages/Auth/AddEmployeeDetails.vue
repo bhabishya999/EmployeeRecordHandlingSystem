@@ -82,14 +82,36 @@ import Details from "@/Layouts/Details.vue";
                     </div>
                     <div class="flex flex-row justify-between mb-2.5">
                         <div class="w-full mr-10">
-                            <CustomInput
+                            <!-- <CustomInput
                                 type="number"
                                 :error="error"
                                 label="Contact Number*"
                                 v-model="contactNumber"
                                 required
                                 placeholder="Enter Contact Number"
-                            ></CustomInput>
+                            ></CustomInput> -->
+                            <div class="flex flex-row">
+                                <select
+                                    id="country"
+                                    @click="country_code"
+                                    class="bg-white pb-3.5 pt-4 pl-4 w-full rounded-md text-sm leading-[150.69%] text-[#718096] font-normal font-sans border-solid border-2 outline-[#4C51BF] outline-2 border-[#E2E8F0] active:border-[#4C51BF]"
+                                >
+                                    <option value="us">
+                                        &#x1F1FA; &#X1F1F2;
+                                    </option>
+                                    <option value="uk">
+                                        &#x1F1EC; &#X1F1E7;
+                                    </option>
+                                </select>
+                                <CustomInput
+                                    type="number"
+                                    :error="error"
+                                    v-model="contactNumber"
+                                    required
+                                    placeholder="Enter Contact Number"
+                                ></CustomInput>
+                                -->
+                            </div>
                         </div>
                         <div class="w-full">
                             <CustomInput
@@ -133,7 +155,7 @@ import Details from "@/Layouts/Details.vue";
                         </div>
                     </div>
                     <DropZone v-model="files"></DropZone>
-                    <span class="mt-[15px] mb-[8px]">{{ files }}</span>
+                    <UploadList :items="files"></UploadList>
                 </div>
                 <div class="w-1/3 flex flex-col text-center items-center">
                     <div class="mb-4">
@@ -189,6 +211,7 @@ import Details from "@/Layouts/Details.vue";
 <script>
 import CustomInput from "@/Components/CustomInput.vue";
 import DropZone from "@/Components/DropZone.vue";
+import UploadList from "@/Components/UploadList.vue";
 export default {
     name: "AddEmployeeDetails",
     data() {
@@ -199,6 +222,7 @@ export default {
     Components: {
         CustomInput,
         DropZone,
+        UploadList,
     },
 };
 </script>

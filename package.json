@@ -20,6 +20,7 @@
         "vue": "^3.2.31"
     },
     "dependencies": {
+        "vue-phone-number-input": "^1.1.12",
         "vue-router": "^4.1.3"
     }
 }
