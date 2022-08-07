@@ -321,7 +321,7 @@ export default {
                 });
                 console.log(response);
                 this.$router.push({
-                    path: "/login",
+                    path: "/reset-password-sucessful",
                 });
             } catch (err) {
                 if (
