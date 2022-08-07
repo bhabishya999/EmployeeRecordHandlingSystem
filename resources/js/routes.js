@@ -31,6 +31,13 @@ const routes = [
         },
         component: Employees,
     },
+    {
+        name: 'ResetPasssword',
+        path: '/reset-passsword',
+        component: ResetPasssword
+
+
+    },
 ];
 
 const router = createRouter({
