@@ -118,20 +118,17 @@ import ApplicationLogo from "@/Components/ApplicationLogo.vue";
             >
         </form>
     </GuestLayout>
-    <AddEmployeeDetails></AddEmployeeDetails>
 </template>
 
 <script>
 import axios from "axios";
 import PasswordInput from "@/Components/PasswordInput.vue";
 import CustomInput from "@/Components/CustomInput.vue";
-import AddEmployeeDetails from "@/Pages/Auth/AddEmployeeDetails.vue";
 
 export default {
     components: {
         PasswordInput,
         CustomInput,
-        AddEmployeeDetails,
     },
 
     data() {
@@ -141,16 +138,6 @@ export default {
             error: false,
             msg: [],
         };
-    },
-    watch: {
-        email(value) {
-            this.email = value;
-            this.validateEmail(value);
-        },
-        password(value) {
-            this.password = value;
-            this.validatePassword(value);
-        },
     },
 
     props: {
@@ -164,46 +151,38 @@ export default {
         },
     },
     methods: {
-        validateEmail(value) {
-            if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(value)) {
-                this.msg["email"] = "";
-                this.error = false;
-            } else {
-                this.error = true;
-                this.msg["email"] =
-                    "Sorry, we don’t recognise this email address";
-            }
-        },
-        validatePassword(value) {
-            if (
-                /^(?=.*[0-9])(?=.*[A-Z])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,20}$/.test(
-                    value
-                )
-            ) {
-                this.msg["password"] = "";
-                this.error = false;
-            } else {
-                this.error = true;
-                this.msg["password"] =
-                    "Incorrect password. Try again or click Forgot Password to reset it.";
-            }
-        },
-        submit() {
-            axios
-                .post("/api/login", {
+        async submit() {
+            try {
+                let response = await axios.post("login", {
                     email: this.email,
                     password: this.password,
-                })
-                .then(({ token }) => {
-                    const { talent_token } = token;
-                    localStorage.setItem("talent_token", talent_token);
-                    this.$router.push({
-                        path: "/dashboard",
-                    });
-                })
-                .catch(function (error) {
-                    alert(error);
                 });
+                const { token } = response.data;
+                localStorage.setItem("token", token);
+                this.$router.push({
+                    path: "/forgot-password",
+                });
+            } catch (err) {
+                this.error = true;
+                this.msg[Object.keys(err.errors)[0]] = err.message;
+            }
+
+            // if (this.password == "password") {
+            //     this.msg["password"] = "";
+            //     this.error = false;
+            // } else {
+            //     this.error = true;
+            //     this.msg["password"] =
+            //         "Incorrect password. Try again or click Forgot Password to reset it.";
+            // }
+            // if (this.email == "sunita.gurau@introcept.co") {
+            //     this.msg["email"] = "";
+            //     this.error = false;
+            // } else {
+            //     this.error = true;
+            //     this.msg["email"] =
+            //         "Sorry, we don’t recognise this email address";
+            // }
         },
     },
 };

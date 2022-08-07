@@ -1,5 +1,6 @@
 import Login from '@/Pages/Auth/Login.vue';
 import ForgotPassword from '@/Pages/Auth/ForgotPassword.vue';
+import AddEmployeeDetails from "@/Pages/Auth/AddEmployeeDetails.vue"
 import { createWebHistory, createRouter } from 'vue-router'
 const routes = [
     {
