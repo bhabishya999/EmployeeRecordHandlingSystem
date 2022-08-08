@@ -114,8 +114,8 @@ export default {
                 .post("send-email", {
                     email: this.email,
                 })
-                .then((response) => {
-                    const { talent_email } = response.data;
+                .then(() => {
+                    const talent_email = this.email;
                     localStorage.setItem("talent_email", talent_email);
                     this.$router.push({
                         path: "/forgot-password-sucessful",
