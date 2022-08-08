@@ -22,19 +22,33 @@ export default {
     watch: {
         email(value) {
             this.email = value;
-            this.validateEmail(value);
         },
     },
     methods: {
-        validateEmail(value) {
-            if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(value)) {
-                this.msg["email"] = "";
-                this.error = false;
-            } else {
+        async submit() {
+            try {
+                let response = await axios.post("send-email", {
+                    email: this.email,
+                });
+                const { talent_email } = response.data;
+                localStorage.setItem("talent_email", talent_email);
+                this.$router.push({
+                    path: "/forgot-password-sucessful",
+                });
+            } catch (err) {
                 this.error = true;
-                this.msg["email"] =
-                    "Sorry, we don’t recognise this email address";
+                // this.msg[Object.keys(err.errors)[0]] = err.message;
             }
+            // submit(value) {
+            //     if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(value)) {
+            //         this.msg["email"] = "";
+            //         this.error = false;
+            //     } else {
+            //         this.error = true;
+            //         this.msg["email"] =
+            //             "Sorry, we don’t recognise this email address";
+            //     }
+            // },
         },
     },
 };

@@ -151,38 +151,23 @@ export default {
         },
     },
     methods: {
-        async submit() {
-            try {
-                let response = await axios.post("login", {
+        submit() {
+            axios
+                .post("login", {
                     email: this.email,
                     password: this.password,
+                })
+                .then((response) => {
+                    const { talent_token } = response.data;
+                    localStorage.setItem("talent_token", talent_token);
+                    this.$router.push({
+                        path: "/dasboard",
+                    });
+                })
+                .catch((error) => {
+                    const { message } = error.response.data;
+                    this.msg["password"] = message;
                 });
-                const { token } = response.data;
-                localStorage.setItem("token", token);
-                this.$router.push({
-                    path: "/forgot-password",
-                });
-            } catch (err) {
-                this.error = true;
-                this.msg[Object.keys(err.errors)[0]] = err.message;
-            }
-
-            // if (this.password == "password") {
-            //     this.msg["password"] = "";
-            //     this.error = false;
-            // } else {
-            //     this.error = true;
-            //     this.msg["password"] =
-            //         "Incorrect password. Try again or click Forgot Password to reset it.";
-            // }
-            // if (this.email == "sunita.gurau@introcept.co") {
-            //     this.msg["email"] = "";
-            //     this.error = false;
-            // } else {
-            //     this.error = true;
-            //     this.msg["email"] =
-            //         "Sorry, we don’t recognise this email address";
-            // }
         },
     },
 };
