@@ -1,7 +1,8 @@
 import "../css/app.css";
 import "./bootstrap";
+import "./axios"
 
-import routes from "@/routes";
+import router from "@/routes";
 import { createApp } from "vue";
 
-createApp({}).use(routes).mount("#app");
+createApp({}).use(router).mount("#app");

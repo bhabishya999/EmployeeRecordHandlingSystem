@@ -139,16 +139,6 @@ export default {
             msg: [],
         };
     },
-    watch: {
-        email(value) {
-            this.email = value;
-            this.validateEmail(value);
-        },
-        password(value) {
-            this.password = value;
-            this.validatePassword(value);
-        },
-    },
 
     props: {
         canResetPassword: {
@@ -161,45 +151,22 @@ export default {
         },
     },
     methods: {
-        validateEmail(value) {
-            if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(value)) {
-                this.msg["email"] = "";
-                this.error = false;
-            } else {
-                this.error = true;
-                this.msg["email"] =
-                    "Sorry, we don’t recognise this email address";
-            }
-        },
-        validatePassword(value) {
-            if (
-                /^(?=.*[0-9])(?=.*[A-Z])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,20}$/.test(
-                    value
-                )
-            ) {
-                this.msg["password"] = "";
-                this.error = false;
-            } else {
-                this.error = true;
-                this.msg["password"] =
-                    "Incorrect password. Try again or click Forgot Password to reset it.";
-            }
-        },
         submit() {
             axios
-                .post("/api/login", {
+                .post("login", {
                     email: this.email,
                     password: this.password,
                 })
-                .then(({ token }) => {
-                    const { talent_token } = token;
+                .then((response) => {
+                    const { talent_token } = response.data;
                     localStorage.setItem("talent_token", talent_token);
                     this.$router.push({
-                        path: "/dashboard",
+                        path: "/dasboard",
                     });
                 })
-                .catch(function (error) {
-                    alert(error);
+                .catch((error) => {
+                    const { message } = error.response.data;
+                    this.msg["password"] = message;
                 });
         },
     },
