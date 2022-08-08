@@ -1,59 +1,3 @@
-<script>
-import Button from "@/Components/Button.vue";
-import GuestLayout from "@/Layouts/Guest.vue";
-import ApplicationLogo from "@/Components/ApplicationLogo.vue";
-import CustomInput from "@/Components/CustomInput.vue";
-
-export default {
-    name: "ForgotPassword",
-    components: {
-        CustomInput,
-        Button,
-        GuestLayout,
-        ApplicationLogo,
-    },
-    data() {
-        return {
-            email: "",
-            error: false,
-            msg: [],
-        };
-    },
-    watch: {
-        email(value) {
-            this.email = value;
-        },
-    },
-    methods: {
-        async submit() {
-            try {
-                let response = await axios.post("send-email", {
-                    email: this.email,
-                });
-                const { talent_email } = response.data;
-                localStorage.setItem("talent_email", talent_email);
-                this.$router.push({
-                    path: "/forgot-password-sucessful",
-                });
-            } catch (err) {
-                this.error = true;
-                // this.msg[Object.keys(err.errors)[0]] = err.message;
-            }
-            // submit(value) {
-            //     if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(value)) {
-            //         this.msg["email"] = "";
-            //         this.error = false;
-            //     } else {
-            //         this.error = true;
-            //         this.msg["email"] =
-            //             "Sorry, we don’t recognise this email address";
-            //     }
-            // },
-        },
-    },
-};
-</script>
-
 <template>
     <GuestLayout>
         <div>
@@ -142,3 +86,46 @@ export default {
         </div>
     </GuestLayout>
 </template>
+<script>
+import Button from "@/Components/Button.vue";
+import GuestLayout from "@/Layouts/Guest.vue";
+import ApplicationLogo from "@/Components/ApplicationLogo.vue";
+import CustomInput from "@/Components/CustomInput.vue";
+
+export default {
+    name: "ForgotPassword",
+    components: {
+        CustomInput,
+        Button,
+        GuestLayout,
+        ApplicationLogo,
+    },
+    data() {
+        return {
+            email: "",
+            error: false,
+            msg: [],
+        };
+    },
+
+    methods: {
+        submit() {
+            axios
+                .post("send-email", {
+                    email: this.email,
+                })
+                .then((response) => {
+                    const { talent_email } = response.data;
+                    localStorage.setItem("talent_email", talent_email);
+                    this.$router.push({
+                        path: "/forgot-password-sucessful",
+                    });
+                })
+                .catch((error) => {
+                    const { message } = error.response.data;
+                    this.msg["email"] = message;
+                });
+        },
+    },
+};
+</script>
