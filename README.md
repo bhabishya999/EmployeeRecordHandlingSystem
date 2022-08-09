@@ -88,6 +88,8 @@ DB_DATABASE=talent
 DB_USERNAME=root
 DB_PASSWORD=root
 
+and change APP_URL value to http://talent.local/ in .env file
+
 Moving forward for Mac OS or Linux operationg system hosts file can be setup by running Sudo nano \etc\hosts command in the termainal which will open hosts file and add 127.0.1.1 talent.local inside hosts file and save it. After that run following commands in terminal one after another which are mentioned below,
 => docker compose build
 => docker compose up -d
