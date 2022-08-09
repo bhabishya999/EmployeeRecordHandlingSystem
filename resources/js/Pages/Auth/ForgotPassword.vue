@@ -140,8 +140,6 @@ export default {
                     email: this.email,
                 })
                 .then(() => {
-                    const talent_email = this.email;
-                    localStorage.setItem("talent_email", talent_email);
                     this.hidden = false;
                 })
                 .catch((error) => {
