@@ -124,6 +124,7 @@ export default {
                 .catch((error) => {
                     const { message } = error.response.data;
                     this.msg["email"] = message;
+                    this.error = true;
                 });
         },
     },
