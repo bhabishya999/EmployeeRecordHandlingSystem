@@ -290,12 +290,13 @@ export default {
     methods: {
         handleSubmit() {
             axios
-                .post("forgot-password", {
+                .post("reset-password", {
                     password: this.newPassword,
                     password_confirm: this.confirmPassword,
                     token: this.$route.params.token,
                 })
                 .then((response) => {
+                    console.log(token);
                     console.log("response", response);
                     alert(response);
                     this.reset_sucess = false;
