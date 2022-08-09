@@ -1,5 +1,6 @@
 import AddEmployeeDetails from "@/Pages/Auth/AddEmployeeDetails.vue";
 import ForgotPassword from "@/Pages/Auth/ForgotPassword.vue";
+import ResetPasssword from "@/Pages/Auth/ResetPasssword.vue";
 import Login from "@/Pages/Auth/Login.vue";
 import Employees from "@/Pages/Employees/Employees.vue";
 import { createRouter, createWebHistory } from "vue-router";
@@ -33,7 +34,7 @@ const routes = [
     },
     {
         name: 'ResetPasssword',
-        path: '/reset-passsword',
+        path: '/reset-password',
         component: ResetPasssword
 
 
