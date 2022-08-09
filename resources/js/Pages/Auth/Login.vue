@@ -158,8 +158,8 @@ export default {
                     password: this.password,
                 })
                 .then((response) => {
-                    const { talent_token } = response.data;
-                    localStorage.setItem("talent_token", talent_token);
+                    const { token } = response.data;
+                    localStorage.setItem("talent_token", token);
                     this.$router.push({
                         path: "/employes",
                     });
@@ -167,6 +167,7 @@ export default {
                 .catch((error) => {
                     const { message } = error.response.data;
                     this.msg["password"] = message;
+                    this.error = true;
                 });
         },
     },
