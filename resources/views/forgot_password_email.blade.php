@@ -159,8 +159,8 @@ margin:0;
 <p>We've received a request to set a new password for this<br>
 account: <span class="user_email">{{$user->email}}</span></p>
 </div>
-    <button class="reset_button" onclick="window.location.href='talent.local/reset-password/{{ $token }}'">
-    Reset Password</button>
+    <a class="reset_button"href="{{ env('APP_URL') }}/reset-password?token={{ $token }}'">
+    Reset Password</a>
 
 <p class="reset_confirm_message">If you didn't mean to reset your password, then you can just ignore this email<br>
 your password will not change.</p>
