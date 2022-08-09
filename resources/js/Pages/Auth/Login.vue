@@ -167,6 +167,7 @@ export default {
                 .catch((error) => {
                     const { message } = error.response.data;
                     this.msg["password"] = message;
+                    this.error = true;
                 });
         },
     },
