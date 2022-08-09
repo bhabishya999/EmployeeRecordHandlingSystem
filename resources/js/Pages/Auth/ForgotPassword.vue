@@ -1,6 +1,6 @@
 <template>
     <GuestLayout>
-        <div v-if="hidden">
+        <div v-if="email_sent">
             <div>
                 <ApplicationLogo />
             </div>
@@ -128,7 +128,7 @@ export default {
         return {
             email: "",
             error: false,
-            hidden: true,
+            email_sent: true,
             msg: [],
         };
     },
@@ -140,7 +140,7 @@ export default {
                     email: this.email,
                 })
                 .then(() => {
-                    this.hidden = false;
+                    this.email_sent = false;
                 })
                 .catch((error) => {
                     const { message } = error.response.data;
