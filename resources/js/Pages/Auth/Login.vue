@@ -161,7 +161,7 @@ export default {
                     const { talent_token } = response.data;
                     localStorage.setItem("talent_token", talent_token);
                     this.$router.push({
-                        path: "/dasboard",
+                        path: "/employes",
                     });
                 })
                 .catch((error) => {
