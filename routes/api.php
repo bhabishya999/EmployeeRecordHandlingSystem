@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\EmployeeController;
+
+use App\Http\Controllers\EducationalDetails;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\LogoutController;
 use App\Http\Controllers\ForgotPasswordController;
@@ -30,3 +32,5 @@ Route::prefix('forgot-password')->group(function () {
     Route::post('/reset-password',[PasswordResetController::class, 'reset']);
     Route::get('/validate-token', [PasswordResetController::class, 'validateToken']);
 });
+
+Route::post('/view-data', [EducationalDetails::class, 'store']);
