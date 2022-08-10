@@ -286,6 +286,18 @@ export default {
             reset_sucess: true,
         };
     },
+    beforeRouteEnter(to, from, next) {
+        axios
+            .get(`validate-token?token=${to.query.token}`)
+            .then(() => {
+                next();
+            })
+            .catch(() => {
+                next({
+                    path: "/link-expired",
+                });
+            });
+    },
 
     methods: {
         handleSubmit() {
@@ -293,7 +305,7 @@ export default {
                 .post("reset-password", {
                     password: this.newPassword,
                     password_confirm: this.confirmPassword,
-                    token: this.$route.params.token,
+                    // token: this.$route.params.token,
                 })
                 .then((response) => {
                     console.log(token);

@@ -3,6 +3,7 @@ import ForgotPassword from "@/Pages/Auth/ForgotPassword.vue";
 import ResetPasssword from "@/Pages/Auth/ResetPasssword.vue";
 import Login from "@/Pages/Auth/Login.vue";
 import Employees from "@/Pages/Employees/Employees.vue";
+import LinkExpired from "@/Pages/Auth/LinkExpired.vue"
 import { createRouter, createWebHistory } from "vue-router";
 const routes = [
     {
@@ -33,11 +34,14 @@ const routes = [
         component: Employees,
     },
     {
+        name: 'LinkExpired',
+        path: '/link-expired',
+        component: LinkExpired
+    },
+    {
         name: 'ResetPasssword',
         path: '/reset-password',
         component: ResetPasssword
-
-
     },
 ];
 
