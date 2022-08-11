@@ -291,6 +291,16 @@ export default {
             reset_sucess: true,
         };
     },
+    watch: {
+        newPassword(value) {
+            this.newPassword = value;
+            this.validateNewPassword(value);
+        },
+        confirmPassword(value) {
+            this.confirmPassword = value;
+            this.validateConfirmPassword(value);
+        },
+    },
     beforeRouteEnter(to, from, next) {
         axios
             .get(`validate-token?token=${to.query.token}`)
@@ -305,6 +315,30 @@ export default {
     },
 
     methods: {
+        validateNewPassword(value) {
+            if (
+                /^(?=.*[0-9])(?=.*[A-Z])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,20}$/.test(
+                    value
+                )
+            ) {
+                this.msg["password"] = "";
+                this.error = false;
+            } else {
+                this.error = true;
+                this.msg["password"] =
+                    "Password must have atleast 8 characters,1lowercase, 1 uppercase, 1 number and 1 special character ";
+            }
+        },
+        validateConfirmPassword() {
+            if (this.newPassword == this.confirmPassword) {
+                this.msg["confirmPassword"] = "";
+                this.error = false;
+            } else {
+                this.error = true;
+                this.msg["confirmPassword"] =
+                    "The password you entered do not match. ";
+            }
+        },
         handleSubmit() {
             axios
                 .post("reset-password", {
@@ -325,27 +359,6 @@ export default {
                         this.error = true;
                         this.msg["previousPassword"] = message;
                         this.togglePopUp = true;
-                    }
-
-                    if (
-                        /^(?=.*[0-9])(?=.*[A-Z])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,20}$/.test(
-                            this.newPassword
-                        )
-                    ) {
-                        this.msg["password"] = "";
-                        this.error = false;
-                    } else {
-                        this.error = true;
-                        this.msg["password"] =
-                            "Password must have atleast 8 characters,1lowercase, 1 uppercase, 1 number and 1 special character ";
-                    }
-                    if (this.newPassword == this.confirmPassword) {
-                        this.msg["confirmPassword"] = "";
-                        this.error = false;
-                    } else {
-                        this.error = true;
-                        this.msg["confirmPassword"] =
-                            "The password you entered do not match. ";
                     }
                 });
         },
