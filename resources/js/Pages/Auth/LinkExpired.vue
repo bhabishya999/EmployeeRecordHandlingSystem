@@ -12,11 +12,13 @@
             <p class="font-light text-base text-[#4C51BF] leading-[150.69%]">
                 The password reset link was expired
             </p>
-            <button
-                class="py-[15px] px-[41px] text-white text-base font-bold leading-[150.69%] bg-[#4C51BF] mt-[17px] !rounded-md"
-            >
-                Request Another Link
-            </button>
+            <router-link to="/forgot-password">
+                <button
+                    class="py-[15px] px-[41px] text-white text-base font-bold leading-[150.69%] bg-[#4C51BF] mt-[17px] !rounded-md"
+                >
+                    Request Another Link
+                </button>
+            </router-link>
         </div>
     </GuestLayout>
 </template>
