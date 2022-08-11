@@ -247,9 +247,11 @@
             <p class="text-[#718096] font-normal text-sm leading-[150.69%]">
                 You password has been reset. Please click next to login.
             </p>
-            <Button type="submit" class="w-full mt-[41px]">
-                Return to login
-            </Button>
+            <router-link to="/login">
+                <Button type="submit" class="w-full mt-[41px]">
+                    Return to login
+                </Button></router-link
+            >
         </div>
     </GuestLayout>
 </template>
@@ -260,6 +262,8 @@ import GuestLayout from "@/Layouts/Guest.vue";
 import Label from "@/Components/Label.vue";
 import PasswordInput from "@/Components/PasswordInput.vue";
 import TogglePopUp from "@/Components/TogglePopUp.vue";
+import ApplicationLogo from "@/Components/ApplicationLogo.vue";
+
 import { ref } from "vue";
 export default {
     name: "ResetPasssword",
@@ -269,6 +273,7 @@ export default {
         Label,
         PasswordInput,
         TogglePopUp,
+        ApplicationLogo,
     },
     setup() {
         const togglePopUp = ref(false);
@@ -304,21 +309,24 @@ export default {
             axios
                 .post("reset-password", {
                     password: this.newPassword,
-                    password_confirm: this.confirmPassword,
-                    // token: this.$route.params.token,
+                    password_confirmation: this.confirmPassword,
+                    token: this.$route.query.token,
                 })
-                .then((response) => {
-                    console.log(token);
-                    console.log("response", response);
-                    alert(response);
+                .then(() => {
                     this.reset_sucess = false;
                 })
-                .catch((error) => {
-                    // const { message } = error.response.data;
-                    console.log("eroooooo", error);
-                    // alert(error);
-                    // this.msg["email"] = message;
-                    // this.error = true;
+                .catch((errors) => {
+                    const { message } = errors.response.data;
+
+                    if (
+                        message ===
+                        "New password should not same as old password!"
+                    ) {
+                        this.error = true;
+                        this.msg["previousPassword"] = message;
+                        this.togglePopUp = true;
+                    }
+
                     if (
                         /^(?=.*[0-9])(?=.*[A-Z])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,20}$/.test(
                             this.newPassword
@@ -331,45 +339,16 @@ export default {
                         this.msg["password"] =
                             "Password must have atleast 8 characters,1lowercase, 1 uppercase, 1 number and 1 special character ";
                     }
+                    if (this.newPassword == this.confirmPassword) {
+                        this.msg["confirmPassword"] = "";
+                        this.error = false;
+                    } else {
+                        this.error = true;
+                        this.msg["confirmPassword"] =
+                            "The password you entered do not match. ";
+                    }
                 });
         },
-        // async handleSubmit() {
-        //     try {
-        //         let response = await axios.post("reset-password", {
-        //             password: this.newPassword,
-        //             password_confirm: this.confirmPassword,
-        //             token: this.$route.params.token,
-        //         });
-        //         console.log(response);
-        //         this.$router.push({
-        //             path: "/reset-password-sucessful",
-        //         });
-        //     } catch (err) {
-        //         if (
-        //             /^(?=.*[0-9])(?=.*[A-Z])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,20}$/.test(
-        //                 this.newPassword
-        //             )
-        //         ) {
-        //             this.msg["password"] = "";
-        //             this.error = false;
-        //         } else {
-        //             this.error = true;
-        //             this.msg["password"] =
-        //                 "Password must have atleast 8 characters,1lowercase, 1 uppercase, 1 number and 1 special character ";
-        //         }
-        //         if (this.newPassword == this.confirmPassword) {
-        //             this.msg["confirmPassword"] = "";
-        //             this.error = false;
-        //         } else {
-        //             this.error = true;
-        //             this.msg["confirmPassword"] =
-        //                 "The password you entered do not match. ";
-        //         }
-        // this.error = true;
-        //             // this.msg[Object.keys(err.errors)[0]] = err.message;
-        //         }
-        //     },
-        // },
     },
 };
 </script>
