@@ -76,17 +76,25 @@
         </div>
     </div>
 </template>
+
 <script>
 export default {
     name: "NavBar",
     components: {},
     methods: {
         logout() {
-            // localStoragea.removeItem("token");
-            localStorage.clear();
-            this.$router.push({
-                path: "/login",
-            });
+            axios
+                .post("logout")
+                .then(() => {
+                    //  localStoragea.removeItem("token");
+                    localStorage.clear();
+                    this.$router.push({
+                        path: "/login",
+                    });
+                })
+                .catch((error) => {
+                    alert(error);
+                });
         },
     },
 };
