@@ -1,0 +1,44 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Http\Requests\EducationalDetailsRequest;
+use App\Models\EducationalDetails;
+use App\Talent\EducationalDetails\EducationalDetailsManager;
+use GuzzleHttp\Psr7\Response;
+
+class EducationalDetailsController extends Controller
+{
+    public function __construct(private EducationalDetails $educationalDetails, private EducationalDetailsManager $educationalDetailsManager)
+    {
+    }
+
+    public function store(EducationalDetailsRequest $request)
+    {
+        
+        $educationDetails = $request->validated();
+        
+        
+        $allEducationalDetails = [];
+
+        foreach ($educationDetails['educational_details'] as $education ) {
+            $educationalDetailsResponse =$this->educationalDetailsManager->create($education);
+            array_push($allEducationalDetails, $educationalDetailsResponse);
+        }
+       
+       if(!$educationalDetailsResponse){
+            return response(
+                [
+                    "message"=>"Error",
+                    "status"=>"failed"
+                 ]);
+       }
+       return response(
+        [
+            "message"=>"ok",
+            "status"=>"success",
+            "Data" => $allEducationalDetails
+        ]);
+        
+    }
+}

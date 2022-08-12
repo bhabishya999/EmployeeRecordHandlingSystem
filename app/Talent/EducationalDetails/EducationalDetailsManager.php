@@ -1,6 +1,5 @@
 <?php
 namespace App\Talent\EducationalDetails;
-use App\Models\User;
 use App\Models\EducationalDetails;
 
 class EducationalDetailsManager
@@ -9,10 +8,13 @@ class EducationalDetailsManager
     {
 
     }
+
+    public function create(array $educationDetails){
+      
+        $datas = $this->educationalDetails->create($educationDetails);
+        return $datas;
+
+    }
     
-    public function store(string $email,string $token)
-    {
-        $passwordReset= $this->passwordReset->create(['email'=>$email,
-        'token'=>$token]);
-    }    
+       
 }
