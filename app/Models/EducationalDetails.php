@@ -10,10 +10,10 @@ class EducationalDetails extends Model
     use HasFactory;
 
     protected $fillable = [
+        'employee_id',
+        'user_id',
         'education_level',
         'passed_year',
         'institution'
-    ];
-
-    
+    ];  
 }

@@ -26,4 +26,9 @@ class Employee extends Model
     {
         return $this->hasMany(Document::class);
     }
+
+    public function educational_details()
+    {
+        return $this->hasMany(EducationalDetails::class);
+    }
 }

@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\EducationalDetailsRequest;
 use App\Models\EducationalDetails;
 use App\Talent\EducationalDetails\EducationalDetailsManager;
-use GuzzleHttp\Psr7\Response;
+use Illuminate\Http\Response;
 
 class EducationalDetailsController extends Controller
 {
@@ -21,24 +21,22 @@ class EducationalDetailsController extends Controller
         
         $allEducationalDetails = [];
 
-        foreach ($educationDetails['educational_details'] as $education ) {
+        foreach ($educationDetails['educational_details'] as $education )
+        {
+
             $educationalDetailsResponse =$this->educationalDetailsManager->create($education);
+
             array_push($allEducationalDetails, $educationalDetailsResponse);
         }
        
-       if(!$educationalDetailsResponse){
-            return response(
-                [
-                    "message"=>"Error",
-                    "status"=>"failed"
-                 ]);
+       if(!$educationalDetailsResponse)
+       {
+
+            return responseHelper('Some Thing Went Wrong!', Response::HTTP_BAD_REQUEST , 'Failed');
+
        }
-       return response(
-        [
-            "message"=>"ok",
-            "status"=>"success",
-            "Data" => $allEducationalDetails
-        ]);
-        
+       
+       return responseHelper('Ok');
+    
     }
 }
