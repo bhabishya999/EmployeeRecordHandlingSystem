@@ -25,7 +25,7 @@ Route::post('/reset-password',[PasswordResetController::class, 'reset']);
 Route::get('/validate-token', [PasswordResetController::class, 'validateToken']);
 Route::middleware(['auth::sanctum'])->group(function()
 {
-Route::post('/logput',[LogoutController::class,'logout']);
+Route::post('/logout',[LogoutController::class,'logout']);
 Route::post('/employee-details',[EmployeeController::class,'personaldetail']);
 });
 Route::post('/send-email', [ForgotPasswordController::class,'resetEmail']);
