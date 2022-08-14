@@ -11,8 +11,18 @@ class EmployeeManager
 
     }
     
-    public function details_store(string $firstname,string $lastname,string $email,string $country_code,int $contact_number,string $date_of_birth,
-    string $current_address,int $pan_number,int $bank_account_number,string $name)
+    public function details_store(
+        string $firstname,
+        string $lastname,
+        string $email,
+        string $country_code,
+        int $contact_number,
+        string $date_of_birth,
+        string $current_address,
+        int $pan_number,
+        int $bank_account_number,
+        string $name
+        )
     {
         $employee= $this->employee->create([
         'first_name'=>$firstname,
