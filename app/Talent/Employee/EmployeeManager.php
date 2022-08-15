@@ -15,9 +15,8 @@ class EmployeeManager
     {
         $employee= $this->employee->create($validated);
     }    
-    public function documentStore(string $name,string $type,string $path,int $employee_id){
+    public function documentStore(string $type,string $path,int $employee_id){
         $document=$this->document->create([
-            'name'=>$name,
             'type'=>$type,
             'path'=>$path,
             'employee_id'=>$employee_id

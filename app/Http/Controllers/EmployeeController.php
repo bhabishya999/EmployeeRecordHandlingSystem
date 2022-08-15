@@ -28,11 +28,9 @@ class EmployeeController extends Controller
         if($request->hasFile('documents'))
         {
             foreach($request->documents as $d){
-            $name=Str::random(20);
             $path=$d->store('files','public');
             $type=$d->getClientMimeType();
             $employeeManager=$this->employeeManager->documentStore(
-                $name,
                 $type,
                 $path,
                 $employee_id,
