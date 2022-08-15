@@ -1,5 +1,4 @@
 <script setup>
-import Button from "@/Components/Button.vue";
 import GuestLayout from "@/Layouts/Guest.vue";
 import ApplicationLogo from "@/Components/ApplicationLogo.vue";
 </script>
@@ -102,14 +101,23 @@ import ApplicationLogo from "@/Components/ApplicationLogo.vue";
                     {{ msg.password }}
                 </p>
             </div>
-            <Button
+            <!-- <Button
                 type="submit"
                 class="w-full mt-[30px] mb-9"
                 :class="{ 'opacity-25': processing }"
                 :disabled="processing"
             >
                 login
-            </Button>
+            </Button> -->
+            <LoaderButton
+                :disabled="isLoading"
+                :class="{ 'opacity-80 cursor-not-allowed': isLoading }"
+                type="submit"
+                class="w-full mt-[30px] mb-9"
+                :isLoading="isLoading"
+            >
+                Login
+            </LoaderButton>
 
             <router-link
                 to="/forgot-password"
@@ -124,11 +132,14 @@ import ApplicationLogo from "@/Components/ApplicationLogo.vue";
 import axios from "axios";
 import PasswordInput from "@/Components/PasswordInput.vue";
 import CustomInput from "@/Components/CustomInput.vue";
-
+import LoaderButton from "@/Components/LoaderButton.vue";
 export default {
     components: {
         PasswordInput,
         CustomInput,
+        LoaderButton,
+        ApplicationLogo,
+        GuestLayout,
     },
 
     data() {
@@ -137,6 +148,7 @@ export default {
             password: "",
             error: false,
             msg: [],
+            isLoading: false,
         };
     },
 
@@ -152,6 +164,8 @@ export default {
     },
     methods: {
         submit() {
+            this.isLoading = true;
+            // setTimeout(() => (this.isLoading = false), 5000);
             axios
                 .post("login", {
                     email: this.email,
@@ -163,11 +177,13 @@ export default {
                     this.$router.push({
                         path: "/employes",
                     });
+                    this.isLoading = false;
                 })
                 .catch((error) => {
                     const { message } = error.response.data;
                     this.msg["password"] = message;
                     this.error = true;
+                    this.isLoading = false;
                 });
         },
     },
