@@ -6,6 +6,7 @@ use App\Http\Requests\EducationalDetailsRequest;
 use App\Models\EducationalDetails;
 use App\Talent\EducationalDetails\EducationalDetailsManager;
 use App\Talent\Employee\EmployeeManager;
+use Carbon\Carbon;
 use Illuminate\Http\Response;
 
 class EducationalDetailsController extends Controller
@@ -19,7 +20,6 @@ class EducationalDetailsController extends Controller
         
         $educationDetails = $request->validated();
         $idArr = [];
-
         
         foreach($educationDetails['educational_details'] as $details){
 
@@ -42,7 +42,6 @@ class EducationalDetailsController extends Controller
         return responseHelper("Educational Details Already Filled!");
 
        }
-        
         
         $allEducationalDetails = [];
 

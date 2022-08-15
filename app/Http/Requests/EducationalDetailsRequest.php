@@ -26,7 +26,7 @@ class EducationalDetailsRequest extends FormRequest
         return [
             'educational_details' => ['required', 'array'],
             'educational_details.*.education_level' => 'required|string',
-            'educational_details.*.passed_year' => 'required|date',
+            'educational_details.*.passed_year' => 'required|before_or_equal:' . now()->format('Y'),
             'educational_details.*.institution' => 'required|string',
             'educational_details.*.employee_id'=> 'required|integer',
             'educational_details.*.user_id' => 'required|numeric'
