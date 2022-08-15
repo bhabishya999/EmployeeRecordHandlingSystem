@@ -27,9 +27,9 @@ class EmployeeRequest extends FormRequest
             'first_name'=>'required|string',
             'last_name'=>'required|string',
             'email'=>'required|email|unique:employees,email',
-            'country_code'=>'required',
+            'country_code'=>'required|string',
             'contact_number'=>'required|numeric',
-            'date_of_birth'=>'required',
+            'date_of_birth'=>'required|date|date_format:d-m-Y',
             'current_address'=>'required',
             'pan_number'=>'required|numeric',
             'bank_account_number'=>'required',
@@ -40,7 +40,7 @@ class EmployeeRequest extends FormRequest
     }
     public function messages()
     {
-      return [        
+      return [
         'avatar.image'=> "Invalid image format",    
         'documents.max' => "Error uploading file:File too big.Max file size:5MB",
       ];
