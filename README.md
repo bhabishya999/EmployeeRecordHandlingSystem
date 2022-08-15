@@ -65,48 +65,91 @@ The Laravel framework is open-sourced software licensed under the [MIT license](
 
 ## Project setup
 
-To setup this project first download latest version of docker,php and composer whose download links are mentioned below:
+To setup this project first download latest version of docker,php and composer whose download links are mentioned below:  
+
 Docker: https://docs.docker.com/get-docker/\
-PHP: https://www.php.net/downloads.php
-Composer: https://getcomposer.org/download/
+PHP: https://www.php.net/downloads.php  
+Composer: https://getcomposer.org/download/  
 
-After downloading docker,php and composer clone remote repository(git@github.com:IntroCept/Talent-Management.git.) Succeeding git clone,copy contents of .env.example file into .env file which should be created in the root of the project folder and replace  
-
+After downloading docker,php and composer clone remote repository
+```
+git@github.com:IntroCept/Talent-Management.git.
+```
+Succeeding git clone,copy contents of .env.example file into .env file which should be created in the root of the project folder and replace  
+```
 DB_CONNECTION=mysql
 DB_HOST=127.0.0.1
 DB_PORT=3306
 DB_DATABASE=employeehandlingsystem
 DB_USERNAME=root
 DB_PASSWORD=
-
+```
 with 
-
+```
 DB_CONNECTION=mysql
 DB_HOST=mysql
 DB_PORT=3306
 DB_DATABASE=talent
 DB_USERNAME=root
 DB_PASSWORD=root
+```
+and change APP_URL value to
+ ```
+http://talent.local/
+```
+in .env file.  
 
-Moving forward for Mac OS or Linux operationg system hosts file can be setup by running Sudo nano \etc\hosts command in the termainal which will open hosts file and add 127.0.1.1 talent.local inside hosts file and save it. After that run following commands in terminal one after another which are mentioned below,
-=> docker compose build
-=> docker compose up -d
-=> docker compose exec php bash
-   ->Inside that:
-      -> composer install
-      -> php artisan key:generate
-      -> php artisan migrate
-      -> php artisan db:seed
+Moving forward for Mac OS or Linux operationg system hosts file can be setup by running  
 
-Incase of Windows operating system hosts file can be set up by running Notepad as a administrator. After running notepad as a administrator select option->File->Open->system32->drivers->etc folder. If you see hosts file in etc folder then everything is ok but if you don't see any hosts file in etc folder then type /hosts in the path section after C:\Windows\System32\drivers\etc where hosts file will get opened in notepad and add 127.0.1.1 talent.local inside hosts file and save it.
+```
+Sudo nano \etc\hosts
+```
+
+command in the termainal which will open hosts file and add  
+```
+127.0.1.1 talent.local  
+```  
+inside hosts file and save it.  
+
+After that run following commands in terminal one after another which are mentioned below,  
+
+```bash
+docker compose build
+docker compose up -d
+docker compose exec php bash
+
+# Inside the php container:
+composer install
+php artisan key:generate
+php artisan migrate
+php artisan db:seed
+```
+Incase of Windows operating system hosts file can be set up by running Notepad as a administrator. After running notepad as a administrator   
+```
+select option->File->Open->system32->drivers->etc
+```  
+folder. If you see hosts file in etc folder then everything is ok but if you don't see any hosts file in etc folder then type `/hosts` in the path section after
+```
+C:\Windows\System32\drivers\etc  
+```
+ where hosts file will get opened in notepad and add 
+ ```
+ 127.0.1.1 talent.local
+ ```
+ 
+ inside hosts file and save it.  
 
 So, at last for frontend developer run,
-=> npm install
-=> npm run dev
-in the new terminal and type talent.local/ to run the project.
+```
+npm install
+npm run dev
+```
+in the new terminal and type `talent.local/` to run the project.
 
 And for backend developer run,
- => npm install 
+```
+npm install
+```
 in the new terminal and do same as above.
 
 

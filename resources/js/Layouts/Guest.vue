@@ -16,7 +16,7 @@ import { Link } from "@inertiajs/inertia-vue3";
             </Link>
         </div> -->
 
-        <div class="w-[628px] mt-6 px-6 py-4 bg-white shadow rounded">
+        <div class="w-[628px] px-[86px] py-[68px] bg-white shadow">
             <slot />
         </div>
     </div>

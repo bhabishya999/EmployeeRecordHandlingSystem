@@ -1,64 +1,133 @@
 <script setup>
 import Button from "@/Components/Button.vue";
-
 import GuestLayout from "@/Layouts/Guest.vue";
-import PasswordInput from "@/Components/PasswordInput.vue";
 import ApplicationLogo from "@/Components/ApplicationLogo.vue";
 </script>
 
 <template>
     <GuestLayout>
-        <form>
-            <div class="p-10">
+        <form @submit.prevent="submit">
+            <div>
+                <ApplicationLogo />
                 <div>
-                    <ApplicationLogo />
+                    <h1
+                        class="font-bold font-sans text-lg not-italic text-[#1A202C] mt-8 mb-8"
+                    >
+                        Login to your account
+                    </h1>
                 </div>
-                <div class="space-y-1">
-                    <custom-input
-                        label="Email Address"
-                        v-model="email"
-                        required
-                        autocomplete="username"
-                        placeholder=" your email@introcept.co"
-                    />
-                </div>
-                <div class="mt-5">
-                    <PasswordInput
-                        id="password"
-                        class="mt-1"
-                        v-model="password"
-                        required
-                        autocomplete="current-password"
-                        placeholder="your password"
-                    />
-                </div>
-
-                <Button
-                    type="submit"
-                    class="w-full mt-[30px] mb-9"
-                    :class="{ 'opacity-25': processing }"
-                    :disabled="processing"
-                >
-                    login
-                </Button>
-
-                <Link
-                    v-if="canResetPassword"
-                    :href="route('password.request')"
-                    class="flex flex-col justify-center items-center text-[#4C51BF] font-bold text-base leading-[150.69%] font-sans"
-                >
-                    Forgot password?
-                </Link>
             </div>
+            <div class="space-y-1">
+                <CustomInput
+                    :error="error"
+                    label="Email Address"
+                    v-model="email"
+                    required
+                    autocomplete="current-password"
+                    placeholder="your email@introcept.co"
+                />
+            </div>
+            <div v-if="msg.email" class="flex items-center w-full mt-[9px]">
+                <div>
+                    <svg
+                        width="17"
+                        height="17"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                    >
+                        <path
+                            d="M8.5 16a7.5 7.5 0 1 0 0-15 7.5 7.5 0 0 0 0 15Z"
+                            fill="#D93025"
+                            stroke="#fff"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                        />
+                        <path
+                            d="M8.5 5.5v3M8.5 11.5h.008"
+                            stroke="#fff"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                        />
+                    </svg>
+                </div>
+                <p
+                    class="text-[#D93025] font-normal text-sm leading-[150%] ml-[8px]"
+                >
+                    {{ msg.email }}
+                </p>
+            </div>
+            <div class="mt-4 w-full">
+                <PasswordInput
+                    :error="error"
+                    id="password"
+                    label="Password"
+                    class="mt-1 w-full"
+                    v-model="password"
+                    required
+                    autocomplete="current-password"
+                    placeholder="your password"
+                />
+            </div>
+
+            <div v-if="msg.password" class="flex items-center w-full mt-[9px]">
+                <div>
+                    <svg
+                        width="17"
+                        height="17"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                    >
+                        <path
+                            d="M8.5 16a7.5 7.5 0 1 0 0-15 7.5 7.5 0 0 0 0 15Z"
+                            fill="#D93025"
+                            stroke="#fff"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                        />
+                        <path
+                            d="M8.5 5.5v3M8.5 11.5h.008"
+                            stroke="#fff"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                        />
+                    </svg>
+                </div>
+                <p
+                    class="text-[#D93025] font-normal text-sm leading-[150%] ml-[8px]"
+                >
+                    {{ msg.password }}
+                </p>
+            </div>
+            <Button
+                type="submit"
+                class="w-full mt-[30px] mb-9"
+                :class="{ 'opacity-25': processing }"
+                :disabled="processing"
+            >
+                login
+            </Button>
+
+            <router-link
+                to="/forgot-password"
+                class="flex flex-col justify-center items-center text-[#4C51BF] font-bold text-base leading-[150.69%] font-sans"
+                >Forgot password?</router-link
+            >
         </form>
     </GuestLayout>
 </template>
 
 <script>
 import axios from "axios";
+import PasswordInput from "@/Components/PasswordInput.vue";
 import CustomInput from "@/Components/CustomInput.vue";
+
 export default {
-    compoenents: {
+    components: {
+        PasswordInput,
         CustomInput,
     },
 
@@ -66,7 +135,8 @@ export default {
         return {
             email: "",
             password: "",
-            remember: false,
+            error: false,
+            msg: [],
         };
     },
 
@@ -83,15 +153,21 @@ export default {
     methods: {
         submit() {
             axios
-                .post("http://talent.local/api/login", {
-                    email: "sunita.gurau@introcept.co",
-                    password: "password",
+                .post("login", {
+                    email: this.email,
+                    password: this.password,
                 })
-                .then(function (response) {
-                    console.log("sucessful message", response);
+                .then((response) => {
+                    const { token } = response.data;
+                    localStorage.setItem("talent_token", token);
+                    this.$router.push({
+                        path: "/employes",
+                    });
                 })
-                .catch(function (error) {
-                    console.log(error);
+                .catch((error) => {
+                    const { message } = error.response.data;
+                    this.msg["password"] = message;
+                    this.error = true;
                 });
         },
     },

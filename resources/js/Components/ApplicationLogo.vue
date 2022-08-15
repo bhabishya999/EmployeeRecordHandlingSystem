@@ -41,22 +41,10 @@
         </svg>
 
         <h1
-            class="font-bold font-sans text-center text-base text-[#1A202C] not-italic ml-14 mr-14 mb-3"
+            class="font-bold font-sans text-center text-base text-[#1A202C] not-italic mb-3"
         >
-            IntroCept Employee Portal
-        </h1>
-    </div>
-
-    <div>
-        <h1
-
-
-            class="font-bold font-sans text-lg not-italic text-[#1A202C] mt-8 mb-8"
-
-        >
-            Login to your account
+            IntroCept Employee <br />
+            Portal
         </h1>
     </div>
 </template>
-
-
