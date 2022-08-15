@@ -1,6 +1,7 @@
 <?php
 namespace App\Talent\EducationalDetails;
-use App\Models\EducationalDetails;
+use App\Talent\EducationalDetails\Models\EducationalDetails;
+
 
 class EducationalDetailsManager
 {
@@ -13,16 +14,5 @@ class EducationalDetailsManager
       
         $datas = $this->educationalDetails->create($educationDetails);
         return $datas;
-
-    }
-
-    public function findByForeginKey(int $employee_id):void{
-
-        $this->educationalDetails->where('employee_id', '=', $employee_id)->first();
-        
-       
-
-    }
-    
-       
+    }  
 }

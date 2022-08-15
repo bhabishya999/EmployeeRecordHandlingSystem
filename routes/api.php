@@ -34,4 +34,4 @@ Route::prefix('forgot-password')->group(function () {
     Route::get('/validate-token', [PasswordResetController::class, 'validateToken']);
 });
 
-Route::post('/view-data', [EducationalDetails::class, 'store']);
+Route::post('/educational-details', [EducationalDetails::class, 'store']);

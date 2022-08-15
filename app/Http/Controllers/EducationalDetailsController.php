@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\EducationalDetailsRequest;
-use App\Models\EducationalDetails;
+use App\Talent\EducationalDetails\Requests\EducationalDetailsRequest;
+use App\Talent\EducationalDetails\Models\EducationalDetails;
 use App\Talent\EducationalDetails\EducationalDetailsManager;
 use App\Talent\Employee\EmployeeManager;
 use Carbon\Carbon;
@@ -19,29 +19,6 @@ class EducationalDetailsController extends Controller
     {
         
         $educationDetails = $request->validated();
-        $idArr = [];
-        
-        foreach($educationDetails['educational_details'] as $details){
-
-            array_push($idArr, $details['employee_id']);  
-
-        }
-       
-       $employeeDetails =  $this->employee->findById($idArr[0]);
-
-       if(!$employeeDetails){
-
-        return responseHelper("Personal Details Not Filled", Response::HTTP_NOT_FOUND, 'Failed');
-
-       }
-
-       $educationalDetailsValidation = $this->educationalDetailsManager->findByForeginKey($idArr[0]); 
-
-       if($educationalDetailsValidation){
-
-        return responseHelper("Educational Details Already Filled!");
-
-       }
         
         $allEducationalDetails = [];
 
@@ -53,7 +30,7 @@ class EducationalDetailsController extends Controller
             array_push($allEducationalDetails, $educationalDetailsResponse);
         }
        
-       if(!$educationalDetailsResponse)
+       if(count($educationDetails) <= 0)
        {
 
             return responseHelper('Some Thing Went Wrong, Please Try Again!', Response::HTTP_BAD_REQUEST , 'Failed');
