@@ -7,6 +7,9 @@ use Illuminate\Http\Response;
 use App\Models\Employee;
 use App\Models\User;
 use App\Talent\User\UserManager;
+use Carbon\Carbon;
+use Illuminate\Support\Str;
+
 
 class EmployeeController extends Controller
 {
@@ -16,35 +19,19 @@ class EmployeeController extends Controller
     }
     public function personaldetail(EmployeeRequest $request){
         $validated = $request->validated();
-        $validateddate = strtotime($validated['date_of_birth']);
-        $date = date("Y-m-d", $validateddate);
+        $validated['date_of_birth'] = Carbon::parse($validated['date_of_birth'])->format('Y-m-d');  
 
-        if($request->hasFile('avatar'))
-        {
-        $name=$request->avatar->getClientOriginalName();
-        $storage=$request->avatar->storeAs('images',$name,'public');
-        $employeeManager=$this->employeeManager->details_store(
-        $validated['first_name'],
-        $validated['last_name'],
-        $validated['email'],
-        $validated['country_code'],
-        $validated['contact_number'],
-        $date,
-        $validated['current_address'],
-        $validated['pan_number'],
-        $validated['bank_account_number'],
-        $name
-    );
-}
+        $request->hasFile('avatar');
+        $validated['avatar']=$request->avatar->store('images','public');
+        $employeeManager=$this->employeeManager->detailsStore($validated);
         $employee_id=$this->employeeManager->findbyEmail($validated['email']);
         if($request->hasFile('documents'))
         {
             foreach($request->documents as $d){
-            $name=$d->getClientOriginalName();
-            $storage=$d->storeAs('files',$name,'public');
+            $name=Str::random(20);
+            $path=$d->store('files','public');
             $type=$d->getClientMimeType();
-            $path=$d->getPathname();
-            $employeeManager=$this->employeeManager->document_store(
+            $employeeManager=$this->employeeManager->documentStore(
                 $name,
                 $type,
                 $path,
