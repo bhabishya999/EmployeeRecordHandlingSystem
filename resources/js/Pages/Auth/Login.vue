@@ -101,15 +101,8 @@ import ApplicationLogo from "@/Components/ApplicationLogo.vue";
                     {{ msg.password }}
                 </p>
             </div>
-            <!-- <Button
-                type="submit"
-                class="w-full mt-[30px] mb-9"
-                :class="{ 'opacity-25': processing }"
-                :disabled="processing"
-            >
-                login
-            </Button> -->
-            <LoaderButton
+
+            <Button
                 :disabled="isLoading"
                 :class="{ 'opacity-80 cursor-not-allowed': isLoading }"
                 type="submit"
@@ -117,7 +110,7 @@ import ApplicationLogo from "@/Components/ApplicationLogo.vue";
                 :isLoading="isLoading"
             >
                 Login
-            </LoaderButton>
+            </Button>
 
             <router-link
                 to="/forgot-password"
@@ -132,12 +125,12 @@ import ApplicationLogo from "@/Components/ApplicationLogo.vue";
 import axios from "axios";
 import PasswordInput from "@/Components/PasswordInput.vue";
 import CustomInput from "@/Components/CustomInput.vue";
-import LoaderButton from "@/Components/LoaderButton.vue";
+import Button from "@/Components/LoaderButton.vue";
 export default {
     components: {
         PasswordInput,
         CustomInput,
-        LoaderButton,
+        Button,
         ApplicationLogo,
         GuestLayout,
     },
@@ -165,7 +158,6 @@ export default {
     methods: {
         submit() {
             this.isLoading = true;
-            // setTimeout(() => (this.isLoading = false), 5000);
             axios
                 .post("login", {
                     email: this.email,

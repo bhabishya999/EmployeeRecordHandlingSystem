@@ -63,7 +63,13 @@
                         </p>
                     </div>
 
-                    <Button type="submit" class="w-full mt-10">
+                    <Button
+                        type="submit"
+                        class="w-full mt-10"
+                        :disabled="isLoading"
+                        :class="{ 'opacity-80 cursor-not-allowed': isLoading }"
+                        :isLoading="isLoading"
+                    >
                         Continue
                     </Button>
                 </form>
@@ -130,22 +136,26 @@ export default {
             error: false,
             email_sent: true,
             msg: [],
+            isLoading: false,
         };
     },
 
     methods: {
         submit() {
+            this.isLoading = true;
             axios
                 .post("send-email", {
                     email: this.email,
                 })
                 .then(() => {
                     this.email_sent = false;
+                    this.isLoading = false;
                 })
                 .catch((error) => {
                     const { message } = error.response.data;
                     this.msg["email"] = message;
                     this.error = true;
+                    this.isLoading = false;
                 });
         },
     },
