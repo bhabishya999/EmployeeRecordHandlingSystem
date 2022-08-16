@@ -13,6 +13,5 @@ class Document extends Model
         'name',
         'type',
         'path',
-       
     ];
 }
