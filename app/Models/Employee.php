@@ -22,8 +22,6 @@ class Employee extends Model
         'avatar',
         'user_id',
     ];
-
-    
     
     public function documents()
     {
