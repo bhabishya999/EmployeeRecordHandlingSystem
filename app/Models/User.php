@@ -23,7 +23,6 @@ class User extends Authenticatable
         'email',
         'password',
         'role',
-        'employee_id',
     ];
 
     /**
@@ -33,10 +32,6 @@ class User extends Authenticatable
      */
     protected $hidden = [
         'password',
-        'remember_token',
-        'email_verified_at',
-        'created_at',
-        'updated_at',
     ];
 
     /**
@@ -50,6 +45,6 @@ class User extends Authenticatable
 
     public function employees()
     {
-        return $this->belongsTo(Employee::class);
+        return $this->hasOne(Employee::class);
     }
 }

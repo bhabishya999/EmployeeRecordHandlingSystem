@@ -15,6 +15,8 @@ return new class extends Migration
     {
         Schema::create('documents', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('employee_id')->constrained('employees');
+            $table->string('name');
             $table->string('type');
             $table->string('path');
             $table->timestamps();

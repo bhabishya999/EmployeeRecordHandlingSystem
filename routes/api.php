@@ -4,7 +4,6 @@ use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\LogoutController;
 use App\Http\Controllers\ForgotPasswordController;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PasswordResetController;
 
@@ -23,6 +22,9 @@ use App\Http\Controllers\PasswordResetController;
 Route::post('/login',[LoginController::class,'login']);
 Route::post('/reset-password',[PasswordResetController::class, 'reset']);
 Route::get('/validate-token', [PasswordResetController::class, 'validateToken']);
-Route::middleware('auth:sanctum')->post('/logout',[LogoutController::class,'logout']);
-Route::middleware('auth:sanctum')->post('/employee-details',[EmployeeController::class,'personaldetail']);
+Route::middleware(['auth:sanctum'])->group(function()
+{
+    Route::post('/logout',[LogoutController::class,'logout']);
+    Route::post('/employee-details',[EmployeeController::class,'personaldetail']);
+});
 Route::post('/send-email', [ForgotPasswordController::class,'resetEmail']);

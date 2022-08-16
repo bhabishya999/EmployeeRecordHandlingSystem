@@ -13,10 +13,6 @@ class Document extends Model
         'name',
         'type',
         'path',
-    ];
-
-    protected $hidden = [
-        'created_at',
-        'updated_at',
+       
     ];
 }
