@@ -149,14 +149,13 @@ export default {
                 })
                 .then(() => {
                     this.email_sent = false;
-                    this.isLoading = false;
                 })
                 .catch((error) => {
                     const { message } = error.response.data;
                     this.msg["email"] = message;
                     this.error = true;
-                    this.isLoading = false;
-                });
+                })
+                .finally(() => (this.isLoading = false));
         },
     },
 };

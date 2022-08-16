@@ -125,7 +125,7 @@ import ApplicationLogo from "@/Components/ApplicationLogo.vue";
 import axios from "axios";
 import PasswordInput from "@/Components/PasswordInput.vue";
 import CustomInput from "@/Components/CustomInput.vue";
-import Button from "@/Components/LoaderButton.vue";
+import Button from "@/Components/Button.vue";
 export default {
     components: {
         PasswordInput,
@@ -169,14 +169,13 @@ export default {
                     this.$router.push({
                         path: "/employes",
                     });
-                    this.isLoading = false;
                 })
                 .catch((error) => {
                     const { message } = error.response.data;
                     this.msg["password"] = message;
                     this.error = true;
-                    this.isLoading = false;
-                });
+                })
+                .finally(() => (this.isLoading = false));
         },
     },
 };
