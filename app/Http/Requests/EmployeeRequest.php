@@ -33,7 +33,7 @@ class EmployeeRequest extends FormRequest
             'current_address'=>'required',
             'pan_number'=>'required|numeric',
             'bank_account_number'=>'required',
-            'avatar'=>'image|mimes:jpeg,png',
+            'avatar'=>'required|image|mimes:jpeg,png',
             'documents'=>'required',
             'documents.*'=>'max:5000|mimes:pdf,png,jpeg',
         ];
