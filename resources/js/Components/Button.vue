@@ -4,6 +4,10 @@ defineProps({
         type: Boolean,
         default: false,
     },
+    disabled: {
+        type: Boolean,
+        default: false,
+    },
     type: {
         type: String,
         default: "submit",
@@ -14,6 +18,7 @@ defineProps({
 <template>
     <button
         :type="type"
+        :disabled="disabled"
         class="relative bg-[#4C51BF] rounded-md drop-shadow-[0_10px_15px_rgba(0,0,0,0.08)] my-4 items-center justify-center text-white font-bold text-base leading-[150.69%] font-sans py-[15px]"
     >
         <svg
