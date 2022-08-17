@@ -44,12 +44,12 @@ const {
     <div>
         <label
             :for="name"
-            class="block font-normal text-sm text-slate-500 pb-2.5 leading-[150.69%] placeholder:text-slate-500 placeholder:text-base placeholder:font-normal"
+            class="block font-normal text-sm text-slate-500 pb-2.5 leading-normal placeholder:text-slate-500 placeholder:text-base placeholder:font-normal"
             >{{ label }}</label
         >
         <input
-            class="bg-white pb-3.5 pt-4 pl-4 w-full rounded-md text-sm leading-[150.69%] text-slate-500 font-normal font-sans border-solid border-2 outline-indigo-700 outline-2 border-slate-200 active:border-indigo-700"
-            :class="{ 'border-red-500': !!errorMessage }"
+            class="bg-white pb-3.5 pt-4 pl-4 w-full rounded-md text-sm leading-normal text-slate-500 font-normal font-sans border-solid border-2 outline-indigo-700 outline-2 border-slate-200 active:border-indigo-700"
+            :class="{ 'border-red-600': !!errorMessage }"
             :name="name"
             :id="name"
             :type="type"
@@ -83,7 +83,7 @@ const {
                     />
                 </svg>
             </div>
-            <p class="text-error font-normal text-sm leading-[150%] ml-[8px]">
+            <p class="text-red-600 font-normal text-sm leading-normal ml-[8px]">
                 {{ errorMessage }}
             </p>
         </div>

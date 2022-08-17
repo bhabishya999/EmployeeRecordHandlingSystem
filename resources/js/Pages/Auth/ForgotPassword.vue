@@ -7,12 +7,12 @@
             <div>
                 <div>
                     <h1
-                        class="mt-11 font-bold font-sans text-xl text-[#1A202C] not-italic"
+                        class="mt-11 font-bold font-sans text-xl text-gray-900 not-italic"
                     >
                         Reset your password
                     </h1>
                 </div>
-                <p class="text-[#718096] text-sm my-7">
+                <p class="text-slate-500 text-sm my-7">
                     Enter the email associated with your account and we’ll send
                     an email with instructions to reset your password.
                 </p>
@@ -55,7 +55,7 @@
                             </svg>
                         </div>
                         <p
-                            class="text-[#D93025] font-normal text-sm leading-[150%] ml-[8px]"
+                            class="text-red-600 font-normal text-sm leading-normal ml-[8px]"
                         >
                             {{ msg.email }}
                         </p>
@@ -73,7 +73,7 @@
                 </Form>
                 <router-link
                     to="/login"
-                    class="text-md flex items-center justify-center mt-1 font-bold text-[#4C51BF]"
+                    class="text-md flex items-center justify-center mt-1 font-bold text-indigo-700"
                 >
                     <div class="mr-2">
                         <svg
@@ -103,13 +103,13 @@
                 <img src="../../../images/email.png" alt="Email" />
 
                 <div
-                    class="mb-8 mt-5 font-bold font-sans text-2xl text-[#1A202C] not-italic"
+                    class="mb-8 mt-5 font-bold font-sans text-2xl text-gray-900 not-italic"
                 >
                     Verify your email address
                 </div>
-                <p class="text-[#718096] text-md">We sent a recovery link at</p>
+                <p class="text-slate-500 text-md">We sent a recovery link at</p>
 
-                <p class="text-[#4C51BF] text-md font-bold">{{ email }}</p>
+                <p class="text-indigo-700 text-md font-bold">{{ email }}</p>
             </div>
         </div>
     </GuestLayout>
@@ -137,8 +137,6 @@ export default {
         });
         return {
             schema,
-            email: "",
-            error: false,
             email_sent: true,
             msg: [],
             isLoading: false,
@@ -159,7 +157,6 @@ export default {
                 .catch((error) => {
                     const { message } = error.response.data;
                     this.msg["email"] = message;
-                    this.error = true;
                 })
                 .finally(() => (this.isLoading = false));
         },
