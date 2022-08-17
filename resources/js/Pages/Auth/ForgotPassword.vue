@@ -140,12 +140,14 @@ export default {
             email_sent: true,
             msg: [],
             isLoading: false,
+            email: "",
         };
     },
 
     methods: {
         onSubmit(values) {
             const { email } = values;
+            this.email = email;
             this.isLoading = true;
             axios
                 .post("send-email", {

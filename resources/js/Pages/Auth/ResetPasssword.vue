@@ -1,9 +1,9 @@
 <template>
     <GuestLayout class="relative">
         <div v-if="reset_sucess">
-            <form @submit.prevent="handleSubmit">
+            <Form @submit="onSubmit" :validation-schema="schema">
                 <div
-                    class="flex flex-col justify-center items-center border-b-2 border-solid border-b-gray-200"
+                    class="flex flex-col justify-center items-center border-b-2 border-solid border-gray-200"
                 >
                     <svg
                         width="81"
@@ -44,21 +44,21 @@
                     </svg>
 
                     <h1
-                        class="font-bold font-sans text-center text-base text-[#1A202C] not-italic mb-3"
+                        class="font-bold font-sans text-center text-base text-gray-900 not-italic mb-3"
                     >
                         IntroCept Employee <br />
                         Portal
                     </h1>
                 </div>
                 <p
-                    class="text-[#1A202C] text-2xl font-bold leading-[150.69%] mt-[37px]"
+                    class="text-gray-900 text-2xl font-bold leading-normal mt-[37px]"
                 >
                     Reset Password
                 </p>
 
                 <p
                     v-if="!msg.previousPassword"
-                    class="text-[#718096] font-normal text-sm leading-[150.69%] mt-[9px] mb-[30px]"
+                    class="text-slate-500 font-normal text-sm leading-normal mt-[9px] mb-[30px]"
                 >
                     Your new password must be diffrent from previous used one
                 </p>
@@ -91,114 +91,46 @@
                         </svg>
                     </div>
                     <p
-                        class="text-[#D93025] font-normal text-sm leading-[150%] ml-[8px]"
+                        class="text-red-600 font-normal text-sm leading-normal ml-[8px]"
                     >
                         {{ msg.previousPassword }}
                     </p>
                 </div>
                 <div>
                     <PasswordInput
-                        :error="error"
-                        label="Create new password"
-                        v-model="newPassword"
-                        id="password"
+                        name="password"
                         class="mt-1 w-full"
-                        required
+                        type="password"
                         autocomplete="current-password"
+                        placeholder="your password"
+                        label="Create new password"
                     />
                 </div>
 
                 <p
-                    v-if="!msg.password"
-                    class="text-[#718096] font-normal text-sm leading-[150.69%] mt-[20px] mb-[30px]"
+                    class="text-slate-500 font-normal text-sm leading-normal mt-[20px] mb-[30px]"
                 >
                     Password must have atleast 8 characters,1lowercase, 1
                     uppercase, 1 number and 1 special character
                 </p>
-                <div
-                    v-if="msg.password"
-                    class="flex items-center w-full mt-[9px]"
-                >
-                    <div>
-                        <svg
-                            width="17"
-                            height="17"
-                            fill="none"
-                            xmlns="http://www.w3.org/2000/svg"
-                        >
-                            <path
-                                d="M8.5 16a7.5 7.5 0 1 0 0-15 7.5 7.5 0 0 0 0 15Z"
-                                fill="#D93025"
-                                stroke="#fff"
-                                stroke-width="2"
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                            />
-                            <path
-                                d="M8.5 5.5v3M8.5 11.5h.008"
-                                stroke="#fff"
-                                stroke-width="2"
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                            />
-                        </svg>
-                    </div>
-                    <p
-                        class="text-[#D93025] font-normal text-sm leading-[150%] ml-[8px]"
-                    >
-                        {{ msg.password }}
-                    </p>
-                </div>
+
                 <div>
                     <PasswordInput
-                        v-model="confirmPassword"
-                        :error="error"
+                        name="confirmPassword"
+                        type="password"
                         label="Re-enter new password"
-                        id="password"
                         class="mt-1 w-full"
-                        required
+                        placeholder="your password"
                         autocomplete="current-password"
                     />
                 </div>
-                <div
-                    v-if="msg.confirmPassword"
-                    class="flex items-center w-full mt-[9px]"
-                >
-                    <div>
-                        <svg
-                            width="17"
-                            height="17"
-                            fill="none"
-                            xmlns="http://www.w3.org/2000/svg"
-                        >
-                            <path
-                                d="M8.5 16a7.5 7.5 0 1 0 0-15 7.5 7.5 0 0 0 0 15Z"
-                                fill="#D93025"
-                                stroke="#fff"
-                                stroke-width="2"
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                            />
-                            <path
-                                d="M8.5 5.5v3M8.5 11.5h.008"
-                                stroke="#fff"
-                                stroke-width="2"
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                            />
-                        </svg>
-                    </div>
-                    <p
-                        class="text-[#D93025] font-normal text-sm leading-[150%] ml-[8px]"
-                    >
-                        {{ msg.confirmPassword }}
-                    </p>
-                </div>
 
                 <Button
+                    :disabled="isLoading"
+                    :class="{ 'opacity-80 cursor-not-allowed': isLoading }"
+                    :isLoading="isLoading"
                     type="submit"
                     class="w-full mt-[41px]"
-                    @click="ResetPassword"
                 >
                     Reset Password
                 </Button>
@@ -228,23 +160,23 @@
                         </svg>
 
                         <p
-                            class="text-[#4C51BF] leading-[150%] text-2xl font-bold my-[20px]"
+                            class="text-indigo-700 leading-normal text-2xl font-bold my-[20px]"
                         >
                             Create a new password that <br />
                             isn’t your current password.
                         </p>
                     </TogglePopUp>
                 </div>
-            </form>
+            </Form>
         </div>
         <div v-else>
             <ApplicationLogo></ApplicationLogo>
             <p
-                class="text-[#1A202C] text-2xl font-bold leading-[150.69%] mt-[37px] mb-[41px]"
+                class="text-gray-900 text-2xl font-bold leading-normal mt-[37px] mb-[41px]"
             >
                 Password Reset Successfully
             </p>
-            <p class="text-[#718096] font-normal text-sm leading-[150.69%]">
+            <p class="text-slate-500 font-normal text-sm leading-normal">
                 You password has been reset. Please click next to login.
             </p>
             <router-link to="/login">
@@ -263,7 +195,8 @@ import Label from "@/Components/Label.vue";
 import PasswordInput from "@/Components/PasswordInput.vue";
 import TogglePopUp from "@/Components/TogglePopUp.vue";
 import ApplicationLogo from "@/Components/ApplicationLogo.vue";
-
+import { Form } from "vee-validate";
+import * as Yup from "Yup";
 import { ref } from "vue";
 export default {
     name: "ResetPasssword",
@@ -274,33 +207,35 @@ export default {
         PasswordInput,
         TogglePopUp,
         ApplicationLogo,
+        Form,
+        Yup,
     },
-    setup() {
-        const togglePopUp = ref(false);
 
-        return {
-            togglePopUp,
-        };
-    },
     data() {
+        const schema = Yup.object().shape({
+            password: Yup.string()
+                .required("Please Enter your password")
+                .matches(
+                    /^(?=.*[0-9])(?=.*[A-Z])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,20}$/,
+                    " Password must have atleast 8 characters,1lowercase, 1 Uppercase, 1 Number and 1 Special character"
+                ),
+            confirmPassword: Yup.string()
+                .required()
+                .oneOf(
+                    [Yup.ref("password")],
+                    "The password you entered do not match."
+                ),
+        });
+        const togglePopUp = ref(false);
         return {
-            newPassword: "",
-            confirmPassword: "",
-            error: false,
+            schema,
+            togglePopUp,
             msg: [],
             reset_sucess: true,
+            isLoading: false,
         };
     },
-    watch: {
-        newPassword(value) {
-            this.newPassword = value;
-            this.validateNewPassword(value);
-        },
-        confirmPassword(value) {
-            this.confirmPassword = value;
-            this.validateConfirmPassword(value);
-        },
-    },
+
     beforeRouteEnter(to, from, next) {
         axios
             .get(`validate-token?token=${to.query.token}`)
@@ -315,35 +250,16 @@ export default {
     },
 
     methods: {
-        validateNewPassword(value) {
-            if (
-                /^(?=.*[0-9])(?=.*[A-Z])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,20}$/.test(
-                    value
-                )
-            ) {
-                this.msg["password"] = "";
-                this.error = false;
-            } else {
-                this.error = true;
-                this.msg["password"] =
-                    "Password must have atleast 8 characters,1lowercase, 1 uppercase, 1 number and 1 special character ";
-            }
-        },
-        validateConfirmPassword() {
-            if (this.newPassword == this.confirmPassword) {
-                this.msg["confirmPassword"] = "";
-                this.error = false;
-            } else {
-                this.error = true;
-                this.msg["confirmPassword"] =
-                    "The password you entered do not match. ";
-            }
-        },
-        handleSubmit() {
+        onSubmit(values) {
+            const { password } = values;
+            const { confirmPassword } = values;
+            this.isLoading = true;
+
+            console.log(values);
             axios
                 .post("reset-password", {
-                    password: this.newPassword,
-                    password_confirmation: this.confirmPassword,
+                    password: password,
+                    password_confirmation: confirmPassword,
                     token: this.$route.query.token,
                 })
                 .then(() => {
@@ -351,16 +267,15 @@ export default {
                 })
                 .catch((errors) => {
                     const { message } = errors.response.data;
-
                     if (
                         message ===
                         "New password should not same as old password!"
                     ) {
-                        this.error = true;
                         this.msg["previousPassword"] = message;
                         this.togglePopUp = true;
                     }
-                });
+                })
+                .finally(() => (this.isLoading = false));
         },
     },
 };

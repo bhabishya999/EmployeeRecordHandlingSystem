@@ -6,7 +6,7 @@
         <slot />
         <button
             @click="$emit('close')"
-            class="font-bold text-base py-[15px] px-[34px] border-[#4C51BF] text-[#4C51BF] border rounded-md"
+            class="font-bold text-base py-[15px] px-[34px] border-indigo-700 text-indigo-700 border rounded-md"
         >
             Close
         </button>
