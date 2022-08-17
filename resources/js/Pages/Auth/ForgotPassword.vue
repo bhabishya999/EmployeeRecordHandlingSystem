@@ -17,13 +17,11 @@
                     an email with instructions to reset your password.
                 </p>
 
-                <form @submit.prevent="submit">
+                <Form @submit="onSubmit" :validation-schema="schema">
                     <div>
                         <custom-input
-                            :error="error"
-                            v-model="email"
-                            required
-                            autocomplete
+                            type="text"
+                            name="email"
                             label="We’ll send a recovery link to "
                             placeholder="sunita.shakya@introcept.co"
                         />
@@ -72,7 +70,7 @@
                     >
                         Continue
                     </Button>
-                </form>
+                </Form>
                 <router-link
                     to="/login"
                     class="text-md flex items-center justify-center mt-1 font-bold text-[#4C51BF]"
@@ -121,7 +119,8 @@ import Button from "@/Components/Button.vue";
 import GuestLayout from "@/Layouts/Guest.vue";
 import ApplicationLogo from "@/Components/ApplicationLogo.vue";
 import CustomInput from "@/Components/CustomInput.vue";
-
+import { Form } from "vee-validate";
+import * as Yup from "Yup";
 export default {
     name: "ForgotPassword",
     components: {
@@ -129,9 +128,15 @@ export default {
         Button,
         GuestLayout,
         ApplicationLogo,
+        Form,
+        Yup,
     },
     data() {
+        const schema = Yup.object().shape({
+            email: Yup.string().email().required(),
+        });
         return {
+            schema,
             email: "",
             error: false,
             email_sent: true,
@@ -141,11 +146,12 @@ export default {
     },
 
     methods: {
-        submit() {
+        onSubmit(values) {
+            const { email } = values;
             this.isLoading = true;
             axios
                 .post("send-email", {
-                    email: this.email,
+                    email: email,
                 })
                 .then(() => {
                     this.email_sent = false;

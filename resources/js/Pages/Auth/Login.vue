@@ -5,7 +5,7 @@ import ApplicationLogo from "@/Components/ApplicationLogo.vue";
 
 <template>
     <GuestLayout>
-        <form @submit.prevent="submit">
+        <Form @submit="onSubmit" :validation-schema="schema">
             <div>
                 <ApplicationLogo />
                 <div>
@@ -18,9 +18,9 @@ import ApplicationLogo from "@/Components/ApplicationLogo.vue";
             </div>
             <div class="space-y-1">
                 <CustomInput
-                    :error="error"
+                    type="text"
                     label="Email Address"
-                    v-model="email"
+                    name="email"
                     required
                     autocomplete="current-password"
                     placeholder="your email@introcept.co"
@@ -117,7 +117,7 @@ import ApplicationLogo from "@/Components/ApplicationLogo.vue";
                 class="flex flex-col justify-center items-center text-[#4C51BF] font-bold text-base leading-[150.69%] font-sans"
                 >Forgot password?</router-link
             >
-        </form>
+        </Form>
     </GuestLayout>
 </template>
 
@@ -126,6 +126,8 @@ import axios from "axios";
 import PasswordInput from "@/Components/PasswordInput.vue";
 import CustomInput from "@/Components/CustomInput.vue";
 import Button from "@/Components/Button.vue";
+import { Form } from "vee-validate";
+import * as Yup from "Yup";
 export default {
     components: {
         PasswordInput,
@@ -133,11 +135,16 @@ export default {
         Button,
         ApplicationLogo,
         GuestLayout,
+        Form,
+        Yup,
     },
 
     data() {
+        const schema = Yup.object().shape({
+            email: Yup.string().email().required(),
+        });
         return {
-            email: "",
+            schema,
             password: "",
             error: false,
             msg: [],
@@ -156,11 +163,12 @@ export default {
         },
     },
     methods: {
-        submit() {
+        onSubmit(values) {
+            const { email } = values;
             this.isLoading = true;
             axios
                 .post("login", {
-                    email: this.email,
+                    email: email,
                     password: this.password,
                 })
                 .then((response) => {
