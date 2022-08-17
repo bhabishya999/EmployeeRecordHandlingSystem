@@ -7,23 +7,21 @@
             <div>
                 <div>
                     <h1
-                        class="mt-11 font-bold font-sans text-xl text-[#1A202C] not-italic"
+                        class="mt-11 font-bold font-sans text-xl text-gray-900 not-italic"
                     >
                         Reset your password
                     </h1>
                 </div>
-                <p class="text-[#718096] text-sm my-7">
+                <p class="text-slate-500 text-sm my-7">
                     Enter the email associated with your account and we’ll send
                     an email with instructions to reset your password.
                 </p>
 
-                <form @submit.prevent="submit">
+                <Form @submit="onSubmit" :validation-schema="schema">
                     <div>
                         <custom-input
-                            :error="error"
-                            v-model="email"
-                            required
-                            autocomplete
+                            type="text"
+                            name="email"
                             label="We’ll send a recovery link to "
                             placeholder="sunita.shakya@introcept.co"
                         />
@@ -57,7 +55,7 @@
                             </svg>
                         </div>
                         <p
-                            class="text-[#D93025] font-normal text-sm leading-[150%] ml-[8px]"
+                            class="text-red-600 font-normal text-sm leading-normal ml-[8px]"
                         >
                             {{ msg.email }}
                         </p>
@@ -72,10 +70,10 @@
                     >
                         Continue
                     </Button>
-                </form>
+                </Form>
                 <router-link
                     to="/login"
-                    class="text-md flex items-center justify-center mt-1 font-bold text-[#4C51BF]"
+                    class="text-md flex items-center justify-center mt-1 font-bold text-indigo-700"
                 >
                     <div class="mr-2">
                         <svg
@@ -105,13 +103,13 @@
                 <img src="../../../images/email.png" alt="Email" />
 
                 <div
-                    class="mb-8 mt-5 font-bold font-sans text-2xl text-[#1A202C] not-italic"
+                    class="mb-8 mt-5 font-bold font-sans text-2xl text-gray-900 not-italic"
                 >
                     Verify your email address
                 </div>
-                <p class="text-[#718096] text-md">We sent a recovery link at</p>
+                <p class="text-slate-500 text-md">We sent a recovery link at</p>
 
-                <p class="text-[#4C51BF] text-md font-bold">{{ email }}</p>
+                <p class="text-indigo-700 text-md font-bold">{{ email }}</p>
             </div>
         </div>
     </GuestLayout>
@@ -121,7 +119,8 @@ import Button from "@/Components/Button.vue";
 import GuestLayout from "@/Layouts/Guest.vue";
 import ApplicationLogo from "@/Components/ApplicationLogo.vue";
 import CustomInput from "@/Components/CustomInput.vue";
-
+import { Form } from "vee-validate";
+import * as Yup from "Yup";
 export default {
     name: "ForgotPassword",
     components: {
@@ -129,11 +128,15 @@ export default {
         Button,
         GuestLayout,
         ApplicationLogo,
+        Form,
+        Yup,
     },
     data() {
+        const schema = Yup.object().shape({
+            email: Yup.string().email().required(),
+        });
         return {
-            email: "",
-            error: false,
+            schema,
             email_sent: true,
             msg: [],
             isLoading: false,
@@ -141,11 +144,12 @@ export default {
     },
 
     methods: {
-        submit() {
+        onSubmit(values) {
+            const { email } = values;
             this.isLoading = true;
             axios
                 .post("send-email", {
-                    email: this.email,
+                    email: email,
                 })
                 .then(() => {
                     this.email_sent = false;
@@ -153,7 +157,6 @@ export default {
                 .catch((error) => {
                     const { message } = error.response.data;
                     this.msg["email"] = message;
-                    this.error = true;
                 })
                 .finally(() => (this.isLoading = false));
         },
