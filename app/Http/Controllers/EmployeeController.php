@@ -39,8 +39,6 @@ class EmployeeController extends Controller
 
         $employee_id=$this->employeeManager->findbyEmail($validated['email']);
 
-        if($request->hasFile('documents'))
-        {
             foreach($request->documents as $d){
             $name=$d->getClientOriginalName();
             $type=$d->getClientMimeType();
@@ -53,7 +51,6 @@ class EmployeeController extends Controller
             ];
             $employeeManager=$this->documentManager->create($documentArray);
             }
-        }
        
         return response([
             'user_id'=>$user_id,
