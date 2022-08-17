@@ -254,8 +254,6 @@ export default {
             const { password } = values;
             const { confirmPassword } = values;
             this.isLoading = true;
-
-            console.log(values);
             axios
                 .post("reset-password", {
                     password: password,
