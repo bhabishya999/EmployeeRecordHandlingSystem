@@ -1,5 +1,4 @@
 <script setup>
-import Button from "@/Components/Button.vue";
 import GuestLayout from "@/Layouts/Guest.vue";
 import ApplicationLogo from "@/Components/ApplicationLogo.vue";
 </script>
@@ -102,13 +101,15 @@ import ApplicationLogo from "@/Components/ApplicationLogo.vue";
                     {{ msg.password }}
                 </p>
             </div>
+
             <Button
+                :disabled="isLoading"
+                :class="{ 'opacity-80 cursor-not-allowed': isLoading }"
                 type="submit"
                 class="w-full mt-[30px] mb-9"
-                :class="{ 'opacity-25': processing }"
-                :disabled="processing"
+                :isLoading="isLoading"
             >
-                login
+                Login
             </Button>
 
             <router-link
@@ -124,11 +125,14 @@ import ApplicationLogo from "@/Components/ApplicationLogo.vue";
 import axios from "axios";
 import PasswordInput from "@/Components/PasswordInput.vue";
 import CustomInput from "@/Components/CustomInput.vue";
-
+import Button from "@/Components/Button.vue";
 export default {
     components: {
         PasswordInput,
         CustomInput,
+        Button,
+        ApplicationLogo,
+        GuestLayout,
     },
 
     data() {
@@ -137,6 +141,7 @@ export default {
             password: "",
             error: false,
             msg: [],
+            isLoading: false,
         };
     },
 
@@ -152,6 +157,7 @@ export default {
     },
     methods: {
         submit() {
+            this.isLoading = true;
             axios
                 .post("login", {
                     email: this.email,
@@ -168,7 +174,8 @@ export default {
                     const { message } = error.response.data;
                     this.msg["password"] = message;
                     this.error = true;
-                });
+                })
+                .finally(() => (this.isLoading = false));
         },
     },
 };
