@@ -2,14 +2,32 @@
     <ul class="flex flex-row">
         <li v-for="(file, index) in files" :key="index">
             <div
-                class="border-2 border-[#E2E8F0] rounded my-2 flex flex-row justify-between p-1.5 mr-6"
+                class="border-2 border-[#E2E8F0] rounded my-2 flex flex-row justify-between p-1.5 mr-6 w-40"
             >
-                <div class="w-1/3">{{ file.img }}</div>
+                <div class="w-1/3">
+                    <img
+                        src="../../images/pdf.png"
+                        alt="png"
+                        v-if="getFileExt(file) == 'pdf'"
+                    />
+                    <img
+                        src="../../images/jpg.png"
+                        alt="png"
+                        v-if="getFileExt(file) == 'jpg'"
+                    />
+                    <img
+                        src="../../images/png.png"
+                        alt="png"
+                        v-if="getFileExt(file) == 'png'"
+                    />
+                </div>
                 <div class="w-2/3 flex flex-col">
-                    <p class="leading-[150%] font-normal text-base text-black">
+                    <p
+                        class="leading-normal font-normal text-base text-black truncate"
+                    >
                         {{ file.name }}
                     </p>
-                    <p class="text-[#4A5568] font-normal text-[6px]">
+                    <p class="text-slate-600 font-normal text-[6px]">
                         {{ file.size }}
                     </p>
                 </div>
@@ -24,6 +42,13 @@ export default {
     computed: {
         files() {
             return this.items.reverse();
+        },
+    },
+    methods: {
+        getFileExt(file) {
+            const fileExt = file.name.split(".").pop();
+            console.log(fileExt);
+            return fileExt.toLowerCase();
         },
     },
 };

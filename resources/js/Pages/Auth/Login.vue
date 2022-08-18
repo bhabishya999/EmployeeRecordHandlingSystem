@@ -18,12 +18,12 @@ import ApplicationLogo from "@/Components/ApplicationLogo.vue";
             </div>
             <div class="space-y-1">
                 <CustomInput
-                    type="text"
                     label="Email Address"
                     name="email"
-                    required
+                    type="email"
                     autocomplete="current-password"
-                    placeholder="your email@introcept.co"
+                    placeholder="your
+                email@introcept.co"
                 />
             </div>
 

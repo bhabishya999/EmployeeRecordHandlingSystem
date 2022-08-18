@@ -26,6 +26,7 @@ const routes = [
         path: "/employee-details",
         component: AddEmployeeDetails,
     },
+
     {
         name: "Employees",
         path: "/employees",

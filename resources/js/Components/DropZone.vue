@@ -1,6 +1,6 @@
 <template>
     <p
-        class="mb-2.5 block font-normal text-sm text-[#1A202C] pb-2.5 leading-[150.69%] placeholder:text-[#718096] placeholder:text-base placeholder:font-normal"
+        class="mb-2.5 block font-normal text-sm text-gray-900 pb-2.5 leading-normal placeholder:text-slate-500 placeholder:text-base placeholder:font-normal"
     >
         Documents*
     </p>
@@ -8,7 +8,7 @@
         @dragenter.prevent=""
         @dragover.prevent=""
         @drop.prevent="handleFiles"
-        class="flex flex-row items-center justify-center bg-white pb-3.5 pt-4 pl-4 w-full rounded-md text-sm leading-[150.69%] text-[#718096] font-normal font-sans border-dotted border-2 outline-[#4C51BF] outline-2 border-[#4C51BF] active:border-[#4C51BF]"
+        class="flex flex-row items-center justify-center bg-white pb-3.5 pt-4 pl-4 w-full rounded-md text-sm leading-normal text-slate-500 font-normal font-sans border-dotted border-2 outline-indigo-700 outline-2 border-indigo-700 active:border-indigo-700"
     >
         <div class="mr-[9px]">
             <svg
@@ -40,12 +40,12 @@
                 />
             </svg>
         </div>
-        <p class="leading-[150.69%] text-[#718096] text-base mr-2">
+        <p class="leading-normal text-slate-500 text-base mr-2">
             Drag a file here or
         </p>
         <label
             for="dropzone-file"
-            class="leading-[150%] text-[#4C51BF] text-base font-bold"
+            class="leading-normal text-indigo-700 text-base font-bold"
             >Browse</label
         >
         <input
@@ -67,6 +67,7 @@ export default {
             files: [],
         };
     },
+
     methods: {
         handleFiles(e) {
             const inputValue =
