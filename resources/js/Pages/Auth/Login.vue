@@ -22,8 +22,7 @@ import ApplicationLogo from "@/Components/ApplicationLogo.vue";
                     name="email"
                     type="email"
                     autocomplete="current-password"
-                    placeholder="your
-                email@introcept.co"
+                    placeholder="your email@introcept.co"
                 />
             </div>
 
@@ -143,7 +142,7 @@ export default {
                     const { token } = response.data;
                     localStorage.setItem("talent_token", token);
                     this.$router.push({
-                        path: "/employes",
+                        path: "/employees",
                     });
                 })
                 .catch((error) => {
