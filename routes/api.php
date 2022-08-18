@@ -27,7 +27,6 @@ Route::middleware('auth:sanctum')->post('/logout',[LogoutController::class,'logo
 Route::group(['prefix' => 'employee', 'middleware' => ['auth']], function() {
     Route::post('/', [EmployeeController::class,'store']);
 });
-
-Route::prefix('sendemail')->group(function () {
+Route::prefix('send-email')->group(function () {
     Route::post('/', [ForgotPasswordController::class,'resetEmail']);
 });
