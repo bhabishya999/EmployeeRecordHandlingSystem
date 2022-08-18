@@ -1,6 +1,6 @@
 <?php
 namespace App\Talent\Documents;
-use App\Models\Document;
+use App\Talent\Documents\Model\Document;
 
 class DocumentManager
 {
@@ -9,7 +9,7 @@ class DocumentManager
 
     }
       
-    public function create(array $documentArray):Document{
+    public function store(array $documentArray):Document{
         $document=$this->document->create($documentArray);
         return $document;
     }

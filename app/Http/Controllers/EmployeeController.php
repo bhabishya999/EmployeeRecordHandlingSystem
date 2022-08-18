@@ -1,11 +1,9 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Http\Requests\EmployeeRequest;
+use App\Talent\Employee\Requests\EmployeeCreateRequest;
 use App\Talent\Employee\EmployeeManager;
 use Illuminate\Http\Response;
-use App\Models\Employee;
-use App\Models\User;
 use App\Talent\User\UserManager;
 use App\Talent\Documents\DocumentManager;
 use Carbon\Carbon;
@@ -19,42 +17,42 @@ class EmployeeController extends Controller
     {
 
     }
-    public function personaldetail(EmployeeRequest $request){
+    public function store(EmployeeCreateRequest $request){
         $validated = $request->validated();
+        $userArray=[
+            'name'=>$validated['first_name']." ".$validated['last_name'],
+            'email'=>$validated['email'],
+            'password'=>Hash::make("Introcept@123"),
+            'role'=>'user'
+         ];
+             $userCreate=$this->userManager->store($userArray);
+             return $this->employeeStore($validated,$userCreate);
+    }
+    public function employeeStore($validated,$userCreate){
         $validated['date_of_birth'] = Carbon::parse($validated['date_of_birth'])->format('Y-m-d');  
-        $validated['avatar']=$request->avatar->store('images','public');
-
-       $userArray=[
-       'name'=>$validated['first_name']." ".$validated['last_name'],
-       'email'=>$validated['email'],
-       'password'=>Hash::make("Introcept@123"),
-       'role'=>'user'
-    ];
-        $user=$this->userManager->store($userArray);
-
-        $user_id=$this->userManager->fetchID($validated['email']);
-        $userIdArray=["user_id"=>$user_id];
+        $validated['avatar']=$validated['avatar']->store('employeeimages','public');
+        $userId=$userCreate->id;
+        $userIdArray=["user_id"=>$userId];
         $employeeArray=array_merge($validated,$userIdArray);
-        $employeeManager=$this->employeeManager->create($employeeArray);
+        $employeeCreate=$this->employeeManager->store($employeeArray);
+        $employeeId=$employeeCreate->id;
 
-        $employee_id=$this->employeeManager->findbyEmail($validated['email']);
-
-            foreach($request->documents as $d){
-            $name=$d->getClientOriginalName();
-            $type=$d->getClientMimeType();
-            $path=$d->storeAs('files',$name,'public');
+            foreach($validated['documents'] as $document){
+            $name=$document->getClientOriginalName();
+            $type=$document->getClientMimeType();
+            $path=$document->store('employeedocuments','public');
             $documentArray=[
-                'employee_id'=>$employee_id,
-                'name'=>$name,
+                'employee_id'=>$employeeId,
+                'original_name'=>$name,
                 'type'=>$type,
                 'path'=>$path,
             ];
-            $employeeManager=$this->documentManager->create($documentArray);
+            $documentCreate=$this->documentManager->store($documentArray);
             }
        
         return response([
-            'user_id'=>$user_id,
-            'employee_id'=>$employee_id,
+            'userId'=>$userId,
+            'employeeId'=>$employeeId,
             'message'=>'Personal detail added successfully',
         ],Response::HTTP_OK);
     }

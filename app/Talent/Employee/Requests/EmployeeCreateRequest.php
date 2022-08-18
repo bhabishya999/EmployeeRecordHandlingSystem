@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Talent\Employee\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class EmployeeRequest extends FormRequest
+class EmployeeCreateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -31,8 +31,8 @@ class EmployeeRequest extends FormRequest
             'contact_number'=>'required|numeric',
             'date_of_birth'=>'required|date|date_format:d-m-Y',
             'current_address'=>'required',
-            'pan_number'=>'required|numeric',
-            'bank_account_number'=>'required',
+            'pan_number'=>'required|string',
+            'bank_account_number'=>'required|string',
             'avatar'=>'required|image|mimes:jpeg,png',
             'documents'=>'required',
             'documents.*'=>'max:5000|mimes:pdf,png,jpeg',

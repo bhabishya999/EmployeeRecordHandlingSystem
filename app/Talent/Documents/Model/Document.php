@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models;
+namespace App\Talent\Documents\Model;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -10,7 +10,7 @@ class Document extends Model
     use HasFactory;
     protected $fillable = [
         'employee_id',
-        'name',
+        'original_name',
         'type',
         'path',
     ];
