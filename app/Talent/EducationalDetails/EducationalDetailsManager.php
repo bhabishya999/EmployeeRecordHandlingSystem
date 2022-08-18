@@ -20,7 +20,7 @@ class EducationalDetailsManager
 
         }catch(Throwable $error)
         {
-            return $error;
+            return responseHelper($error, Response::HTTP_BAD_REQUEST, "Failed!");
         }
     }  
 }
