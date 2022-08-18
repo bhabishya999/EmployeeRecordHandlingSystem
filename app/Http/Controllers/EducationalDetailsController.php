@@ -36,6 +36,5 @@ class EducationalDetailsController extends Controller
        return response([
         "message" => "Educational Details Saved!", 
         "data" => $allEducationalDetails]);
-       
     }
 }

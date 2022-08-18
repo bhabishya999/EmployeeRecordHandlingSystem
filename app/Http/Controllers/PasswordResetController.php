@@ -18,7 +18,6 @@ class PasswordResetController extends Controller
         
     }
     
-    
     public function reset(StorePasswordResetRequest $request) :Response
     {
         
