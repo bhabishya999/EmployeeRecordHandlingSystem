@@ -1,7 +1,9 @@
 import AddEmployeeDetails from "@/Pages/Auth/AddEmployeeDetails.vue";
 import ForgotPassword from "@/Pages/Auth/ForgotPassword.vue";
+import ResetPasssword from "@/Pages/Auth/ResetPasssword.vue";
 import Login from "@/Pages/Auth/Login.vue";
 import Employees from "@/Pages/Employees/Employees.vue";
+import LinkExpired from "@/Pages/Auth/LinkExpired.vue"
 import { createRouter, createWebHistory } from "vue-router";
 const routes = [
     {
@@ -18,6 +20,7 @@ const routes = [
         path: "/forgot-password",
         component: ForgotPassword,
     },
+
     {
         name: "AddEmployeeDetails",
         path: "/employee-details",
@@ -30,6 +33,16 @@ const routes = [
             requiresAuth: true,
         },
         component: Employees,
+    },
+    {
+        name: 'LinkExpired',
+        path: '/link-expired',
+        component: LinkExpired
+    },
+    {
+        name: 'ResetPasssword',
+        path: '/reset-password',
+        component: ResetPasssword
     },
 ];
 
