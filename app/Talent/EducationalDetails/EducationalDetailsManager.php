@@ -1,7 +1,8 @@
 <?php
 namespace App\Talent\EducationalDetails;
 use App\Talent\EducationalDetails\Models\EducationalDetails;
-
+use Illuminate\Http\Response;
+use Throwable;
 
 class EducationalDetailsManager
 {
@@ -10,9 +11,16 @@ class EducationalDetailsManager
 
     }
 
-    public function create(array $educationDetails)
+    public function create(array $educationDetails):EducationalDetails
     {  
-        $datas = $this->educationalDetails->create($educationDetails);
-        return $datas;
+        try
+        {
+            $datas = $this->educationalDetails->create($educationDetails);
+            return $datas;
+
+        }catch(Throwable $error)
+        {
+            return $error;
+        }
     }  
 }

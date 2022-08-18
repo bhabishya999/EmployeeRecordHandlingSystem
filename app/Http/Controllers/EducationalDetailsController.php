@@ -25,16 +25,10 @@ class EducationalDetailsController extends Controller
         {
 
             $educationalDetailsResponse =$this->educationalDetailsManager->create($education);
-
             array_push($allEducationalDetails, $educationalDetailsResponse);
+
         }
        
-       if(count($educationDetails) <= 0)
-       {
-
-        return responseHelper("Something went wrong!",Response::HTTP_NOT_FOUND, "Failed");
-
-       }
        return response([
 
             "message" => "Educational Details Saved!", 

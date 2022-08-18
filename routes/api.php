@@ -2,15 +2,11 @@
 
 use App\Http\Controllers\EducationalDetailsController;
 use App\Http\Controllers\EmployeeController;
-
-
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\LogoutController;
 use App\Http\Controllers\ForgotPasswordController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PasswordResetController;
-
-
 
 /*
 |--------------------------------------------------------------------------
@@ -27,7 +23,7 @@ Route::post('/login',[LoginController::class,'login']);
 Route::middleware('auth:sanctum')->post('/logout',[LogoutController::class,'logout']);
 
 Route::group(['prefix' => 'employees', 'middleware' => ['auth']], function(){
-    Route::post('/educational-details', [EducationalDetailsController::class, 'store']);
+    Route::post('/educations', [EducationalDetailsController::class, 'store']);
     Route::post('/', [EmployeeController::class,'store']);
 });
 
