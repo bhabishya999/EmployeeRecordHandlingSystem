@@ -13,7 +13,6 @@ class Employee extends Model
         'first_name',
         'last_name',
         'email',
-        'country_code',
         'contact_number',
         'date_of_birth',
         'current_address',
