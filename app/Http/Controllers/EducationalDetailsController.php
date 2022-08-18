@@ -31,10 +31,14 @@ class EducationalDetailsController extends Controller
        
        if(count($educationDetails) <= 0)
        {
+
         return responseHelper("Something went wrong!",Response::HTTP_NOT_FOUND, "Failed");
+
        }
        return response([
-        "message" => "Educational Details Saved!", 
-        "data" => $allEducationalDetails]);
+
+            "message" => "Educational Details Saved!", 
+            "data" => $allEducationalDetails
+        ]);
     }
 }
