@@ -10,8 +10,8 @@ class EducationalDetailsManager
 
     }
 
-    public function create(array $educationDetails){
-      
+    public function create(array $educationDetails)
+    {  
         $datas = $this->educationalDetails->create($educationDetails);
         return $datas;
     }  

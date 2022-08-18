@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('employee_id')->constrained('employees')->cascadeOnDelete();
             $table->string('education_level');
-            $table->date('passed_year');
+            $table->year('passed_year');
             $table->string('institution');
             $table->timestamps();
         });

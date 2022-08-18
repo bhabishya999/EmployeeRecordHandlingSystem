@@ -5,14 +5,13 @@ namespace App\Http\Controllers;
 use App\Talent\EducationalDetails\Requests\EducationalDetailsRequest;
 use App\Talent\EducationalDetails\Models\EducationalDetails;
 use App\Talent\EducationalDetails\EducationalDetailsManager;
-use App\Talent\Employee\EmployeeManager;
-use Carbon\Carbon;
 use Illuminate\Http\Response;
 
 class EducationalDetailsController extends Controller
 {
-    public function __construct(private EducationalDetails $educationalDetails, private EducationalDetailsManager $educationalDetailsManager, private EmployeeManager $employee)
+    public function __construct(private EducationalDetails $educationalDetails, private EducationalDetailsManager $educationalDetailsManager)
     {
+
     }
 
     public function store(EducationalDetailsRequest $request)
@@ -32,12 +31,11 @@ class EducationalDetailsController extends Controller
        
        if(count($educationDetails) <= 0)
        {
-
-            return responseHelper('Some Thing Went Wrong, Please Try Again!', Response::HTTP_BAD_REQUEST , 'Failed');
-
+        return responseHelper("Something went wrong!",Response::HTTP_NOT_FOUND, "Failed");
        }
+       return response([
+        "message" => "Educational Details Saved!", 
+        "data" => $allEducationalDetails]);
        
-       return responseHelper('Ok!');
-    
     }
 }
