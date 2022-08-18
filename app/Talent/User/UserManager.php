@@ -9,18 +9,12 @@ class UserManager
     {
 
     }
-    public function store(array $userArray){
-        $user=$this->user->create(
-            $userArray,
-    );
+    public function store(array $userArray):User{
+        $user=$this->user->create($userArray);
+        return $user;
     }
 
-    public function fetchID(string $email):int{
-        $user_id=$this->user->where('email',$email)->FirstOrFail();
-        return $user_id->id;
-    }
-
-    public function findByEmail(string $email):User
+    public function show(string $email):User
     {
         $user = $this->user->where('email',$email)->FirstOrFail();
         return $user;

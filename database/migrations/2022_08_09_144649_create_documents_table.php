@@ -15,8 +15,8 @@ return new class extends Migration
     {
         Schema::create('documents', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('employee_id')->constrained('employees');
-            $table->string('name');
+            $table->foreignId('employee_id')->constrained('employees')->restrictOnDelete();
+            $table->string('original_name');
             $table->string('type');
             $table->string('path');
             $table->timestamps();

@@ -1,8 +1,6 @@
 <?php
 namespace App\Talent\Employee;
-
-use App\Models\Employee;
-
+use App\Talent\Employee\Model\Employee;
 class EmployeeManager
 {
     public function __construct(private Employee $employee)
@@ -10,15 +8,10 @@ class EmployeeManager
 
     }
     
-    public function create(array $employeeArray):Employee
+    public function store(array $employeeArray):Employee
     {
         $employee= $this->employee->create($employeeArray);
         return $employee;
     }    
-
-    public function findbyEmail(string $email):int{
-        $email=$this->employee->where('email',$email)->first();
-        return $email->id;
-    }
 
 }
