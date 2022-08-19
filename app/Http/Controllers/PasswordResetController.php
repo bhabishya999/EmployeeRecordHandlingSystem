@@ -18,6 +18,7 @@ class PasswordResetController extends Controller
         
     }
     
+    
     public function reset(StorePasswordResetRequest $request) :Response
     {
         
@@ -60,7 +61,7 @@ class PasswordResetController extends Controller
     {
         $token = $request->get('token');
 
-        $passwordResetInstance = $this->passwordManager->findByToken($token);
+        $passwordResetInstance = $this ->passwordManager->findByToken($token);
 
         $isTokenValid = (Carbon::now())->lessThanOrEqualTo($passwordResetInstance->created_at->addDays(4));
 
@@ -75,9 +76,4 @@ class PasswordResetController extends Controller
         return responseHelper('OK');
 
     }
-
 }
-
-
-
-
