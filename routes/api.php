@@ -22,11 +22,9 @@ use App\Http\Controllers\PasswordResetController;
 Route::post('/login',[LoginController::class,'login']);
 Route::middleware('auth:sanctum')->post('/logout',[LogoutController::class,'logout']);
 
-Route::group(['prefix' => 'employee', 'middleware' => ['auth:sanctum']], function() {
+Route::group(['prefix' => 'employees', 'middleware' => ['auth:sanctum']], function() {
     Route::post('/', [EmployeeController::class,'store']);
 });
-Route::prefix('forgot-password')->group(function () {
-    Route::post('/send-email', [ForgotPasswordController::class,'resetEmail']);
-    Route::post('/reset-password',[PasswordResetController::class, 'reset']);
-    Route::get('/validate-token', [PasswordResetController::class, 'validateToken']);
-});
+Route::post('/forget-password', [ForgotPasswordController::class,'resetEmail']);
+Route::post('/reset-password',[PasswordResetController::class, 'reset']);
+Route::get('/validate-token', [PasswordResetController::class, 'validateToken']);
