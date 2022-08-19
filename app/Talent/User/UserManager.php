@@ -1,6 +1,7 @@
 <?php
 namespace App\Talent\User;
 use App\Models\User;
+use Illuminate\Support\Facades\Hash;
 
 class UserManager
 {
@@ -8,8 +9,12 @@ class UserManager
     {
 
     }
+    public function store(array $userArray):User{
+        $user=$this->user->create($userArray);
+        return $user;
+    }
 
-    public function findByEmail(string $email):User
+    public function show(string $email):User
     {
         $user = $this->user->where('email',$email)->FirstOrFail();
         return $user;
