@@ -14,7 +14,7 @@ class UserManager
         return $user;
     }
 
-    public function show(string $email):User
+    public function findbyEmail(string $email):User
     {
         $user = $this->user->where('email',$email)->FirstOrFail();
         return $user;

@@ -18,7 +18,7 @@ class ForgotPasswordController extends Controller
         $validated = $request->validated();
         $token=Str::random(60);
         $passwordReset=$this->passwordManager->store($validated['email'],$token);
-        $user=$this->userManager->show($validated['email']);
+        $user=$this->userManager->findbyEmail($validated['email']);
         event(new ForgotPassword($validated['email'],$user,$token));
         return response([
             'message'=>"Password reset email sent suceesfully",
