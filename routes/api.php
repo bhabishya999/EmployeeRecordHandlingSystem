@@ -22,7 +22,7 @@ use App\Http\Controllers\PasswordResetController;
 Route::post('/login',[LoginController::class,'login']);
 Route::middleware('auth:sanctum')->post('/logout',[LogoutController::class,'logout']);
 
-Route::group(['prefix' => 'employees', 'middleware' => ['auth']], function(){
+Route::group(['prefix' => 'employees', 'middleware' => ['auth:sanctum']], function(){
     Route::post('/educations', [EducationalDetailsController::class, 'store']);
     Route::post('/', [EmployeeController::class,'store']);
 });
