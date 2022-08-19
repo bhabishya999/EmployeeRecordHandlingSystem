@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Talent\ForgotPassword\Request;
+namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
