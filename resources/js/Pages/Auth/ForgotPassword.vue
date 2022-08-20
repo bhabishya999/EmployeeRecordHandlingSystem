@@ -150,7 +150,7 @@ export default {
             this.email = email;
             this.isLoading = true;
             axios
-                .post("send-email", {
+                .post("forgot-password", {
                     email: email,
                 })
                 .then(() => {
