@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Talent\EducationalDetails\Requests\EducationalDetailsRequest;
 use App\Talent\EducationalDetails\Models\EducationalDetails;
 use App\Talent\EducationalDetails\EducationalDetailsManager;
-use Illuminate\Http\Response;
+
 
 class EducationalDetailsController extends Controller
 {

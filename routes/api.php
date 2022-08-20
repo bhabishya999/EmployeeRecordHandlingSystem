@@ -7,6 +7,7 @@ use App\Http\Controllers\LogoutController;
 use App\Http\Controllers\ForgotPasswordController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PasswordResetController;
+use App\Http\Controllers\KeyEmploymentDetailsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,3 +30,4 @@ Route::group(['prefix' => 'employees', 'middleware' => ['auth:sanctum']], functi
 Route::post('/forget-password', [ForgotPasswordController::class,'resetEmail']);
 Route::post('/reset-password',[PasswordResetController::class, 'reset']);
 Route::get('/validate-token', [PasswordResetController::class, 'validateToken']);
+Route::post('key', [KeyEmploymentDetailsController::class, 'store']);
