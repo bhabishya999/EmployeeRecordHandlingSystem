@@ -181,6 +181,9 @@ import Details from "@/Layouts/Details.vue";
             <div>
                 <div class="flex flex-row-reverse items-center px-9 py-2.5">
                     <button
+                        :isLoading="isLoading"
+                        :disabled="isLoading"
+                        :class="{ 'opacity-80 cursor-not-allowed': isLoading }"
                         type="submit"
                         class="bg-primary p-[7px] rounded-md drop-shadow-[0_10px_15px_rgba(0,0,0,0.1)] flex items-center justify-center text-white font-bold text-base leading-normal font-sans"
                     >
@@ -231,6 +234,7 @@ export default {
         });
         return {
             phone: "",
+            isLoading: false,
             schema,
             files: [],
 
@@ -272,9 +276,51 @@ export default {
     },
     methods: {
         onSubmit(values) {
+            this.isLoading = true;
             const { firstName } = values;
-            console.log(firstName);
-            console.log(this.phone);
+            const { lasttName } = values;
+            const { dateOfBirth } = values;
+            const { email } = values;
+            const { panNumber } = values;
+            const { currentAddress } = values;
+            const { accountNumber } = values;
+            console.log(
+                firstName,
+                "sdfg",
+
+                accountNumber
+            );
+            console.log(lasttName, "sdfglast");
+            console.log(this.phone, "sdfgphone");
+            console.log(this.imgDataUrl, "sdfgumage");
+            console.log(this.files, "sdfgfiles");
+            console.log(dateOfBirth, "sdfgdatee");
+            console.log(email, "sdfgemailpan");
+            console.log(panNumber, "sdfgpannn");
+            console.log(panNumber, "sdfg");
+            console.log(currentAddress, "sdfgaddress");
+            axios
+                .post("employees", {
+                    first_name: firstName,
+                    last_name: lasttName,
+                    email: email,
+                    date_of_birth: dateOfBirth,
+                    current_address: currentAddress,
+                    pan_number: panNumber,
+                    bank_account_number: accountNumber,
+                    documents: this.files,
+                    avatar: this.imgDataUrl,
+                    contact_number: this.phone,
+                })
+                .then((response) => {
+                    console.log(response);
+                })
+                .catch((errors) => {
+                    console.log(errors);
+                    const { message } = errors.response.data;
+                    console.log(message);
+                })
+                .finally(() => (this.isLoading = false));
         },
 
         toggleShow() {
