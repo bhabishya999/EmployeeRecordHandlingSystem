@@ -106,7 +106,13 @@ import { object } from "yup/lib/locale";
                           focus:border-primary
                         "
                       >
-                        <span class="flex justify-between pr-3"
+                        <span
+                          class="flex justify-between pr-3"
+                          :class="[
+                            selectedOrganization.label == 'Please Select'
+                              ? ''
+                              : 'text-[#1A202C]',
+                          ]"
                           >{{ selectedOrganization.label }}
                           <svg
                             class="w-5 h-5"
@@ -195,7 +201,13 @@ import { object } from "yup/lib/locale";
                         focus:border-primary
                       "
                     >
-                      <span class="flex justify-between pr-3"
+                      <span
+                        class="flex justify-between pr-3"
+                        :class="[
+                          selectedworkschedule.label == 'Please Select'
+                            ? ''
+                            : 'text-[#1A202C]',
+                        ]"
                         >{{ selectedworkschedule.label }}
                         <svg
                           class="w-5 h-5"
@@ -262,7 +274,13 @@ import { object } from "yup/lib/locale";
                       focus:border-primary
                     "
                   >
-                    <span class="flex justify-between pr-3"
+                    <span
+                      class="flex justify-between pr-3"
+                      :class="[
+                        selectedteam.label == 'Please Select'
+                          ? ''
+                          : 'text-[#1A202C]',
+                      ]"
                       >{{ selectedteam.label }}
                       <svg
                         class="w-5 h-5"
@@ -328,7 +346,13 @@ import { object } from "yup/lib/locale";
                       focus:border-primary
                     "
                   >
-                    <span class="flex justify-between pr-3"
+                    <span
+                      class="flex justify-between pr-3"
+                      :class="[
+                        selectedmanagers.label == 'Please Select'
+                          ? ''
+                          : 'text-[#1A202C]',
+                      ]"
                       >{{ selectedmanagers.label }}
                       <svg
                         class="w-5 h-5"
@@ -385,7 +409,7 @@ import { object } from "yup/lib/locale";
                 mode="tags"
                 placeholder="Enter Manages"
                 label="name"
-                track-by="email"
+                track-by="name"
                 :close-on-select="false"
                 :searchable="true"
                 :options="manages"
@@ -403,7 +427,7 @@ import { object } from "yup/lib/locale";
                       'is-disabled': disabled,
                     }"
                   >
-                    <div class="rounded-full">
+                    <div>
                       <img
                         :src="option.image"
                         :class="['rounded-full h-5 w-5']"
@@ -571,6 +595,7 @@ export default {
     VueTelInput,
     Multiselect,
   },
+
   methods: {},
 };
 </script>
