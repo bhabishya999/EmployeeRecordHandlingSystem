@@ -409,8 +409,7 @@ import { object } from "yup/lib/locale";
                 mode="tags"
                 placeholder="Enter Manages"
                 label="name"
-                track-by="name"
-                :close-on-select="false"
+                :close-on-select="true"
                 :searchable="true"
                 :options="manages"
                 :classes="{
@@ -420,31 +419,19 @@ import { object } from "yup/lib/locale";
                     'absolute inset-0 border-none outline-none focus:ring-0 appearance-none p-0 text-base font-sans box-border w-full',
                 }"
               >
-                <template v-slot:tag="{ option, handleTagRemove, disabled }">
-                  <div
-                    class="multiselect-tag is-user"
-                    :class="{
-                      'is-disabled': disabled,
-                    }"
-                  >
-                    <div>
-                      <img
-                        :src="option.image"
-                        :class="['rounded-full h-5 w-5']"
-                      />
-                    </div>
+                <template v-slot:option="{ option }">
+                  <span class="flex items-center" @click="update">
+                    <img
+                      :src="option.image"
+                      class="rounded-full w-10 h-10 mr-3"
+                    />
                     <div>
                       <p>{{ option.name }}</p>
-                      <p>{{ option.email }}</p>
+                      <p class="text-sm text-primary">
+                        {{ option.email }}
+                      </p>
                     </div>
-                    <span
-                      v-if="!disabled"
-                      class="multiselect-tag-remove"
-                      @mousedown.prevent="handleTagRemove(option, $event)"
-                    >
-                      <span class="multiselect-tag-remove-icon"></span>
-                    </span>
-                  </div>
+                  </span>
                 </template>
               </Multiselect>
             </div>
