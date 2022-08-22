@@ -375,14 +375,8 @@ export default {
         },
 
         cropSuccess(imgDataUrl, field) {
-            console.log("-------- crop success --------");
-            this.imgDataUrl = imgDataUrl;
-            console.log(imgDataUrl);
-            const image = new Image();
-            image.src = imgDataUrl;
-            image.onload = function () {
-                this.imgDataUrl = image;
-            };
+            const image = this.dataURLtoFile(imgDataUrl, "avatar");
+            this.imgDataUrl = image;
         },
         cropUploadSuccess(jsonData, field) {
             console.log("-------- upload success --------");
@@ -402,6 +396,19 @@ export default {
             console.log(status);
             this.imgDataUrl = "";
             console.log("field: " + field);
+        },
+        dataURLtoFile(dataurl, filename) {
+            var arr = dataurl.split(","),
+                mime = arr[0].match(/:(.*?);/)[1],
+                bstr = atob(arr[1]),
+                n = bstr.length,
+                u8arr = new Uint8Array(n);
+
+            while (n--) {
+                u8arr[n] = bstr.charCodeAt(n);
+            }
+
+            return new File([u8arr], filename, { type: mime });
         },
     },
 };
