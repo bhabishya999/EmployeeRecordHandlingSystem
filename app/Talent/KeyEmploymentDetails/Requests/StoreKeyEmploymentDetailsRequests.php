@@ -30,6 +30,8 @@ class StoreKeyEmploymentDetailsRequests extends FormRequest
             'current_position' => 'required|string',
             'team' => 'required|string',
             'manager' => 'required|exists:employees,id',
+            'manages' => ['required', 'array'],
+            'manages.*' => 'required|exists:employees,id',
             'superpowers' => 'required|string'
         ];
     }
