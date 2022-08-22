@@ -13,17 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('key_employment_details', function (Blueprint $table) {
+        Schema::create('manages', function (Blueprint $table) {
             $table->id();
             $table->foreignId('employee_id')->constrained('employees')->cascadeOnDelete();
-            $table->string('organization');
-            $table->date('join_date');
-            $table->string('current_position');
-            $table->string('work_schedule');
-            $table->string('team');
-            $table->integer('manager');
-            $table->string('superpowers');
-            $table->timestamps();
+            $table->bigInteger('manages_id');
         });
     }
 
@@ -34,6 +27,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('key_employment_details');
+        Schema::dropIfExists('manages');
     }
 };

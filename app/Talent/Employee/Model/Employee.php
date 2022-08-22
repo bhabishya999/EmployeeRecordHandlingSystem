@@ -1,6 +1,8 @@
 <?php
 
 namespace App\Talent\Employee\Model;
+
+use App\Models\EmployeeManager;
 use App\Talent\Documents\Model\Document;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -25,5 +27,9 @@ class Employee extends Model
     public function documents()
     {
         return $this->hasMany(Document::class);
+    }
+    public function employeeManagers()
+    {
+        return $this->hasMany(EmployeeManager::class);
     }
 }

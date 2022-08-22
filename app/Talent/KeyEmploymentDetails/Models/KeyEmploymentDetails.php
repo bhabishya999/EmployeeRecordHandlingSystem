@@ -18,7 +18,6 @@ class KeyEmploymentDetails extends Model
         'work_schedule',
         'team',
         'manager',
-        'manages',
         'superpowers',
     ];
 }
