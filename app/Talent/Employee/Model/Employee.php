@@ -29,7 +29,7 @@ class Employee extends Model
     {
         return $this->hasMany(Document::class);
     }
-    public function Manages()
+    public function manages()
     {
         return $this->hasMany(Manages::class);
     }

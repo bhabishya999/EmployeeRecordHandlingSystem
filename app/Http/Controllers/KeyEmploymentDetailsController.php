@@ -24,7 +24,7 @@ class KeyEmploymentDetailsController extends Controller
         $validation = $request->validated();
 
         $employmentDetails = $this->keyEmploymentDetailsManager->create($validation);
-        dd($employmentDetails);
+        
 
     }
 }
