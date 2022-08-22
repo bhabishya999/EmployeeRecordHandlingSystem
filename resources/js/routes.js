@@ -24,7 +24,7 @@ const routes = [
 
     {
         name: "EmployeeDetail",
-        path: "/employee/detail/view",
+        path: "/employees/:id",
         component: EmployeeDetail,
     },
     {
