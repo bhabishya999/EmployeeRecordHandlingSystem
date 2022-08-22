@@ -33,6 +33,7 @@ const routes = [
     {
         name: "Employees",
         path: "/employees",
+        component: Employees,
         meta: {
             requiresAuth: true,
         }

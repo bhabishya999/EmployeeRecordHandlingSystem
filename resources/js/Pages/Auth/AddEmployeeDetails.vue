@@ -270,7 +270,6 @@ export default {
         });
         return {
             value: "",
-            avatar: null,
             isLoading: false,
             schema,
             files: [],
@@ -285,7 +284,6 @@ export default {
                 smail: "*_~",
             },
             imgDataUrl: "",
-            avatar: null,
 
             personal_active: true,
             educational_active: false,
@@ -339,7 +337,7 @@ export default {
             formData.append("current_address", currentAddress);
             formData.append("bank_account_number", accountNumber);
             formData.append("contact_number", this.$refs.phoneNo.phone);
-            formData.append("avatar", this.avatar);
+            formData.append("avatar", this.imgDataUrl);
             formData.append("documents", this.files);
 
             this.isLoading = true;
@@ -379,9 +377,12 @@ export default {
         cropSuccess(imgDataUrl, field) {
             console.log("-------- crop success --------");
             this.imgDataUrl = imgDataUrl;
-            var image = new Image();
+            console.log(imgDataUrl);
+            const image = new Image();
             image.src = imgDataUrl;
-            this.avatar = image;
+            image.onload = function () {
+                this.imgDataUrl = image;
+            };
         },
         cropUploadSuccess(jsonData, field) {
             console.log("-------- upload success --------");
