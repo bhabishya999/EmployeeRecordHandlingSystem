@@ -25,11 +25,17 @@ const routes = [
         name: "AddEmployeeDetails",
         path: "/employees/details",
         component: AddEmployeeDetails,
+        meta: {
+            requiresAuth: true,
+        }
     },
 
     {
         name: "Employees",
         path: "/employees",
+        meta: {
+            requiresAuth: true,
+        }
 
     },
     {
@@ -49,11 +55,13 @@ const router = createRouter({
     routes,
 });
 router.beforeEach((to, from, next) => {
-    const token = localStorage.getItem("token");
+    const token = localStorage.getItem("talent_token");
     const authenticated = !!token;
     const requiresAuth = to.matched.some((record) => record.meta.requiresAuth);
+
     if (requiresAuth) {
         if (!authenticated && to.name !== "Login") {
+
             next({
                 path: "/login",
                 query: { redirect: to.fullPath },

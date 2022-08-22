@@ -265,11 +265,12 @@ export default {
             email: Yup.string().email().required(),
             dateOfBirth: Yup.string().required(),
             currentAddress: Yup.string().required(),
-            panNumber: Yup.string().max(9).required(),
-            accountNumber: Yup.string().max(15).required(),
+            panNumber: Yup.string().max(9),
+            accountNumber: Yup.string().max(15),
         });
         return {
             value: "",
+            avatar: null,
             isLoading: false,
             schema,
             files: [],
@@ -284,6 +285,7 @@ export default {
                 smail: "*_~",
             },
             imgDataUrl: "",
+            avatar: null,
 
             personal_active: true,
             educational_active: false,
@@ -337,7 +339,7 @@ export default {
             formData.append("current_address", currentAddress);
             formData.append("bank_account_number", accountNumber);
             formData.append("contact_number", this.$refs.phoneNo.phone);
-            formData.append("avatar", this.imgDataUrl);
+            formData.append("avatar", this.avatar);
             formData.append("documents", this.files);
 
             this.isLoading = true;
@@ -377,12 +379,15 @@ export default {
         cropSuccess(imgDataUrl, field) {
             console.log("-------- crop success --------");
             this.imgDataUrl = imgDataUrl;
-            console.log(imgDataUrl);
+            var image = new Image();
+            image.src = imgDataUrl;
+            this.avatar = image;
         },
         cropUploadSuccess(jsonData, field) {
             console.log("-------- upload success --------");
             console.log(jsonData);
             console.log("field: " + field);
+
             // this.imgDataUrl = imgDataUrl;
         },
         // cropUploadSuccess() {
