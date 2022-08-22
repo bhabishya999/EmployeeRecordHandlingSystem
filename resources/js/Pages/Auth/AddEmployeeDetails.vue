@@ -2,53 +2,75 @@
 import Details from "@/Layouts/Details.vue";
 </script>
 <template>
+    <NavBar></NavBar>
+    <div class="h-[24px] bg-slate-100"></div>
     <Details>
-        <Form @submit="onSubmit" :validation-schema="schema">
-            <div class="p-9">
-                <div class="flex justify-between items-center">
-                    <h1
-                        class="text-black leading-normal text-2xl font-medium font-bold font-sans"
+        <div class="p-9">
+            <div class="flex justify-between items-center">
+                <h1
+                    class="text-black leading-normal text-2xl font-medium font-bold font-sans"
+                >
+                    EMPLOYEE DETAILS
+                </h1>
+                <button
+                    type="button"
+                    class="bg-indigo-700 p-[7px] rounded-md drop-shadow-[0_10px_15px_rgba(0,0,0,0.1)] flex items-center justify-center text-white font-bold text-base leading-normal font-sans"
+                >
+                    <svg
+                        class="mr-[9px]"
+                        width="8"
+                        height="14"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
                     >
-                        EMPLOYEE DETAILS
-                    </h1>
-                    <button
-                        type="button"
-                        class="bg-indigo-700 p-[7px] rounded-md drop-shadow-[0_10px_15px_rgba(0,0,0,0.1)] flex items-center justify-center text-white font-bold text-base leading-normal font-sans"
+                        <path
+                            d="M0 13.152V.848C0 .657.129.5.287.5h1.147c.158 0 .287.157.287.348v5.119L6.392.715c.493-.496 1.255-.081 1.255.714V12.57c0 .795-.762 1.21-1.255.714l-4.671-5.22v5.087c0 .191-.13.348-.287.348H.287c-.158 0-.287-.157-.287-.348Z"
+                            fill="#fff"
+                        />
+                    </svg>
+                    Back to List
+                </button>
+            </div>
+            <div class="mt-[30px] mb-5">
+                <ul class="flex">
+                    <li
+                        :class="{
+                            'bg-indigo-700 rounded-lg font-sans text-white':
+                                personal_active,
+                        }"
+                        @click="personal_detail"
+                        class="font-bold leading-normal text-lg py-2.5 px-1.5 mr-7"
                     >
-                        <svg
-                            class="mr-[9px]"
-                            width="8"
-                            height="14"
-                            fill="none"
-                            xmlns="http://www.w3.org/2000/svg"
-                        >
-                            <path
-                                d="M0 13.152V.848C0 .657.129.5.287.5h1.147c.158 0 .287.157.287.348v5.119L6.392.715c.493-.496 1.255-.081 1.255.714V12.57c0 .795-.762 1.21-1.255.714l-4.671-5.22v5.087c0 .191-.13.348-.287.348H.287c-.158 0-.287-.157-.287-.348Z"
-                                fill="#fff"
-                            />
-                        </svg>
-                        Back to List
-                    </button>
-                </div>
-                <div class="mt-[30px] mb-5">
-                    <ul class="flex">
-                        <li
-                            class="font-semibold leading-normal text-lg py-2.5 px-1.5 bg-primary rounded-lg font-sans text-white mr-7"
-                        >
-                            Personal Details
-                        </li>
-                        <li
-                            class="font-bold leading-normal text-lg py-2.5 px-1.5 mr-7"
-                        >
-                            Educational Details
-                        </li>
-                        <li
-                            class="font-bold leading-normal text-lg py-2.5 px-1.5"
-                        >
-                            Key Employment Details
-                        </li>
-                    </ul>
-                </div>
+                        Personal Details
+                    </li>
+                    <li
+                        :class="{
+                            'bg-indigo-700 rounded-lg font-sans text-white':
+                                educational_active,
+                        }"
+                        @click="educationl_detail"
+                        class="font-semibold leading-normal text-lg py-2.5 px-1.5 mr-7"
+                    >
+                        Educational Details
+                    </li>
+                    <li
+                        :class="{
+                            'bg-indigo-700 rounded-lg font-sans text-white':
+                                keyemp_active,
+                        }"
+                        @click="employment_detail"
+                        class="font-bold leading-normal text-lg py-2.5 px-1.5"
+                    >
+                        Key Employment Details
+                    </li>
+                </ul>
+            </div>
+            <Form
+                @submit="onSubmit"
+                :validation-schema="schema"
+                v-if="personal_active"
+                class="personal_Detail"
+            >
                 <div class="flex">
                     <div class="w-2/3 mr-10">
                         <div class="flex flex-row justify-between mb-2.5">
@@ -62,7 +84,7 @@ import Details from "@/Layouts/Details.vue";
                             </div>
                             <div class="w-full">
                                 <custom-input
-                                    name="lasttName"
+                                    name="lastName"
                                     type="text"
                                     label="Last Name*"
                                     placeholder="Enter Last Name"
@@ -85,7 +107,8 @@ import Details from "@/Layouts/Details.vue";
                                     Contact Number*
                                 </p>
                                 <vue-tel-input
-                                    v-model="phone"
+                                    v-model="value"
+                                    ref="phoneNo"
                                     mode="international"
                                 ></vue-tel-input>
                             </div>
@@ -159,45 +182,54 @@ import Details from "@/Layouts/Details.vue";
                         </div>
                         <div id="app">
                             <a
-                                class="btn leading-[150%] text-[#4C51BF] text-base font-bold"
+                                class="btn leading-normal text-[#4C51BF] text-base font-bold"
                                 @click="toggleShow"
                                 >Upload Image</a
                             >
                             <my-upload
                                 field="img"
+                                type="file"
                                 @crop-success="cropSuccess"
                                 @crop-upload-success="cropUploadSuccess"
                                 @crop-upload-fail="cropUploadFail"
                                 v-model="show"
                                 :params="params"
                                 :headers="headers"
+                                :imgFormat="imgFormat"
                                 lang-type="en"
                             ></my-upload>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="border-b-2 border-[#EDF2F7] w-full"></div>
-            <div>
-                <div class="flex flex-row-reverse items-center px-9 py-2.5">
-                    <button
-                        :isLoading="isLoading"
-                        :disabled="isLoading"
-                        :class="{ 'opacity-80 cursor-not-allowed': isLoading }"
-                        type="submit"
-                        class="bg-primary p-[7px] rounded-md drop-shadow-[0_10px_15px_rgba(0,0,0,0.1)] flex items-center justify-center text-white font-bold text-base leading-normal font-sans"
-                    >
-                        Save and Continue
-                    </button>
-                    <button
-                        type="button"
-                        class="mr-2.5 py-[7px] px-2.5 bg-slate-100 rounded-md shadow text-base font-bold"
-                    >
-                        Cancel
-                    </button>
+
+                <div class="border-b-2 border-[#EDF2F7] w-full"></div>
+                <div>
+                    <div class="flex flex-row-reverse items-center px-9 py-2.5">
+                        <button
+                            :isLoading="isLoading"
+                            :disabled="isLoading"
+                            :class="{
+                                'opacity-80 cursor-not-allowed': isLoading,
+                            }"
+                            type="submit"
+                            class="bg-primary p-[7px] rounded-md drop-shadow-[0_10px_15px_rgba(0,0,0,0.1)] flex items-center justify-center text-white font-bold text-base leading-normal font-sans"
+                        >
+                            Save and Continue
+                        </button>
+                        <button
+                            type="button"
+                            class="mr-2.5 py-[7px] px-2.5 bg-slate-100 rounded-md shadow text-base font-bold"
+                        >
+                            Cancel
+                        </button>
+                    </div>
                 </div>
-            </div>
-        </Form>
+            </Form>
+            <EducationalDetail
+                v-if="educational_active"
+                class="Educational_Detail"
+            ></EducationalDetail>
+        </div>
     </Details>
 </template>
 
@@ -210,22 +242,26 @@ import "vue3-tel-input/dist/vue3-tel-input.css";
 import myUpload from "vue-image-crop-upload";
 import { Form } from "vee-validate";
 import * as Yup from "Yup";
+import EducationalDetail from "@/Components/EducationalDetail.vue";
+import NavBar from "@/Components/NavBar.vue";
 export default {
     name: "AddEmployeeDetails",
     Components: {
+        NavBar,
         CustomInput,
         DropZone,
         UploadList,
-        VueTelInput,
+        "vue-tel-input": VueTelInput,
         Form,
         Yup,
         Details,
+        EducationalDetail,
         "my-upload": myUpload,
     },
     data() {
         const schema = Yup.object().shape({
             firstName: Yup.string().required(),
-            lasttName: Yup.string().required(),
+            lastName: Yup.string().required(),
             email: Yup.string().email().required(),
             dateOfBirth: Yup.string().required(),
             currentAddress: Yup.string().required(),
@@ -233,7 +269,7 @@ export default {
             accountNumber: Yup.string().max(15).required(),
         });
         return {
-            phone: "",
+            value: "",
             isLoading: false,
             schema,
             files: [],
@@ -248,6 +284,10 @@ export default {
                 smail: "*_~",
             },
             imgDataUrl: "",
+
+            personal_active: true,
+            educational_active: false,
+            keyemp_active: false,
         };
     },
 
@@ -273,47 +313,42 @@ export default {
             type: Object,
             default: () => null,
         },
+        imgFormat: {
+            type: String,
+            deault: () => "jpg/png",
+        },
     },
     methods: {
         onSubmit(values) {
-            this.isLoading = true;
             const { firstName } = values;
-            const { lasttName } = values;
+            const { lastName } = values;
             const { dateOfBirth } = values;
             const { email } = values;
             const { panNumber } = values;
             const { currentAddress } = values;
             const { accountNumber } = values;
-            console.log(
-                firstName,
-                "sdfg",
 
-                accountNumber
-            );
-            console.log(lasttName, "sdfglast");
-            console.log(this.phone, "sdfgphone");
-            console.log(this.imgDataUrl, "sdfgumage");
-            console.log(this.files, "sdfgfiles");
-            console.log(dateOfBirth, "sdfgdatee");
-            console.log(email, "sdfgemailpan");
-            console.log(panNumber, "sdfgpannn");
-            console.log(panNumber, "sdfg");
-            console.log(currentAddress, "sdfgaddress");
+            let formData = new FormData();
+            formData.append("first_name", firstName);
+            formData.append("last_name", lastName);
+            formData.append("email", email);
+            formData.append("date_of_birth", dateOfBirth);
+            formData.append("pan_number", panNumber);
+            formData.append("current_address", currentAddress);
+            formData.append("bank_account_number", accountNumber);
+            formData.append("contact_number", this.$refs.phoneNo.phone);
+            formData.append("avatar", this.imgDataUrl);
+            formData.append("documents", this.files);
+
+            this.isLoading = true;
             axios
-                .post("employees", {
-                    first_name: firstName,
-                    last_name: lasttName,
-                    email: email,
-                    date_of_birth: dateOfBirth,
-                    current_address: currentAddress,
-                    pan_number: panNumber,
-                    bank_account_number: accountNumber,
-                    documents: this.files,
-                    avatar: this.imgDataUrl,
-                    contact_number: this.phone,
-                })
+                .post("employees", formData)
                 .then((response) => {
                     console.log(response);
+                    const { employeeId } = response.data;
+                    localStorage.setItem("employeeId", employeeId);
+                    this.educational_active = true;
+                    this.keyemp_active = this.personal_active = false;
                 })
                 .catch((errors) => {
                     console.log(errors);
@@ -321,6 +356,18 @@ export default {
                     console.log(message);
                 })
                 .finally(() => (this.isLoading = false));
+        },
+        personal_detail() {
+            this.personal_active = true;
+            this.keyemp_active = this.educational_active = false;
+        },
+        educationl_detail() {
+            this.educational_active = true;
+            this.personal_active = this.keyemp_active = false;
+        },
+        employment_detail() {
+            this.keyemp_active = true;
+            this.educational_active = this.personal_active = false;
         },
 
         toggleShow() {
@@ -330,12 +377,20 @@ export default {
         cropSuccess(imgDataUrl, field) {
             console.log("-------- crop success --------");
             this.imgDataUrl = imgDataUrl;
+            console.log(imgDataUrl);
         },
         cropUploadSuccess(jsonData, field) {
             console.log("-------- upload success --------");
             console.log(jsonData);
             console.log("field: " + field);
+            // this.imgDataUrl = imgDataUrl;
         },
+        // cropUploadSuccess() {
+        //     console.log("-------- upload success --------");
+        //     console.log(imgDataUrl);
+        //     this.imgDataUrl = imgDataUrl;
+        //     console.log("field: " + field);
+        // },
         cropUploadFail(status, field) {
             console.log("-------- upload fail --------");
             console.log(status);

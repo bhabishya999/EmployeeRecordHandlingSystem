@@ -30,10 +30,7 @@ const routes = [
     {
         name: "Employees",
         path: "/employees",
-        meta: {
-            requiresAuth: true,
-        },
-        component: Employees,
+
     },
     {
         name: 'LinkExpired',

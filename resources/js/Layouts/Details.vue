@@ -1,7 +1,7 @@
 <template>
     <div class="bg-[#EDF2F7] pb-2">
         <div
-            class="bg-white drop-shadow-[0_1px_2px_rgba(0,0,0,0.06)_0_10px_15px_rgba(0,0,0,0.1)] mx-40 mt-6 mb-2"
+            class="bg-white drop-shadow-[0_1px_2px_rgba(0,0,0,0.06)_0_10px_15px_rgba(0,0,0,0.1)] mx-40"
         >
             <slot />
         </div>
