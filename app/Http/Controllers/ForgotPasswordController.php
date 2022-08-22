@@ -2,10 +2,8 @@
 
 namespace App\Http\Controllers;
 use Illuminate\Http\Response;
-use App\Http\Requests\ForgotPasswordRequest;
+use App\Talent\ForgotPassword\Request\ForgotPasswordRequest;
 use Illuminate\Support\Str;
-use App\Models\PasswordReset;
-use App\Models\User;
 use App\Talent\User\UserManager;
 use App\Talent\ForgotPassword\ForgotPasswordManager;
 use App\Events\ForgotPassword;

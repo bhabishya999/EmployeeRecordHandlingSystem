@@ -1,17 +1,16 @@
 <script setup>
-import Button from "@/Components/Button.vue";
 import GuestLayout from "@/Layouts/Guest.vue";
 import ApplicationLogo from "@/Components/ApplicationLogo.vue";
 </script>
 
 <template>
     <GuestLayout>
-        <form @submit.prevent="submit">
+        <Form @submit="onSubmit" :validation-schema="schema">
             <div>
                 <ApplicationLogo />
                 <div>
                     <h1
-                        class="font-bold font-sans text-lg not-italic text-[#1A202C] mt-8 mb-8"
+                        class="font-bold font-sans text-lg not-italic text-gray-900 mt-8 mb-8"
                     >
                         Login to your account
                     </h1>
@@ -19,53 +18,21 @@ import ApplicationLogo from "@/Components/ApplicationLogo.vue";
             </div>
             <div class="space-y-1">
                 <CustomInput
-                    :error="error"
+                    type="text"
                     label="Email Address"
-                    v-model="email"
+                    name="email"
                     required
                     autocomplete="current-password"
                     placeholder="your email@introcept.co"
                 />
             </div>
-            <div v-if="msg.email" class="flex items-center w-full mt-[9px]">
-                <div>
-                    <svg
-                        width="17"
-                        height="17"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
-                    >
-                        <path
-                            d="M8.5 16a7.5 7.5 0 1 0 0-15 7.5 7.5 0 0 0 0 15Z"
-                            fill="#D93025"
-                            stroke="#fff"
-                            stroke-width="2"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                        />
-                        <path
-                            d="M8.5 5.5v3M8.5 11.5h.008"
-                            stroke="#fff"
-                            stroke-width="2"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                        />
-                    </svg>
-                </div>
-                <p
-                    class="text-[#D93025] font-normal text-sm leading-[150%] ml-[8px]"
-                >
-                    {{ msg.email }}
-                </p>
-            </div>
+
             <div class="mt-4 w-full">
                 <PasswordInput
-                    :error="error"
-                    id="password"
                     label="Password"
+                    name="password"
                     class="mt-1 w-full"
-                    v-model="password"
-                    required
+                    type="password"
                     autocomplete="current-password"
                     placeholder="your password"
                 />
@@ -97,26 +64,28 @@ import ApplicationLogo from "@/Components/ApplicationLogo.vue";
                     </svg>
                 </div>
                 <p
-                    class="text-[#D93025] font-normal text-sm leading-[150%] ml-[8px]"
+                    class="text-red-600 font-normal text-sm leading-normal ml-[8px]"
                 >
                     {{ msg.password }}
                 </p>
             </div>
+
             <Button
+                :disabled="isLoading"
+                :class="{ 'opacity-80 cursor-not-allowed': isLoading }"
                 type="submit"
                 class="w-full mt-[30px] mb-9"
-                :class="{ 'opacity-25': processing }"
-                :disabled="processing"
+                :isLoading="isLoading"
             >
-                login
+                Login
             </Button>
 
             <router-link
                 to="/forgot-password"
-                class="flex flex-col justify-center items-center text-[#4C51BF] font-bold text-base leading-[150.69%] font-sans"
+                class="flex flex-col justify-center items-center text-indigo-700 font-bold text-base leading-normal font-sans"
                 >Forgot password?</router-link
             >
-        </form>
+        </Form>
     </GuestLayout>
 </template>
 
@@ -124,19 +93,29 @@ import ApplicationLogo from "@/Components/ApplicationLogo.vue";
 import axios from "axios";
 import PasswordInput from "@/Components/PasswordInput.vue";
 import CustomInput from "@/Components/CustomInput.vue";
-
+import Button from "@/Components/Button.vue";
+import { Form } from "vee-validate";
+import * as Yup from "Yup";
 export default {
     components: {
         PasswordInput,
         CustomInput,
+        Button,
+        ApplicationLogo,
+        GuestLayout,
+        Form,
+        Yup,
     },
 
     data() {
+        const schema = Yup.object().shape({
+            email: Yup.string().email().required(),
+            password: Yup.string().required(),
+        });
         return {
-            email: "",
-            password: "",
-            error: false,
+            schema,
             msg: [],
+            isLoading: false,
         };
     },
 
@@ -151,11 +130,14 @@ export default {
         },
     },
     methods: {
-        submit() {
+        onSubmit(values) {
+            const { email } = values;
+            const { password } = values;
+            this.isLoading = true;
             axios
                 .post("login", {
-                    email: this.email,
-                    password: this.password,
+                    email: email,
+                    password: password,
                 })
                 .then((response) => {
                     const { token } = response.data;
@@ -167,8 +149,8 @@ export default {
                 .catch((error) => {
                     const { message } = error.response.data;
                     this.msg["password"] = message;
-                    this.error = true;
-                });
+                })
+                .finally(() => (this.isLoading = false));
         },
     },
 };
