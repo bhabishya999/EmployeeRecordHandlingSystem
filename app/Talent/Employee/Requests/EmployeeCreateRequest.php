@@ -28,21 +28,19 @@ class EmployeeCreateRequest extends FormRequest
             'last_name'=>'required|string',
             'email'=>'required|email|unique:employees,email',
             'contact_number'=>'required|string',
-            'date_of_birth'=>'required|date_format:m/d/Y',
-            'current_address'=>'required',
-            'pan_number'=>'required|string',
-            'bank_account_number'=>'required|string',
-            'avatar'=>'required|image|mimes:jpeg,png',
+            'date_of_birth'=>'required|date',
+            'current_address'=>'required|string',
+            'pan_number'=>'string|nullable',
+            'bank_account_number'=>'string|nullable',
+            'avatar' => 'nullable|image|mimes:jpg,jpeg,png',
             'documents'=>'required',
-            'documents.*'=>'max:5000|mimes:pdf,png,jpeg',
+            'documents.*'=>'max:5000|mimes:pdf,png,jpg,jpeg',
         ];
     }
     public function messages()
     {
       return [
-        'avatar.image'=> "Invalid image format",    
         'documents.max' => "Error uploading file:File too big.Max file size:5MB",
       ];
     }
-   
 }

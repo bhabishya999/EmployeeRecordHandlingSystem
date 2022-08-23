@@ -19,6 +19,7 @@ class Employee extends Model
         'pan_number',
         'bank_account_number',
         'avatar',
+        'status',
         'user_id',
     ];
     

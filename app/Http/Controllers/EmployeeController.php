@@ -6,10 +6,7 @@ use App\Talent\Employee\EmployeeManager;
 use Illuminate\Http\Response;
 use App\Talent\User\UserManager;
 use App\Talent\Documents\DocumentManager;
-use Carbon\Carbon;
 use Illuminate\Support\Facades\Hash;
-
-
 
 class EmployeeController extends Controller
 {
@@ -29,10 +26,19 @@ class EmployeeController extends Controller
              return $this->employeeStore($validated,$userCreate);
     }
     public function employeeStore($validated,$userCreate){
-        $validated['date_of_birth'] = Carbon::parse($validated['date_of_birth'])->format('Y-m-d');  
-        $validated['avatar']=$validated['avatar']->store('employeeimages','public');
+        if(empty($validated['avatar']))
+        {
+            $validated['avatar']=null;
+        }
+        else
+        {
+            $validated['avatar']=$validated['avatar']->store('employeeimages','public');
+        }
         $userId=$userCreate->id;
-        $userIdArray=["user_id"=>$userId];
+        $userIdArray=[
+             'user_id'=>$userId,
+             'status'=>'Active',
+            ];
         $employeeArray=array_merge($validated,$userIdArray);
         $employeeCreate=$this->employeeManager->store($employeeArray);
         $employeeId=$employeeCreate->id;

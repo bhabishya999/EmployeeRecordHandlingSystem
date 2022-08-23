@@ -16,15 +16,16 @@ return new class extends Migration
         Schema::create('employees', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained('users')->restrictOnDelete();
+            $table->string('status');
             $table->string('first_name');
             $table->string('last_name');
             $table->string('email')->unique();
             $table->string('contact_number');
             $table->date('date_of_birth');
             $table->string('current_address');
-            $table->string('pan_number');
-            $table->string('bank_account_number');
-            $table->string('avatar');
+            $table->string('pan_number')->nullable();
+            $table->string('bank_account_number')->nullable();
+            $table->string('avatar')->nullable();
             $table->timestamps();
         });
     }
