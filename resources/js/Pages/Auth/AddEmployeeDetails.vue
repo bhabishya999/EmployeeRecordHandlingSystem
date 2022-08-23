@@ -38,7 +38,6 @@ import Details from "@/Layouts/Details.vue";
                             'bg-indigo-700 rounded-lg font-sans text-white':
                                 personal_active,
                         }"
-                        @click="personal_detail"
                         class="font-bold leading-normal text-lg py-2.5 px-1.5 mr-7"
                     >
                         Personal Details
@@ -48,7 +47,6 @@ import Details from "@/Layouts/Details.vue";
                             'bg-indigo-700 rounded-lg font-sans text-white':
                                 educational_active,
                         }"
-                        @click="educationl_detail"
                         class="font-semibold leading-normal text-lg py-2.5 px-1.5 mr-7"
                     >
                         Educational Details
@@ -58,7 +56,6 @@ import Details from "@/Layouts/Details.vue";
                             'bg-indigo-700 rounded-lg font-sans text-white':
                                 keyemp_active,
                         }"
-                        @click="employment_detail"
                         class="font-bold leading-normal text-lg py-2.5 px-1.5"
                     >
                         Key Employment Details
@@ -207,17 +204,17 @@ import Details from "@/Layouts/Details.vue";
                 <div class="border-b-2 border-[#EDF2F7] w-full"></div>
                 <div>
                     <div class="flex flex-row-reverse items-center px-9 py-2.5">
-                        <button
+                        <Button
                             :isLoading="isLoading"
                             :disabled="isLoading"
                             :class="{
                                 'opacity-80 cursor-not-allowed': isLoading,
                             }"
                             type="submit"
-                            class="bg-primary p-[7px] rounded-md drop-shadow-[0_10px_15px_rgba(0,0,0,0.1)] flex items-center justify-center text-white font-bold text-base leading-normal font-sans"
+                            class="!my-0 bg-primary p-[7px] rounded-md drop-shadow-[0_10px_15px_rgba(0,0,0,0.1)] flex items-center justify-center text-white font-bold text-base leading-normal font-sans"
                         >
                             Save and Continue
-                        </button>
+                        </Button>
                         <button
                             type="button"
                             class="mr-2.5 py-[7px] px-2.5 bg-slate-100 rounded-md shadow text-base font-bold"
@@ -243,11 +240,11 @@ import NavBar from "@/Components/NavBar.vue";
 import UploadList from "@/Components/UploadList.vue";
 import { dataToFileMixin } from "@/mixins/data-to-file";
 import { Form } from "vee-validate";
-import myUpload from "vue-image-crop-upload";
+import Button from "@/Components/Button.vue";
 import { VueTelInput } from "vue3-tel-input";
 import "vue3-tel-input/dist/vue3-tel-input.css";
 import * as Yup from "yup";
-
+import myUpload from "vue-image-crop-upload";
 export default {
     name: "AddEmployeeDetails",
     Components: {
@@ -255,6 +252,7 @@ export default {
         CustomInput,
         DropZone,
         UploadList,
+        Button,
         "vue-tel-input": VueTelInput,
         Form,
         Yup,
@@ -361,22 +359,10 @@ export default {
                 })
                 .catch((errors) => {
                     console.log(errors);
-                    const { message } = errors.response.data;
-                    console.log(message);
+                    // const { message } = errors.response.data;
+                    // console.log(message);
                 })
                 .finally(() => (this.isLoading = false));
-        },
-        personal_detail() {
-            this.personal_active = true;
-            this.keyemp_active = this.educational_active = false;
-        },
-        educationl_detail() {
-            this.educational_active = true;
-            this.personal_active = this.keyemp_active = false;
-        },
-        employment_detail() {
-            this.keyemp_active = true;
-            this.educational_active = this.personal_active = false;
         },
 
         toggleShow() {
@@ -395,30 +381,12 @@ export default {
 
             // this.avatar = imgDataUrl;
         },
-        // cropUploadSuccess() {
-        //     console.log("-------- upload success --------");
-        //     console.log(imgDataUrl);
-        //     this.imgDataUrl = imgDataUrl;
-        //     console.log("field: " + field);
-        // },
+
         cropUploadFail(status, field) {
             console.log("-------- upload fail --------");
             console.log(status);
             this.avatar = null;
             console.log("field: " + field);
-        },
-        dataURLtoFile(dataurl, filename) {
-            var arr = dataurl.split(","),
-                mime = arr[0].match(/:(.*?);/)[1],
-                bstr = atob(arr[1]),
-                n = bstr.length,
-                u8arr = new Uint8Array(n);
-
-            while (n--) {
-                u8arr[n] = bstr.charCodeAt(n);
-            }
-
-            return new File([u8arr], filename, { type: mime });
         },
     },
 };

@@ -197,7 +197,7 @@ import TogglePopUp from "@/Components/TogglePopUp.vue";
 import GuestLayout from "@/Layouts/Guest.vue";
 import { Form } from "vee-validate";
 import { ref } from "vue";
-import * as Yup from "yup";
+import * as Yup from "Yup";
 export default {
     name: "ResetPasssword",
     components: {

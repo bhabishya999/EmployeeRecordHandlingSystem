@@ -120,7 +120,7 @@ import Button from "@/Components/Button.vue";
 import CustomInput from "@/Components/CustomInput.vue";
 import GuestLayout from "@/Layouts/Guest.vue";
 import { Form } from "vee-validate";
-import * as Yup from "yup";
+import * as Yup from "Yup";
 export default {
     name: "ForgotPassword",
     components: {

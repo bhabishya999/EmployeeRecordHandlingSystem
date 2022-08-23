@@ -161,7 +161,7 @@
 </template>
 <script>
 import { ErrorMessage, Field, FieldArray, Form } from "vee-validate";
-import * as Yup from "yup";
+import * as Yup from "Yup";
 export default {
     name: "EducationalDetail",
     components: {
