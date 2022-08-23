@@ -1,6 +1,6 @@
 <script setup>
-import GuestLayout from "@/Layouts/Guest.vue";
 import ApplicationLogo from "@/Components/ApplicationLogo.vue";
+import GuestLayout from "@/Layouts/Guest.vue";
 </script>
 
 <template>
@@ -89,12 +89,12 @@ import ApplicationLogo from "@/Components/ApplicationLogo.vue";
 </template>
 
 <script>
-import axios from "axios";
-import PasswordInput from "@/Components/PasswordInput.vue";
-import CustomInput from "@/Components/CustomInput.vue";
 import Button from "@/Components/Button.vue";
+import CustomInput from "@/Components/CustomInput.vue";
+import PasswordInput from "@/Components/PasswordInput.vue";
+import axios from "axios";
 import { Form } from "vee-validate";
-import * as Yup from "Yup";
+import * as Yup from "yup";
 export default {
     components: {
         PasswordInput,

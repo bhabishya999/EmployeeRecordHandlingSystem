@@ -152,9 +152,9 @@ import Details from "@/Layouts/Details.vue";
                     </div>
                     <div class="w-1/3 flex flex-col text-center items-center">
                         <img
-                            :src="imgDataUrl"
+                            v-if="avatar"
+                            :src="avatarUrl()"
                             class="w-36 h-36 mb-4 !rounded-full"
-                            v-if="imgDataUrl"
                         />
 
                         <div class="mb-4" v-else>
@@ -181,11 +181,13 @@ import Details from "@/Layouts/Details.vue";
                             </svg>
                         </div>
                         <div id="app">
-                            <a
-                                class="btn leading-normal text-[#4C51BF] text-base font-bold"
+                            <button
+                                class="btn leading-normal text-primary text-base font-bold"
                                 @click="toggleShow"
-                                >Upload Image</a
+                                type="button"
                             >
+                                Upload Image
+                            </button>
                             <my-upload
                                 field="img"
                                 type="file"
@@ -236,14 +238,16 @@ import Details from "@/Layouts/Details.vue";
 <script>
 import CustomInput from "@/Components/CustomInput.vue";
 import DropZone from "@/Components/DropZone.vue";
-import UploadList from "@/Components/UploadList.vue";
-import { VueTelInput } from "vue3-tel-input";
-import "vue3-tel-input/dist/vue3-tel-input.css";
-import myUpload from "vue-image-crop-upload";
-import { Form } from "vee-validate";
-import * as Yup from "Yup";
 import EducationalDetail from "@/Components/EducationalDetail.vue";
 import NavBar from "@/Components/NavBar.vue";
+import UploadList from "@/Components/UploadList.vue";
+import { dataToFileMixin } from "@/mixins/data-to-file";
+import { Form } from "vee-validate";
+import myUpload from "vue-image-crop-upload";
+import { VueTelInput } from "vue3-tel-input";
+import "vue3-tel-input/dist/vue3-tel-input.css";
+import * as Yup from "yup";
+
 export default {
     name: "AddEmployeeDetails",
     Components: {
@@ -258,6 +262,7 @@ export default {
         EducationalDetail,
         "my-upload": myUpload,
     },
+    mixins: [dataToFileMixin],
     data() {
         const schema = Yup.object().shape({
             firstName: Yup.string().required(),
@@ -283,14 +288,13 @@ export default {
             headers: {
                 smail: "*_~",
             },
-            imgDataUrl: "",
+            avatar: null,
 
             personal_active: true,
             educational_active: false,
             keyemp_active: false,
         };
     },
-
     props: {
         msg: String,
 
@@ -319,6 +323,11 @@ export default {
         },
     },
     methods: {
+        avatarUrl() {
+            if (this.avatar) {
+                return URL.createObjectURL(this.avatar);
+            }
+        },
         onSubmit(values) {
             const { firstName } = values;
             const { lastName } = values;
@@ -337,7 +346,7 @@ export default {
             formData.append("current_address", currentAddress);
             formData.append("bank_account_number", accountNumber);
             formData.append("contact_number", this.$refs.phoneNo.phone);
-            formData.append("avatar", this.imgDataUrl);
+            formData.append("avatar", this.avatar);
             formData.append("documents", this.files);
 
             this.isLoading = true;
@@ -377,13 +386,14 @@ export default {
         cropSuccess(imgDataUrl, field) {
             const image = this.dataURLtoFile(imgDataUrl, "avatar");
             this.imgDataUrl = image;
+            this.avatar = this.dataToFile(imgDataUrl, "avatar");
         },
         cropUploadSuccess(jsonData, field) {
             console.log("-------- upload success --------");
             console.log(jsonData);
             console.log("field: " + field);
 
-            // this.imgDataUrl = imgDataUrl;
+            // this.avatar = imgDataUrl;
         },
         // cropUploadSuccess() {
         //     console.log("-------- upload success --------");
@@ -394,7 +404,7 @@ export default {
         cropUploadFail(status, field) {
             console.log("-------- upload fail --------");
             console.log(status);
-            this.imgDataUrl = "";
+            this.avatar = null;
             console.log("field: " + field);
         },
         dataURLtoFile(dataurl, filename) {

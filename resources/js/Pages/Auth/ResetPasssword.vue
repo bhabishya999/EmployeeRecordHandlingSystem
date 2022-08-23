@@ -189,15 +189,15 @@
 </template>
 
 <script>
+import ApplicationLogo from "@/Components/ApplicationLogo.vue";
 import Button from "@/Components/Button.vue";
-import GuestLayout from "@/Layouts/Guest.vue";
 import Label from "@/Components/Label.vue";
 import PasswordInput from "@/Components/PasswordInput.vue";
 import TogglePopUp from "@/Components/TogglePopUp.vue";
-import ApplicationLogo from "@/Components/ApplicationLogo.vue";
+import GuestLayout from "@/Layouts/Guest.vue";
 import { Form } from "vee-validate";
-import * as Yup from "Yup";
 import { ref } from "vue";
+import * as Yup from "yup";
 export default {
     name: "ResetPasssword",
     components: {

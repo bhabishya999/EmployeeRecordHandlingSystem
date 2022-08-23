@@ -160,8 +160,8 @@
     </div>
 </template>
 <script>
-import { Field, Form, ErrorMessage, FieldArray } from "vee-validate";
-import * as Yup from "Yup";
+import { ErrorMessage, Field, FieldArray, Form } from "vee-validate";
+import * as Yup from "yup";
 export default {
     name: "EducationalDetail",
     components: {
