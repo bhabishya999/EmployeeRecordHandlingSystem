@@ -7,6 +7,7 @@ use App\Talent\Documents\Model\Document;
 use App\Talent\Manages\Models\Manages;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Employee extends Model
 {
@@ -24,13 +25,9 @@ class Employee extends Model
         'avatar',
         'user_id',
     ];
-    
-    public function documents()
+
+    public function documents(): HasMany
     {
         return $this->hasMany(Document::class);
-    }
-    public function manages()
-    {
-        return $this->hasMany(Manages::class);
     }
 }
