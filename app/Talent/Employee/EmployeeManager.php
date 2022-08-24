@@ -7,15 +7,10 @@ class EmployeeManager
     {
 
     }
-
+    
     public function store(array $employeeArray):Employee
     {
         $employee= $this->employee->create($employeeArray);
         return $employee;
-    }
-    public function employeeList():object
-    {
-        $employeeList=$this->employee->get();
-        return $employeeList;
     }
 }

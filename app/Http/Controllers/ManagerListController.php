@@ -1,19 +1,18 @@
 <?php
 
 namespace App\Http\Controllers;
-
-use App\Talent\Employee\EmployeeManager;
+use App\Talent\EmployeeManagers\ManagerDetail;
 use Illuminate\Http\Response;
 
 class ManagerListController extends Controller
 {
-    public function __construct(private EmployeeManager $employeeManager)
+    public function __construct(private ManagerDetail $managerDetail)
     {
 
     }
-    public function index(): Response
+    public function index($id):Response
     {
-        $managerList=$this->employeeManager->employeeList();
+        $managerList=$this->managerDetail->managerList($id);
         return response([
             "managerList"=>$managerList
         ], Response::HTTP_OK);
