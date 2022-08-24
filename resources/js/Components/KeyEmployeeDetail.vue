@@ -1,8 +1,6 @@
 <script setup>
-// import { ref } from "vue";
-import Details from "@/Layouts/Details.vue";
 import { ref } from "vue";
-// import { reactive, watch } from "vue";
+import Details from "@/Layouts/Details.vue";
 import {
   Listbox,
   ListboxLabel,
@@ -10,159 +8,96 @@ import {
   ListboxOptions,
   ListboxOption,
 } from "@headlessui/vue";
-import { object } from "yup/lib/locale";
-// let defaultSelect = ref({ label: "Please Select" });
-// const selectedOrganization = ref({ label: "Please Select" });
+const organization = ref(null);
+const workschedule = ref(null);
+const team = ref(null);
+const manager = ref(null);
 </script>
 <template>
   <Details>
-    <form @submit.prevent="submit">
-      <div class="p-9">
-        <div class="flex justify-between">
-          <h1 class="text-black font-bold leading-[150%] text-2xl font-sans">
-            EMPLOYEE DETAILS
-          </h1>
-          <button
-            type="button"
+    <div class="p-9">
+      <div class="flex justify-between">
+        <h1 class="text-black font-bold leading-[150%] text-2xl font-sans">
+          EMPLOYEE DETAILS
+        </h1>
+        <button
+          type="button"
+          class="
+            bg-[#4C51BF]
+            p-[7px]
+            rounded-md
+            drop-shadow-[0_10px_15px_rgba(0,0,0,0.1)]
+            flex
+            text-white
+            font-bold
+            text-base
+            leading-[150%]
+            font-sans
+          "
+        >
+          <svg
+            class="mr-[9px]"
+            width="8"
+            height="14"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M0 13.152V.848C0 .657.129.5.287.5h1.147c.158 0 .287.157.287.348v5.119L6.392.715c.493-.496 1.255-.081 1.255.714V12.57c0 .795-.762 1.21-1.255.714l-4.671-5.22v5.087c0 .191-.13.348-.287.348H.287c-.158 0-.287-.157-.287-.348Z"
+              fill="#fff"
+            />
+          </svg>
+          Back to List
+        </button>
+      </div>
+      <div class="mt-[30px] mb-5">
+        <ul class="flex">
+          <li class="font-bold leading-[150%] text-lg py-2.5 px-1.5">
+            Personal Details
+          </li>
+          <li class="font-bold leading-[150%] text-lg py-2.5 px-1.5 mr-7">
+            Educational Details
+          </li>
+          <li
             class="
-              bg-[#4C51BF]
-              p-[7px]
-              rounded-md
-              drop-shadow-[0_10px_15px_rgba(0,0,0,0.1)]
-              flex
-              text-white
-              font-bold
-              text-base
+              font-semibold
               leading-[150%]
+              text-lg
+              py-2.5
+              px-1.5
+              bg-primary
+              rounded-lg
               font-sans
+              text-white
+              mr-7
             "
           >
-            <svg
-              class="mr-[9px]"
-              width="8"
-              height="14"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M0 13.152V.848C0 .657.129.5.287.5h1.147c.158 0 .287.157.287.348v5.119L6.392.715c.493-.496 1.255-.081 1.255.714V12.57c0 .795-.762 1.21-1.255.714l-4.671-5.22v5.087c0 .191-.13.348-.287.348H.287c-.158 0-.287-.157-.287-.348Z"
-                fill="#fff"
-              />
-            </svg>
-            Back to List
-          </button>
-        </div>
-        <div class="mt-[30px] mb-5">
-          <ul class="flex">
-            <li class="font-bold leading-[150%] text-lg py-2.5 px-1.5">
-              Personal Details
-            </li>
-            <li class="font-bold leading-[150%] text-lg py-2.5 px-1.5 mr-7">
-              Educational Details
-            </li>
-            <li
-              class="
-                font-semibold
-                leading-[150%]
-                text-lg
-                py-2.5
-                px-1.5
-                bg-primary
-                rounded-lg
-                font-sans
-                text-white
-                mr-7
-              "
-            >
-              Key Employment Details
-            </li>
-          </ul>
-        </div>
+            Key Employment Details
+          </li>
+        </ul>
+      </div>
+      <Form @submit="onSubmit" :validation-schema="schema">
         <div class="flex">
           <div class="w-2/3 mr-10">
             <div>
               <div class="flex flex-row justify-between mb-2.5">
                 <div class="w-full mr-10">
-                  <Listbox v-model="selectedOrganization">
-                    <ListboxLabel class="text-sm">Organization*</ListboxLabel>
-                    <div class="">
-                      <ListboxButton
-                        class="
-                          bg-white
-                          pb-3.5
-                          mt-2
-                          pt-4
-                          pl-4
-                          w-full
-                          rounded-md
-                          text-sm
-                          leading-[150.69%]
-                          text-[#718096]
-                          font-normal font-sans
-                          border-solid border-2
-                          outline-primary outline-2
-                          border-[#E2E8F0]
-                          active:border-primary
-                          focus:border-primary
-                        "
-                      >
-                        <span
-                          class="flex justify-between pr-3"
-                          :class="[
-                            selectedOrganization.label == 'Please Select'
-                              ? ''
-                              : 'text-[#1A202C]',
-                          ]"
-                          >{{ selectedOrganization.label }}
-                          <svg
-                            class="w-5 h-5"
-                            viewBox="0 0 20 20"
-                            fill="currentColor"
-                          >
-                            <path
-                              fillRule="evenodd"
-                              d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                              clipRule="evenodd"
-                            />
-                          </svg>
-                        </span>
-                      </ListboxButton>
-                      <ListboxOptions
-                        class="shadow-lg bg-white z-50 w-[462px] absolute"
-                      >
-                        <ListboxOption
-                          v-slot="{ active }"
-                          v-for="option in organizations"
-                          :key="option.label"
-                          :value="option"
-                          as="template"
-                        >
-                          <li
-                            :class="[
-                              active ? 'bg-[#EBF4FF]' : 'text-gray-900',
-                              'cursor-default select-none py-2',
-                            ]"
-                          >
-                            <span
-                              :class="['block truncate font-bold text-center']"
-                              @click="update"
-                              >{{ option.label }}</span
-                            >
-                          </li>
-                        </ListboxOption>
-                      </ListboxOptions>
-                    </div>
-                  </Listbox>
+                  <SingleSelect
+                    :options="organizations"
+                    name="organization"
+                    v-model="organization"
+                    key-prop="label"
+                    label-prop="label"
+                    label="Organization*"
+                  />
                 </div>
                 <div class="w-full">
                   <CustomInput
                     type="date"
-                    :error="error"
+                    name="joinDate"
                     label="Join Date*"
-                    v-model="joinDate"
-                    required
                     placeholder="DD-MM-YYYY"
-                  ></CustomInput>
+                  />
                 </div>
               </div>
             </div>
@@ -170,242 +105,47 @@ import { object } from "yup/lib/locale";
               <div class="w-full mr-10">
                 <CustomInput
                   type="text"
-                  :error="error"
                   label="Curent Position*"
-                  v-model="position"
-                  required
+                  name="position"
                   placeholder="Enter Current Position"
-                ></CustomInput>
+                />
               </div>
               <div class="w-full">
-                <Listbox v-model="selectedworkschedule">
-                  <ListboxLabel class="text-sm">Work Schedule*</ListboxLabel>
-                  <div class="">
-                    <ListboxButton
-                      class="
-                        bg-white
-                        pb-3.5
-                        mt-2
-                        pt-4
-                        pl-4
-                        w-full
-                        rounded-md
-                        text-sm
-                        leading-[150.69%]
-                        text-[#718096]
-                        font-normal font-sans
-                        border-solid border-2
-                        outline-primary outline-2
-                        border-[#E2E8F0]
-                        active:border-primary
-                        focus:border-primary
-                      "
-                    >
-                      <span
-                        class="flex justify-between pr-3"
-                        :class="[
-                          selectedworkschedule.label == 'Please Select'
-                            ? ''
-                            : 'text-[#1A202C]',
-                        ]"
-                        >{{ selectedworkschedule.label }}
-                        <svg
-                          class="w-5 h-5"
-                          viewBox="0 0 20 20"
-                          fill="currentColor"
-                        >
-                          <path
-                            fillRule="evenodd"
-                            d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                            clipRule="evenodd"
-                          />
-                        </svg>
-                      </span>
-                    </ListboxButton>
-                    <ListboxOptions
-                      class="shadow-lg bg-white z-50 w-[462px] absolute"
-                    >
-                      <ListboxOption
-                        v-slot="{ active }"
-                        v-for="option in workschedules"
-                        :key="option.label"
-                        :value="option"
-                        as="template"
-                      >
-                        <li
-                          :class="[
-                            active ? 'bg-[#EBF4FF]' : 'text-gray-900',
-                            ' cursor-default select-none py-2 ',
-                          ]"
-                        >
-                          <span
-                            :class="['block truncate font-bold text-center']"
-                            @click="update"
-                            >{{ option.label }}</span
-                          >
-                        </li>
-                      </ListboxOption>
-                    </ListboxOptions>
-                  </div>
-                </Listbox>
+                <SingleSelect
+                  :options="workschedules"
+                  name="workschedule"
+                  v-model="workschedule"
+                  key-prop="label"
+                  label-prop="label"
+                  label="Work Schedule*"
+                />
               </div>
             </div>
             <div class="mb-2.5">
-              <Listbox v-model="selectedteam">
-                <ListboxLabel class="text-sm">Team*</ListboxLabel>
-                <div class="">
-                  <ListboxButton
-                    class="
-                      bg-white
-                      pb-3.5
-                      mt-2
-                      pt-4
-                      pl-4
-                      w-full
-                      rounded-md
-                      text-sm
-                      leading-[150.69%]
-                      text-[#718096]
-                      font-normal font-sans
-                      border-solid border-2
-                      outline-primary outline-2
-                      border-[#E2E8F0]
-                      active:border-primary
-                      focus:border-primary
-                    "
-                  >
-                    <span
-                      class="flex justify-between pr-3"
-                      :class="[
-                        selectedteam.label == 'Please Select'
-                          ? ''
-                          : 'text-[#1A202C]',
-                      ]"
-                      >{{ selectedteam.label }}
-                      <svg
-                        class="w-5 h-5"
-                        viewBox="0 0 20 20"
-                        fill="currentColor"
-                      >
-                        <path
-                          fillRule="evenodd"
-                          d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                          clipRule="evenodd"
-                        />
-                      </svg>
-                    </span>
-                  </ListboxButton>
-                  <ListboxOptions
-                    class="shadow-lg bg-white z-50 w-[970px] absolute"
-                  >
-                    <ListboxOption
-                      v-slot="{ active }"
-                      v-for="option in teams"
-                      :key="option.label"
-                      :value="option"
-                      as="template"
-                    >
-                      <li
-                        :class="[
-                          active ? 'bg-[#EBF4FF]' : 'text-gray-900',
-                          'pl-10 cursor-default select-none py-2 pr-4',
-                        ]"
-                      >
-                        <span
-                          :class="['block truncate font-bold']"
-                          @click="update"
-                          >{{ option.label }}</span
-                        >
-                      </li>
-                    </ListboxOption>
-                  </ListboxOptions>
-                </div>
-              </Listbox>
+              <SingleSelect
+                :options="teams"
+                name="team"
+                v-model="team"
+                key-prop="label"
+                label-prop="label"
+                label="Team*"
+              />
             </div>
             <div class="mb-2.5">
-              <Listbox v-model="selectedmanagers">
-                <ListboxLabel class="text-sm">Manager*</ListboxLabel>
-                <div class="">
-                  <ListboxButton
-                    class="
-                      bg-white
-                      pb-3.5
-                      mt-2
-                      pt-4
-                      pl-4
-                      w-full
-                      rounded-md
-                      text-sm
-                      leading-[150.69%]
-                      text-[#718096]
-                      font-normal font-sans
-                      border-solid border-2
-                      outline-primary outline-2
-                      border-[#E2E8F0]
-                      active:border-primary
-                      focus:border-primary
-                    "
-                  >
-                    <span
-                      class="flex justify-between pr-3"
-                      :class="[
-                        selectedmanagers.label == 'Please Select'
-                          ? ''
-                          : 'text-[#1A202C]',
-                      ]"
-                      >{{ selectedmanagers.label }}
-                      <svg
-                        class="w-5 h-5"
-                        viewBox="0 0 20 20"
-                        fill="currentColor"
-                      >
-                        <path
-                          fillRule="evenodd"
-                          d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                          clipRule="evenodd"
-                        />
-                      </svg>
-                    </span>
-                  </ListboxButton>
-                  <ListboxOptions
-                    class="shadow-lg bg-white w-[970px] z-50 absolute"
-                  >
-                    <ListboxOption
-                      v-slot="{ active }"
-                      v-for="option in managers"
-                      :key="option.label"
-                      :value="option"
-                      as="template"
-                    >
-                      <li
-                        :class="[
-                          active ? 'bg-[#EBF4FF]' : 'text-gray-900',
-                          'pl-5 cursor-default select-none py-2 pr-4',
-                        ]"
-                      >
-                        <span class="flex items-center" @click="update">
-                          <img
-                            :src="option.images"
-                            class="rounded-full w-10 h-10 mr-3"
-                          />
-                          <div>
-                            <p>{{ option.label }}</p>
-                            <p class="text-sm text-primary">
-                              {{ option.email }}
-                            </p>
-                          </div>
-                        </span>
-                      </li>
-                    </ListboxOption>
-                  </ListboxOptions>
-                </div>
-              </Listbox>
+              <ManagerSingleselect
+                :options="managers"
+                name="manager"
+                v-model="manager"
+                key-prop="label"
+                label-prop="label"
+                label="Manager*"
+              />
             </div>
             <div class="mb-2.5">
-              <Label class="text-sm">Manage</Label>
+              <Label class="text-sm text-slate-500">Manage</Label>
               <Multiselect
-                class="bg-white pb-2 mt-2 pt-2 pl-2"
-                v-model="value"
+                class="bg-white pb-2 mt-2 pt-2"
+                v-model="managesSelected"
                 mode="tags"
                 placeholder="Enter Manages"
                 label="name"
@@ -413,14 +153,16 @@ import { object } from "yup/lib/locale";
                 :searchable="true"
                 :options="manages"
                 :classes="{
-                  tag: 'bg-[#F5F5F5] text-primary text-sm font-semibold py-0.5 pl-2 rounded mr-1 mb-1 flex items-center whitespace-nowrap rtl:pl-0 rtl:pr-2 rtl:mr-0 rtl:ml-1',
+                  tag: 'bg-[#F5F5F5] font-bold text-primary text-sm font-semibold py-0.5 pl-2 rounded mr-1 mb-1 flex items-center whitespace-nowrap rtl:pl-0 rtl:pr-2 rtl:mr-0 rtl:ml-1',
                   containerActive: 'ring ring-primary',
                   tagsSearch:
                     'absolute inset-0 border-none outline-none focus:ring-0 appearance-none p-0 text-base font-sans box-border w-full',
+                  placeholder:
+                    'text-sm flex items-center h-full absolute left-0 top-0 pointer-events-none bg-transparent leading-snug pl-3.5 text-gray-400 rtl:left-auto rtl:right-0 rtl:pl-0 rtl:pr-3.5',
                 }"
               >
                 <template v-slot:option="{ option }">
-                  <span class="flex items-center" @click="update">
+                  <span class="flex items-center">
                     <img
                       :src="option.image"
                       class="rounded-full w-10 h-10 mr-3"
@@ -438,83 +180,97 @@ import { object } from "yup/lib/locale";
             <div class="mb-2.5">
               <CustomInput
                 type="text"
-                :error="error"
                 label="Superpowers"
-                v-model="superpowers"
-                required
+                name="superpowers"
                 placeholder="Enter Superpowers"
               />
             </div>
           </div>
         </div>
-      </div>
-      <div class="border-b-2 border-[#EDF2F7] w-full"></div>
-      <div>
-        <div class="flex flex-row-reverse items-center px-9 py-2.5">
-          <button
-            type="submit"
-            class="
-              bg-primary
-              p-[7px]
-              rounded-md
-              drop-shadow-[0_10px_15px_rgba(0,0,0,0.1)]
-              flex
-              items-center
-              justify-center
-              text-white
-              font-bold
-              text-base
-              leading-[150%]
-              font-sans
-            "
-          >
-            Save and Continue
-          </button>
-          <button
-            type="button"
-            class="
-              mr-2.5
-              py-[7px]
-              px-2.5
-              bg-[#F4F7FA]
-              rounded-md
-              shadow
-              text-base
-              font-bold
-            "
-          >
-            Cancel
-          </button>
+
+        <div>
+          <div class="flex flex-row-reverse items-center px-9 py-2.5">
+            <button
+              type="submit"
+              class="
+                bg-primary
+                p-[7px]
+                rounded-md
+                drop-shadow-[0_10px_15px_rgba(0,0,0,0.1)]
+                flex
+                items-center
+                justify-center
+                text-white
+                font-bold
+                text-base
+                leading-[150%]
+                font-sans
+              "
+            >
+              Save and Continue
+            </button>
+            <button
+              type="button"
+              class="
+                mr-2.5
+                py-[7px]
+                px-2.5
+                bg-[#F4F7FA]
+                rounded-md
+                shadow
+                text-base
+                font-bold
+              "
+            >
+              Cancel
+            </button>
+          </div>
         </div>
-      </div>
-    </form>
+      </Form>
+    </div>
   </Details>
 </template>
 <script>
 import CustomInput from "@/Components/CustomInput.vue";
-import DropZone from "@/Components/DropZone.vue";
-import UploadList from "@/Components/UploadList.vue";
-import { VueTelInput } from "vue3-tel-input";
-import "vue3-tel-input/dist/vue3-tel-input.css";
-// import SelectInput from "@/Components/SingleSelect.vue";
+import Button from "@/Components/Button.vue";
+import SingleSelect from "@/Components/SingleSelect.vue";
+import ManagerSingleselect from "@/Components/ManagerSingleinput.vue";
+import { Form } from "vee-validate";
+import * as Yup from "yup";
 import Multiselect from "@vueform/multiselect";
 import { ref } from "vue";
 export default {
   name: "KeyEmployeeDetails",
+  Components: {
+    CustomInput,
+    Multiselect,
+    SingleSelect,
+    ManagerSingleselect,
+    Button,
+    Form,
+    Yup,
+  },
   data() {
+    const schema = Yup.object().shape({
+      joinDate: Yup.string().required(),
+      position: Yup.string().required(),
+      organization: Yup.object().required(),
+      workschedule: Yup.object().required(),
+      team: Yup.object().required(),
+      manager: Yup.object().required(),
+    });
     return {
-      selectedOrganization: ref({ label: "Please Select" }),
+      schema,
+      errorMessage: false,
       organizations: [
         { label: "Introcep Nepal" },
         { label: "Introcept Australia" },
       ],
-      value: null,
-      selectedworkschedule: ref({ label: "Please Select" }),
+      managesSelected: null,
       workschedules: [
         { label: "Monday-Friday(Full time)" },
         { label: "Monday-Friday(Part time) " },
       ],
-      selectedteam: ref({ label: "Please Select" }),
       teams: [
         { label: "Development" },
         { label: "Product" },
@@ -525,31 +281,46 @@ export default {
       selectedmanages: ref({ label: "Please Select" }),
       manages: [
         {
-          value: "judy",
+          value: {
+            name: "Judy",
+            image: "https://randomuser.me/api/portraits/med/women/1.jpg",
+            email: "Judy@gmail.com",
+          },
           name: "Judy",
           image: "https://randomuser.me/api/portraits/med/women/1.jpg",
           email: "Judy@gmail.com",
         },
         {
-          value: "jane",
+          value: {
+            name: "Jane",
+            image: "https://randomuser.me/api/portraits/med/women/2.jpg",
+            email: "Judy@gmail.com",
+          },
           name: "Jane",
           image: "https://randomuser.me/api/portraits/med/women/2.jpg",
           email: "Judy@gmail.com",
         },
         {
-          value: "john",
+          value: {
+            name: "John",
+            image: "https://randomuser.me/api/portraits/med/men/1.jpg",
+            email: "Judy@gmail.com",
+          },
           name: "John",
           image: "https://randomuser.me/api/portraits/med/men/1.jpg",
           email: "Judy@gmail.com",
         },
         {
-          value: "joe",
+          value: {
+            name: "Joe",
+            image: "https://randomuser.me/api/portraits/med/men/2.jpg",
+            email: "Judy@gmail.com",
+          },
           name: "Joe",
           image: "https://randomuser.me/api/portraits/med/men/2.jpg",
           email: "Judy@gmail.com",
         },
       ],
-      selectedmanagers: ref({ label: "Please Select" }),
       managers: [
         {
           images: "https://randomuser.me/api/portraits/med/women/1.jpg",
@@ -575,15 +346,12 @@ export default {
     };
   },
 
-  Components: {
-    CustomInput,
-    DropZone,
-    UploadList,
-    VueTelInput,
-    Multiselect,
+  methods: {
+    onSubmit(values) {
+      console.log(this.managesSelected);
+      console.log(values);
+    },
   },
-
-  methods: {},
 };
 </script>
 <style>
