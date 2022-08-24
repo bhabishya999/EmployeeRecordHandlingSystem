@@ -12,7 +12,7 @@ class ManagerDetail
 
     public function managerList($id):Collection
     {
-        $managerList=$this->employee->where('id','!=',$id)->get(['id','first_name','last_name','avatar']);
+        $managerList=$this->employee->where('id','!=',$id)->get(['id','first_name','last_name','email','avatar']);
         return $managerList;
     }
 }
