@@ -4,6 +4,7 @@ namespace App\Talent\Employee\Model;
 
 use App\Models\EmployeeManager;
 use App\Talent\Documents\Model\Document;
+use App\Talent\EducationalDetails\Models\EducationalDetails;
 use App\Talent\Manages\Models\Manages;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -29,5 +30,10 @@ class Employee extends Model
     public function documents(): HasMany
     {
         return $this->hasMany(Document::class);
+    }
+
+    public function education():HasMany
+    {
+        return $this ->hasMany(EducationalDetails::class);
     }
 }

@@ -9,9 +9,9 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class KeyEmploymentDetails extends Model
 {
     use HasFactory;
-    // protected $casts = [
-    //     'manages' => 'array'
-    // ];
+     protected $casts = [
+       'superpowers' => 'array'
+    ];
 
     protected $fillable = [
         'employee_id',

@@ -18,7 +18,7 @@ class StoreKeyEmploymentDetailsRequests extends FormRequest
             'manager' => 'required|exists:employees,id',
             'manages' => 'required',
             'manages.*' => 'required|exists:employees,id','distinct',
-            'superpowers' => 'required|string'
+            'superpowers' => 'required|array'
         ];
     }
 }

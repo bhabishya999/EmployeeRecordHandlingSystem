@@ -4,7 +4,8 @@ use App\Talent\Manages\Models\Manages;
 use Illuminate\Http\Response;
 use Throwable;
 
-class ManagesManager{
+class ManagesManager
+{
     public function __construct(private Manages $manages)
     {
         
@@ -12,14 +13,15 @@ class ManagesManager{
 
     public function createManagers(array $managerId)
     {
-        try{
-            
+        try
+        {    
         $managers = $this->manages->updateOrCreate($managerId);
         return $managers;
 
-        }catch(Throwable $error){
+        }catch(Throwable)
+        {
 
-            return responseHelper('Something Went Wrong, Please Try Again Later '.$error, Response::HTTP_NOT_FOUND, 'Failed!' );
+            return responseHelper('Something Went Wrong, Please Try Again Later', Response::HTTP_NOT_FOUND, 'Failed!' );
         }
 
     }
