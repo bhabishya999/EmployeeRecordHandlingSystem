@@ -4,8 +4,7 @@ namespace App\Talent\KeyEmploymentDetails;
 
 use App\Talent\KeyEmploymentDetails\Models\KeyEmploymentDetails;
 use App\Talent\KeyEmploymentDetails\Models\Manages;
-use Illuminate\Support\Facades\DB;
-
+use Throwable;
 
 class KeyEmploymentDetailsManager{
 
@@ -14,28 +13,16 @@ class KeyEmploymentDetailsManager{
 
     }
 
-    public function create(array $employmentDetails)
+    public function create(array $employmentDetails):object
     {
+        try{
+           $employeeDetails = $this->keyEmploymentDetails->create($employmentDetails);
+           return $employeeDetails;
 
-        DB::transaction(function () use ($employmentDetails) {
-
-            $employeeDetails = $this->keyEmploymentDetails->create($employmentDetails);
-            if(count($employmentDetails)>0){
-                return 'success';
-            }else{
-                return "no";
-            }
-
-            foreach ($employmentDetails['manages'] as $manageId) {
-                dd($manageId);
-                Manages::query()->updateOrCreate([
-                    'employee_id' => $manageId,
-                    'key_employee_details_id' => $employeeDetails->getKey()
-                ]);
-
-            }
-
-        });
-
+        }catch(Throwable $error){
+            return($error);
+            // return responseHelper('Something Went Wrong, Please Try Again Later', Response::HTTP_NOT_FOUND, 'Failed!');
+        }
     }
+
 }

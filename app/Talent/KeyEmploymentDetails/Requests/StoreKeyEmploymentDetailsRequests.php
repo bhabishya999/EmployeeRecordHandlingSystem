@@ -13,10 +13,11 @@ class StoreKeyEmploymentDetailsRequests extends FormRequest
             'organization' => 'required',
             'join_date' => 'required|date',
             'current_position' => 'required|string',
+            'work_schedule' => 'required|string',
             'team' => 'required|string',
             'manager' => 'required|exists:employees,id',
-            'manages' => ['required', 'array', 'distinct'],
-            'manages.*' => 'required|exists:employees,id',
+            'manages' => 'required',
+            'manages.*' => 'required|exists:employees,id','distinct',
             'superpowers' => 'required|string'
         ];
     }
