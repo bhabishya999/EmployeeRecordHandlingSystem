@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Talent\EmployeeManagers\ManagerDetail;
+use App\Talent\ManagersList\ManagerDetail;
 use Illuminate\Http\Response;
 
 class ManagerListController extends Controller

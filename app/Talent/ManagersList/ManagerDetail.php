@@ -1,5 +1,5 @@
 <?php
-namespace App\Talent\EmployeeManagers;
+namespace App\Talent\ManagersList;
 use App\Talent\Employee\Model\Employee;
 use Illuminate\Database\Eloquent\Collection;
 
