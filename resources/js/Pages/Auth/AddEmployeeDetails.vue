@@ -104,10 +104,11 @@ import Details from "@/Layouts/Details.vue";
                                     Contact Number*
                                 </p>
                                 <vue-tel-input
-                                    v-model="value"
+                                    v-model="phone"
                                     ref="phoneNo"
                                     mode="international"
                                 ></vue-tel-input>
+                                <span v-if="msg.phone">{{ msg.phone }}</span>
                             </div>
                             <div class="w-full">
                                 <custom-input
@@ -144,7 +145,10 @@ import Details from "@/Layouts/Details.vue";
                                 />
                             </div>
                         </div>
-                        <DropZone v-model="files"></DropZone>
+                        <DropZone
+                            v-model="files"
+                            @change="fieldChange"
+                        ></DropZone>
                         <UploadList :items="files"></UploadList>
                     </div>
                     <div class="w-1/3 flex flex-col text-center items-center">
@@ -177,6 +181,7 @@ import Details from "@/Layouts/Details.vue";
                                 />
                             </svg>
                         </div>
+
                         <div id="app">
                             <button
                                 class="btn leading-normal text-primary text-base font-bold"
@@ -201,7 +206,7 @@ import Details from "@/Layouts/Details.vue";
                     </div>
                 </div>
 
-                <div class="border-b-2 border-[#EDF2F7] w-full"></div>
+                <div class="border-b-2 border-slate-100 w-full"></div>
                 <div>
                     <div class="flex flex-row-reverse items-center px-9 py-2.5">
                         <Button
@@ -227,7 +232,10 @@ import Details from "@/Layouts/Details.vue";
             <EducationalDetail
                 v-if="educational_active"
                 class="Educational_Detail"
+                @statusChanged="onStatusChange"
             ></EducationalDetail>
+
+            <div v-show="keyemp_active">Sunita Gurau KEy Employment detail</div>
         </div>
     </Details>
 </template>
@@ -272,7 +280,7 @@ export default {
             accountNumber: Yup.string().max(15),
         });
         return {
-            value: "",
+            phone: "",
             isLoading: false,
             schema,
             files: [],
@@ -287,11 +295,17 @@ export default {
                 smail: "*_~",
             },
             avatar: null,
-
+            keyemp_active: false,
             personal_active: true,
             educational_active: false,
-            keyemp_active: false,
+            msg: [],
         };
+    },
+    watch: {
+        phone(value) {
+            this.phone = value;
+            this.validatePhone(value);
+        },
     },
     props: {
         msg: String,
@@ -321,6 +335,27 @@ export default {
         },
     },
     methods: {
+        validatePhone(value) {
+            if (value == "") {
+                this.msg["phone"] = "Phone is a Required Field";
+            } else {
+                this.msg["phone"] = "";
+            }
+        },
+        onStatusChange(event) {
+            this.keyemp_active = event;
+            this.educational_active = this.personal_active = false;
+        },
+        fieldChange(e) {
+            let selectedFiles = e.target.files;
+            if (!selectedFiles.length) {
+                return false;
+            }
+            for (let i = 0; i < selectedFiles.length; i++) {
+                this.files.push(selectedFiles[i]);
+            }
+            console.log(this.files);
+        },
         avatarUrl() {
             if (this.avatar) {
                 return URL.createObjectURL(this.avatar);
@@ -336,6 +371,9 @@ export default {
             const { accountNumber } = values;
 
             let formData = new FormData();
+            for (let i = 0; i < this.files.length; i++) {
+                formData.append("documents[]", this.files[i]);
+            }
             formData.append("first_name", firstName);
             formData.append("last_name", lastName);
             formData.append("email", email);
@@ -345,7 +383,6 @@ export default {
             formData.append("bank_account_number", accountNumber);
             formData.append("contact_number", this.$refs.phoneNo.phone);
             formData.append("avatar", this.avatar);
-            formData.append("documents", this.files);
 
             this.isLoading = true;
             axios
@@ -353,14 +390,14 @@ export default {
                 .then((response) => {
                     console.log(response);
                     const { employeeId } = response.data;
+                    console.log(employeeId);
                     localStorage.setItem("employeeId", employeeId);
                     this.educational_active = true;
-                    this.keyemp_active = this.personal_active = false;
+                    this.personal_active = false;
                 })
-                .catch((errors) => {
-                    console.log(errors);
-                    // const { message } = errors.response.data;
-                    // console.log(message);
+                .catch((error) => {
+                    const { message } = error.response.data;
+                    this.msg["password"] = message;
                 })
                 .finally(() => (this.isLoading = false));
         },

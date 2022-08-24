@@ -51,13 +51,13 @@
                                     >
                                     <Field
                                         :id="`education_${index}`"
-                                        :name="`users[${index}].education`"
+                                        :name="`users[${index}].education_level`"
                                         type="text"
                                         placeholder="Higher Secondary Level"
                                         class="bg-white pb-3.5 pt-4 pl-4 w-full rounded-md text-sm leading-normal text-slate-500 font-normal font-sans border-solid border-2 outline-indigo-700 outline-2 border-slate-200 active:border-indigo-700"
                                     />
                                     <ErrorMessage
-                                        :name="`users[${index}].education`"
+                                        :name="`users[${index}].education_level`"
                                         class="text-red-600"
                                     />
                                 </div>
@@ -72,12 +72,12 @@
                                     <Field
                                         type="number"
                                         :id="`year_${index}`"
-                                        :name="`users[${index}].year`"
+                                        :name="`users[${index}].passed_year`"
                                         placeholder="2017"
                                         class="bg-white pb-3.5 pt-4 pl-4 w-full rounded-md text-sm leading-normal text-slate-500 font-normal font-sans border-solid border-2 outline-indigo-700 outline-2 border-slate-200 active:border-indigo-700"
                                     />
                                     <ErrorMessage
-                                        :name="`users[${index}].year`"
+                                        :name="`users[${index}].passed_year`"
                                         class="text-red-600"
                                     />
                                 </div>
@@ -107,8 +107,8 @@
                     <button
                         @click="
                             push({
-                                education: '',
-                                year: '',
+                                education_level: '',
+                                passed_year: '',
                                 institution: '',
                             })
                         "
@@ -137,17 +137,17 @@
             <div class="border-b-2 border-slate-100 w-full"></div>
             <div>
                 <div class="flex flex-row-reverse items-center px-9 py-2.5">
-                    <button
+                    <Button
                         :isLoading="isLoading"
                         :disabled="isLoading"
                         :class="{
                             'opacity-80 cursor-not-allowed': isLoading,
                         }"
                         type="submit"
-                        class="bg-primary p-[7px] rounded-md drop-shadow-[0_10px_15px_rgba(0,0,0,0.1)] flex items-center justify-center text-white font-bold text-base leading-normal font-sans"
+                        class="!my-0 bg-primary p-[7px] rounded-md drop-shadow-[0_10px_15px_rgba(0,0,0,0.1)] flex items-center justify-center text-white font-bold text-base leading-normal font-sans"
                     >
                         Save and Continue
-                    </button>
+                    </Button>
                     <button
                         type="button"
                         class="mr-2.5 py-[7px] px-2.5 bg-slate-100 rounded-md shadow text-base font-bold"
@@ -162,6 +162,7 @@
 <script>
 import { ErrorMessage, Field, FieldArray, Form } from "vee-validate";
 import * as Yup from "Yup";
+import Button from "@/Components/Button.vue";
 export default {
     name: "EducationalDetail",
     components: {
@@ -170,14 +171,16 @@ export default {
         ErrorMessage,
         FieldArray,
         Yup,
+        Button,
     },
     data() {
         const initialData = {
             users: [
                 {
-                    education: "",
-                    year: "",
+                    education_level: "",
+                    passed_year: "",
                     institution: "",
+                    employee_id: "",
                 },
             ],
         };
@@ -185,8 +188,13 @@ export default {
             users: Yup.array()
                 .of(
                     Yup.object().shape({
-                        education: Yup.string().required().label("Education"),
-                        year: Yup.string().max(4).required().label("Year"),
+                        education_level: Yup.string()
+                            .required()
+                            .label("Education"),
+                        passed_year: Yup.string()
+                            .max(4)
+                            .required()
+                            .label("Year"),
                         institution: Yup.string()
                             .required()
                             .label("Institution"),
@@ -198,33 +206,35 @@ export default {
             initialData,
             schema,
             isLoading: false,
+            keyemp_active: false,
         };
     },
     methods: {
-        onSubmit() {
-            var employee_id = localStorage.getItem(employee_id);
-            let formData = new FormData();
-            var array = ["users"];
-            for (var i = 0; i < users.length; i++) {
-                formData.append("educational_details[]", users[i]);
-                formData.append(" employee_id", employee_id);
-            }
-            // const { education } = values;
-            // const { year } = values;s
-            // const { institution } = values;
+        onSubmit(values) {
+            console.log(values);
+            const employee_id = localStorage.getItem("employeeId");
+            // values.users.forEach((c) => {
+            //     c.employee_id = employee_id;
+            // });
 
-            // let formData = new FormData();
-            // formData.append("education_level", education);
-            // formData.append("passed_year", year);
-            // formData.append("institution", institution);
+            values.users = values.users.map((c) => {
+                c.employee_id = employee_id;
+                return c;
+            });
+            console.log(values.users);
+            const educational_details = values.users;
 
             this.isLoading = true;
             axios
-                .post("educations", formData)
+                .post("employees/educations", {
+                    educational_details: educational_details,
+                    employee_id: employee_id,
+                })
                 .then((response) => {
                     console.log(response);
                     this.keyemp_active = true;
-                    this.educational_active = this.personal_active = false;
+
+                    this.$emit("statusChanged", this.keyemp_active);
                 })
                 .catch((errors) => {
                     console.log(errors);
