@@ -11,18 +11,9 @@ class ManagesManager
         
     }
 
-    public function createManagers(array $managerId)
-    {
-        try
-        {    
+    public function createManager(array $managerId)
+    {  
         $managers = $this->manages->updateOrCreate($managerId);
         return $managers;
-
-        }catch(Throwable)
-        {
-
-            return responseHelper('Something Went Wrong, Please Try Again Later', Response::HTTP_NOT_FOUND, 'Failed!' );
-        }
-
     }
 }

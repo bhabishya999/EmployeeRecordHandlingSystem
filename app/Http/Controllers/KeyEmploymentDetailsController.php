@@ -5,6 +5,7 @@ use App\Talent\KeyEmploymentDetails\KeyEmploymentDetailsManager;
 use App\Talent\KeyEmploymentDetails\Models\KeyEmploymentDetails;
 use App\Talent\KeyEmploymentDetails\Requests\StoreKeyEmploymentDetailsRequests;
 use App\Talent\Manages\ManagesManager;
+use Illuminate\Http\Response;
 
 class KeyEmploymentDetailsController extends Controller
 {
@@ -21,21 +22,30 @@ class KeyEmploymentDetailsController extends Controller
 
         
          $employmentDetails = $this->keyEmploymentDetailsManager->create($validation);
+         
+         if(!$employmentDetails)
+         {
+            return responseHelper('Something Went Wrong, Please Try Again!', Response::HTTP_NOT_FOUND, 'Failed!');
+         }
          array_push($keyEmploymentDetailsArray, $employmentDetails);
         
-        foreach($validation['manages'] as $manager){
+        foreach($validation['manages'] as $managesId)
+        {
             
-                $managersArray = [
+             $managersArray = [
                 'key_employment_detail_id'=> $employmentDetails->id,
-                'employee_id'=>$manager
+                'employee_id'=>$managesId
             ];
-            $manager = $this->managesManager->createManagers($managersArray);
+            $manager = $this->managesManager->createManager($managersArray);
+            
+            if(!$manager)
+            {
+                return responseHelper('Something Went Wrong, Please Try Again!', Response::HTTP_NOT_FOUND, 'Failed!');
+            }
             array_push($keyEmploymentDetailsArray, $manager);
         }
 
-        return response([
-            "data" => $keyEmploymentDetailsArray
-        ]);
+        return responseHelper("Key Employment Details Successfully Saved!");
     }
 
 }

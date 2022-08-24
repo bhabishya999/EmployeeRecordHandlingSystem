@@ -16,16 +16,9 @@ class KeyEmploymentDetailsManager
 
     public function create(array $employmentDetails):object
     {
-        try
-        {
-           $employeeDetails = $this->keyEmploymentDetails->create($employmentDetails);
-           return $employeeDetails;
-
-        }catch(Throwable)
-        {
-            
-            return responseHelper('Something Went Wrong, Please Try Again Later', Response::HTTP_NOT_FOUND, 'Failed!');
-        }
+        $employeeDetails = $this->keyEmploymentDetails->create($employmentDetails);
+        return $employeeDetails;
+        
     }
 
 }
