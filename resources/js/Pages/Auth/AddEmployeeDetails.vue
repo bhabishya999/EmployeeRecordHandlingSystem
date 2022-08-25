@@ -104,11 +104,49 @@ import Details from "@/Layouts/Details.vue";
                                     Contact Number*
                                 </p>
                                 <vue-tel-input
+                                    :class="[
+                                        error
+                                            ? 'border-red '
+                                            : 'vue-tel-input ',
+                                    ]"
                                     v-model="phone"
                                     ref="phoneNo"
                                     mode="international"
                                 ></vue-tel-input>
-                                <span v-if="msg.phone">{{ msg.phone }}</span>
+                                <div
+                                    v-if="message.phone"
+                                    class="flex items-center w-full mt-[9px]"
+                                >
+                                    <div>
+                                        <svg
+                                            width="17"
+                                            height="17"
+                                            fill="none"
+                                            xmlns="http://www.w3.org/2000/svg"
+                                        >
+                                            <path
+                                                d="M8.5 16a7.5 7.5 0 1 0 0-15 7.5 7.5 0 0 0 0 15Z"
+                                                fill="#D93025"
+                                                stroke="#fff"
+                                                stroke-width="2"
+                                                stroke-linecap="round"
+                                                stroke-linejoin="round"
+                                            />
+                                            <path
+                                                d="M8.5 5.5v3M8.5 11.5h.008"
+                                                stroke="#fff"
+                                                stroke-width="2"
+                                                stroke-linecap="round"
+                                                stroke-linejoin="round"
+                                            />
+                                        </svg>
+                                    </div>
+                                    <p
+                                        class="text-red-600 font-normal text-sm leading-normal ml-[8px]"
+                                    >
+                                        {{ message.phone }}
+                                    </p>
+                                </div>
                             </div>
                             <div class="w-full">
                                 <custom-input
@@ -150,6 +188,40 @@ import Details from "@/Layouts/Details.vue";
                             @change="fieldChange"
                         ></DropZone>
                         <UploadList :items="files"></UploadList>
+                        <div
+                            v-if="message.files"
+                            class="flex items-center w-full mt-[9px]"
+                        >
+                            <div>
+                                <svg
+                                    width="17"
+                                    height="17"
+                                    fill="none"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                >
+                                    <path
+                                        d="M8.5 16a7.5 7.5 0 1 0 0-15 7.5 7.5 0 0 0 0 15Z"
+                                        fill="#D93025"
+                                        stroke="#fff"
+                                        stroke-width="2"
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                    />
+                                    <path
+                                        d="M8.5 5.5v3M8.5 11.5h.008"
+                                        stroke="#fff"
+                                        stroke-width="2"
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                    />
+                                </svg>
+                            </div>
+                            <p
+                                class="text-red-600 font-normal text-sm leading-normal ml-[8px]"
+                            >
+                                {{ message.files }}
+                            </p>
+                        </div>
                     </div>
                     <div class="w-1/3 flex flex-col text-center items-center">
                         <img
@@ -284,7 +356,7 @@ export default {
             isLoading: false,
             schema,
             files: [],
-
+            error: false,
             show: false,
             params: {
                 token: "12321",
@@ -298,15 +370,10 @@ export default {
             keyemp_active: false,
             personal_active: true,
             educational_active: false,
-            msg: [],
+            message: [],
         };
     },
-    watch: {
-        phone(value) {
-            this.phone = value;
-            this.validatePhone(value);
-        },
-    },
+
     props: {
         msg: String,
 
@@ -335,13 +402,6 @@ export default {
         },
     },
     methods: {
-        validatePhone(value) {
-            if (value == "") {
-                this.msg["phone"] = "Phone is a Required Field";
-            } else {
-                this.msg["phone"] = "";
-            }
-        },
         onStatusChange(event) {
             this.keyemp_active = event;
             this.educational_active = this.personal_active = false;
@@ -362,6 +422,18 @@ export default {
             }
         },
         onSubmit(values) {
+            if (this.$refs.phoneNo.phone.length == 0) {
+                this.message["phone"] = "PhoneNumber is a Required Field";
+                this.error = true;
+            } else {
+                this.message["phone"] = "";
+                this.error = false;
+            }
+            if (this.files.length == 0) {
+                this.message["files"] = "Documents is a Required Field";
+            } else {
+                this.message["files"] = "";
+            }
             const { firstName } = values;
             const { lastName } = values;
             const { dateOfBirth } = values;
@@ -396,8 +468,9 @@ export default {
                     this.personal_active = false;
                 })
                 .catch((error) => {
-                    const { message } = error.response.data;
-                    this.msg["password"] = message;
+                    // const { message } = error.response.data;
+                    // this.msg["phone"] = message;
+                    console.log(error);
                 })
                 .finally(() => (this.isLoading = false));
         },
@@ -470,5 +543,10 @@ input[type="number"] {
 
 .vti__dropdown {
     padding: 0px !important;
+}
+.border-red {
+    background: #ffffff;
+    border: 2px solid red;
+    border-radius: 6px;
 }
 </style>
