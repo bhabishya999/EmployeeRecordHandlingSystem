@@ -1,6 +1,6 @@
 import AddEmployeeDetails from "@/Pages/Auth/AddEmployeeDetails.vue";
 import ForgotPassword from "@/Pages/Auth/ForgotPassword.vue";
-import ResetPasssword from "@/Pages/Auth/ResetPasssword.vue";
+import ResetPassword from "@/Pages/Auth/ResetPassword.vue";
 import Login from "@/Pages/Auth/Login.vue";
 import Employees from "@/Pages/Employees/Employees.vue";
 import LinkExpired from "@/Pages/Auth/LinkExpired.vue"
@@ -23,7 +23,7 @@ const routes = [
 
     {
         name: "AddEmployeeDetails",
-        path: "/employees/details",
+        path: "/addemployees/details",
         component: AddEmployeeDetails,
         meta: {
             requiresAuth: true,
@@ -45,9 +45,9 @@ const routes = [
         component: LinkExpired
     },
     {
-        name: 'ResetPasssword',
+        name: 'ResetPassword',
         path: '/reset-password',
-        component: ResetPasssword
+        component: ResetPassword
     },
 ];
 
