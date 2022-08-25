@@ -204,19 +204,15 @@ export default {
   },
   methods: {
     onSubmit(values) {
-      console.log(values);
       const employee_id = localStorage.getItem("employeeId");
       // values.users.forEach((c) => {
       //     c.employee_id = employee_id;
       // });
-
       values.users = values.users.map((c) => {
         c.employee_id = employee_id;
         return c;
       });
-      console.log(values.users);
       const educational_details = values.users;
-
       this.isLoading = true;
       axios
         .post("employees/educations", {
@@ -226,13 +222,10 @@ export default {
         .then((response) => {
           console.log(response);
           this.keyemp_active = true;
-
           this.$emit("statusChanged", this.keyemp_active);
         })
         .catch((errors) => {
           console.log(errors);
-          const { message } = errors.response.data;
-          console.log(message);
         })
         .finally(() => (this.isLoading = false));
     },

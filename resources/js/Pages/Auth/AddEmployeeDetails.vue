@@ -447,9 +447,7 @@ export default {
       axios
         .post("employees", formData)
         .then((response) => {
-          console.log(response);
           const { employeeId } = response.data;
-          console.log(employeeId);
           localStorage.setItem("employeeId", employeeId);
           this.educational_active = true;
           this.personal_active = false;
