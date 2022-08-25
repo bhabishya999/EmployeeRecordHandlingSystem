@@ -12,15 +12,15 @@ class EducationalDetailsManager
     }
 
     public function create(array $educationDetails):EducationalDetails
-    {  
+    {
         try
         {
             $datas = $this->educationalDetails->create($educationDetails);
             return $datas;
 
-        }catch(Throwable $error)
+        }catch(Throwable)
         {
-            return responseHelper($error, Response::HTTP_BAD_REQUEST, "Failed!");
+            return responseHelper('Something Went Wrong Please Try Again!', Response::HTTP_BAD_REQUEST, "Failed!");
         }
-    }  
+    }
 }
