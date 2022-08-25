@@ -12,6 +12,5 @@ class EmployeeManager
     {
         $employee= $this->employee->create($employeeArray);
         return $employee;
-    }    
-
+    }
 }
