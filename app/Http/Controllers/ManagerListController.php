@@ -1,8 +1,10 @@
 <?php
 
 namespace App\Http\Controllers;
+
+use App\Http\Resources\EmployeeResource;
 use App\Talent\Managers\ManagerDetail;
-use Illuminate\Http\Response;
+use Illuminate\Http\Request;
 
 class ManagerListController extends Controller
 {
@@ -10,11 +12,11 @@ class ManagerListController extends Controller
     {
 
     }
-    public function index($id):Response
+    public function index(Request $request)
     {
-        $managerList=$this->managerDetail->managerList($id);
-        return response([
-            "managerList"=>$managerList
-        ], Response::HTTP_OK);
+        $excludingIds = $request->query('exclude_ids');
+        $excludingIdsArray=[$excludingIds];
+        $managers=$this->managerDetail->managerList($excludingIdsArray);
+        return EmployeeResource::collection($managers);
     }
 }

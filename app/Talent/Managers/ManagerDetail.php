@@ -9,10 +9,8 @@ class ManagerDetail
     {
 
     }
-
-    public function managerList($id):Collection
+    public function managerList(array $excludingIds):Collection
     {
-        $managerList=$this->employee->where('id','!=',$id)->get(['id','first_name','last_name','email','avatar']);
-        return $managerList;
+        return $this->employee->whereNotIn('id', $excludingIds)->get();
     }
 }
