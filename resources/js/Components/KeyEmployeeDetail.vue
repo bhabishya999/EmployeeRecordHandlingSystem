@@ -82,7 +82,7 @@ const manager = ref(null);
             <div>
               <div class="flex flex-row justify-between mb-2.5">
                 <div class="w-full mr-10">
-                  <SingleSelect
+                  <single-select
                     :options="organizations"
                     name="organization"
                     v-model="organization"
@@ -92,7 +92,7 @@ const manager = ref(null);
                   />
                 </div>
                 <div class="w-full">
-                  <CustomInput
+                  <custom-input
                     type="date"
                     name="joinDate"
                     label="Join Date*"
@@ -103,7 +103,7 @@ const manager = ref(null);
             </div>
             <div class="flex flex-row justify-between mb-2.5">
               <div class="w-full mr-10">
-                <CustomInput
+                <custom-input
                   type="text"
                   label="Curent Position*"
                   name="position"
@@ -111,7 +111,7 @@ const manager = ref(null);
                 />
               </div>
               <div class="w-full">
-                <SingleSelect
+                <single-select
                   :options="workschedules"
                   name="workschedule"
                   v-model="workschedule"
@@ -122,7 +122,7 @@ const manager = ref(null);
               </div>
             </div>
             <div class="mb-2.5">
-              <SingleSelect
+              <single-select
                 :options="teams"
                 name="team"
                 v-model="team"
@@ -132,7 +132,7 @@ const manager = ref(null);
               />
             </div>
             <div class="mb-2.5">
-              <ManagerSingleselect
+              <manager-singleselect
                 :options="managers"
                 name="manager"
                 v-model="manager"
@@ -158,7 +158,7 @@ const manager = ref(null);
                   tagsSearch:
                     'absolute inset-0 border-none outline-none focus:ring-0 appearance-none p-0 text-base font-sans box-border w-full',
                   placeholder:
-                    'text-sm flex items-center h-full absolute left-0 top-0 pointer-events-none bg-transparent leading-snug pl-3.5 text-gray-400 rtl:left-auto rtl:right-0 rtl:pl-0 rtl:pr-3.5',
+                    'text-sm flex items-center h-full absolute text-slate-500 left-0 top-0 pointer-events-none bg-transparent leading-snug pl-3.5 text-gray-400 rtl:left-auto rtl:right-0 rtl:pl-0 rtl:pr-3.5',
                 }"
               >
                 <template v-slot:option="{ option }">

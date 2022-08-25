@@ -15,7 +15,7 @@
           leading-[150.69%]
           text-[#718096]
           font-normal font-sans
-          border border-solid border-2
+          border-solid border-2
           outline-primary outline-2
           active:border-primary
           focus:border-primary
