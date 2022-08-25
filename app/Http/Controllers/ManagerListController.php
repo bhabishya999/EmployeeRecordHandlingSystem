@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Resources\EmployeeResource;
+use App\Http\Resources\EmployeeCollection;
 use App\Talent\Managers\ManagerDetail;
 use Illuminate\Http\Request;
 
@@ -17,6 +17,6 @@ class ManagerListController extends Controller
         $excludingIds = $request->query('exclude_ids');
         $excludingIdsArray=[$excludingIds];
         $managers=$this->managerDetail->managerList($excludingIdsArray);
-        return EmployeeResource::collection($managers);
+        return new EmployeeCollection($managers);
     }
 }
