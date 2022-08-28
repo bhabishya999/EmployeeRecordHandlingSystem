@@ -15,7 +15,7 @@
           leading-[150.69%]
           text-[#718096]
           font-normal font-sans
-          border border-solid border-2
+          border-solid border-2
           outline-primary outline-2
           active:border-primary
           focus:border-primary
@@ -101,8 +101,7 @@
   </Listbox>
 </template>
 
-<script setup lang="ts">
-import { watch } from "vue";
+<script setup>
 import {
   Listbox,
   ListboxLabel,
@@ -118,7 +117,7 @@ const props = defineProps({
     required: true,
   },
   modelValue: {
-    type: null,
+    type: Object,
   },
   keyProp: {
     type: String,
@@ -132,17 +131,13 @@ const props = defineProps({
     type: String,
     required: true,
   },
-  rules: {
-    type: null,
-    default: null,
-  },
   label: {
     type: String,
     required: true,
   },
 });
 
-const { value, errorMessage } = useField(props.name, props.rules, {
+const { value, errorMessage } = useField(props.name, {
   initialValue: props.modelValue,
 });
 </script>

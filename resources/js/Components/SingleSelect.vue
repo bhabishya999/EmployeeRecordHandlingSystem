@@ -91,8 +91,7 @@
   </Listbox>
 </template>
 
-<script setup lang="ts">
-import { watch } from "vue";
+<script setup>
 import {
   Listbox,
   ListboxLabel,
@@ -108,7 +107,7 @@ const props = defineProps({
     required: true,
   },
   modelValue: {
-    type: null,
+    type: Object,
   },
   keyProp: {
     type: String,
@@ -122,17 +121,14 @@ const props = defineProps({
     type: String,
     required: true,
   },
-  rules: {
-    type: null,
-    default: null,
-  },
+
   label: {
     type: String,
     required: true,
   },
 });
 
-const { value, errorMessage } = useField(props.name, props.rules, {
+const { value, errorMessage } = useField(props.name, {
   initialValue: props.modelValue,
 });
 </script>
