@@ -1,7 +1,6 @@
 <?php
 namespace App\Talent\User;
 use App\Models\User;
-use App\Talent\Employee\Model\Employee;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Collection;

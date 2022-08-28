@@ -2,7 +2,6 @@
 namespace App\Talent\Employee;
 use App\Talent\Employee\Model\Employee;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
-use Illuminate\Database\Eloquent\Collection;
 
 class EmployeeManager
 {
