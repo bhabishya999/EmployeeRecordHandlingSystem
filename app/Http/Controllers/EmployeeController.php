@@ -1,11 +1,16 @@
 <?php
 
 namespace App\Http\Controllers;
+
+use App\Http\Resources\EmployeeResource;
+use App\Http\Resources\KeyEmploymentDetailsResource;
 use App\Talent\Employee\Requests\EmployeeCreateRequest;
 use App\Talent\Employee\EmployeeManager;
 use Illuminate\Http\Response;
 use App\Talent\User\UserManager;
 use App\Talent\Documents\DocumentManager;
+use App\Talent\Employee\Model\Employee;
+use App\Talent\KeyEmploymentDetails\Models\KeyEmploymentDetails;
 use Illuminate\Support\Facades\Hash;
 
 class EmployeeController extends Controller
@@ -53,11 +58,25 @@ class EmployeeController extends Controller
             ];
             $documentCreate=$this->documentManager->store($documentArray);
             }
-       
+
         return response([
             'userId'=>$userId,
             'employeeId'=>$employeeId,
             'message'=>'Personal detail added successfully',
+        ],Response::HTTP_OK);
+    }
+    public function index()
+    {
+        $employeeList=$this->employeeManager->employeeList();
+        $authUser = $this->userManager->authenticatedUser();
+        if(!$employeeList){
+            return response([
+                'message'=>'Employee list is empty,nothing to display'
+            ],Response::HTTP_NOT_FOUND);
+        }
+        return response([
+            'message'=>'Query was successful',
+            'data'=>[$authUser,$employeeList]
         ],Response::HTTP_OK);
     }
 }

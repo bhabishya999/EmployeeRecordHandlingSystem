@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Resources;
-
+use App\Http\Resources\KeyEmploymentDetailsResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class EmployeeResource extends JsonResource
@@ -19,13 +19,7 @@ class EmployeeResource extends JsonResource
             'first_name' => $this->first_name,
             'last_name' => $this->last_name,
             'email' => $this->email,
-            'avatar' => $this->avatar,
-            'status'=>$this->status,
-            'contact_number' => $this->contact_number,
-            'date_of_birth' => $this->date_of_birth,
-            'current_address' => $this->current_adddress,
-            'pan_number' => $this->pan_number,
-            'bank_account_number' => $this->bank_account_number,
+            'avatar' => $this->avatar
         ];
     }
 }

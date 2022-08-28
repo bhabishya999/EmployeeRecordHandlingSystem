@@ -1,6 +1,5 @@
 <?php
 
-use App\Http\Controllers\dummycontroller;
 use App\Http\Controllers\EducationalDetailsController;
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\LoginController;
@@ -31,6 +30,8 @@ Route::group(['prefix' => 'employees', 'middleware' => ['auth:sanctum']], functi
     Route::post('/', [EmployeeController::class,'store']);
     Route::post('/key-employment-details', [KeyEmploymentDetailsController::class, 'store']);
     Route::get('/managers',[ManagerListController::class,'index']);
+    Route::get('/lists',[EmployeeController::class,'index']);
+
 });
 Route::post('/forget-password', [ForgotPasswordController::class,'resetEmail']);
 Route::post('/reset-password',[PasswordResetController::class, 'reset']);
