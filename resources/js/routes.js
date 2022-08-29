@@ -23,7 +23,7 @@ const routes = [
 
     {
         name: "AddEmployeeDetails",
-        path: "/addemployees/details",
+        path: "/employees/add",
         component: AddEmployeeDetails,
         meta: {
             requiresAuth: true,

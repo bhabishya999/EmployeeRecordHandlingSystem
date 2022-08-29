@@ -398,10 +398,10 @@ export default {
       if (!selectedFiles.length) {
         return false;
       }
+
       for (let i = 0; i < selectedFiles.length; i++) {
         this.files.push(selectedFiles[i]);
       }
-      console.log(this.files);
     },
     avatarUrl() {
       if (this.avatar) {
@@ -510,21 +510,12 @@ input[type="number"] {
   padding-left: 10px !important;
 }
 
-.vti__input:focus {
-  outline: 0px !important;
-  border: 2px solid #4c51bf !important;
-  border-radius: 4px !important;
-}
-
 .vti__selection {
   background: #e2e8f0;
   border: 1px solid #e2e8f0;
   border-radius: 6px;
   width: 92px;
   height: 51px;
-}
-.vti__selection:focus {
-  border: 2px solid #4c51bf !important;
 }
 
 .vti__dropdown {
@@ -535,15 +526,18 @@ input[type="number"] {
   border: 2px solid red;
   border-radius: 6px;
 }
-.vue-tel-input:focus-within {
-  outline: 0 !important;
-  border: 0 !important;
-  border-color: none !important;
+.vue-tel-input:focus {
+  border: 6px solid red !important;
 }
 .border-blue {
   background: #ffffff;
   border: 2px solid #e2e8f0;
   border-radius: 6px;
+}
+.vue-tel-input:focus-within {
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  border: 3px solid #4c51bf !important;
 }
 
 /* .vue-tel-input:focus-within{-webkit-box-shadow:inset 0 1px
