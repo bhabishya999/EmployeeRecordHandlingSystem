@@ -1,7 +1,10 @@
 <?php
 namespace App\Talent\User;
 use App\Models\User;
-use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Builder;
 
 class UserManager
 {
@@ -18,5 +21,9 @@ class UserManager
     {
         $user = $this->user->where('email',$email)->FirstOrFail();
         return $user;
-    } 
+    }
+    public function authenticatedUser(): Model|Collection|Builder|array|null
+    {
+        return $this->user->with('employees:user_id,email,avatar')->findOrFail(Auth::id(),['id','name']);
+    }
 }

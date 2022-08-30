@@ -1,6 +1,5 @@
 <?php
 
-use App\Http\Controllers\dummycontroller;
 use App\Http\Controllers\EducationalDetailsController;
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\LoginController;
@@ -10,7 +9,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PasswordResetController;
 use App\Http\Controllers\KeyEmploymentDetailsController;
 use App\Http\Controllers\ManagerListController;
-
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -31,7 +30,13 @@ Route::group(['prefix' => 'employees', 'middleware' => ['auth:sanctum']], functi
     Route::post('/', [EmployeeController::class,'store']);
     Route::post('/key-employment-details', [KeyEmploymentDetailsController::class, 'store']);
     Route::get('/managers',[ManagerListController::class,'index']);
+    Route::get('/',[EmployeeController::class,'index']);
 });
+
+Route::group(['prefix' => 'user', 'middleware' => ['auth:sanctum']], function(){
+    Route::get('/me',[UserController::class,'show']);
+});
+
 Route::post('/forget-password', [ForgotPasswordController::class,'resetEmail']);
 Route::post('/reset-password',[PasswordResetController::class, 'reset']);
 Route::get('/validate-token', [PasswordResetController::class, 'validateToken']);

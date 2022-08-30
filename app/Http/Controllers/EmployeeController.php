@@ -1,12 +1,15 @@
 <?php
 
 namespace App\Http\Controllers;
+
+use App\Http\Resources\EmployeeListResource;
 use App\Talent\Employee\Requests\EmployeeCreateRequest;
 use App\Talent\Employee\EmployeeManager;
 use Illuminate\Http\Response;
 use App\Talent\User\UserManager;
 use App\Talent\Documents\DocumentManager;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Http\Request;
 
 class EmployeeController extends Controller
 {
@@ -53,11 +56,21 @@ class EmployeeController extends Controller
             ];
             $documentCreate=$this->documentManager->store($documentArray);
             }
-       
+
         return response([
             'userId'=>$userId,
             'employeeId'=>$employeeId,
             'message'=>'Personal detail added successfully',
         ],Response::HTTP_OK);
+    }
+    public function index(Request $request)
+    {
+        $perPage=$request->query('perPage',10);
+        $employeeList=$this->employeeManager->employeeList($perPage);
+        if(!$employeeList)
+        {
+            return responseHelper('EmployeeList is empty,nothing to display', Response::HTTP_NOT_FOUND, 'Failed!');
+        }
+        return EmployeeListResource::collection($employeeList);
     }
 }
