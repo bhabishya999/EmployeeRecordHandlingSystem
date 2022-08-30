@@ -16,7 +16,7 @@ class KeyEmploymentDetailsResource extends JsonResource
     {
         return [
            'current_position'=>$this->current_position,
-           'work_shedule'=>$this->work_shedule,
+           'work_schedule'=>$this->work_schedule,
            'team'=>$this->team
         ];
     }
