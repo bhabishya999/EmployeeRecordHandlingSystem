@@ -18,7 +18,7 @@ class EmployeeManager
 
     public function employeeList(int $perPage):LengthAwarePaginator
     {
-        return $this->employee->with('employment')
-            ->paginate($perPage);
+        return $this->employee->with('employment:employee_id,current_position,work_schedule,team')
+        ->paginate($perPage,['id','first_name','last_name','email','avatar','status','contact_number']);
     }
 }

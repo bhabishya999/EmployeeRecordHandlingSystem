@@ -65,12 +65,11 @@ class EmployeeController extends Controller
     }
     public function index(Request $request)
     {
-        $perPage=$request->query('perPage');
+        $perPage=$request->query('perPage',10);
         $employeeList=$this->employeeManager->employeeList($perPage);
-        if(!$employeeList){
-            return response([
-                'message'=>'Employee list is empty,nothing to display'
-            ],Response::HTTP_NOT_FOUND);
+        if(!$employeeList)
+        {
+            return responseHelper('EmployeeList is empty,nothing to display', Response::HTTP_NOT_FOUND, 'Failed!');
         }
         return EmployeeListResource::collection($employeeList);
     }

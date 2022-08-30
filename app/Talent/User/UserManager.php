@@ -24,6 +24,6 @@ class UserManager
     }
     public function authenticatedUser(): Model|Collection|Builder|array|null
     {
-        return $this->user->with('employees')->findOrFail(Auth::id());
+        return $this->user->with('employees:user_id,email,avatar')->findOrFail(Auth::id(),['id','name']);
     }
 }

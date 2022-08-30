@@ -15,6 +15,7 @@ class KeyEmploymentDetailsResource extends JsonResource
     public function toArray($request)
     {
         return [
+           'employee_id'=>$this->employee_id,
            'current_position'=>$this->current_position,
            'work_schedule'=>$this->work_schedule,
            'team'=>$this->team
