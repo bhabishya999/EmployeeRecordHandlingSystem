@@ -3,11 +3,15 @@
 namespace App\Http\Controllers;
 
 use App\Http\Resources\EmployeeListResource;
+
+use App\Http\Resources\EmployeeResource;
 use App\Talent\Employee\Requests\EmployeeCreateRequest;
 use App\Talent\Employee\EmployeeManager;
 use Illuminate\Http\Response;
 use App\Talent\User\UserManager;
 use App\Talent\Documents\DocumentManager;
+use App\Talent\Employee\Model\Employee;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 use App\Talent\Employee\Model\Employee;
