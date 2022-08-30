@@ -1,9 +1,10 @@
 <?php
 
 namespace App\Http\Resources;
+
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class EmployeeResource extends JsonResource
+class EmployeeListResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -18,7 +19,10 @@ class EmployeeResource extends JsonResource
             'first_name' => $this->first_name,
             'last_name' => $this->last_name,
             'email' => $this->email,
-            'avatar' => $this->avatar
+            'avatar' => $this->avatar,
+            'status' => $this->status,
+            'contact_number' => $this->contact_number,
+            'employment'=>new KeyEmploymentDetailsResource($this->employment)
         ];
     }
 }

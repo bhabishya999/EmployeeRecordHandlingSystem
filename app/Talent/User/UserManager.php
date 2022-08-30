@@ -22,8 +22,8 @@ class UserManager
         $user = $this->user->where('email',$email)->FirstOrFail();
         return $user;
     }
-    public function authenticatedUser():Model|Collection|Builder|array|null
+    public function authenticatedUser(): Model|Collection|Builder|array|null
     {
-        return $this->user->with('employees:user_id,avatar')->findOrFail(Auth::id(),['id','name']);
+        return $this->user->with('employees')->findOrFail(Auth::id());
     }
 }

@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\EmployeeListResource;
 use App\Talent\Employee\Requests\EmployeeCreateRequest;
 use App\Talent\Employee\EmployeeManager;
 use Illuminate\Http\Response;
 use App\Talent\User\UserManager;
 use App\Talent\Documents\DocumentManager;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Http\Request;
 
 class EmployeeController extends Controller
 {
@@ -61,18 +63,15 @@ class EmployeeController extends Controller
             'message'=>'Personal detail added successfully',
         ],Response::HTTP_OK);
     }
-    public function index()
+    public function index(Request $request)
     {
-        $employeeList=$this->employeeManager->employeeList();
-        $authUser = $this->userManager->authenticatedUser();
+        $perPage=$request->query('perPage');
+        $employeeList=$this->employeeManager->employeeList($perPage);
         if(!$employeeList){
             return response([
                 'message'=>'Employee list is empty,nothing to display'
             ],Response::HTTP_NOT_FOUND);
         }
-        return response([
-            'message'=>'Query was successful',
-            'data'=>[$authUser,$employeeList]
-        ],Response::HTTP_OK);
+        return EmployeeListResource::collection($employeeList);
     }
 }
