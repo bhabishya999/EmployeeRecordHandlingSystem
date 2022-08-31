@@ -8,15 +8,17 @@ use App\Talent\Employee\EmployeeManager;
 use Illuminate\Http\Response;
 use App\Talent\User\UserManager;
 use App\Talent\Documents\DocumentManager;
+use App\Talent\Search\SearchManager;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 
 class EmployeeController extends Controller
 {
-    public function __construct(private EmployeeManager $employeeManager,private UserManager $userManager,private DocumentManager $documentManager)
+    public function __construct(private EmployeeManager $employeeManager,private SearchManager $searchManager,private UserManager $userManager,private DocumentManager $documentManager)
     {
 
     }
+    
     public function store(EmployeeCreateRequest $request){
         $validated = $request->validated();
         $userArray=[
@@ -28,6 +30,7 @@ class EmployeeController extends Controller
              $userCreate=$this->userManager->store($userArray);
              return $this->employeeStore($validated,$userCreate);
     }
+
     public function employeeStore($validated,$userCreate){
         if(empty($validated['avatar'])){
             $validated['avatar']=null;
@@ -63,6 +66,7 @@ class EmployeeController extends Controller
             'message'=>'Personal detail added successfully',
         ],Response::HTTP_OK);
     }
+
     public function index(Request $request)
     {
         $perPage=$request->query('perPage',10);
@@ -72,5 +76,12 @@ class EmployeeController extends Controller
             return responseHelper('EmployeeList is empty,nothing to display', Response::HTTP_NOT_FOUND, 'Failed!');
         }
         return EmployeeListResource::collection($employeeList);
+    }
+
+    public function show(Request $request)
+    {
+        $searchValue=$request->query('search');
+        $search=$this->searchManager->search($searchValue);
+        return EmployeeListResource::collection($search);
     }
 }

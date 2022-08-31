@@ -9,7 +9,6 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PasswordResetController;
 use App\Http\Controllers\KeyEmploymentDetailsController;
 use App\Http\Controllers\ManagerListController;
-use App\Http\Controllers\SearchController;
 use App\Http\Controllers\UserController;
 
 /*
@@ -32,10 +31,7 @@ Route::group(['prefix' => 'employees', 'middleware' => ['auth:sanctum']], functi
     Route::post('/key-employment-details', [KeyEmploymentDetailsController::class, 'store']);
     Route::get('/managers',[ManagerListController::class,'index']);
     Route::get('/',[EmployeeController::class,'index']);
-});
-
-Route::group(['prefix' => 'search', 'middleware' => ['auth:sanctum']], function(){
-    Route::get('/',[SearchController::class,'index']);
+    Route::get('/search',[EmployeeController::class,'show']);
 });
 
 Route::group(['prefix' => 'user', 'middleware' => ['auth:sanctum']], function(){
