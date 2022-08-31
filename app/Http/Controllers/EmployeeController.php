@@ -8,17 +8,18 @@ use App\Talent\Employee\EmployeeManager;
 use Illuminate\Http\Response;
 use App\Talent\User\UserManager;
 use App\Talent\Documents\DocumentManager;
-use App\Talent\Search\SearchManager;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
+use App\Talent\Employee\Model\Employee;
+
 
 class EmployeeController extends Controller
 {
-    public function __construct(private EmployeeManager $employeeManager,private SearchManager $searchManager,private UserManager $userManager,private DocumentManager $documentManager)
+    public function __construct(private EmployeeManager $employeeManager,private Employee $employee,private UserManager $userManager,private DocumentManager $documentManager)
     {
 
     }
-    
+
     public function store(EmployeeCreateRequest $request){
         $validated = $request->validated();
         $userArray=[
@@ -70,18 +71,24 @@ class EmployeeController extends Controller
     public function index(Request $request)
     {
         $perPage=$request->query('perPage',10);
-        $employeeList=$this->employeeManager->employeeList($perPage);
-        if(!$employeeList)
-        {
-            return responseHelper('EmployeeList is empty,nothing to display', Response::HTTP_NOT_FOUND, 'Failed!');
-        }
-        return EmployeeListResource::collection($employeeList);
-    }
-
-    public function show(Request $request)
-    {
         $searchValue=$request->query('search');
-        $search=$this->searchManager->search($searchValue);
-        return EmployeeListResource::collection($search);
+
+        if($searchValue)
+        {
+            $search=$this->employee->with('employment:employee_id,current_position,work_schedule,team')
+            ->where('first_name','LIKE','%'.$searchValue.'%')->orWhere('last_name','LIKE','%'.$searchValue.'%')
+            ->orWhere('email','LIKE','%'.$searchValue.'%')
+            ->get(['id','first_name','last_name','email','status','avatar','contact_number']);
+            return EmployeeListResource::collection($search);
+        }
+        else
+        {
+            $employeeList=$this->employeeManager->employeeList($perPage);
+            if(!$employeeList)
+            {
+                 return responseHelper('EmployeeList is empty,nothing to display', Response::HTTP_NOT_FOUND, 'Failed!');
+            }
+                 return EmployeeListResource::collection($employeeList);
+        }
     }
 }

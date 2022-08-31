@@ -31,7 +31,6 @@ Route::group(['prefix' => 'employees', 'middleware' => ['auth:sanctum']], functi
     Route::post('/key-employment-details', [KeyEmploymentDetailsController::class, 'store']);
     Route::get('/managers',[ManagerListController::class,'index']);
     Route::get('/',[EmployeeController::class,'index']);
-    Route::get('/search',[EmployeeController::class,'show']);
 });
 
 Route::group(['prefix' => 'user', 'middleware' => ['auth:sanctum']], function(){
