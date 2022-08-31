@@ -1,6 +1,6 @@
 import AddEmployeeDetails from "@/Pages/Auth/AddEmployeeDetails.vue";
 import ForgotPassword from "@/Pages/Auth/ForgotPassword.vue";
-import ResetPasssword from "@/Pages/Auth/ResetPasssword.vue";
+import ResetPassword from "@/Pages/Auth/ResetPassword.vue";
 import Login from "@/Pages/Auth/Login.vue";
 import Employees from "@/Pages/Employees/Employees.vue";
 import LinkExpired from "@/Pages/Auth/LinkExpired.vue"
@@ -23,16 +23,21 @@ const routes = [
 
     {
         name: "AddEmployeeDetails",
-        path: "/employee-details",
+        path: "/employees/add",
         component: AddEmployeeDetails,
+        meta: {
+            requiresAuth: true,
+        }
     },
+
     {
         name: "Employees",
         path: "/employees",
+        component: Employees,
         meta: {
             requiresAuth: true,
-        },
-        component: Employees,
+        }
+
     },
     {
         name: 'LinkExpired',
@@ -40,9 +45,9 @@ const routes = [
         component: LinkExpired
     },
     {
-        name: 'ResetPasssword',
+        name: 'ResetPassword',
         path: '/reset-password',
-        component: ResetPasssword
+        component: ResetPassword
     },
 ];
 
@@ -51,11 +56,13 @@ const router = createRouter({
     routes,
 });
 router.beforeEach((to, from, next) => {
-    const token = localStorage.getItem("token");
+    const token = localStorage.getItem("talent_token");
     const authenticated = !!token;
     const requiresAuth = to.matched.some((record) => record.meta.requiresAuth);
+
     if (requiresAuth) {
         if (!authenticated && to.name !== "Login") {
+
             next({
                 path: "/login",
                 query: { redirect: to.fullPath },
