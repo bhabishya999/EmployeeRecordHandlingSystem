@@ -388,6 +388,7 @@ export default {
       deault: () => "jpg/png",
     },
   },
+
   methods: {
     onStatusChange(event) {
       this.keyempActive = event;
