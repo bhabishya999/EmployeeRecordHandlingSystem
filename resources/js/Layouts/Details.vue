@@ -1,7 +1,7 @@
 <template>
-    <div class="min-h-screen bg-[#EDF2F7] px-40 py-6">
+    <div class="bg-[#EDF2F7] pb-2">
         <div
-            class="bg-white  drop-shadow-[0_1px_2px_rgba(0,0,0,0.06)_0_10px_15px_rgba(0,0,0,0.1)]"
+            class="bg-white drop-shadow-[0_1px_2px_rgba(0,0,0,0.06)_0_10px_15px_rgba(0,0,0,0.1)] mx-40"
         >
             <slot />
         </div>
@@ -10,5 +10,6 @@
 <script>
 export default {
     name: "Details",
+    components: {},
 };
 </script>

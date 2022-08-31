@@ -7,6 +7,9 @@ use App\Http\Controllers\LogoutController;
 use App\Http\Controllers\ForgotPasswordController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PasswordResetController;
+use App\Http\Controllers\KeyEmploymentDetailsController;
+use App\Http\Controllers\ManagerListController;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,7 +28,15 @@ Route::middleware('auth:sanctum')->post('/logout',[LogoutController::class,'logo
 Route::group(['prefix' => 'employees', 'middleware' => ['auth:sanctum']], function(){
     Route::post('/educations', [EducationalDetailsController::class, 'store']);
     Route::post('/', [EmployeeController::class,'store']);
+    Route::post('/key-employment-details', [KeyEmploymentDetailsController::class, 'store']);
+    Route::get('/managers',[ManagerListController::class,'index']);
+    Route::get('/',[EmployeeController::class,'index']);
 });
+
+Route::group(['prefix' => 'user', 'middleware' => ['auth:sanctum']], function(){
+    Route::get('/me',[UserController::class,'show']);
+});
+
 Route::post('/forget-password', [ForgotPasswordController::class,'resetEmail']);
 Route::post('/reset-password',[PasswordResetController::class, 'reset']);
 Route::get('/validate-token', [PasswordResetController::class, 'validateToken']);
