@@ -35,7 +35,7 @@ import Details from "@/Layouts/Details.vue";
         <ul class="flex">
           <li
             :class="{
-              'bg-indigo-700 rounded-lg font-sans text-white': personal_active,
+              'bg-indigo-700 rounded-lg font-sans text-white': personalActive,
             }"
             class="font-bold leading-normal text-lg py-2.5 px-1.5 mr-7"
           >
@@ -44,7 +44,7 @@ import Details from "@/Layouts/Details.vue";
           <li
             :class="{
               'bg-indigo-700 rounded-lg font-sans text-white':
-                educational_active,
+                educationalActive,
             }"
             class="font-semibold leading-normal text-lg py-2.5 px-1.5 mr-7"
           >
@@ -52,7 +52,7 @@ import Details from "@/Layouts/Details.vue";
           </li>
           <li
             :class="{
-              'bg-indigo-700 rounded-lg font-sans text-white': keyemp_active,
+              'bg-indigo-700 rounded-lg font-sans text-white': keyempActive,
             }"
             class="font-bold leading-normal text-lg py-2.5 px-1.5"
           >
@@ -63,7 +63,7 @@ import Details from "@/Layouts/Details.vue";
       <Form
         @submit="onSubmit"
         :validation-schema="schema"
-        v-if="personal_active"
+        v-if="personalActive"
         class="personal_Detail"
       >
         <div class="flex">
@@ -290,11 +290,11 @@ import Details from "@/Layouts/Details.vue";
         </div>
       </Form>
       <EducationalDetail
-        v-if="educational_active"
+        v-if="educationalActive"
         class="Educational_Detail"
         @statusChanged="onStatusChange"
       ></EducationalDetail>
-      <div v-show="keyemp_active">Sunita Gurau KEy Employment detail</div>
+      <div v-show="keyempActive">Sunita Gurau KEy Employment detail</div>
     </div>
   </Details>
 </template>
@@ -355,9 +355,9 @@ export default {
         smail: "*_~",
       },
       avatar: null,
-      keyemp_active: false,
-      personal_active: true,
-      educational_active: false,
+      keyempActive: false,
+      personalActive: true,
+      educationalActive: false,
       message: [],
     };
   },
@@ -390,8 +390,8 @@ export default {
   },
   methods: {
     onStatusChange(event) {
-      this.keyemp_active = event;
-      this.educational_active = this.personal_active = false;
+      this.keyempActive = event;
+      this.educationalActive = this.personalActive = false;
     },
     fieldChange(e) {
       let selectedFiles = e.target.files;
@@ -449,8 +449,8 @@ export default {
         .then((response) => {
           const { employeeId } = response.data;
           localStorage.setItem("employeeId", employeeId);
-          this.educational_active = true;
-          this.personal_active = false;
+          this.educationalActive = true;
+          this.personalActive = false;
         })
         .catch((error) => {
           console.log(error);

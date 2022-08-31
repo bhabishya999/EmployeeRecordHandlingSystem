@@ -49,7 +49,6 @@ export default {
   methods: {
     getFileExt(file) {
       const fileExt = file.name.split(".").pop();
-      console.log(fileExt);
       return fileExt.toLowerCase();
     },
     // getExtenationIcon(value) {

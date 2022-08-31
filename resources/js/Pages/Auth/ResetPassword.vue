@@ -1,6 +1,6 @@
 <template>
   <GuestLayout class="relative">
-    <div v-if="reset_sucess">
+    <div v-if="resetSucess">
       <Form @submit="onSubmit" :validation-schema="schema">
         <div
           class="flex flex-col justify-center items-center border-b-2 border-solid border-gray-200"
@@ -224,7 +224,7 @@ export default {
       schema,
       togglePopUp,
       msg: [],
-      reset_sucess: true,
+      resetSucess: true,
       isLoading: false,
     };
   },
@@ -254,7 +254,7 @@ export default {
           token: this.$route.query.token,
         })
         .then(() => {
-          this.reset_sucess = false;
+          this.resetSucess = false;
         })
         .catch((errors) => {
           const { message } = errors.response.data;

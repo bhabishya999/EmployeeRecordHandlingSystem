@@ -1,6 +1,6 @@
 <template>
   <GuestLayout>
-    <div v-if="email_sent">
+    <div v-if="emailSent">
       <div>
         <ApplicationLogo />
       </div>
@@ -130,7 +130,7 @@ export default {
     });
     return {
       schema,
-      email_sent: true,
+      emailSent: true,
       msg: [],
       isLoading: false,
       email: "",
@@ -147,7 +147,7 @@ export default {
           email: email,
         })
         .then(() => {
-          this.email_sent = false;
+          this.emailSent = false;
         })
         .catch((error) => {
           const { message } = error.response.data;

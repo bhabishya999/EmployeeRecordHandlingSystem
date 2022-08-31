@@ -199,15 +199,13 @@ export default {
       initialData,
       schema,
       isLoading: false,
-      keyemp_active: false,
+      keyempActive: false,
     };
   },
   methods: {
     onSubmit(values) {
       const employee_id = localStorage.getItem("employeeId");
-      // values.users.forEach((c) => {
-      //     c.employee_id = employee_id;
-      // });
+
       values.users = values.users.map((c) => {
         c.employee_id = employee_id;
         return c;
@@ -219,10 +217,9 @@ export default {
           educational_details: educational_details,
           employee_id: employee_id,
         })
-        .then((response) => {
-          console.log(response);
-          this.keyemp_active = true;
-          this.$emit("statusChanged", this.keyemp_active);
+        .then(() => {
+          this.keyempActive = true;
+          this.$emit("statusChanged", this.keyempActive);
         })
         .catch((errors) => {
           console.log(errors);
