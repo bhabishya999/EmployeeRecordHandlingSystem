@@ -70,25 +70,9 @@ class EmployeeController extends Controller
 
     public function index(Request $request)
     {
-        $perPage=$request->query('perPage',10);
-        $searchValue=$request->query('search');
-
-        if($searchValue)
-        {
-            $search=$this->employee->with('employment:employee_id,current_position,work_schedule,team')
-            ->where('first_name','LIKE','%'.$searchValue.'%')->orWhere('last_name','LIKE','%'.$searchValue.'%')
-            ->orWhere('email','LIKE','%'.$searchValue.'%')
-            ->get(['id','first_name','last_name','email','status','avatar','contact_number']);
-            return EmployeeListResource::collection($search);
-        }
-        else
-        {
-            $employeeList=$this->employeeManager->employeeList($perPage);
-            if(!$employeeList)
-            {
-                 return responseHelper('EmployeeList is empty,nothing to display', Response::HTTP_NOT_FOUND, 'Failed!');
-            }
-                 return EmployeeListResource::collection($employeeList);
-        }
+        $search=$request->query('search');
+        $employeeList=$this->employeeManager->employeeList($search);
+        return EmployeeListResource::collection($employeeList);
     }
+    
 }
