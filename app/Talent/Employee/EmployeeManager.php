@@ -16,10 +16,10 @@ class EmployeeManager
         return $employee;
     }
 
-    public function employeeList(int $perPage=10,string $search=null)
+    public function employeeList(int $perPage=10,string $search=null): LengthAwarePaginator
     {
         return $this->employee->with('employment:employee_id,current_position,work_schedule,team')
-        ->when(!empty($search),function($query) use ($search) 
+        ->when(!empty($search),function($query) use ($search)
         {
         $query->where('first_name','LIKE','%'.$search.'%')->orWhere('last_name','LIKE','%'.$search.'%')
         ->orWhere('email','LIKE','%'.$search.'%');
