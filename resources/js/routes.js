@@ -6,6 +6,7 @@ import Employees from "@/Pages/Employees/Employees.vue";
 import LinkExpired from "@/Pages/Auth/LinkExpired.vue"
 import EmployeeDetail from "@/Pages/Employees/EmployeeDetail.vue"
 import { createRouter, createWebHistory } from "vue-router";
+
 const routes = [
     {
         name: "Home",
@@ -43,6 +44,13 @@ const routes = [
         meta: {
             requiresAuth: true,
         }
+
+    },
+    {
+        name: "ImportDataFromExcel",
+        path: "/importdata",
+        component: ImportDataFromExcel,
+
 
     },
     {
