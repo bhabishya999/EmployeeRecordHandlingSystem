@@ -1,20 +1,31 @@
 <script setup>
 import Details from "@/Layouts/Details.vue";
 </script>
-<template>
+    <template>
   <NavBar></NavBar>
   <div class="h-[24px] bg-slate-100"></div>
   <Details>
     <div class="p-9">
       <div class="flex justify-between items-center">
-        <h1
-          class="text-black leading-normal text-2xl font-medium font-bold font-sans"
-        >
+        <h1 class="text-black leading-normal text-2xl font-medium font-sans">
           EMPLOYEE DETAILS
         </h1>
         <button
           type="button"
-          class="bg-indigo-700 p-[7px] rounded-md drop-shadow-[0_10px_15px_rgba(0,0,0,0.1)] flex items-center justify-center text-white font-bold text-base leading-normal font-sans"
+          class="
+            bg-indigo-700
+            p-[7px]
+            rounded-md
+            drop-shadow-[0_10px_15px_rgba(0,0,0,0.1)]
+            flex
+            items-center
+            justify-center
+            text-white
+            font-bold
+            text-base
+            leading-normal
+            font-sans
+          "
         >
           <svg
             class="mr-[9px]"
@@ -97,7 +108,16 @@ import Details from "@/Layouts/Details.vue";
             <div class="flex flex-row justify-between mb-2.5">
               <div class="w-full mr-10">
                 <p
-                  class="block font-normal text-sm text-gray-900 pb-2.5 leading-normal placeholder:text-slate-500 placeholder:text-base placeholder:font-normal"
+                  class="
+                    block
+                    font-normal
+                    text-sm text-gray-900
+                    pb-2.5
+                    leading-normal
+                    placeholder:text-slate-500
+                    placeholder:text-base
+                    placeholder:font-normal
+                  "
                 >
                   Contact Number*
                 </p>
@@ -136,7 +156,13 @@ import Details from "@/Layouts/Details.vue";
                     </svg>
                   </div>
                   <p
-                    class="text-red-600 font-normal text-sm leading-normal ml-[8px]"
+                    class="
+                      text-red-600
+                      font-normal
+                      text-sm
+                      leading-normal
+                      ml-[8px]
+                    "
                   >
                     {{ message.phone }}
                   </p>
@@ -276,13 +302,36 @@ import Details from "@/Layouts/Details.vue";
                 'opacity-80 cursor-not-allowed': isLoading,
               }"
               type="submit"
-              class="!my-0 bg-primary p-[7px] rounded-md drop-shadow-[0_10px_15px_rgba(0,0,0,0.1)] flex items-center justify-center text-white font-bold text-base leading-normal font-sans"
+              class="
+                !my-0
+                bg-primary
+                p-[7px]
+                rounded-md
+                drop-shadow-[0_10px_15px_rgba(0,0,0,0.1)]
+                flex
+                items-center
+                justify-center
+                text-white
+                font-bold
+                text-base
+                leading-normal
+                font-sans
+              "
             >
               Save and Continue
             </Button>
             <button
               type="button"
-              class="mr-2.5 py-[7px] px-2.5 bg-slate-100 rounded-md shadow text-base font-bold"
+              class="
+                mr-2.5
+                py-[7px]
+                px-2.5
+                bg-slate-100
+                rounded-md
+                shadow
+                text-base
+                font-bold
+              "
             >
               Cancel
             </button>
@@ -292,17 +341,19 @@ import Details from "@/Layouts/Details.vue";
       <EducationalDetail
         v-if="educationalActive"
         class="Educational_Detail"
+        :employeeId="eId"
         @statusChanged="onStatusChange"
       ></EducationalDetail>
-      <div v-show="keyempActive">Sunita Gurau KEy Employment detail</div>
+      <KeyDetail v-show="keyempActive" :employeeId="eId"></KeyDetail>
     </div>
   </Details>
 </template>
-
-<script>
+    
+    <script>
 import CustomInput from "@/Components/CustomInput.vue";
 import DropZone from "@/Components/DropZone.vue";
 import EducationalDetail from "@/Components/EducationalDetail.vue";
+import KeyDetail from "@/Components/KeyEmployeeDetail.vue";
 import NavBar from "@/Components/NavBar.vue";
 import UploadList from "@/Components/UploadList.vue";
 import { dataToFileMixin } from "@/mixins/data-to-file";
@@ -314,7 +365,7 @@ import * as Yup from "yup";
 import myUpload from "vue-image-crop-upload";
 export default {
   name: "AddEmployeeDetails",
-  Components: {
+  components: {
     NavBar,
     CustomInput,
     DropZone,
@@ -325,6 +376,7 @@ export default {
     Yup,
     Details,
     EducationalDetail,
+    KeyDetail,
     "my-upload": myUpload,
   },
   mixins: [dataToFileMixin],
@@ -340,25 +392,19 @@ export default {
       accountNumber: Yup.string().max(15),
     });
     return {
+      eId: 1,
       phone: "",
       isLoading: false,
       schema,
       files: [],
       error: false,
       show: false,
-      params: {
-        token: "12321",
-        name: "avatar",
-      },
-
-      headers: {
-        smail: "*_~",
-      },
       avatar: null,
       keyempActive: false,
       personalActive: true,
       educationalActive: false,
       message: [],
+      managerLists: [],
     };
   },
 
@@ -390,6 +436,7 @@ export default {
   },
   methods: {
     onStatusChange(event) {
+      console.log("staue:", event);
       this.keyempActive = event;
       this.educationalActive = this.personalActive = false;
     },
@@ -397,10 +444,6 @@ export default {
       let selectedFiles = e.target.files;
       if (!selectedFiles.length) {
         return false;
-      }
-
-      for (let i = 0; i < selectedFiles.length; i++) {
-        this.files.push(selectedFiles[i]);
       }
     },
     avatarUrl() {
@@ -448,7 +491,7 @@ export default {
         .post("employees", formData)
         .then((response) => {
           const { employeeId } = response.data;
-          localStorage.setItem("employeeId", employeeId);
+          this.eId = employeeId;
           this.educationalActive = true;
           this.personalActive = false;
         })
@@ -480,8 +523,8 @@ export default {
   },
 };
 </script>
-
-<style>
+    
+    <style>
 /* Chrome, Safari, Edge, Opera */
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
@@ -541,7 +584,8 @@ input[type="number"] {
 }
 
 /* .vue-tel-input:focus-within{-webkit-box-shadow:inset 0 1px
-1px rgba(0,0,0,.075),0 0 8px rgba(102,175,233,.6);box-shadow:inset 0 1px 1px
-rgba(0,0,0,.075),0 0 8px
-rgba(102,175,233,.6);border-color:#66afe9} */
+    1px rgba(0,0,0,.075),0 0 8px rgba(102,175,233,.6);box-shadow:inset 0 1px 1px
+    rgba(0,0,0,.075),0 0 8px
+    rgba(102,175,233,.6);border-color:#66afe9} */
 </style>
+    

@@ -14,7 +14,16 @@
           >
             <div class="flex justify-between">
               <legend
-                class="block font-bold text-sm text-indigo-700 pb-2.5 leading-normal placeholder:text-slate-500 placeholder:text-base placeholder:font-normal"
+                class="
+                  block
+                  font-bold
+                  text-sm text-indigo-700
+                  pb-2.5
+                  leading-normal
+                  placeholder:text-slate-500
+                  placeholder:text-base
+                  placeholder:font-normal
+                "
               >
                 Education{{ index + 1 }}
               </legend>
@@ -22,7 +31,16 @@
                 @click="remove(index)"
                 v-show="index > 0"
                 type="button"
-                class="py-[7px] px-2.5 text-base font-bold flex items-center justify-center text-danger"
+                class="
+                  py-[7px]
+                  px-2.5
+                  text-base
+                  font-bold
+                  flex
+                  items-center
+                  justify-center
+                  text-danger
+                "
               >
                 <svg
                   class="mr-2"
@@ -46,7 +64,16 @@
                 <div class="flex flex-col">
                   <label
                     :for="`education_${index}`"
-                    class="block font-normal text-sm text-gray-900 pb-2.5 leading-normal placeholder:text-slate-500 placeholder:text-base placeholder:font-normal"
+                    class="
+                      block
+                      font-normal
+                      text-sm text-gray-900
+                      pb-2.5
+                      leading-normal
+                      placeholder:text-slate-500
+                      placeholder:text-base
+                      placeholder:font-normal
+                    "
                     >Education</label
                   >
                   <Field
@@ -54,7 +81,22 @@
                     :name="`users[${index}].education_level`"
                     type="text"
                     placeholder="Higher Secondary Level"
-                    class="bg-white pb-3.5 pt-4 pl-4 w-full rounded-md text-sm leading-normal text-slate-500 font-normal font-sans border-solid border-2 outline-indigo-700 outline-2 border-slate-200 active:border-indigo-700"
+                    class="
+                      bg-white
+                      pb-3.5
+                      pt-4
+                      pl-4
+                      w-full
+                      rounded-md
+                      text-sm
+                      leading-normal
+                      text-slate-500
+                      font-normal font-sans
+                      border-solid border-2
+                      outline-indigo-700 outline-2
+                      border-slate-200
+                      active:border-indigo-700
+                    "
                   />
                   <ErrorMessage
                     :name="`users[${index}].education_level`"
@@ -66,7 +108,16 @@
                 <div class="flex flex-col">
                   <label
                     :for="`year_${index}`"
-                    class="block font-normal text-sm text-gray-900 pb-2.5 leading-normal placeholder:text-slate-500 placeholder:text-base placeholder:font-normal"
+                    class="
+                      block
+                      font-normal
+                      text-sm text-gray-900
+                      pb-2.5
+                      leading-normal
+                      placeholder:text-slate-500
+                      placeholder:text-base
+                      placeholder:font-normal
+                    "
                     >Passed Year(A.D)</label
                   >
                   <Field
@@ -74,7 +125,22 @@
                     :id="`year_${index}`"
                     :name="`users[${index}].passed_year`"
                     placeholder="2017"
-                    class="bg-white pb-3.5 pt-4 pl-4 w-full rounded-md text-sm leading-normal text-slate-500 font-normal font-sans border-solid border-2 outline-indigo-700 outline-2 border-slate-200 active:border-indigo-700"
+                    class="
+                      bg-white
+                      pb-3.5
+                      pt-4
+                      pl-4
+                      w-full
+                      rounded-md
+                      text-sm
+                      leading-normal
+                      text-slate-500
+                      font-normal font-sans
+                      border-solid border-2
+                      outline-indigo-700 outline-2
+                      border-slate-200
+                      active:border-indigo-700
+                    "
                   />
                   <ErrorMessage
                     :name="`users[${index}].passed_year`"
@@ -86,7 +152,16 @@
             <div class="flex flex-col">
               <label
                 :for="`institution_${index}`"
-                class="block font-normal text-sm text-gray-900 pb-2.5 leading-normal placeholder:text-slate-500 placeholder:text-base placeholder:font-normal"
+                class="
+                  block
+                  font-normal
+                  text-sm text-gray-900
+                  pb-2.5
+                  leading-normal
+                  placeholder:text-slate-500
+                  placeholder:text-base
+                  placeholder:font-normal
+                "
                 >Institution</label
               >
               <Field
@@ -94,7 +169,22 @@
                 :name="`users[${index}].institution`"
                 type="text"
                 placeholder="United Academy"
-                class="bg-white pb-3.5 pt-4 pl-4 w-full rounded-md text-sm leading-normal text-slate-500 font-normal font-sans border-solid border-2 outline-indigo-700 outline-2 border-slate-200 active:border-indigo-700"
+                class="
+                  bg-white
+                  pb-3.5
+                  pt-4
+                  pl-4
+                  w-full
+                  rounded-md
+                  text-sm
+                  leading-normal
+                  text-slate-500
+                  font-normal font-sans
+                  border-solid border-2
+                  outline-indigo-700 outline-2
+                  border-slate-200
+                  active:border-indigo-700
+                "
               />
               <ErrorMessage
                 :name="`users[${index}].institution`"
@@ -113,7 +203,20 @@
               })
             "
             type="button"
-            class="w-32 mr-2.5 py-[7px] px-2.5 bg-slate-100 rounded-md shadow text-base font-bold flex items-center text-primary"
+            class="
+              w-32
+              mr-2.5
+              py-[7px]
+              px-2.5
+              bg-slate-100
+              rounded-md
+              shadow
+              text-base
+              font-bold
+              flex
+              items-center
+              text-primary
+            "
           >
             <svg
               class="mr-2"
@@ -144,13 +247,36 @@
               'opacity-80 cursor-not-allowed': isLoading,
             }"
             type="submit"
-            class="!my-0 bg-primary p-[7px] rounded-md drop-shadow-[0_10px_15px_rgba(0,0,0,0.1)] flex items-center justify-center text-white font-bold text-base leading-normal font-sans"
+            class="
+              !my-0
+              bg-primary
+              p-[7px]
+              rounded-md
+              drop-shadow-[0_10px_15px_rgba(0,0,0,0.1)]
+              flex
+              items-center
+              justify-center
+              text-white
+              font-bold
+              text-base
+              leading-normal
+              font-sans
+            "
           >
             Save and Continue
           </Button>
           <button
             type="button"
-            class="mr-2.5 py-[7px] px-2.5 bg-slate-100 rounded-md shadow text-base font-bold"
+            class="
+              mr-2.5
+              py-[7px]
+              px-2.5
+              bg-slate-100
+              rounded-md
+              shadow
+              text-base
+              font-bold
+            "
           >
             Cancel
           </button>
@@ -202,12 +328,13 @@ export default {
       keyempActive: false,
     };
   },
+  props: {
+    employeeId: Number,
+  },
   methods: {
     onSubmit(values) {
-      const employee_id = localStorage.getItem("employeeId");
-
       values.users = values.users.map((c) => {
-        c.employee_id = employee_id;
+        c.employee_id = this.employeeId;
         return c;
       });
       const educational_details = values.users;
@@ -215,7 +342,7 @@ export default {
       axios
         .post("employees/educations", {
           educational_details: educational_details,
-          employee_id: employee_id,
+          employee_id: this.employeeId,
         })
         .then(() => {
           this.keyempActive = true;

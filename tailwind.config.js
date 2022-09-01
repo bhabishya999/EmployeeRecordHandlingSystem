@@ -18,6 +18,7 @@ module.exports = {
                 primary: "#4C51BF",
                 danger: '#C53030',
                 error: "#D93025",
+                dark_green: "#04844B",
 
 
             }
