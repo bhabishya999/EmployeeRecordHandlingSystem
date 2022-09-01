@@ -2,6 +2,8 @@
 
 namespace Database\Factories;
 
+use App\Models\User;
+use App\Talent\Employee\Model\Employee;
 use App\Talent\KeyEmploymentDetails\Models\KeyEmploymentDetails;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -19,13 +21,12 @@ class KeyEmploymentDetailsFactory extends Factory
     public function definition(): array
     {
         return [
-            'organization'=> 'IntroceptNepal',
+            'organization'=> $this->faker->randomElement(['IntroceptNepal', 'IntroceptAustralia']),
             'join_date' => $this->faker->date(),
-            'current_position' => 'Intern',
-            'work_schedule' => 'mon-fri(full-time)',
-            'team' => 'QA',
-            'manager' => rand(1,20),
-            'superpowers' => $this->faker->word()
+            'current_position' => $this->faker->randomElement(['Intern', 'Software Engineering', 'QA', 'Product Management']),
+            'work_schedule' => $this->faker->randomElement(['mon-fri(full-time)', 'mon-fri(part-time)']),
+            'team' => $this->faker->randomElement([ 'Software Engineering', 'QA', 'Product Management']),
+            'superpowers' => $this->faker->randomElement([ 'Hard Working', 'Good Communication', 'Responsible', 'Professional'])
         ];
     }
 }

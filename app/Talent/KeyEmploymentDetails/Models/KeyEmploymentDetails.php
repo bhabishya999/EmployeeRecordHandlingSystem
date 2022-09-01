@@ -28,6 +28,6 @@ class KeyEmploymentDetails extends Model
 
     public function manages(): HasMany
     {
-        return $this->hasMany(Manages::class);
+        return $this->hasMany(Manages::class, 'key_employment_detail_id', 'id');
     }
 }

@@ -20,7 +20,7 @@ class EducationalDetailsFactory extends Factory
     {
         return [
             'education_level' =>'SLC',
-            'passed_year' => $this->faker->date('Y'),
+            'passed_year' => $this->faker->date('Y', '2022'),
             'institution' => $this->faker->streetName()
         ];
     }

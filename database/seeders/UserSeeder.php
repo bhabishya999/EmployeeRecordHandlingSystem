@@ -2,13 +2,13 @@
 
 namespace Database\Seeders;
 
+use App\Talent\Manages\Models\Manages;
 use Illuminate\Database\Seeder;
 use App\Models\User;
 use App\Talent\Documents\Model\Document;
 use App\Talent\EducationalDetails\Models\EducationalDetails;
 use App\Talent\Employee\Model\Employee;
 use App\Talent\KeyEmploymentDetails\Models\KeyEmploymentDetails;
-use App\Talent\Manages\Models\Manages;
 
 
 class UserSeeder extends Seeder
@@ -20,9 +20,12 @@ class UserSeeder extends Seeder
      */
     public function run(): void
     {
+        $employee = Employee::all();
+
         User::factory(20)
             ->has(
                 Employee::factory()
+
                     ->count(1)
                     ->state(function (array $attributes, User $user) {
                         return ['user_id' => $user->id,
@@ -47,11 +50,15 @@ class UserSeeder extends Seeder
                     KeyEmploymentDetails::factory()
                     ->count(1)
                     ->state(function (array $attributes, Employee $employee){
-                        return ['employee_id' => $employee->id];
+                        return ['employee_id' => $employee->id,
+                            'manager'=> $employee->id];
                     })
 
                 )
+
             )
             ->create();
+
     }
+
 }
