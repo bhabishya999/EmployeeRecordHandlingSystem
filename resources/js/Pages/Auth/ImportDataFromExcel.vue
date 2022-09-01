@@ -8,11 +8,11 @@ import Details from "@/Layouts/Details.vue";
     <Details>
       <div class="h-[716px] mb-24 p-9">
         <div class="mb-20">
-          <p class="text-black leading-normal text-2xl font-semibold">
+          <p class="text-black leading-normal text-2xl font-bold">
             IMPORT DATA FILE
           </p>
         </div>
-        <div class="flex flex-row items-center">
+        <div class="flex flex-row">
           <svg
             width="30"
             height="30"
@@ -41,7 +41,74 @@ import Details from "@/Layouts/Details.vue";
           </p>
         </div>
         <div class="px-28">
-          <ImportDropZone></ImportDropZone>
+          <ImportDropZone
+            v-model="files"
+            @change="fieldChange"
+          ></ImportDropZone>
+        </div>
+      </div>
+      <div>
+        <div
+          v-if="togglePopUp"
+          class="fixed inset-0 w-full h-screen bg-black bg-opacity-50"
+        >
+          <div
+            class="h-[342px] w-[772px] flex !items-stretch !justify-between absolute z-10 top-1/2 left-1/2 !transform !-translate-x-1/2 !-translate-y-1/2"
+          >
+            <div class="p-9 bg-white h-[342px] w-[772px] rounded-md">
+              <div class="flex justify-between">
+                <p
+                  class="text-indigo-700 leading-normal text-2xl font-medium mb-10"
+                >
+                  Upload your file
+                </p>
+                <p @click="togglePopUp = !togglePopUp">
+                  <svg
+                    width="14"
+                    height="14"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M13 1 1 13M1 1l12 12"
+                      stroke="#718096"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                  </svg>
+                </p>
+              </div>
+              <p
+                class="block font-normal text-sm text-slate-500 pb-2.5 leading-normal placeholder:text-slate-500 placeholder:text-base placeholder:font-normal"
+              >
+                File
+              </p>
+              <ImportList :items="files"></ImportList>
+              <div>
+                <div class="flex justify-end items-center px-9 py-2.5 mt-24">
+                  <Button
+                    :isLoading="isLoading"
+                    :disabled="isLoading"
+                    :class="{
+                      'opacity-80 cursor-not-allowed': isLoading,
+                    }"
+                    type="submit"
+                    class="!my-0 bg-fuchsia-600 py-[7px] px-2.5 rounded-md drop-shadow-[0_10px_15px_rgba(0,0,0,0.1)] flex items-center justify-center text-white font-bold text-base leading-normal font-sans"
+                  >
+                    Import data
+                  </Button>
+                  <button
+                    @click="togglePopUp = !togglePopUp"
+                    type="button"
+                    class="ml-2.5 py-[7px] px-2.5 bg-slate-100 rounded-md shadow text-base font-bold"
+                  >
+                    Cancel
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </Details>
@@ -51,18 +118,35 @@ import Details from "@/Layouts/Details.vue";
 <script>
 import NavBar from "@/Components/NavBar.vue";
 import ImportDropZone from "@/Components/ImportDropZone.vue";
+import ImportList from "@/Components/ImportList.vue";
+import Button from "@/Components/Button.vue";
 export default {
   name: "ImportDataFromExcel",
   Components: {
     NavBar,
     ImportDropZone,
+    Button,
+    ImportList,
   },
 
   data() {
-    return {};
+    return {
+      files: [],
+      togglePopUp: false,
+      isLoading: false,
+    };
   },
 
-  props: {},
-  methods: {},
+  methods: {
+    fieldChange() {
+      if (this.files == null) {
+        this.togglePopUp = false;
+      }
+
+      if (this.files != null) {
+        this.togglePopUp = true;
+      }
+    },
+  },
 };
 </script>

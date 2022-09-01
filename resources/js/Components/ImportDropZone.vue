@@ -3,14 +3,15 @@
     @dragenter.prevent=""
     @dragover.prevent=""
     @drop.prevent="handleFiles"
-    class="h-[361px] flex flex-col items-center justify-center text-center bg-white pb-3.5 pt-4 pl-4 w-full rounded-md text-sm leading-normal text-slate-500 font-normal font-sans border-dotted border-2 outline-indigo-700 outline-2 border-indigo-700 active:border-indigo-700"
+    class="h-[361px] flex flex-col items-center justify-center text-center bg-white pb-3.5 pt-4 pl-4 w-full rounded-md text-sm leading-normal text-slate-500 font-normal font-sans border-dashed border-2 outline-indigo-700 outline-2 border-indigo-700 active:border-indigo-700"
   >
     <div class="mr-[9px]">
       <p class="leading-normal text-slate-900 text-2xl font-medium mr-2 mb-12">
         Drop your file here
       </p>
-      <div class="flex">
+      <div class="flex items-center justify-center">
         <svg
+          class="mr-4"
           width="60"
           height="66"
           fill="none"
@@ -33,17 +34,22 @@
           />
         </svg>
       </div>
-      <p class="leading-normal text-slate-500 text-base mr-2">or</p>
+      <div class="flex flex-row items-center justify-center pt-2.5 pb-12">
+        <span class="bg-slate-500 w-[64px] h-[2px] mr-2"></span>
+        <p class="leading-normal text-slate-500 text-xl">or</p>
+        <span class="bg-slate-500 w-[64px] h-[2px] ml-2"></span>
+      </div>
     </div>
 
     <label
       for="dropzone-file"
-      class="leading-normal bg-indigo-700 text-white p-6 text-base font-bold"
-      >Browse</label
+      class="leading-normal bg-indigo-700 text-white px-9 py-2 rounded-md text-base font-bold"
+      >Choose a file</label
     >
     <input
       class="hidden"
       type="file"
+      accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
       id="dropzone-file"
       ref="dropzoneFile"
       @change="handleFiles"
