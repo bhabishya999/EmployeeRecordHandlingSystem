@@ -39,7 +39,7 @@ export default {
   },
   created() {
     this.showSuccess = localStorage.getItem("showSuccess");
-    console.log(this.showSuccess);
+    localStorage.removeItem("showSuccess");
   },
 };
 </script>

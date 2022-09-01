@@ -1,13 +1,5 @@
 <script setup>
 import { ref } from "vue";
-import Details from "@/Layouts/Details.vue";
-import {
-  Listbox,
-  ListboxLabel,
-  ListboxButton,
-  ListboxOptions,
-  ListboxOption,
-} from "@headlessui/vue";
 const organization = ref(null);
 const workschedule = ref(null);
 const team = ref(null);
@@ -89,7 +81,7 @@ const manager = ref(null);
             :close-on-select="true"
             :searchable="true"
             :options="manages"
-            :value="options"
+            :value="managesSelect"
             :classes="{
               tag: 'bg-[#F5F5F5] font-bold text-primary text-sm font-semibold py-0.5 pl-2 rounded mr-1 mb-1 flex items-center whitespace-nowrap rtl:pl-0 rtl:pr-2 rtl:mr-0 rtl:ml-1',
               containerActive: 'ring ring-primary',
@@ -198,7 +190,7 @@ export default {
     });
     return {
       schema,
-      options: [],
+      managesSelect: [],
       superpower: [],
       isLoading: false,
       organizations: [
@@ -221,7 +213,7 @@ export default {
     };
   },
   props: {
-    employeeId: Number,
+    userId: Number,
   },
 
   methods: {
@@ -239,7 +231,7 @@ export default {
       this.isLoading = true;
       axios
         .post("employees/key-employment-details", {
-          employee_id: this.employeeId,
+          employee_id: this.userId,
           organization: organization.label,
           join_date: joinDate,
           current_position: position,
@@ -263,20 +255,24 @@ export default {
   },
   computed: {
     managers() {
-      return this.managerList.map((manager) => ({
-        id: manager.id,
-        label: `${manager.first_name} ${manager.last_name}`,
-        email: manager.email,
-        avatar: manager.avatar,
-      }));
+      return this.managerList.map(
+        ({ id, first_name, last_name, email, avatar }) => ({
+          id: id,
+          label: `${first_name} ${last_name}`,
+          email: email,
+          avatar: `http://talent.local${avatar}`,
+        })
+      );
     },
     manages() {
-      return this.managerList.map((manages) => ({
-        value: { id: manages.id },
-        label: `${manages.first_name} ${manages.last_name}`,
-        email: manages.email,
-        avatar: manages.avatar,
-      }));
+      return this.managerList.map(
+        ({ id, first_name, last_name, email, avatar }) => ({
+          value: { id },
+          label: `${first_name} ${last_name}`,
+          email: email,
+          avatar: `http://talent.local${avatar}`,
+        })
+      );
     },
     selectedManages() {
       return this.managesSelected.map((manages) => manages.id);
@@ -296,34 +292,6 @@ export default {
 };
 </script>
   <style>
-.vue-tel-input {
-  background: #ffffff;
-  border: 2px solid #e2e8f0;
-  border-radius: 6px;
-}
-.vti__input {
-  border: none !important;
-  border-radius: none !important;
-  width: 100%;
-  outline: none !important;
-  padding-left: 10px !important;
-}
-.vti__input:focus {
-  outline: 0 !important;
-  border: 0 !important;
-}
-.vti__selection {
-  background: #e2e8f0;
-  border: 1px solid #e2e8f0;
-  border-radius: 4px;
-  width: 92px;
-  height: 51px;
-}
-
-.vti__dropdown {
-  padding: 0px !important;
-}
-
 .multiselect-tag.is-user {
   padding: 5px 8px;
   border-radius: 22px;

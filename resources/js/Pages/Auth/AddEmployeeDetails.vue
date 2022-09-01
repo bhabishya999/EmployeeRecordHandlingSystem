@@ -341,10 +341,10 @@ import Details from "@/Layouts/Details.vue";
       <EducationalDetail
         v-if="educationalActive"
         class="Educational_Detail"
-        :employeeId="eId"
+        :userId="employeeId"
         @statusChanged="onStatusChange"
       ></EducationalDetail>
-      <KeyDetail v-show="keyempActive" :employeeId="eId"></KeyDetail>
+      <KeyDetail v-show="keyempActive" :userId="employeeId"></KeyDetail>
     </div>
   </Details>
 </template>
@@ -392,7 +392,7 @@ export default {
       accountNumber: Yup.string().max(15),
     });
     return {
-      eId: 1,
+      employeeId: 1,
       phone: "",
       isLoading: false,
       schema,
@@ -436,7 +436,6 @@ export default {
   },
   methods: {
     onStatusChange(event) {
-      console.log("staue:", event);
       this.keyempActive = event;
       this.educationalActive = this.personalActive = false;
     },
@@ -444,6 +443,9 @@ export default {
       let selectedFiles = e.target.files;
       if (!selectedFiles.length) {
         return false;
+      }
+      for (let i = 0; i < selectedFiles.length; i++) {
+        this.files.push(selectedFiles[i]);
       }
     },
     avatarUrl() {

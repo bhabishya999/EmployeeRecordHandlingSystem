@@ -329,15 +329,14 @@ export default {
     };
   },
   props: {
-    employeeId: Number,
+    userId: Number,
   },
   methods: {
     onSubmit(values) {
-      values.users = values.users.map((c) => {
-        c.employee_id = this.employeeId;
+      const educational_details = values.users.map((c) => {
+        c.employee_id = this.userId;
         return c;
       });
-      const educational_details = values.users;
       this.isLoading = true;
       axios
         .post("employees/educations", {
