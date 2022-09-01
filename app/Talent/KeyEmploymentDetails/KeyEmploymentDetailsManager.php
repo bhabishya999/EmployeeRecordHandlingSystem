@@ -1,10 +1,7 @@
 <?php
 namespace App\Talent\KeyEmploymentDetails;
 
-
 use App\Talent\KeyEmploymentDetails\Models\KeyEmploymentDetails;
-use Illuminate\Http\Response;
-use Throwable;
 
 class KeyEmploymentDetailsManager
 {

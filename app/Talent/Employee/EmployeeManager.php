@@ -30,4 +30,9 @@ class EmployeeManager
         ->select(['id','first_name','last_name','email','status','avatar','contact_number'])
         ->paginate($perPage);
      }
+
+    public function employeeProfile($employee_id)
+    {
+        return $this->employee->with('documents')->findOrFail($employee_id);
+    }
 }

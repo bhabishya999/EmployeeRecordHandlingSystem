@@ -3,15 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Http\Resources\EmployeeListResource;
-
-use App\Http\Resources\EmployeeResource;
+use App\Http\Resources\EmployeeProfileResource;
 use App\Talent\Employee\Requests\EmployeeCreateRequest;
 use App\Talent\Employee\EmployeeManager;
 use Illuminate\Http\Response;
 use App\Talent\User\UserManager;
 use App\Talent\Documents\DocumentManager;
-use App\Talent\Employee\Model\Employee;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 use App\Talent\Employee\Model\Employee;
@@ -80,5 +77,15 @@ class EmployeeController extends Controller
         $employeeList=$this->employeeManager->employeeList($perpage,$search,$filter);
         return EmployeeListResource::collection($employeeList);
     }
-    
+
+    public function showDetails(Request $request)
+    {
+        $id = $request->query('id');
+        $employeeDetails = $this->employeeManager->employeeProfile($id);
+        if(!$employeeDetails){
+            return responseHelper('Details Not Found!', Response::HTTP_NOT_FOUND, 'Failed!');
+
+        }
+        return new EmployeeProfileResource($employeeDetails);
+    }
 }
