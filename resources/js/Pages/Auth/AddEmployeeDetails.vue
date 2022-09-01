@@ -493,7 +493,7 @@ export default {
         .post("employees", formData)
         .then((response) => {
           const { employeeId } = response.data;
-          this.eId = employeeId;
+          this.employeeId = employeeId;
           this.educationalActive = true;
           this.personalActive = false;
         })
