@@ -71,7 +71,8 @@ class EmployeeController extends Controller
     public function index(Request $request)
     {
         $search=$request->query('search');
-        $employeeList=$this->employeeManager->employeeList($search);
+        $perpage=$request->query('perPage');
+        $employeeList=$this->employeeManager->employeeList($perpage,$search);
         return EmployeeListResource::collection($employeeList);
     }
     
