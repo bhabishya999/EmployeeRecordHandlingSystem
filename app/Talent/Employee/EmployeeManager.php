@@ -15,7 +15,7 @@ class EmployeeManager
         $employee= $this->employee->create($employeeArray);
         return $employee;
     }
-    public function employeeList(?int $perPage, ?string $search=null):LengthAwarePaginator
+    public function employeeList(?int $perPage=10, ?string $search=null):LengthAwarePaginator
     {
         return $this->employee->with('employment:employee_id,current_position,work_schedule,team')
         ->when(!empty($search),function($query) use ($search)
