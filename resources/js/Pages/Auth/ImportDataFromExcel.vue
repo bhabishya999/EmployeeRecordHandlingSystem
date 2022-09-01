@@ -41,10 +41,7 @@ import Details from "@/Layouts/Details.vue";
           </p>
         </div>
         <div class="px-28">
-          <ImportDropZone
-            v-model="files"
-            @change="fieldChange"
-          ></ImportDropZone>
+          <ImportDropZone v-model="files" @change="hasFiles"></ImportDropZone>
         </div>
       </div>
       <div>
@@ -137,15 +134,9 @@ export default {
     };
   },
 
-  methods: {
-    fieldChange() {
-      if (this.files == null) {
-        this.togglePopUp = false;
-      }
-
-      if (this.files != null) {
-        this.togglePopUp = true;
-      }
+  computed: {
+    hasFiles() {
+      this.togglePopUp = this.files.length != 0;
     },
   },
 };
