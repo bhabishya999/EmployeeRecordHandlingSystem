@@ -19,7 +19,7 @@ class EducationalDetailsFactory extends Factory
     public function definition(): array
     {
         return [
-            'education_level' =>'SLC',
+            'education_level' =>$this->faker->randomElement(['SLC', '+2', 'Bachelors', 'Masters']),
             'passed_year' => $this->faker->date('Y', '2022'),
             'institution' => $this->faker->streetName()
         ];
