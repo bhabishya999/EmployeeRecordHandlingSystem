@@ -25,6 +25,46 @@
       class="bg-white w-full drop-shadow-[0_1px_2px_rgba(0,0,0,0.06)_0_10px_15px_rgba(0,0,0,0.1)]"
     >
       <EmployeeListHeader>
+        <template v-slot:filter>
+          <div class="flex flex-row text-center justify-center mt-1">
+            <input
+              v-model="searchfilter"
+              type="text"
+              placeholder="Search"
+              class="h-[26px] w-[120px] border-transparent focus:border-transparent focus:ring-0"
+            />
+            <button class="pr-4" id="cmnt" v-on:click="seen = !seen">
+              <svg
+                width="14"
+                height="9"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="m1 1.5 6 6 6-6"
+                  stroke="#4C51BF"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </svg>
+            </button>
+          </div>
+
+          <div
+            v-if="seen"
+            id="hide"
+            class="mt-1 bg-white border pr-28 rounded w-[170px] shadow-sm"
+          >
+            <div v-if="statuslist.length">
+              <div v-for="(status, index) in statuslist" :key="index">
+                {{ status.status }}
+              </div>
+            </div>
+            <div v-else>Employee doesnot have status</div>
+          </div>
+        </template>
+
         <div
           class="h-[37px] w-[220px] pl-2 border border-primary shadow-sm rounded-md flex justify-center items-center text-center bg-white font-sans not-italic font-bold text-base"
         >
@@ -65,7 +105,7 @@
   </div>
 </template>
 <script>
-import axios from "axios";
+import axios from "@/axios";
 import Details from "@/Layouts/Details.vue";
 import NavBar from "@/Components/NavBar.vue";
 import EmployeeList from "@/Components/EmployeeList.vue";
@@ -78,6 +118,7 @@ export default {
   data() {
     return {
       employeeList: [],
+      el: "#hide",
       total: 12,
       pageNumber: this.$route.query.pageNumber
         ? parseInt(this.$route.query.pageNumber)
@@ -103,10 +144,20 @@ export default {
   // created() {},
   created() {
     const token = localStorage.getItem("talent_token");
-    const api = "http://talent.local/api/employees";
+    const api = " http://talent.local/api/employees";
+    if (!token) {
+      // handle no token case
+      return;
+    }
 
     axios
-      .get(api, { headers: { Token: `Bearer ${token}` } })
+      .get(api, {
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      })
       .then((response) => {
         console.log(response, "abc");
       })
@@ -147,9 +198,9 @@ export default {
     },
   },
 
-  async mounted() {
+  mounted() {
     this.pageNumber = 1;
-    await this.getData();
+    this.getData();
   },
 };
 </script>

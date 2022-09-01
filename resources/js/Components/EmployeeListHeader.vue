@@ -9,33 +9,9 @@
           <h3 class="text-base text-light_iris">Total 30 results</h3>
         </div>
         <div
-          class="flex flex-row border shadow-sm justify-between rounded-md h-[37px] w-[170px] text-center justify-center items-center"
+          class="flex flex-col border shadow-sm justify-between rounded-md h-[37px] w-[170px] text-center justify-center items-center mt-2"
         >
-          <input
-            v-model="searchfilter"
-            type="text"
-            placeholder="search"
-            class="h-[26px] w-[120px] border-transparent focus:border-transparent focus:ring-0"
-          />
-          <button class="pr-4" id="cmnt" v-on:click="seen = !seen">
-            <svg
-              width="14"
-              height="9"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="m1 1.5 6 6 6-6"
-                stroke="#4C51BF"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              />
-            </svg>
-            <div v-if="seen" id="hide">
-              <div>abc</div>
-            </div>
-          </button>
+          <slot name="filter"></slot>
         </div>
       </div>
 
@@ -82,11 +58,30 @@
 <script>
 export default {
   name: "EmployeeListHeader",
-  el: "#hide",
+  
   data() {
     return {
+      seen: false,
       searchfilter: "",
+      Status: [
+        {
+          status: "Janet",
+        },
+        {
+          status: "Eve",
+        },
+      ],
     };
+  },
+  computed: {
+    statuslist() {
+      if (this.searchfilter.trim().length > 0) {
+        return this.Status.filter((status) =>
+          status.status.toLowerCase().includes(this.searchfilter.toLowerCase())
+        );
+      }
+      return this.Status;
+    },
   },
 };
 </script>
