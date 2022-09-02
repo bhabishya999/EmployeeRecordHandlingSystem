@@ -89,7 +89,7 @@ import Details from "@/Layouts/Details.vue";
           </div>
 
           <div
-            v-if="togglePopUp"
+            v-if="showPopUp"
             class="fixed inset-0 w-full h-screen bg-black bg-opacity-50"
           >
             <div
@@ -102,7 +102,7 @@ import Details from "@/Layouts/Details.vue";
                   >
                     Upload your file
                   </p>
-                  <p @click="togglePopUp = !togglePopUp">
+                  <p @click="showPopUp = !showPopUp">
                     <svg
                       width="14"
                       height="14"
@@ -140,7 +140,7 @@ import Details from "@/Layouts/Details.vue";
                       Import data
                     </Button>
                     <button
-                      @click="togglePopUp = !togglePopUp"
+                      @click="showPopUp = !showPopUp"
                       type="button"
                       class="ml-2.5 py-[7px] px-2.5 bg-slate-100 rounded-md shadow text-base font-bold"
                     >
@@ -180,14 +180,14 @@ export default {
         },
       ],
       files: [],
-      togglePopUp: false,
+      showPopUp: false,
       isLoading: false,
     };
   },
 
   computed: {
     hasFiles() {
-      this.togglePopUp = this.files.length != 0;
+      this.showPopUp = this.files.length != 0;
     },
   },
   methods: {

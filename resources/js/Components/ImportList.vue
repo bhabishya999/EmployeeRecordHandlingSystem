@@ -3,7 +3,7 @@
     <li>
       <div class="flex flex-col">
         <p class="leading-normal font-normal text-base text-black mb-2">
-          {{ files[0].name }}
+          {{ items[0].name }}
         </p>
       </div>
     </li>
@@ -15,7 +15,7 @@ export default {
   props: ["items"],
   computed: {
     files() {
-      return this.items.reverse();
+      return this.items.pop();
     },
   },
 };

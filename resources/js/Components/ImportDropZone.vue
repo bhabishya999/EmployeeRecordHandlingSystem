@@ -71,10 +71,9 @@ export default {
     handleFiles(e) {
       const inputValue =
         e.target.files || e.dataTransfer.files || this.$refs.dropzoneFile.files;
-      for (let i = 0; i < inputValue.length; i++) {
-        const fileitem = inputValue[i];
-        this.files.push(fileitem);
-      }
+      inputValue.forEach((value) => {
+        this.files.push(value);
+      });
       this.$emit("update:modelValue", this.files);
     },
   },
