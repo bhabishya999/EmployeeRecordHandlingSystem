@@ -1,11 +1,14 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Http\Resources\EmployeeKeyEmploymentDetailResource;
 use App\Talent\KeyEmploymentDetails\KeyEmploymentDetailsManager;
 use App\Talent\KeyEmploymentDetails\Models\KeyEmploymentDetails;
 use App\Talent\KeyEmploymentDetails\Requests\StoreKeyEmploymentDetailsRequests;
 use App\Talent\Manages\ManagesManager;
+use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+
 
 class KeyEmploymentDetailsController extends Controller
 {
@@ -14,30 +17,30 @@ class KeyEmploymentDetailsController extends Controller
 
     }
 
-    public function store(StoreKeyEmploymentDetailsRequests $request)
+    public function store(StoreKeyEmploymentDetailsRequests $request): Response
     {
         $validation = $request->validated();
 
         $keyEmploymentDetailsArray= [];
 
-        
+
          $employmentDetails = $this->keyEmploymentDetailsManager->create($validation);
-         
+
          if(!$employmentDetails)
          {
             return responseHelper('Something Went Wrong, Please Try Again!', Response::HTTP_NOT_FOUND, 'Failed!');
          }
          array_push($keyEmploymentDetailsArray, $employmentDetails);
-        
+
         foreach($validation['manages'] as $managesId)
         {
-            
+
              $managersArray = [
                 'key_employment_detail_id'=> $employmentDetails->id,
                 'employee_id'=>$managesId
             ];
             $manager = $this->managesManager->createManager($managersArray);
-            
+
             if(!$manager)
             {
                 return responseHelper('Something Went Wrong, Please Try Again!', Response::HTTP_NOT_FOUND, 'Failed!');
@@ -46,6 +49,18 @@ class KeyEmploymentDetailsController extends Controller
         }
 
         return responseHelper("Key Employment Details Successfully Saved!");
+    }
+
+    public function show(Request $request)
+    {
+        $id = $request->query('id');
+        $keyEmploymentDetails = $this->keyEmploymentDetailsManager->keyEmploymentProfile($id);
+
+        if(!$keyEmploymentDetails)
+        {
+            return responseHelper('Details Not Found!', Response::HTTP_NOT_FOUND, 'Failed!');
+        }
+        return new EmployeeKeyEmploymentDetailResource($keyEmploymentDetails);
     }
 
 }
