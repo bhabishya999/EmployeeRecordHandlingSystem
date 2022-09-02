@@ -74,4 +74,24 @@ router.beforeEach((to, from, next) => {
         next();
     }
 });
+
+router.beforeEach((to, from, next) => {
+    const token = localStorage.getItem("talent_token");
+    const authenticated = !!token;
+    const requiresAuth = to.matched.some((record) => record.meta.requiresAuth);
+
+    if (!requiresAuth) {
+        if (authenticated && to.name !== "Employees") {
+
+            next({
+                path: "/employees",
+                query: { redirect: to.fullPath },
+            });
+        } else {
+            next();
+        }
+    } else {
+        next();
+    }
+});
 export default router;
