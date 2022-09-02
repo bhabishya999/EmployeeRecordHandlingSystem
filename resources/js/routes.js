@@ -48,7 +48,7 @@ const routes = [
     },
     {
         name: "ImportDataFromExcel",
-        path: "/importdata",
+        path: "/employees/import",
         component: ImportDataFromExcel,
 
 

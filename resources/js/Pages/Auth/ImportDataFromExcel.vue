@@ -3,7 +3,7 @@ import Details from "@/Layouts/Details.vue";
 </script>
 <template>
   <div class="max-h-screen">
-    <NavBar></NavBar>
+    <NavBar />
     <div class="h-6 bg-slate-100"></div>
     <Details>
       <div class="h-[716px] mb-24">
