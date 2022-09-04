@@ -33,12 +33,11 @@
               placeholder="Search"
               class="h-[26px] w-[120px] border-transparent focus:border-transparent focus:ring-0"
             />
+
             <button class="pr-4" id="cmnt" v-on:click="seen = !seen">
               <svg
                 width="14"
                 height="9"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
               >
                 <path
                   d="m1 1.5 6 6 6-6"
@@ -56,12 +55,13 @@
             id="hide"
             class="mt-1 bg-white border pr-28 rounded w-[170px] shadow-sm"
           >
-            <div v-if="statuslist.length">
-              <div v-for="(status, index) in statuslist" :key="index">
-                {{ status.status }}
-              </div>
+            <div
+              v-for="status in status"
+              :key="status"
+              v-on:click="statusfilter(status)"
+            >
+              {{ status.status }}
             </div>
-            <div v-else>Employee doesnot have status</div>
           </div>
         </template>
 
@@ -124,13 +124,36 @@ export default {
         ? parseInt(this.$route.query.pageNumber)
         : 1,
       search: "",
+      seen: false,
+      searchfilter: "",
+      status: [
+        {
+          status: "All",
+        },
+        {
+          status: "Active",
+        },
+        {
+          status: "Alumni",
+        },
+      ],
     };
   },
   computed: {
     filterdlist() {
-      return this.employeeList.filter((list) =>
-        list.first_name.toLowerCase().includes(this.search.toLowerCase())
+      return this.employeeList.filter(
+        (list) =>
+          list.first_name &&
+          list.email.toLowerCase().includes(this.search.toLowerCase())
       );
+    },
+    statusfilter(status) {
+      this.employeeList = [];
+      if (status !== "All") {
+        this.employeeList = this.employeeList.filter((list) => {
+          return list.status === status;
+        });
+      }
     },
   },
 
@@ -141,31 +164,8 @@ export default {
     EmployeeListHeader,
     Pagination,
   },
-  // created() {},
-  created() {
-    const token = localStorage.getItem("talent_token");
-    const api = " http://talent.local/api/employees";
-    if (!token) {
-      // handle no token case
-      return;
-    }
 
-    axios
-      .get(api, {
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      })
-      .then((response) => {
-        console.log(response, "abc");
-      })
-
-      .catch((error) => {
-        console.log(error);
-      });
-  },
+  created() {},
 
   methods: {
     pageChange(page) {
@@ -185,13 +185,15 @@ export default {
       });
       this.getData();
     },
+
     getData() {
       axios
-        .get(`https://reqres.in/api/users?page=${this.pageNumber}`)
+        .get(`/employees?page=${this.pageNumber}`)
         .then((result) => {
           this.employeeList = result.data.data;
-          this.total = result.data.total;
+          this.total = result.data.meta.total;
         })
+
         .catch((error) => {
           alert(error);
         });
@@ -204,3 +206,7 @@ export default {
   },
 };
 </script>
+
+<style>
+@import url(https://cdn.syncfusion.com/ej2/material.css);
+</style>

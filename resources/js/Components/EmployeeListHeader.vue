@@ -22,22 +22,24 @@
         <div
           class="h-[38px] w-full flex justify-center items-center text-center bg-white font-sans not-italic font-bold text-base"
         >
-          <button
+          <router-link
+            to="/employees/add"
             type="button"
             class="bg-primary p-[7px] rounded-md drop-shadow-[0_10px_15px_rgba(0,0,0,0.1)] flex items-center justify-center text-white font-bold text-base font-sans"
           >
             + Add Employee
-          </button>
+          </router-link>
         </div>
         <div
           class="h-[38px] w-full flex justify-center items-center text-center bg-white font-sans not-italic font-bold text-base"
         >
-          <button
+          <router-link
+            to="/importdata"
             type="button"
             class="bg-dark_pink p-[7px] w-[180px] rounded-md drop-shadow-[0_10px_15px_rgba(0,0,0,0.1)] flex items-center justify-center text-white font-bold text-base font-sans"
           >
             ->] Import from Excel
-          </button>
+          </router-link>
         </div>
       </div>
     </div>
@@ -58,30 +60,5 @@
 <script>
 export default {
   name: "EmployeeListHeader",
-  
-  data() {
-    return {
-      seen: false,
-      searchfilter: "",
-      Status: [
-        {
-          status: "Janet",
-        },
-        {
-          status: "Eve",
-        },
-      ],
-    };
-  },
-  computed: {
-    statuslist() {
-      if (this.searchfilter.trim().length > 0) {
-        return this.Status.filter((status) =>
-          status.status.toLowerCase().includes(this.searchfilter.toLowerCase())
-        );
-      }
-      return this.Status;
-    },
-  },
 };
 </script>

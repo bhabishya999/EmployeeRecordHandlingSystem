@@ -1,11 +1,12 @@
-
-
 import axios from 'axios';
 
- const HTTP = axios.create({
-  baseURL: process.env.API_URL,
+const token = localStorage.getItem("talent_token") ?? "";
+ 
+  const axiosInstance = axios.create({
+  baseURL: `http://talent.local/api`,
   headers: {
-    Authorization: 'Bearer {token}'
+    Authorization: `Bearer ${token}`
   }
 })
-export default HTTP;
+
+export default axiosInstance;
