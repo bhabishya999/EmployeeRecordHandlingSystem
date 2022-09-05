@@ -36,7 +36,7 @@
 
         <div class="flex flex-col truncate">
           <h1 class="text-sm text-dark_cyanblue">
-            {{ list.first_name }}{{ list.last_name }}
+            {{ list.first_name }} {{ list.last_name }}
           </h1>
           <h1 class="text-xs text-primary truncate">{{ list.email }}</h1>
         </div>

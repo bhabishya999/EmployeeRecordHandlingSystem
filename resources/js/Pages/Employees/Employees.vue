@@ -35,10 +35,7 @@
             />
 
             <button class="pr-4" id="cmnt" v-on:click="seen = !seen">
-              <svg
-                width="14"
-                height="9"
-              >
+              <svg width="14" height="9">
                 <path
                   d="m1 1.5 6 6 6-6"
                   stroke="#4C51BF"
@@ -185,6 +182,15 @@ export default {
       });
       this.getData();
     },
+    // search(search) {
+    //   this.first_name = search;
+    //   console.log(search);
+    //   this.$router.push({
+    //     path: "/employees",
+    //     query: { page: this.first_name },
+    //   });
+    //   this.getData();
+    // },
 
     getData() {
       axios
