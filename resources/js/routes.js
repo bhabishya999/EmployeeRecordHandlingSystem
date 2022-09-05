@@ -71,7 +71,7 @@ router.beforeEach((to, from, next) => {
             next();
         }
     } else {
-        if (authenticated && to.name !== "Employees") {
+        if (authenticated && (to.name == "Login"|| to.name == "ForgotPassword" || to.name == "ResetPassword" || to.name == "LinkExpired" )) {
 
             next({
                 path: "/employees",
