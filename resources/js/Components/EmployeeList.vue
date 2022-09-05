@@ -60,7 +60,7 @@
       </div>
       <div class="">
         <router-link
-          to="/employees/:id"
+          :to="'/employees/' + list.id"
           class="flex flex-row text-sm w-[112px] h-[23px] text-primary border border-solid border-bordergray box-border rounded-md"
         >
           View Details &nbsp;

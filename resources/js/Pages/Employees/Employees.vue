@@ -65,24 +65,27 @@
         <div
           class="h-[37px] w-[220px] pl-2 border border-primary shadow-sm rounded-md flex justify-center items-center text-center bg-white font-sans not-italic font-bold text-base"
         >
-          <svg
-            width="13"
-            height="14"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M5.823 11.667c2.663 0 4.821-2.388 4.821-5.334C10.644 3.388 8.486 1 5.823 1S1 3.388 1 6.333c0 2.946 2.159 5.334 4.822 5.334ZM11.85 13l-2.622-2.9"
-              stroke="#A0AEC0"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            />
-          </svg>
+          <button type="submit">
+            <svg
+              width="13"
+              height="14"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M5.823 11.667c2.663 0 4.821-2.388 4.821-5.334C10.644 3.388 8.486 1 5.823 1S1 3.388 1 6.333c0 2.946 2.159 5.334 4.822 5.334ZM11.85 13l-2.622-2.9"
+                stroke="#A0AEC0"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+          </button>
           <input
             v-model="search"
             type="text"
             placeholder="Search by name"
+            v-on:keyup.enter="onSubmit"
             class="border-0 h-[20px] w-[160px] placeholder:text-light_cyanblue pl-2 text-black rounded-md border-transparent focus:border-transparent focus:ring-0"
           />
         </div>
@@ -138,13 +141,20 @@ export default {
   },
   computed: {
     filterdlist() {
-      return this.employeeList.filter(
-        (list) =>
-          list.first_name &&
-          list.email.toLowerCase().includes(this.search.toLowerCase())
-      );
+      return this.employeeList.filter((list) => {
+        var fullname = list.first_name.trim() + " " + list.last_name.trim();
+        return (
+          list.first_name.toLowerCase().match(this.search.toLowerCase()) ||
+          list.last_name.toLowerCase().match(this.search.toLowerCase()) ||
+          fullname
+            .toLowerCase()
+            .match(this.search.toLowerCase().replace(/\s+/g, " ")) ||
+          list.email.toLowerCase().match(this.search.toLowerCase())
+        );
+      });
     },
     statusfilter(status) {
+      console.log(status, "abc");
       this.employeeList = [];
       if (status !== "All") {
         this.employeeList = this.employeeList.filter((list) => {
@@ -182,15 +192,18 @@ export default {
       });
       this.getData();
     },
-    // search(search) {
-    //   this.first_name = search;
-    //   console.log(search);
-    //   this.$router.push({
-    //     path: "/employees",
-    //     query: { page: this.first_name },
-    //   });
-    //   this.getData();
-    // },
+    onSubmit() {
+      axios
+
+        .get(`/employees?search=${this.search}`)
+        .then((result) => {
+          this.filteredlist = result.data.data;
+        })
+
+        .catch((error) => {
+          alert(error);
+        });
+    },
 
     getData() {
       axios

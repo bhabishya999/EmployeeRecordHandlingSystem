@@ -34,11 +34,25 @@
           class="h-[38px] w-full flex justify-center items-center text-center bg-white font-sans not-italic font-bold text-base"
         >
           <router-link
-            to="/importdata"
+            to="/employees/import"
             type="button"
             class="bg-dark_pink p-[7px] w-[180px] rounded-md drop-shadow-[0_10px_15px_rgba(0,0,0,0.1)] flex items-center justify-center text-white font-bold text-base font-sans"
           >
-            ->] Import from Excel
+            <svg
+              width="12"
+              height="14"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M7.617 1.5H9.87c.3 0 .586.129.797.358.212.23.33.54.33.864v8.556c0 .324-.118.635-.33.864-.211.23-.498.358-.797.358H7.617M4.8 10.055 7.616 7 4.799 3.944M7.617 7H.854"
+                stroke="#fff"
+                stroke-width="1.222"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+            &nbsp; Import from Excel
           </router-link>
         </div>
       </div>
