@@ -71,16 +71,6 @@ router.beforeEach((to, from, next) => {
             next();
         }
     } else {
-        next();
-    }
-});
-
-router.beforeEach((to, from, next) => {
-    const token = localStorage.getItem("talent_token");
-    const authenticated = !!token;
-    const requiresAuth = to.matched.some((record) => record.meta.requiresAuth);
-
-    if (!requiresAuth) {
         if (authenticated && to.name !== "Employees") {
 
             next({
@@ -90,8 +80,7 @@ router.beforeEach((to, from, next) => {
         } else {
             next();
         }
-    } else {
-        next();
     }
 });
+
 export default router;
