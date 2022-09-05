@@ -71,8 +71,8 @@ router.beforeEach((to, from, next) => {
             next();
         }
     } else {
-        if (authenticated && (to.name == "Login"|| to.name == "ForgotPassword" || to.name == "ResetPassword" || to.name == "LinkExpired" )) {
-
+        const pageName = ['Login', 'ForgotPassword', 'ResetPassword', 'LinkExpired'];
+        if (authenticated && pageName.includes(to.name)) {
             next({
                 path: "/employees",
                 query: { redirect: to.fullPath },
