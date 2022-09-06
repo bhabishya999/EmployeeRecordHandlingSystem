@@ -283,7 +283,7 @@ export default {
   },
   created() {
     axios
-      .get(`employees/managers?exclude_ids=${this.employeeId}`)
+      .get(`employees/managers?exclude_ids=${this.userId}`)
       .then(({ data }) => {
         this.managerList = data.data;
       })

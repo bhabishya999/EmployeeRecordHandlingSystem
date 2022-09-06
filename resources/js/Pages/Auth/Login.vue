@@ -90,7 +90,7 @@ import GuestLayout from "@/Layouts/Guest.vue";
 import Button from "@/Components/Button.vue";
 import CustomInput from "@/Components/CustomInput.vue";
 import PasswordInput from "@/Components/PasswordInput.vue";
-import axios from "axios";
+import axios from "@/axios";
 import { Form } from "vee-validate";
 import * as Yup from "yup";
 export default {
