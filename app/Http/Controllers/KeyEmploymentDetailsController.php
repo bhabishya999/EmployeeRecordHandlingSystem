@@ -54,6 +54,7 @@ class KeyEmploymentDetailsController extends Controller
     public function show(Request $request)
     {
         $id = $request->query('id');
+
         $keyEmploymentDetails = $this->keyEmploymentDetailsManager->keyEmploymentProfile($id);
 
         if(!$keyEmploymentDetails)

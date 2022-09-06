@@ -53,7 +53,6 @@ class UserSeeder extends Seeder
                         return ['employee_id' => $employee->id,
                             'manager'=> $employee->id];
                     })
-
                 )
 
             )
