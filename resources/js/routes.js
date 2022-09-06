@@ -71,7 +71,16 @@ router.beforeEach((to, from, next) => {
             next();
         }
     } else {
-        next();
+        const pageName = ['Login', 'ForgotPassword', 'ResetPassword', 'LinkExpired'];
+        if (authenticated && pageName.includes(to.name)) {
+            next({
+                path: "/employees",
+                query: { redirect: to.fullPath },
+            });
+        } else {
+            next();
+        }
     }
 });
+
 export default router;
