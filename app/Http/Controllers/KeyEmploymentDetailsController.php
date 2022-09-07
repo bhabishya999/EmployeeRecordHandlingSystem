@@ -51,11 +51,9 @@ class KeyEmploymentDetailsController extends Controller
         return responseHelper("Key Employment Details Successfully Saved!");
     }
 
-    public function show(Request $request)
+    public function show($employeeId)
     {
-        $id = $request->query('id');
-
-        $keyEmploymentDetails = $this->keyEmploymentDetailsManager->keyEmploymentProfile($id);
+        $keyEmploymentDetails = $this->keyEmploymentDetailsManager->keyEmploymentProfile($employeeId);
 
         return new EmployeeKeyEmploymentDetailResource($keyEmploymentDetails);
     }

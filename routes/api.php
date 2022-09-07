@@ -30,10 +30,11 @@ Route::group(['prefix' => 'employees', 'middleware' => ['auth:sanctum']], functi
     Route::post('/', [EmployeeController::class,'store']);
     Route::get('/managers',[ManagerListController::class,'index']);
     Route::get('/',[EmployeeController::class,'index']);
-    Route::get('/profile', [EmployeeController::class, 'show']);
     Route::post('/key-employment-details', [KeyEmploymentDetailsController::class, 'store']);
-    Route::get('/educations', [EducationalDetailsController::class, 'show']);
-    Route::get('/key-employment-details', [KeyEmploymentDetailsController::class, 'show']); 
+    Route::get('/educations/{employee_id}', [EducationalDetailsController::class, 'show']);
+    Route::get('/profile/{employee_id}', [EmployeeController::class, 'show']);
+    Route::get('/key-employment-details/{employee_id}', [KeyEmploymentDetailsController::class, 'show']);
+    
 });
 
 Route::group(['prefix' => 'user', 'middleware' => ['auth:sanctum']], function(){
@@ -43,8 +44,3 @@ Route::group(['prefix' => 'user', 'middleware' => ['auth:sanctum']], function(){
 Route::post('/forget-password', [ForgotPasswordController::class,'resetEmail']);
 Route::post('/reset-password',[PasswordResetController::class, 'reset']);
 Route::get('/validate-token', [PasswordResetController::class, 'validateToken']);
-
-
-
-
-

@@ -39,10 +39,9 @@ class EducationalDetailsController extends Controller
     }
 
 
-    public function show(Request $request)
+    public function show($employeeId)
     {
-        $id = $request->query('id');
-        $educationalDetails = $this->educationalDetailsManager->educationalProfile($id);
+        $educationalDetails = $this->educationalDetailsManager->educationalProfile($employeeId);
 
         return new EmployeeEducationalResource($educationalDetails);
     }

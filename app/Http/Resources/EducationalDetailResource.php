@@ -15,7 +15,7 @@ class EducationalDetailResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'employee_id' => $this->employee_id,
+            'education_id' => $this->id,
             'education_level' => $this->education_level,
             'passed_year' => $this->passed_year,
             'institution' => $this->institution,

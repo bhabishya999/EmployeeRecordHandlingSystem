@@ -78,10 +78,9 @@ class EmployeeController extends Controller
         return EmployeeListResource::collection($employeeList);
     }
 
-    public function show(Request $request)
+    public function show($employeeId)
     {
-        $id = $request->query('id');
-        $employeeDetails = $this->employeeManager->employeeProfile($id);
+        $employeeDetails = $this->employeeManager->employeeProfile($employeeId);
         
         return new EmployeeProfileResource($employeeDetails);
     }
