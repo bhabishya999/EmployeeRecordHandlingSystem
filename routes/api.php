@@ -34,12 +34,14 @@ Route::group(['prefix' => 'employees', 'middleware' => ['auth:sanctum']], functi
     Route::get('/educations/{employee_id}', [EducationalDetailsController::class, 'show']);
     Route::get('/profile/{employee_id}', [EmployeeController::class, 'show']);
     Route::get('/key-employment-details/{employee_id}', [KeyEmploymentDetailsController::class, 'show']);
+    
+    Route::post('/import', [\App\Http\Controllers\ImportController::class,'import']);
+
 });
 
 Route::group(['prefix' => 'user', 'middleware' => ['auth:sanctum']], function(){
     Route::get('/me',[UserController::class,'show']);
 });
-
 Route::post('/forget-password', [ForgotPasswordController::class,'resetEmail']);
 Route::post('/reset-password',[PasswordResetController::class, 'reset']);
 Route::get('/validate-token', [PasswordResetController::class, 'validateToken']);
