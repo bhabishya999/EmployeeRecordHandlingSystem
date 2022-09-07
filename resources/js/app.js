@@ -1,5 +1,4 @@
 import "../css/app.css";
-import "./axios";
 import "./bootstrap";
 
 import router from "@/routes";
