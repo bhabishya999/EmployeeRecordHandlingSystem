@@ -44,10 +44,6 @@ class EducationalDetailsController extends Controller
         $id = $request->query('id');
         $educationalDetails = $this->educationalDetailsManager->educationalProfile($id);
 
-        if(!$educationalDetails)
-        {
-            return responseHelper('Details Not Found!', Response::HTTP_NOT_FOUND, 'Failed!');
-        }
         return new EmployeeEducationalResource($educationalDetails);
     }
 }

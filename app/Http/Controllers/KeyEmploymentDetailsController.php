@@ -57,10 +57,6 @@ class KeyEmploymentDetailsController extends Controller
 
         $keyEmploymentDetails = $this->keyEmploymentDetailsManager->keyEmploymentProfile($id);
 
-        if(!$keyEmploymentDetails)
-        {
-            return responseHelper('Details Not Found!', Response::HTTP_NOT_FOUND, 'Failed!');
-        }
         return new EmployeeKeyEmploymentDetailResource($keyEmploymentDetails);
     }
 

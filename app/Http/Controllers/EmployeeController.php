@@ -82,10 +82,7 @@ class EmployeeController extends Controller
     {
         $id = $request->query('id');
         $employeeDetails = $this->employeeManager->employeeProfile($id);
-        if(!$employeeDetails){
-            return responseHelper('Details Not Found!', Response::HTTP_NOT_FOUND, 'Failed!');
-
-        }
+        
         return new EmployeeProfileResource($employeeDetails);
     }
 
