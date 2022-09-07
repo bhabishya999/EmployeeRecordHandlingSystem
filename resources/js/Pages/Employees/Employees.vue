@@ -35,46 +35,40 @@
         "
       >
         <EmployeeListHeader>
+          <template v-slot:total :total="total">{{ total }}</template>
           <template v-slot:filter>
-            <div class="flex flex-row text-center justify-center mt-1">
-              <input
-                v-model="searchfilter"
-                type="text"
-                placeholder="Search"
-                class="
-                  h-[26px]
-                  w-[120px]
-                  border-transparent
-                  focus:border-transparent focus:ring-0
-                "
-              />
-
-              <button class="pr-4" id="cmnt" v-on:click="seen = !seen">
-                <svg width="14" height="9">
-                  <path
-                    d="m1 1.5 6 6 6-6"
-                    stroke="#4C51BF"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  />
-                </svg>
-              </button>
-            </div>
-
-            <div
-              v-if="seen"
-              id="hide"
-              class="mt-1 bg-white border pr-28 rounded w-[170px] shadow-sm"
+            <select
+              name="status"
+              id="status"
+              :key="status"
+              @change="filterstatus($event)"
+              class="
+                border-transparent
+                focus:border-transparent focus:ring-0
+                outline-0
+                scroll-smooth
+                border
+                drop-shadow
+                justify-between
+                rounded-md
+                h-[37px]
+                w-[130px]
+                text-primary text-center
+                justify-center
+                items-center
+                pr-16
+              "
             >
-              <div
+              &nbsp;&nbsp;
+
+              <option
                 v-for="status in status"
-                :key="status"
-                v-on:click="statusfilter(status)"
+                v-bind:key="status.status"
+                v-bind:value="status.status"
               >
                 {{ status.status }}
-              </div>
-            </div>
+              </option>
+            </select>
           </template>
 
           <div
@@ -132,7 +126,7 @@
           </div>
         </EmployeeListHeader>
 
-        <EmployeeList v-for="list in filterdlist" :key="list.id" :list="list">
+        <EmployeeList v-for="list in filteredlist" :key="list.id" :list="list">
         </EmployeeList>
       </div>
 
@@ -161,13 +155,13 @@ export default {
       showSuccess: false,
       employeeList: [],
       el: "#hide",
-      total: 12,
+      total: [],
       pageNumber: this.$route.query.pageNumber
         ? parseInt(this.$route.query.pageNumber)
         : 1,
       search: "",
       seen: false,
-      searchfilter: "",
+
       status: [
         {
           status: "All",
@@ -182,7 +176,7 @@ export default {
     };
   },
   computed: {
-    filterdlist() {
+    filteredlist() {
       return this.employeeList.filter((list) => {
         var fullname = list.first_name.trim() + " " + list.last_name.trim();
         return (
@@ -195,15 +189,6 @@ export default {
         );
       });
     },
-    statusfilter(status) {
-      console.log(status, "abc");
-      this.employeeList = [];
-      if (status !== "All") {
-        this.employeeList = this.employeeList.filter((list) => {
-          return list.status === status;
-        });
-      }
-    },
   },
 
   components: {
@@ -213,11 +198,6 @@ export default {
     EmployeeListHeader,
     Pagination,
   },
-
-  // created() {
-  //   this.showSuccess = localStorage.getItem("showSuccess");
-  //   localStorage.removeItem("showSuccess");
-  // },
 
   methods: {
     pageChange(page) {
@@ -237,14 +217,30 @@ export default {
       });
       this.getData();
     },
+
     onSubmit() {
       axios
-
         .get(`/employees?search=${this.search}`)
         .then((result) => {
           this.filteredlist = result.data.data;
         })
+        .catch((error) => {
+          alert(error);
+        });
+    },
 
+    filterstatus(status) {
+      var filterdata = status.target.value;
+
+      if (filterdata == "All") {
+        filterdata = "";
+      }
+      axios
+        .get(`/employees?filter=${filterdata}`)
+        .then((result) => {
+          this.employeeList = result.data.data;
+          this.total = result.data.data.length;
+        })
         .catch((error) => {
           alert(error);
         });
@@ -255,7 +251,7 @@ export default {
         .get(`/employees?page=${this.pageNumber}`)
         .then((result) => {
           this.employeeList = result.data.data;
-          this.total = result.data.meta.total;
+          this.total = result.data.data.length;
         })
 
         .catch((error) => {
