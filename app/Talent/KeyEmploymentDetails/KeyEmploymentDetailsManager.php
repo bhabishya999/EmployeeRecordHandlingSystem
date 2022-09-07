@@ -20,9 +20,9 @@ class KeyEmploymentDetailsManager
 
     }
 
-    public function keyEmploymentProfile($employee_id)
+    public function keyEmploymentProfile($employeeId)
     {
-        return $this->employee->with(['keyEmploymentDetail','keyEmploymentDetail.manages'])->findOrFail($employee_id);
+        return $this->employee->with(['keyEmploymentDetail','keyEmploymentDetail.manages'])->findOrFail($employeeId);
     }
 
 }
