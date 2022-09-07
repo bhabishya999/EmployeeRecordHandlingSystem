@@ -6,11 +6,13 @@
       <div class="flex flex-row space-x-6">
         <div class="flex flex-col font-sans not-italic font-medium">
           <h1 class="text-xl text-black">EMPLOYEES</h1>
-          <h3 class="text-base text-light_iris">Total 30 results</h3>
+          <h3 class="text-base text-light_iris">
+            Total
+            <slot name="total"></slot>
+            results
+          </h3>
         </div>
-        <div
-          class="flex flex-col border shadow-sm justify-between rounded-md h-[37px] w-[170px] text-center justify-center items-center mt-2"
-        >
+        <div>
           <slot name="filter"></slot>
         </div>
       </div>
@@ -62,11 +64,11 @@
       class="h-[49px] w-full grid grid-cols-6 pl-8 gap-4 content-around justify-around items-center bg-dark_gray text-dark_blue font-sans not-italic font-bold text-sm"
     >
       <h1>FullName/Email</h1>
-      <h1 class="pl-4">Desigination</h1>
-      <h1 class="pl-6">Phone</h1>
-      <h1>Status</h1>
-      <h1>Team</h1>
-      <h1>Actions</h1>
+      <h1 class="pl-2">Desigination</h1>
+      <h1 class="pl-12">Phone</h1>
+      <h1 class="pl-11">Status</h1>
+      <h1 class="pl-4">Team</h1>
+      <h1 class="pl-10">Actions</h1>
     </div>
   </div>
 </template>

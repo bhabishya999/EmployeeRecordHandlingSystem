@@ -31,7 +31,8 @@ module.exports = {
                 bordergray:"#E2E8F0",
                 light_cyanblue:"#A0AEC0",
                 light_iris:"#4A5568",
-                dark_pink:" #BE4CB1"
+                dark_pink:" #BE4CB1",
+                primary_blue:"#EBF4FF",
 
             }
         },
