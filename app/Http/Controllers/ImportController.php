@@ -81,9 +81,8 @@ class ImportController extends Controller
                 $employment->manages()->create([
                     'employee_id' => $rows['Manages'],
                 ]);
-
-                return responseHelper('File imported successfully');
             }
+            return responseHelper('File imported successfully');
         });
     }
 }
