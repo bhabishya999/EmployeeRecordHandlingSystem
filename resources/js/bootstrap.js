@@ -8,7 +8,15 @@ window._ = _;
  */
 
 import axios from 'axios';
-window.axios = axios;
+const token = localStorage.getItem("talent_token") ?? "";
+ 
+  const axiosInstance = axios.create({
+  baseURL: `http://talent.local/api`,
+  headers: {
+    Authorization: `Bearer ${token}`
+  }
+})
+window.axios = axiosInstance;
 
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 

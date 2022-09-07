@@ -10,7 +10,14 @@ import GuestLayout from "@/Layouts/Guest.vue";
         <ApplicationLogo />
         <div>
           <h1
-            class="font-bold font-sans text-lg not-italic text-gray-900 mt-8 mb-8"
+            class="
+              font-bold font-sans
+              text-lg
+              not-italic
+              text-gray-900
+              mt-8
+              mb-8
+            "
           >
             Login to your account
           </h1>
@@ -79,7 +86,16 @@ import GuestLayout from "@/Layouts/Guest.vue";
 
       <router-link
         to="/forgot-password"
-        class="flex flex-col justify-center items-center text-indigo-700 font-bold text-base leading-normal font-sans"
+        class="
+          flex flex-col
+          justify-center
+          items-center
+          text-indigo-700
+          font-bold
+          text-base
+          leading-normal
+          font-sans
+        "
         >Forgot password?</router-link
       >
     </Form>
@@ -90,7 +106,6 @@ import GuestLayout from "@/Layouts/Guest.vue";
 import Button from "@/Components/Button.vue";
 import CustomInput from "@/Components/CustomInput.vue";
 import PasswordInput from "@/Components/PasswordInput.vue";
-import axios from "@/axios";
 import { Form } from "vee-validate";
 import * as Yup from "yup";
 export default {
