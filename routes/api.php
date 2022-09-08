@@ -34,7 +34,6 @@ Route::group(['prefix' => 'employees', 'middleware' => ['auth:sanctum']], functi
     Route::get('/educations/{employee_id}', [EducationalDetailsController::class, 'show']);
     Route::get('/profile/{employee_id}', [EmployeeController::class, 'show']);
     Route::get('/key-employment-details/{employee_id}', [KeyEmploymentDetailsController::class, 'show']);
-    
 });
 
 Route::group(['prefix' => 'user', 'middleware' => ['auth:sanctum']], function(){
