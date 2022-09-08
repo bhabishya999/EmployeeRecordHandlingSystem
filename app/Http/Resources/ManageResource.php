@@ -11,7 +11,7 @@ class ManageResource extends JsonResource
     {
         return [
             'manages_id' => $this->id,
-            'key_employment_detail_id' => $this->key_employment_detail_id,
+            'key_employment_details_id' => $this->key_employment_detail_id,
             'employee_id' => $this->employee_id
         ];
     }
