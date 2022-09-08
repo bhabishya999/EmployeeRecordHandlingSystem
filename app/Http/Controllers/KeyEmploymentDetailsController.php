@@ -36,7 +36,7 @@ class KeyEmploymentDetailsController extends Controller
         {
 
              $managersArray = [
-                'key_employment_detail_id'=> $employmentDetails->id,
+                'key_employment_details_id'=> $employmentDetails->id,
                 'employee_id'=>$managesId
             ];
             $manager = $this->managesManager->createManager($managersArray);

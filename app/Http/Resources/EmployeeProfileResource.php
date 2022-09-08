@@ -3,7 +3,6 @@
 namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
-use Illuminate\Support\Facades\Storage;
 
 class EmployeeProfileResource extends JsonResource
 {
@@ -25,7 +24,7 @@ class EmployeeProfileResource extends JsonResource
             'pan_number' => $this->pan_number,
             'current_address' => $this->current_address,
             'bank_account_number' => $this->bank_account_number,
-            'avatar' => Storage::url($this->avatar),
+            'avatar' => $this->when(!empty($this->avatar),fn()=>asset('/storage/'.$this->avatar),null),
             'documents' => DocumentResource::collection($this->whenLoaded('documents'))
         ];
     }

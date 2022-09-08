@@ -3,7 +3,6 @@
 namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
-use Illuminate\Support\Facades\Storage;
 
 class AuthUserAvatarShowResource extends JsonResource
 {
@@ -18,7 +17,7 @@ class AuthUserAvatarShowResource extends JsonResource
         return [
             'user_id'=>$this->user_id,
             'email'=>$this->email,
-            'avatar'=>Storage::url($this->avatar)
+            'avatar'=>$this->when(!empty($this->avatar),fn()=>asset('/storage/'.$this->avatar),null)
         ];
     }
 }

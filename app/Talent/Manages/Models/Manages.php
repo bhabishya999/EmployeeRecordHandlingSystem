@@ -18,15 +18,15 @@ class Manages extends Model
     protected $fillable =
         [
             'employee_id',
-            'key_employment_detail_id'
+            'key_employment_details_id'
         ];
 
     public function employee()
     {
-        $this->belongsTo(Employee::class, 'employee_id');
+        $this->belongsTo(Employee::class);
     }
     public function keyEmploymentDetail()
     {
-        $this->belongsTo(KeyEmploymentDetails::class, 'key_employment_detail_id');
+        $this->belongsTo(KeyEmploymentDetails::class);
     }
 }

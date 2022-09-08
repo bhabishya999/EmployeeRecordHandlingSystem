@@ -3,7 +3,6 @@
 namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
-use Illuminate\Support\Facades\Storage;
 
 class DocumentResource extends JsonResource
 {
@@ -19,7 +18,7 @@ class DocumentResource extends JsonResource
             'document_id' => $this->id,
             'original_name' =>$this->original_name,
             'type' => $this->type,
-            'path' => Storage::url($this->path)
+            'path'=>$this->when(!empty($this->path),fn()=>asset('/storage/'.$this->path),null)
         ];
     }
 }
