@@ -11,11 +11,11 @@ return new class extends Migration
      *
      * @return void
      */
-    public function up()
+    public function up(): void
     {
         Schema::create('manages', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('key_employment_detail_id')->constrained('key_employment_details')->cascadeOnDelete();
+            $table->foreignId('key_employment_details_id')->constrained('key_employment_details')->cascadeOnDelete();
             $table->foreignId('employee_id')->constrained('employees')->cascadeOnDelete();
         });
     }
@@ -25,7 +25,7 @@ return new class extends Migration
      *
      * @return void
      */
-    public function down()
+    public function down(): void
     {
         Schema::dropIfExists('manages');
     }

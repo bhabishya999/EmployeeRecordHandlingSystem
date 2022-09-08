@@ -22,7 +22,7 @@ return new class extends Migration
             $table->string('work_schedule');
             $table->string('team');
             $table->integer('manager');
-            $table->string('superpowers');
+            $table->json('superpowers');
             $table->timestamps();
         });
     }

@@ -28,9 +28,13 @@ Route::middleware('auth:sanctum')->post('/logout',[LogoutController::class,'logo
 Route::group(['prefix' => 'employees', 'middleware' => ['auth:sanctum']], function(){
     Route::post('/educations', [EducationalDetailsController::class, 'store']);
     Route::post('/', [EmployeeController::class,'store']);
-    Route::post('/key-employment-details', [KeyEmploymentDetailsController::class, 'store']);
     Route::get('/managers',[ManagerListController::class,'index']);
     Route::get('/',[EmployeeController::class,'index']);
+    Route::post('/key-employment-details', [KeyEmploymentDetailsController::class, 'store']);
+    Route::get('/educations/{employee_id}', [EducationalDetailsController::class, 'show']);
+    Route::get('/profile/{employee_id}', [EmployeeController::class, 'show']);
+    Route::get('/key-employment-details/{employee_id}', [KeyEmploymentDetailsController::class, 'show']);
+    
 });
 
 Route::group(['prefix' => 'user', 'middleware' => ['auth:sanctum']], function(){

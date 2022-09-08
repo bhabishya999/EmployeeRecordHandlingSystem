@@ -4,7 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class AuthUserAvatarShowResource extends JsonResource
+class EducationalDetailResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -15,9 +15,10 @@ class AuthUserAvatarShowResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'user_id'=>$this->user_id,
-            'email'=>$this->email,
-            'avatar'=>$this->when(!empty($this->avatar),fn()=>asset('/storage/'.$this->avatar),null)
+            'education_id' => $this->id,
+            'education_level' => $this->education_level,
+            'passed_year' => $this->passed_year,
+            'institution' => $this->institution,
         ];
     }
 }

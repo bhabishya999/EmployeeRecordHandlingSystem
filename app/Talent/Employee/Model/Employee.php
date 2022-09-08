@@ -5,6 +5,8 @@ namespace App\Talent\Employee\Model;
 use App\Talent\Documents\Model\Document;
 use App\Talent\EducationalDetails\Models\EducationalDetails;
 use App\Talent\KeyEmploymentDetails\Models\KeyEmploymentDetails;
+use App\Talent\Manages\Models\Manages;
+use Database\Factories\EmployeeFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -33,12 +35,23 @@ class Employee extends Model
         return $this->hasMany(Document::class);
     }
 
-    public function education():HasMany
+    public function educationalDetail():HasMany
     {
         return $this ->hasMany(EducationalDetails::class);
     }
-    public function employment():HasOne
+
+    public function keyEmploymentDetail():HasOne
     {
         return $this ->hasOne(KeyEmploymentDetails::class);
+    }
+
+    public function manages(): HasMany
+    {
+        return $this->hasMany(Manages::class, 'employee_id', 'id');
+    }
+
+    protected static  function newFactory(): EmployeeFactory
+    {
+        return EmployeeFactory::new();
     }
 }

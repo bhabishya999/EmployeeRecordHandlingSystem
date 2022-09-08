@@ -1,15 +1,14 @@
 <?php
 namespace App\Talent\KeyEmploymentDetails;
 
-
+use App\Talent\Employee\Model\Employee;
 use App\Talent\KeyEmploymentDetails\Models\KeyEmploymentDetails;
-use Illuminate\Http\Response;
-use Throwable;
+use phpDocumentor\Reflection\Types\Collection;
 
 class KeyEmploymentDetailsManager
 {
 
-    public function __construct(private KeyEmploymentDetails $keyEmploymentDetails)
+    public function __construct(private KeyEmploymentDetails $keyEmploymentDetails, private Employee $employee)
     {
 
     }
@@ -18,7 +17,12 @@ class KeyEmploymentDetailsManager
     {
         $employeeDetails = $this->keyEmploymentDetails->create($employmentDetails);
         return $employeeDetails;
-        
+
+    }
+
+    public function keyEmploymentProfile($employeeId)
+    {
+        return $this->employee->with(['keyEmploymentDetail','keyEmploymentDetail.manages'])->findOrFail($employeeId);
     }
 
 }
