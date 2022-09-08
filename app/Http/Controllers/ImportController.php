@@ -82,7 +82,7 @@ class ImportController extends Controller
                     'employee_id' => $rows['Manages'],
                 ]);
             }
-            return responseHelper('File imported successfully');
         });
+        return responseHelper('File imported successfully');
     }
 }
