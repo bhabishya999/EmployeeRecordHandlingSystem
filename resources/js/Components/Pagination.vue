@@ -69,7 +69,7 @@ export default {
   data() {
     return {
       pageNumber: 1,
-      row_per_page: 6,
+      row_per_page: 8,
     };
   },
   computed: {
