@@ -3,6 +3,7 @@ import ForgotPassword from "@/Pages/Auth/ForgotPassword.vue";
 import ResetPassword from "@/Pages/Auth/ResetPassword.vue";
 import Login from "@/Pages/Auth/Login.vue";
 import Employees from "@/Pages/Employees/Employees.vue";
+import EditEducationPage from "@/Pages/Auth/EditEducationPage.vue";
 import LinkExpired from "@/Pages/Auth/LinkExpired.vue"
 import EmployeeDetail from "@/Pages/Employees/EmployeeDetail.vue"
 import ImportDataFromExcel from "@/pages/Auth/ImportDataFromExcel.vue"
@@ -61,6 +62,33 @@ const routes = [
 
 
     },
+    {
+        name: "EditEducationPage",
+        path: "/employees/editeducation",
+        component: EditEducationPage,
+        meta: {
+        requiresAuth: true,
+        }
+    },
+        
+    {
+<<<<<<< HEAD
+        name: "ImportDataFromExcel",
+        path: "/employees/import",
+        component: ImportDataFromExcel,
+
+
+    },
+=======
+        name: "EditEducationPage",
+        path: "/employees/editeducation",
+        component: EditEducationPage,
+        meta: {
+        requiresAuth: true,
+        }
+    },
+        
+>>>>>>> edit educational detail form
     {
         name: 'LinkExpired',
         path: '/link-expired',
