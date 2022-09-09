@@ -22,7 +22,7 @@ class EmployeeListResource extends JsonResource
             'avatar' => $this->when(!empty($this->avatar),fn()=>asset('/storage/'.$this->avatar),null),
             'status' => $this->status,
             'contact_number' => $this->contact_number,
-            'employment'=>new KeyEmploymentDetailsResource($this->employment)
+            'keyEmploymentDetail'=>new KeyEmploymentDetailsResource($this->keyEmploymentDetail)
         ];
     }
 }
