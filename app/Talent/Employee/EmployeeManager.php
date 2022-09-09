@@ -25,7 +25,7 @@ class EmployeeManager
         })
         ->when(!empty($filter),function($query) use ($filter)
         {
-        $query->where('status',$filter)->orWhereRelation('employment','team',$filter);
+        $query->where('status',$filter)->orWhereRelation('keyEmploymentDetail','team',$filter);
         })
         ->select(['id','first_name','last_name','email','status','avatar','contact_number'])
         ->paginate($perPage);

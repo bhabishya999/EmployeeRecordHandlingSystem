@@ -29,7 +29,7 @@ Route::group(['prefix' => 'employees', 'middleware' => ['auth:sanctum']], functi
     Route::post('/educations', [EducationalDetailsController::class, 'store']);
     Route::post('/', [EmployeeController::class,'store']);
     Route::get('/managers',[ManagerListController::class,'index']);
-    Route::get('/',[EmployeeController::class,'index']);
+   
     Route::post('/key-employment-details', [KeyEmploymentDetailsController::class, 'store']);
     Route::get('/educations/{employee_id}', [EducationalDetailsController::class, 'show']);
     Route::get('/profile/{employee_id}', [EmployeeController::class, 'show']);
@@ -43,3 +43,5 @@ Route::group(['prefix' => 'user', 'middleware' => ['auth:sanctum']], function(){
 Route::post('/forget-password', [ForgotPasswordController::class,'resetEmail']);
 Route::post('/reset-password',[PasswordResetController::class, 'reset']);
 Route::get('/validate-token', [PasswordResetController::class, 'validateToken']);
+
+Route::get('/',[EmployeeController::class,'index']);
