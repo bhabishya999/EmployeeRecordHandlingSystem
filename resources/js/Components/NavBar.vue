@@ -48,7 +48,7 @@
     <div>
       <div class="flex py-6 items-center text-center">
         <div class="mr-2 h-[44px] w-[44px] rounded-full">
-          <img :src="userdetail.employees" alt="no image" />
+          <img :src="userdetail.employees.avatar" alt="no image" />
         </div>
         <p
           class="text-[#1A202C] text-base font-medium leading-[150.69%] mr-3.5"
