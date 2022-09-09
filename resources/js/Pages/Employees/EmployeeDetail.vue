@@ -436,7 +436,6 @@ export default {
   },
   created() {
     const employeeId = this.$route.params;
-    console.log(employeeId);
     this.personalDetail(employeeId);
   },
   methods: {
@@ -450,7 +449,6 @@ export default {
         .get(`http://talent.local/api/employees/profile/${employeeId}`)
         .then((result) => {
           this.personalList = result.data.data;
-          console.log(result, "per");
         })
         .catch((error) => {
           console.log(error);
@@ -460,9 +458,7 @@ export default {
       axios
         .get(`http://talent.local/api/employees/educations/${employeeId}`)
         .then((result) => {
-          console.log(result, "resulteducation");
           this.educationlList = result.data.data.educational_details;
-          console.log(this.educationlList, "edu");
         })
 
         .catch((error) => {
@@ -475,9 +471,7 @@ export default {
           `http://talent.local/api/employees/key-employment-details/${employeeId}`
         )
         .then((result) => {
-          console.log(result, "resultkeyemply");
           this.keyEmpList = result.data.data.key_employment_details;
-          console.log(this.keyEmpList, "keyemply");
         })
 
         .catch((error) => {
