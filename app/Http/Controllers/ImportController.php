@@ -59,8 +59,8 @@ class ImportController extends Controller
                 'contact_number' => $rows['Contact Number'],
                 'date_of_birth' => $rows['Date of Birth'],
                 'current_address' => $rows['Current Address'],
-                'pan_number' => $rows['Pan Number'],
-                'bank_account_number' => $rows['Bank Account Number'],
+                'pan_number' => $rows['Pan Number'] ?? null,
+                'bank_account_number' => $rows['Bank Account Number'] ?? null,
             ]);
             $education = $employee->educationalDetail()->create([
                 'education_level' => $rows['Education Level'],
