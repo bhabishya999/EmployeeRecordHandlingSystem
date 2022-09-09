@@ -6,7 +6,6 @@ use App\Talent\Manages\Models\Manages;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use App\Talent\Manages\Models\Manages;
 
 class KeyEmploymentDetails extends Model
 {

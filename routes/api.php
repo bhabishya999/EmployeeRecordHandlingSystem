@@ -10,6 +10,8 @@ use App\Http\Controllers\PasswordResetController;
 use App\Http\Controllers\KeyEmploymentDetailsController;
 use App\Http\Controllers\ManagerListController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\ImportController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -34,8 +36,7 @@ Route::group(['prefix' => 'employees', 'middleware' => ['auth:sanctum']], functi
     Route::get('/educations/{employee_id}', [EducationalDetailsController::class, 'show']);
     Route::get('/profile/{employee_id}', [EmployeeController::class, 'show']);
     Route::get('/key-employment-details/{employee_id}', [KeyEmploymentDetailsController::class, 'show']);
-    
-    Route::post('/import', [\App\Http\Controllers\ImportController::class,'import']);
+    Route::post('/import', [ImportController::class,'import']);
 
 });
 
