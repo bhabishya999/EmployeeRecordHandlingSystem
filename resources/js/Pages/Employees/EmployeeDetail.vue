@@ -446,7 +446,7 @@ export default {
     },
     personalDetail(employeeId) {
       axios
-        .get(`http://talent.local/api/employees/profile/${employeeId}`)
+        .get(`/employees/profile/${employeeId}`)
         .then((result) => {
           this.personalList = result.data.data;
         })
@@ -456,24 +456,20 @@ export default {
     },
     educationlDetail(employeeId) {
       axios
-        .get(`http://talent.local/api/employees/educations/${employeeId}`)
+        .get(`/employees/educations/${employeeId}`)
         .then((result) => {
           this.educationlList = result.data.data.educational_details;
         })
-
         .catch((error) => {
           console.log(error);
         });
     },
     employmentDetail(employeeId) {
       axios
-        .get(
-          `http://talent.local/api/employees/key-employment-details/${employeeId}`
-        )
+        .get(`/employees/key-employment-details/${employeeId}`)
         .then((result) => {
           this.keyEmpList = result.data.data.key_employment_details;
         })
-
         .catch((error) => {
           console.log(error);
         });
