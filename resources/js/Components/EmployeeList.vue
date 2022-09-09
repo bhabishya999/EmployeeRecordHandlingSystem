@@ -4,38 +4,11 @@
       class="grid grid-cols-10 pl-8 items-start font-sans content-around justify-around not-italic font-normal py-3"
     >
       <div class="flex flex-row col-span-2">
-        <div class="pr-1">
-          <svg
-            width="36"
-            height="36"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <circle cx="18" cy="18" r="18" fill="#FFEEE6" />
-            <path
-              d="M28 28.375V26a4.75 4.75 0 0 0-4.75-4.75h-9.5A4.75 4.75 0 0 0 9 26v2.375"
-              fill="#C2A68E"
-            />
-            <path
-              d="M28 28.375V26a4.75 4.75 0 0 0-4.75-4.75h-9.5A4.75 4.75 0 0 0 9 26v2.375"
-              stroke="#C2A68E"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            />
-            <path
-              d="M18.5 16.5a4.75 4.75 0 1 0 0-9.5 4.75 4.75 0 0 0 0 9.5Z"
-              fill="#C2A68E"
-              stroke="#C2A68E"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            />
-            {{ list.avatar }}
-          </svg>
+        <div class="pr-1 h-[36px] w-[36px] rounded-full">
+          <img :src="list.avatar" alt="no image" />
         </div>
 
-        <div class="flex flex-col truncate">
+        <div class="flex flex-col w-[145px] h-[39px] truncate">
           <h1 class="text-sm text-dark_cyanblue">
             {{ list.first_name }} {{ list.last_name }}
           </h1>
@@ -44,8 +17,8 @@
       </div>
 
       <div class="text-dark_cyanblue text-sm pl-4 col-span-2">
-        {{ list.employment.current_position }}
-        <h1 class="text-xs">{{ list.employment.work_schedule }}</h1>
+        {{ list.keyEmploymentDetail.current_position }}
+        <h1 class="text-xs">{{ list.keyEmploymentDetail.work_schedule }}</h1>
       </div>
 
       <div class="text-xs text-dark_cyanblue pl-5">
@@ -55,12 +28,9 @@
       <div class="Status text-sm text-light_green pl-20" :class="list.status">
         {{ list.status }}
       </div>
-      <!-- <div v-else id="hide" class="Status text-sm text-light_green pl-20">
-        Alumni
-      </div> -->
 
       <div class="text-sm text-black items-start pl-32">
-        {{ list.employment.team }}
+        {{ list.keyEmploymentDetail.team }}
       </div>
       <div class="pl-40">
         <div
