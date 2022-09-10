@@ -84,7 +84,7 @@ const manager = ref(null);
             :value="managesSelect"
             :classes="{
               tag: 'bg-[#F5F5F5] font-bold text-primary text-sm font-semibold py-0.5 pl-2 rounded mr-1 mb-1 flex items-center whitespace-nowrap rtl:pl-0 rtl:pr-2 rtl:mr-0 rtl:ml-1',
-              containerActive: 'ring ring-primary',
+              containerActive: 'ring ring-primary ring-2',
               tagsSearch:
                 'absolute inset-0 border-none outline-none focus:ring-0 appearance-none p-0 text-base font-sans box-border w-full',
               placeholder:
@@ -260,7 +260,7 @@ export default {
           id: id,
           label: `${first_name} ${last_name}`,
           email: email,
-          avatar: `http://talent.local${avatar}`,
+          avatar: avatar,
         })
       );
     },
@@ -270,7 +270,7 @@ export default {
           value: { id },
           label: `${first_name} ${last_name}`,
           email: email,
-          avatar: `http://talent.local${avatar}`,
+          avatar: avatar,
         })
       );
     },
