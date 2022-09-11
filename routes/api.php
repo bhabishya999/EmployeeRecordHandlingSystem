@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\EducationalDetailsController;
 use App\Http\Controllers\EmployeeController;
+use App\Http\Controllers\EmployeeImportController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\LogoutController;
 use App\Http\Controllers\ForgotPasswordController;
