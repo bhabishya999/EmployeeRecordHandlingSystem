@@ -82,7 +82,7 @@
           </div>
         </EmployeeListHeader>
 
-        <EmployeeList v-for="list in filteredlist" :key="list.id" :list="list">
+        <EmployeeList v-for="list in employeeList" :key="list.id" :list="list">
         </EmployeeList>
       </div>
 
@@ -130,21 +130,21 @@ export default {
       ],
     };
   },
-  computed: {
-    filteredlist() {
-      return this.employeeList.filter((list) => {
-        var fullname = list.first_name.trim() + " " + list.last_name.trim();
-        return (
-          list.first_name.toLowerCase().match(this.search.toLowerCase()) ||
-          list.last_name.toLowerCase().match(this.search.toLowerCase()) ||
-          fullname
-            .toLowerCase()
-            .match(this.search.toLowerCase().replace(/\s+/g, " ")) ||
-          list.email.toLowerCase().match(this.search.toLowerCase())
-        );
-      });
-    },
-  },
+  // computed: {
+  //   filteredlist() {
+  //     return this.employeeList.filter((list) => {
+  //       var fullname = list.first_name.trim() + " " + list.last_name.trim();
+  //       return (
+  //         list.first_name.toLowerCase().match(this.search.toLowerCase()) ||
+  //         list.last_name.toLowerCase().match(this.search.toLowerCase()) ||
+  //         fullname
+  //           .toLowerCase()
+  //           .match(this.search.toLowerCase().replace(/\s+/g, " ")) ||
+  //         list.email.toLowerCase().match(this.search.toLowerCase())
+  //       );
+  //     });
+  //   },
+  // },
 
   components: {
     Details,
@@ -177,7 +177,7 @@ export default {
       axios
         .get(`/employees?search=${this.search}`)
         .then((result) => {
-          this.filteredlist = result.data.data;
+          this.employeeList = result.data.data;
         })
         .catch((error) => {
           alert(error);
@@ -205,8 +205,9 @@ export default {
       axios
         .get(`/employees?page=${this.pageNumber}`)
         .then((result) => {
+          console.log(result);
           this.employeeList = result.data.data;
-          this.total = result.data.data.length;
+          this.total = result.data.meta.total;
         })
 
         .catch((error) => {

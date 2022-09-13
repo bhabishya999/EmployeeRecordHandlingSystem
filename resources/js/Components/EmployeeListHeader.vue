@@ -67,7 +67,7 @@
       <h1 class="pl-12">Desigination</h1>
       <h1 class="pl-20">Phone</h1>
       <h1 class="pl-16 ml-1">Status</h1>
-      <h1 class="pl-12">Team</h1>
+      <h1 class="pl-9">Team</h1>
       <h1 class="pl-16">Actions</h1>
     </div>
   </div>

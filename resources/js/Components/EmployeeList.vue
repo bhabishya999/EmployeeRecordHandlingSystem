@@ -5,7 +5,7 @@
     >
       <div class="flex flex-row col-span-2">
         <div class="pr-1 h-[36px] w-[36px] rounded-full">
-          <img :src="list.avatar" alt="no image" />
+          <img :src="list.avatar" alt="" class="rounded-full" />
         </div>
 
         <div class="flex flex-col w-[145px] h-[39px] truncate">
@@ -29,14 +29,71 @@
         {{ list.status }}
       </div>
 
-      <div class="text-sm text-black items-start pl-32">
+      <div class="text-sm text-black items-start pl-28 ml-1">
         {{ list.keyEmploymentDetail.team }}
       </div>
-      <div class="pl-40">
-        <div
+      <div class="pl-36">
+        <Menu as="div" class="relative inline-block text-left">
+          <div>
+            <MenuButton
+              class="text-sm w-[123px] h-[30px] text-primary border border-solid border-bordergray box-border rounded-md inline-flex justify-center bg-white px-3 pt-1 font-medium hover:bg-primary_blue focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75"
+            >
+              View Details &nbsp;
+              <div class="pt-[6px] pl-1">
+                <svg
+                  width="11"
+                  height="7"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="m1.5 1.5 4 4 4-4"
+                    stroke="#4C51BF"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                </svg>
+              </div>
+            </MenuButton>
+          </div>
+
+          <transition
+            enter-active-class="transition duration-100 ease-out"
+            enter-from-class="transform scale-95 opacity-0"
+            enter-to-class="transform scale-100 opacity-100"
+            leave-active-class="transition duration-75 ease-in"
+            leave-from-class="transform scale-100 opacity-100"
+            leave-to-class="transform scale-95 opacity-0"
+          >
+            <MenuItems
+              class="absolute bg-white text-light_iris border rounded-sm w-[123px] h-[63px] shadow-lg z-40 divide-gray-100 focus:outline-none"
+            >
+              <div class="">
+                <MenuItem>
+                  <router-link
+                    :to="'/employees/' + list.id"
+                    class="flex flex-col text-light_iris text-xs w-[121px] h-[30px] pl-5 pt-2 pb-1 font-normal hover:bg-primary_blue font-sans not-italic"
+                  >
+                    View Details
+                  </router-link>
+                </MenuItem>
+                <MenuItem>
+                  <button
+                    v-on:click="list.status = 'Alumni'"
+                    class="flex flex-col text-light_iris text-xs w-[121px] h-[31px] pl-5 pt-2 pb-1 font-normal hover:bg-primary_blue font-sans not-italic"
+                  >
+                    Set as Alumni
+                  </button>
+                </MenuItem>
+              </div>
+            </MenuItems>
+          </transition>
+        </Menu>
+        <!-- <div
           class="pl-1 flex flex-row text-sm w-[110px] h-[23px] text-primary border border-solid border-bordergray box-border rounded-md"
         >
-          View Details &nbsp;
+          View Detail &nbsp;
           <button v-on:click="seen = !seen" class="pt-[2px] z-auto">
             <svg
               width="11"
@@ -53,11 +110,11 @@
               />
             </svg>
           </button>
-        </div>
-        <div
+        </div> -->
+        <!-- <div
           v-if="seen"
           id="hide"
-          class="bg-white text-light_iris border rounded-sm w-[109px] h-[60px] shadow-lg fixed z-50"
+          class="bg-white text-light_iris border rounded-sm w-[109px] h-[60px] shadow-lg fixed z-40"
         >
           <router-link
             :to="'/employees/' + list.id"
@@ -71,15 +128,24 @@
           >
             Set as Alumni
           </button>
-        </div>
+        </div> -->
       </div>
     </div>
   </div>
 </template>
 <script>
+import { Menu, MenuButton, MenuItems, MenuItem } from "@headlessui/vue";
+// import { ChevronDownIcon } from "@heroicons/vue/20/solid";
 export default {
   name: "EmployeeList",
   el: "#hide",
+  components: {
+    Menu,
+    MenuButton,
+    MenuItems,
+    MenuItem,
+    // ChevronDownIcon,
+  },
   data() {
     return {
       seen: false,
