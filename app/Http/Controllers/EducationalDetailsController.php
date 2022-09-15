@@ -6,8 +6,7 @@ use App\Http\Resources\EmployeeEducationalResource;
 use App\Talent\EducationalDetails\Requests\EducationalDetailsRequest;
 use App\Talent\EducationalDetails\Models\EducationalDetails;
 use App\Talent\EducationalDetails\EducationalDetailsManager;
-use Illuminate\Http\Request;
-use Illuminate\Http\Response;
+use App\Talent\EducationalDetails\Requests\EducationalDetailsEditRequest;
 
 class EducationalDetailsController extends Controller
 {
@@ -18,22 +17,21 @@ class EducationalDetailsController extends Controller
 
     public function store(EducationalDetailsRequest $request)
     {
-        
+
         $educationDetails = $request->validated();
-        
+
         $allEducationalDetails = [];
 
-        foreach ($educationDetails['educational_details'] as $education )
-        {
+        foreach ($educationDetails['educational_details'] as $education) {
 
-            $educationalDetailsResponse =$this->educationalDetailsManager->create($education);
+            $educationalDetailsResponse = $this->educationalDetailsManager->create($education);
             array_push($allEducationalDetails, $educationalDetailsResponse);
 
         }
-       
-       return response([
 
-            "message" => "Educational Details Saved!", 
+        return response([
+
+            "message" => "Educational Details Saved!",
             "data" => $allEducationalDetails
         ]);
     }
@@ -44,5 +42,15 @@ class EducationalDetailsController extends Controller
         $educationalDetails = $this->educationalDetailsManager->educationalProfile($employeeId);
 
         return new EmployeeEducationalResource($educationalDetails);
+    }
+
+    public function update(EducationalDetailsEditRequest $request)
+    {
+        $educationDetails = $request->validated();
+        foreach ($educationDetails['educational_details'] as $education) {
+            $this->educationalDetails->updateOrCreate(['id'=>$education['education_id']],['employee_id'=>$education['employee_id'],'education_level' => $education['education_level'],
+                'passed_year' => $education['passed_year'], 'institution' => $education['institution']]);
+        }
+        return responseHelper('Educational details updated successfully');
     }
 }

@@ -29,4 +29,8 @@ class EducationalDetailsManager
     {
         return $this->employee->with('educationalDetail')->findOrFail($employee_id);
     }
+
+    public function find(int $education_id){
+        return $this->educationalDetails->find($education_id);
+    }
 }
