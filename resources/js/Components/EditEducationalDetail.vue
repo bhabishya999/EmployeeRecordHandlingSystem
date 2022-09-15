@@ -373,6 +373,7 @@ export default {
       initialData,
       schema,
       togglePopUp,
+      edutionalDetailList: [],
       isLoading: false,
     };
   },
@@ -381,6 +382,28 @@ export default {
     onSubmit(values) {
       this.togglePopUp = true;
     },
+  },
+  created() {
+    axios
+      .get(`employees/educations/11`)
+      .then(({ data }) => {
+        console.log(this.initialData.users);
+        console.log(data.data);
+        const edutionalDetail = data.data.educational_details;
+        console.log(edutionalDetail);
+        this.edutionalDetailList = edutionalDetail.map(
+          ({ education_level, passed_year, institution }) => ({
+            education_level: education_level,
+            passed_year: passed_year,
+            institution: institution,
+          })
+        );
+        let i;
+        for (i = 0; i < this.edutionalDetailList.length; i++) {
+          this.initialData["users"].push(this.edutionalDetailList[i]);
+        }
+      })
+      .catch((error) => console.log(error));
   },
 };
 </script>
