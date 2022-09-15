@@ -48,9 +48,18 @@ class EducationalDetailsController extends Controller
     {
         $educationDetails = $request->validated();
         foreach ($educationDetails['educational_details'] as $education) {
-            $this->educationalDetails->updateOrCreate(['id'=>$education['education_id']],['employee_id'=>$education['employee_id'],'education_level' => $education['education_level'],
-                'passed_year' => $education['passed_year'], 'institution' => $education['institution']]);
+            if (empty($education['education_id'])) {
+                $this->educationalDetails->create(['employee_id' => $education['employee_id'],
+                    'education_level' => $education['education_level'],
+                    'passed_year' => $education['passed_year'], 'institution' => $education['institution']]);
+            }
+            $this->educationalDetails->update(
+                ['employee_id' => $education['employee_id'], 'education_level' => $education['education_level'],
+                    'passed_year' => $education['passed_year'], 'institution' => $education['institution']]);
         }
+        $educationDetailsIds = collect($educationDetails['educational_details'])->pluck('education_id');
+        EducationalDetails::query()->whereNotIn('id', $educationDetailsIds)->delete();
+
         return responseHelper('Educational details updated successfully');
     }
 }
