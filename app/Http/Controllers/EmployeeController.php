@@ -73,7 +73,7 @@ class EmployeeController extends Controller
     {
         $search = $request->query('search');
         $perpage = $request->query('perPage');
-        $filter = $request->query('status');
+        $filter = $request->query('filter');
         $employeeList = $this->employeeManager->employeeList($perpage, $search, $filter);
         return EmployeeListResource::collection($employeeList);
     }
