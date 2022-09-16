@@ -7,6 +7,9 @@ use App\Talent\EducationalDetails\Requests\EducationalDetailsRequest;
 use App\Talent\EducationalDetails\Models\EducationalDetails;
 use App\Talent\EducationalDetails\EducationalDetailsManager;
 use App\Talent\EducationalDetails\Requests\EducationalDetailsEditRequest;
+use Illuminate\Http\Response;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\Routing\ResponseFactory;
 
 class EducationalDetailsController extends Controller
 {
@@ -15,7 +18,7 @@ class EducationalDetailsController extends Controller
 
     }
 
-    public function store(EducationalDetailsRequest $request)
+    public function store(EducationalDetailsRequest $request): Response|Application|ResponseFactory
     {
 
         $educationDetails = $request->validated();
@@ -37,14 +40,14 @@ class EducationalDetailsController extends Controller
     }
 
 
-    public function show($employeeId)
+    public function show($employeeId): EmployeeEducationalResource
     {
         $educationalDetails = $this->educationalDetailsManager->educationalProfile($employeeId);
 
         return new EmployeeEducationalResource($educationalDetails);
     }
 
-    public function update(EducationalDetailsEditRequest $request)
+    public function update(EducationalDetailsEditRequest $request): Response|Application|ResponseFactory
     {
         $educationDetails = $request->validated();
         foreach ($educationDetails['educational_details'] as $education) {
@@ -53,9 +56,9 @@ class EducationalDetailsController extends Controller
                     'education_level' => $education['education_level'],
                     'passed_year' => $education['passed_year'], 'institution' => $education['institution']]);
             }
-            $this->educationalDetails->update(
-                ['employee_id' => $education['employee_id'], 'education_level' => $education['education_level'],
-                    'passed_year' => $education['passed_year'], 'institution' => $education['institution']]);
+            $this->educationalDetails->update(['employee_id' => $education['employee_id'],
+                'education_level' => $education['education_level'],
+                'passed_year' => $education['passed_year'], 'institution' => $education['institution']]);
         }
         $educationDetailsIds = collect($educationDetails['educational_details'])->pluck('education_id');
         EducationalDetails::query()->whereNotIn('id', $educationDetailsIds)->delete();
