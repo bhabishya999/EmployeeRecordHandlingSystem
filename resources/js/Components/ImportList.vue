@@ -12,7 +12,12 @@
 <script>
 export default {
   name: "UploadList",
-  props: ["items"],
+  props: {
+    items: {
+      type: Array,
+      default: () => [],
+    },
+  },
   computed: {
     files() {
       return this.items.pop();

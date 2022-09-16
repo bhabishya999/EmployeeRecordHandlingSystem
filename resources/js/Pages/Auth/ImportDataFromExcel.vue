@@ -188,8 +188,7 @@ export default {
       formData.append("file", this.files[0]);
       axios
         .post("employees/import", formData)
-        .then((response) => {
-          console.log(response);
+        .then(() => {
           this.$router.push({
             path: "/employees",
           });
