@@ -54,7 +54,7 @@ class EducationalDetailsController extends Controller
         DB::transaction(function () use ($educationDetails,$employee_id) {
             foreach ($educationDetails['educational_details'] as $education) {
                 if (empty($education['education_id'])) {
-                    $this->educationalDetails->create(['employee_id' => $id,
+                    $this->educationalDetails->create(['employee_id' => $employee_id,
                         'education_level' => $education['education_level'],
                         'passed_year' => $education['passed_year'], 'institution' => $education['institution']]);
                 } else {
