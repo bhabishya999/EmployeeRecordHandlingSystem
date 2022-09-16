@@ -47,7 +47,7 @@ class EducationalDetailsController extends Controller
         return new EmployeeEducationalResource($educationalDetails);
     }
 
-    public function update(EducationalDetailsEditRequest $request): Response|Application|ResponseFactory
+    public function update(EducationalDetailsEditRequest $request)
     {
         $educationDetails = $request->validated();
         foreach ($educationDetails['educational_details'] as $education) {
@@ -56,9 +56,9 @@ class EducationalDetailsController extends Controller
                     'education_level' => $education['education_level'],
                     'passed_year' => $education['passed_year'], 'institution' => $education['institution']]);
             }
-            $this->educationalDetails->update(['employee_id' => $education['employee_id'],
-                'education_level' => $education['education_level'],
-                'passed_year' => $education['passed_year'], 'institution' => $education['institution']]);
+            $this->educationalDetails->where('id', $education['education_id'])
+                ->update(['education_level' => $education['education_level'],
+                    'passed_year' => $education['passed_year'], 'institution' => $education['institution']]);
         }
         $educationDetailsIds = collect($educationDetails['educational_details'])->pluck('education_id');
         EducationalDetails::query()->whereNotIn('id', $educationDetailsIds)->delete();
