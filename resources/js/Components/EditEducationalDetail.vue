@@ -295,7 +295,6 @@
 <script>
 import Button from "@/Components/Button.vue";
 import { Form } from "vee-validate";
-import CustomInput from "@/Components/CustomInput.vue";
 import TogglePopUp from "@/Components/TogglePopUp.vue";
 import * as Yup from "yup";
 import { ref } from "vue";
@@ -304,7 +303,6 @@ export default {
   components: {
     Form,
     Button,
-    CustomInput,
     TogglePopUp,
     Yup,
   },
@@ -331,13 +329,21 @@ export default {
       const educational_details = this.edutionalList.map((edu) => {
         return edu;
       });
+      axios
+        .put(`employees/education-update/11`, {
+          educational_details: educational_details,
+        })
+        .then(() => {
+          this.togglePopUp = true;
+        })
+        .catch((error) => console.log(error))
+        .finally(() => (this.isLoading = false));
     },
   },
   created() {
     axios
       .get(`employees/educations/11`)
       .then(({ data }) => {
-        console.log(data.data);
         const edutionalDetailList = data.data.educational_details;
         edutionalDetailList.forEach((edu) => {
           this.edutionalList.push(edu);
