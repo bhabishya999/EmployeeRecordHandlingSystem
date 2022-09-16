@@ -30,7 +30,6 @@ class EducationalDetailsEditRequest extends FormRequest
             'educational_details.*.education_level' => 'required|string',
             'educational_details.*.passed_year' => 'required|date_format:Y|before_or_equal:' . now()->format('Y'),
             'educational_details.*.institution' => 'required|string',
-            'educational_details.*.employee_id'=>'required|exists:employees,id'
         ];
     }
 }
