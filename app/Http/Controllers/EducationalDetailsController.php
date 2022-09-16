@@ -48,10 +48,10 @@ class EducationalDetailsController extends Controller
         return new EmployeeEducationalResource($educationalDetails);
     }
 
-    public function update(EducationalDetailsEditRequest $request,int $id): Response|Application|ResponseFactory
+    public function update(EducationalDetailsEditRequest $request,int $employee_id): Response|Application|ResponseFactory
     {
         $educationDetails = $request->validated();
-        DB::transaction(function () use ($educationDetails,$id) {
+        DB::transaction(function () use ($educationDetails,$employee_id) {
             foreach ($educationDetails['educational_details'] as $education) {
                 if (empty($education['education_id'])) {
                     $this->educationalDetails->create(['employee_id' => $id,
