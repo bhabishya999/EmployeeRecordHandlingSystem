@@ -163,7 +163,7 @@ import Details from "@/Layouts/Details.vue";
 
               <div class="flex flex-row">
                 <div
-                  v-for="document in personalList.documents"
+                  v-for="document in documents"
                   :key="document"
                   class="border-2 border-[#E2E8F0] rounded my-2 flex flex-row justify-between p-1.5 mr-6 w-52"
                 >
@@ -428,7 +428,7 @@ export default {
       Tab,
       TabPanels,
       TabPanel,
-
+      documents: [],
       personalList: [],
       keyEmpList: [],
       educationlList: [],
@@ -441,7 +441,6 @@ export default {
   methods: {
     getFileExt(document) {
       const fileExt = document.original_name.split(".").pop();
-      console.log(fileExt);
       return fileExt.toLowerCase();
     },
     personalDetail(employeeId) {
@@ -449,29 +448,32 @@ export default {
         .get(`/employees/profile/${employeeId}`)
         .then((result) => {
           this.personalList = result.data.data;
+          if (this.personalList.documents.length > 1) {
+            this.documents = this.personalList.documents;
+          }
         })
         .catch((error) => {
-          console.log(error);
+          alert(error);
         });
     },
     educationlDetail(employeeId) {
       axios
         .get(`/employees/educations/${employeeId}`)
         .then((result) => {
-          this.educationlList = result.data.data.educational_details;
+          this.educationlList = result.data.data?.educational_details;
         })
         .catch((error) => {
-          console.log(error);
+          alert(error);
         });
     },
     employmentDetail(employeeId) {
       axios
         .get(`/employees/key-employment-details/${employeeId}`)
         .then((result) => {
-          this.keyEmpList = result.data.data.key_employment_details;
+          this.keyEmpList = result.data.data?.key_employment_details;
         })
         .catch((error) => {
-          console.log(error);
+          alert(error);
         });
     },
   },
