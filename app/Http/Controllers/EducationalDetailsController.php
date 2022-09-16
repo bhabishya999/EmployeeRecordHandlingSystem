@@ -47,7 +47,7 @@ class EducationalDetailsController extends Controller
         return new EmployeeEducationalResource($educationalDetails);
     }
 
-    public function update(EducationalDetailsEditRequest $request)
+    public function update(EducationalDetailsEditRequest $request): Response|Application|ResponseFactory
     {
         $educationDetails = $request->validated();
         foreach ($educationDetails['educational_details'] as $education) {
