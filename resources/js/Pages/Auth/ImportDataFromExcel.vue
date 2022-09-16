@@ -12,10 +12,7 @@ import Details from "@/Layouts/Details.vue";
             IMPORT DATA FILE
           </p>
         </div>
-        <div
-          v-if="message[0].isImportError"
-          class="border-t-[1px] border-slate-400 p-9"
-        >
+        <div v-if="message" class="border-t-[1px] border-slate-400 p-9">
           <div class="flex items-center w-full">
             <div>
               <svg
@@ -37,7 +34,7 @@ import Details from "@/Layouts/Details.vue";
             <p
               class="text-red-600 font-medium text-2xl leading-normal ml-[8px]"
             >
-              {{ message[0].isImportError }}
+              {{ message }}
             </p>
           </div>
           <div class="flex flex-col items-center justify-center mt-28">
@@ -173,12 +170,7 @@ export default {
 
   data() {
     return {
-      message: [
-        {
-          isImportError:
-            "Data validation failed. Please fix the errors and upload the file again.",
-        },
-      ],
+      message: "",
       files: [],
       showPopUp: false,
       isLoading: false,
@@ -191,7 +183,22 @@ export default {
     },
   },
   methods: {
-    importData() {},
+    importData() {
+      let formData = new FormData();
+      formData.append("file", this.files[0]);
+      axios
+        .post("employees/import", formData)
+        .then((response) => {
+          console.log(response);
+          this.$router.push({
+            path: "/employees",
+          });
+        })
+        .catch((error) => {
+          const { message } = error.response.data;
+          this.message = message;
+        });
+    },
   },
 };
 </script>
