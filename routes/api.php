@@ -41,7 +41,6 @@ Route::group(['prefix' => 'employees', 'middleware' => ['auth:sanctum']], functi
     Route::put('/education-update/{employeId}',[EducationalDetailsController::class,'update']);
 
 });
-
 Route::group(['prefix' => 'user', 'middleware' => ['auth:sanctum']], function(){
     Route::get('/me',[UserController::class,'show']);
 });
