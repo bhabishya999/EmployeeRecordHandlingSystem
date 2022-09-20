@@ -37,7 +37,7 @@ class EmployeeEditRequest extends FormRequest
             'avatar' => 'nullable|image|mimes:jpg,jpeg,png',
             'documents'=>'sometimes',
             'documents.*'=>'max:5000|mimes:pdf,png,jpg,jpeg',
-            'document_id'=>'sometimes|exists:documents,id'
+            'document_id.*'=>'sometimes|exists:documents,id'
         ];
     }
     public function messages()
