@@ -134,10 +134,10 @@ class EmployeeController extends Controller
     public function documentUpdate($validated, $employeeId)
     {
         DB::transaction(function () use ($validated, $employeeId) {
-            if (!empty($validated['documents'])) {
+            if (!empty($validated['documents']) && !empty($validated['document_id'])) {
                 $documentIds = collect($validated['document_id']);
-                Document::query()->whereNotIn('id', $documentIds)->delete();
-                
+                Document::query()->whereIn('id', $documentIds)->delete();
+
                 foreach ($validated['documents'] as $document) {
                     $name = $document->getClientOriginalName();
                     $type = $document->getClientMimeType();
@@ -150,9 +150,22 @@ class EmployeeController extends Controller
                     ];
                     $documentCreate = $this->document->create($documentArray);
                 }
-            } else{
+            } elseif (!empty($validated['documents']) && empty($validated['document_id'])) {
+                foreach ($validated['documents'] as $document) {
+                    $name = $document->getClientOriginalName();
+                    $type = $document->getClientMimeType();
+                    $path = $document->store('employeedocuments', 'public');
+                    $documentArray = [
+                        'employee_id' => $employeeId,
+                        'original_name' => $name,
+                        'type' => $type,
+                        'path' => $path,
+                    ];
+                    $documentCreate = $this->document->create($documentArray);
+                }
+            } else {
                 $documentIds = collect($validated['document_id']);
-                Document::query()->whereNotIn('id', $documentIds)->delete();
+                Document::query()->whereIn('id', $documentIds)->delete();
             }
         });
     }
