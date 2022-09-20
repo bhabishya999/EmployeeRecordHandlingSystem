@@ -134,6 +134,7 @@ class EmployeeController extends Controller
     public function documentUpdate($validated, $employeeId)
     {
         DB::transaction(function () use ($validated, $employeeId) {
+            //When user wants to upload new document and delete old document at the same time
             if (!empty($validated['documents']) && !empty($validated['document_id'])) {
                 $documentIds = collect($validated['document_id']);
                 Document::query()->whereIn('id', $documentIds)->delete();
@@ -150,6 +151,7 @@ class EmployeeController extends Controller
                     ];
                     $documentCreate = $this->document->create($documentArray);
                 }
+                //When user wants to upload only new document
             } elseif (!empty($validated['documents']) && empty($validated['document_id'])) {
                 foreach ($validated['documents'] as $document) {
                     $name = $document->getClientOriginalName();
@@ -163,6 +165,7 @@ class EmployeeController extends Controller
                     ];
                     $documentCreate = $this->document->create($documentArray);
                 }
+                //When user wants to delete only old document
             } else {
                 $documentIds = collect($validated['document_id']);
                 Document::query()->whereIn('id', $documentIds)->delete();
