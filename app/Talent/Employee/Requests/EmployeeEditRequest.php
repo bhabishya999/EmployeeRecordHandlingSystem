@@ -3,6 +3,7 @@
 namespace App\Talent\Employee\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class EmployeeEditRequest extends FormRequest
 {
@@ -23,19 +24,20 @@ class EmployeeEditRequest extends FormRequest
      */
     public function rules()
     {
+      $employeeId=$this->route()->parameter('employeeId');
         return [
             'first_name'=>'required|string',
             'last_name'=>'required|string',
-            'email'=>'required|email|unique:employees,email',
+             'email'=>['required','email',Rule::unique('employees','id')->ignore($employeeId)],
             'contact_number'=>'required|string',
             'date_of_birth'=>'required|date',
             'current_address'=>'required|string',
             'pan_number'=>'string|nullable',
             'bank_account_number'=>'string|nullable',
             'avatar' => 'nullable|image|mimes:jpg,jpeg,png',
-            'documents'=>'required',
+            'documents'=>'sometimes',
             'documents.*'=>'max:5000|mimes:pdf,png,jpg,jpeg',
-            'documents.*.document_id'=>'sometimes|exists:documents,id'
+            'document_id'=>'required|exists:documents,id'
         ];
     }
     public function messages()

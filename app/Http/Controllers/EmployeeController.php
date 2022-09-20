@@ -16,11 +16,10 @@ use Illuminate\Http\Request;
 use App\Talent\Employee\Model\Employee;
 use App\Talent\Employee\Requests\EmployeeEditRequest;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Storage;
 
 class EmployeeController extends Controller
 {
-    public function __construct(private Document $document,private EmployeeManager $employeeManager, private Employee $employee, private UserManager $userManager, private DocumentManager $documentManager,private User $user)
+    public function __construct(private Document $document, private EmployeeManager $employeeManager, private Employee $employee, private UserManager $userManager, private DocumentManager $documentManager, private User $user)
     {
     }
 
@@ -89,70 +88,69 @@ class EmployeeController extends Controller
         return new EmployeeProfileResource($employeeDetails);
     }
 
-    public function userUpdate(EmployeeEditRequest $request, int $userId)
+    public function userUpdate(EmployeeEditRequest $request, int $employeeId)
     {
+        try {
+            $this->employee->findOrFail($employeeId);
+        } catch (\Throwable) {
+            return responseHelper('Sorry,could not found this user', Response::HTTP_NOT_FOUND, 'Failed');
+        }
         $validated = $request->validated();
-        DB::transaction(function () use ($validated, $userId) {
+        DB::transaction(function () use ($validated, $employeeId) {
             $userArray = [
                 'name' => $validated['first_name'] . " " . $validated['last_name'],
                 'email' => $validated['email'],
             ];
-            $this->user->where('id',$userId)->update($userArray);
-            return $this->employeeUpdate($validated, $userId);
+            $this->user->where('id', $employeeId)->update($userArray);
+            $this->employeeUpdate($validated, $employeeId);
         });
+        return responseHelper('Personal Details updated successfully');
     }
 
     public function employeeUpdate($validated, $userId)
     {
         DB::transaction(function () use ($validated, $userId) {
-            $oldImage = $this->employee->find($userId,['avatar']);
-                if (empty($validated['avatar'])) {
-                    $validated['avatar'] = null;
-                } else {
-                    $validated['avatar'] = $validated['avatar']->store('employeeimages', 'public');
-                }
-                $employeeArray=[
-                    'first_name'=>$validated['first_name'],
-                    'last_name'=>$validated['last_name'],
-                    'email'=>$validated['email'],
-                    'contact_number'=>$validated['contact_number'],
-                    'date_of_birth'=>$validated['date_of_birth'],
-                    'current_address'=>$validated['current_address'],
-                    'pan_number'=>$validated['pan_number'],
-                    'bank_account_number'=>$validated['bank_account_number'],
-                    'avatar'=>$validated['avatar'],
-                ];
-                $employeeUpdate = $this->employee->where('id',$userId)->update($employeeArray);
-                Storage::delete($oldImage);
-                $oldDocument=$this->document->find($userId);
-                foreach ($validated['documents'] as $document) {
-                    if (empty($document->document_id)) {
-                        $name = $document->getClientOriginalName();
-                        $type = $document->getClientMimeType();
-                        $path = $document->store('employeedocuments', 'public');
-                        $documentArray = [
-                            'employee_id' => $userId,
-                            'original_name' => $name,
-                            'type' => $type,
-                            'path' => $path,
-                        ];
-                        $documentCreate = $this->document->create($documentArray);
-                    }else{
-                        $name = $document->getClientOriginalName();
-                        $type = $document->getClientMimeType();
-                        $path = $document->store('employeedocuments', 'public');
-                        $documentArray = [
-                            'original_name' => $name,
-                            'type' => $type,
-                            'path' => $path,
-                        ];
-                        $documentUpdate=$this->document->where('id',$userId)->update($documentArray);
-                        Storage::delete($oldDocument);
-                    }
-                }
-                $documentIds = collect($validated['documents'])->pluck('document_id');
-                Document::query()->whereNotIn('id', $documentIds)->delete();
+            if (empty($validated['avatar'])) {
+                $validated['avatar'] = null;
+            } else {
+                $validated['avatar'] = $validated['avatar']->store('employeeimages', 'public');
+            }
+            $employeeArray = [
+                'first_name' => $validated['first_name'],
+                'last_name' => $validated['last_name'],
+                'email' => $validated['email'],
+                'contact_number' => $validated['contact_number'],
+                'date_of_birth' => $validated['date_of_birth'],
+                'current_address' => $validated['current_address'],
+                'pan_number' => $validated['pan_number'],
+                'bank_account_number' => $validated['bank_account_number'],
+                'avatar' => $validated['avatar'],
+            ];
+            $employeeUpdate = $this->employee->where('id', $userId)->update($employeeArray);
+            $this->documentUpdate($validated, $userId);
         });
-        return responseHelper('Personal Details updated successfully');
+    }
+
+    public function documentUpdate($validated, $userId)
+    {
+        DB::transaction(function () use ($validated, $userId) {
+            if (!empty($validated['documents'])) {
+                foreach ($validated['documents'] as $document) {
+                    $name = $document->getClientOriginalName();
+                    $type = $document->getClientMimeType();
+                    $path = $document->store('employeedocuments', 'public');
+                    $documentArray = [
+                        'employee_id' => $userId,
+                        'original_name' => $name,
+                        'type' => $type,
+                        'path' => $path,
+                    ];
+                    $documentCreate = $this->document->create($documentArray);
+                }
+            } else{
+                $documentIds = collect($validated['document_id']);
+                Document::query()->whereIn('id', $documentIds)->delete();
+            }
+        });
     }
 }
