@@ -131,16 +131,16 @@ class EmployeeController extends Controller
         });
     }
 
-    public function documentUpdate($validated, $userId)
+    public function documentUpdate($validated, $employeeId)
     {
-        DB::transaction(function () use ($validated, $userId) {
+        DB::transaction(function () use ($validated, $employeeId) {
             if (!empty($validated['documents'])) {
                 foreach ($validated['documents'] as $document) {
                     $name = $document->getClientOriginalName();
                     $type = $document->getClientMimeType();
                     $path = $document->store('employeedocuments', 'public');
                     $documentArray = [
-                        'employee_id' => $userId,
+                        'employee_id' => $employeeId,
                         'original_name' => $name,
                         'type' => $type,
                         'path' => $path,
