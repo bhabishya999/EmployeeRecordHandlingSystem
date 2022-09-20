@@ -145,11 +145,13 @@ class EmployeeController extends Controller
                         'type' => $type,
                         'path' => $path,
                     ];
+                    $documentIds = collect($validated['document_id']);
+                    Document::query()->whereNotIn('id', $documentIds)->delete();
                     $documentCreate = $this->document->create($documentArray);
                 }
             } else{
                 $documentIds = collect($validated['document_id']);
-                Document::query()->whereIn('id', $documentIds)->delete();
+                Document::query()->whereNotIn('id', $documentIds)->delete();
             }
         });
     }
