@@ -16,7 +16,7 @@ class EmployeeFactory extends Factory
     public function definition(): array
     {
         return [
-            'status' => rand(0,1),
+            'status' => "Active",
             'first_name' => $this->faker->firstName(),
             'last_name' => $this->faker->lastName(),
             'contact_number' => $this->faker->phoneNumber(),

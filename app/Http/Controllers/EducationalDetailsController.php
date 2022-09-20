@@ -11,6 +11,7 @@ use Illuminate\Http\Response;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\Routing\ResponseFactory;
 use Illuminate\Support\Facades\DB;
+use Throwable;
 
 class EducationalDetailsController extends Controller
 {
@@ -50,6 +51,12 @@ class EducationalDetailsController extends Controller
 
     public function update(EducationalDetailsEditRequest $request,int $employeeId): Response|Application|ResponseFactory
     {
+        try{
+            $this->educationalDetails->findOrFail($employeeId);
+        }
+        catch(Throwable){
+            return responseHelper('Sorry couldnot found this user',Response::HTTP_NOT_FOUND,'Failed');
+        }
         $educationDetails = $request->validated();
         DB::transaction(function () use ($educationDetails,$employeeId) {
             foreach ($educationDetails['educational_details'] as $education) {
