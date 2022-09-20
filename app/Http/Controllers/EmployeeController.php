@@ -135,6 +135,9 @@ class EmployeeController extends Controller
     {
         DB::transaction(function () use ($validated, $employeeId) {
             if (!empty($validated['documents'])) {
+                $documentIds = collect($validated['document_id']);
+                Document::query()->whereNotIn('id', $documentIds)->delete();
+                
                 foreach ($validated['documents'] as $document) {
                     $name = $document->getClientOriginalName();
                     $type = $document->getClientMimeType();
@@ -145,8 +148,6 @@ class EmployeeController extends Controller
                         'type' => $type,
                         'path' => $path,
                     ];
-                    $documentIds = collect($validated['document_id']);
-                    Document::query()->whereNotIn('id', $documentIds)->delete();
                     $documentCreate = $this->document->create($documentArray);
                 }
             } else{
