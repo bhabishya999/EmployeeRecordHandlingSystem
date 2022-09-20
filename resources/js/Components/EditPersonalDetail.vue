@@ -23,6 +23,7 @@ import { ref } from "vue";
           <div class="w-full">
             <custom-input
               name="lastName"
+              v-model="lastName"
               type="text"
               label="Last Name*"
               placeholder="Enter Last Name"
@@ -33,6 +34,7 @@ import { ref } from "vue";
           <custom-input
             type="email_address"
             name="email"
+            v-model="email"
             label="Email Address*"
             placeholder="Enter Email Address"
           />
@@ -86,6 +88,7 @@ import { ref } from "vue";
             <custom-input
               type="date"
               name="dateOfBirth"
+              v-model="dateOfBirth"
               label="Date of Birth*"
               placeholder="DD-MM-YYYY"
             />
@@ -96,6 +99,7 @@ import { ref } from "vue";
             type="text"
             label="Current Address*"
             name="currentAddress"
+            v-model="currentAddress"
             placeholder="Enter Current Address"
           />
         </div>
@@ -105,6 +109,7 @@ import { ref } from "vue";
               type="number"
               label="PAN Number"
               name="panNumber"
+              v-model="panNumber"
               placeholder="Enter PAN Number"
             />
           </div>
@@ -113,6 +118,7 @@ import { ref } from "vue";
               type="text"
               label="Bank Account Number"
               name="accountNumber"
+              v-model="accountNumber"
               placeholder="Enter Bank Account Number"
             />
           </div>
@@ -153,7 +159,7 @@ import { ref } from "vue";
         <img
           v-if="avatar"
           :src="avatarUrl()"
-          class="w-36 h-36 mb-4 !rounded-full"
+          class="w-36 h-36 mb-4 !rounded-full relative"
         />
 
         <div class="mb-4" v-else>
@@ -176,6 +182,34 @@ import { ref } from "vue";
             <path
               d="M73.109 79.58c16.077 0 29.121-13.043 29.121-29.12 0-16.078-13.044-29.121-29.121-29.121-16.077 0-29.12 13.043-29.12 29.12 0 16.078 13.043 29.121 29.12 29.121Zm25.885 6.472H87.851a35.24 35.24 0 0 1-14.742 3.235c-5.258 0-10.233-1.173-14.742-3.235H47.224c-14.298 0-25.885 11.587-25.885 25.885v3.235c0 5.36 4.347 9.707 9.707 9.707h84.126c5.359 0 9.707-4.347 9.707-9.707v-3.235c0-14.298-11.587-25.885-25.885-25.885Z"
               fill="#C2A68E"
+            />
+          </svg>
+        </div>
+        <div
+          v-if="avatar"
+          class="absolute bottom-8 right-96"
+          @click="toggleShow"
+        >
+          <svg
+            width="31"
+            height="32"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <ellipse cx="15.5" cy="15.702" rx="15.5" ry="15.394" fill="#fff" />
+            <path
+              d="M15.157 9.929H9.59c-.421 0-.826.166-1.124.462A1.574 1.574 0 0 0 8 11.508v11.056c0 .42.168.821.466 1.117.298.296.703.463 1.124.463h11.133c.422 0 .826-.167 1.124-.463.299-.296.466-.698.466-1.117v-5.528"
+              stroke="#4C51BF"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+            <path
+              d="M21.12 8.744a1.693 1.693 0 0 1 2.386 0 1.67 1.67 0 0 1 0 2.37l-7.554 7.502-3.18.79.794-3.16 7.554-7.502Z"
+              stroke="#4C51BF"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
             />
           </svg>
         </div>
@@ -261,7 +295,15 @@ export default {
   mixins: [dataToFileMixin],
 
   data() {
-    const firstName = ref(null);
+    const {
+      firstName,
+      lastName,
+      email,
+      dateOfBirth,
+      currentAddress,
+      panNumber,
+      accountNumber,
+    } = ref(null);
 
     const schema = Yup.object().shape({
       firstName: Yup.string().required(),
@@ -287,6 +329,12 @@ export default {
       message: [],
 
       firstName,
+      lastName,
+      email,
+      dateOfBirth,
+      currentAddress,
+      panNumber,
+      accountNumber,
     };
   },
 
@@ -318,10 +366,6 @@ export default {
   },
 
   methods: {
-    onStatusChange(event) {
-      this.keyempActive = event;
-      this.educationalActive = this.personalActive = false;
-    },
     fieldChange(e) {
       let selectedFiles = e.target.files;
       if (!selectedFiles.length) {
@@ -333,7 +377,14 @@ export default {
     },
     avatarUrl() {
       if (this.avatar) {
-        return URL.createObjectURL(this.avatar);
+        let dataUrl = "";
+        if (typeof this.avatar == "string") {
+          dataUrl = this.avatar;
+        } else {
+          dataUrl = URL.createObjectURL(this.avatar);
+        }
+
+        return dataUrl;
       }
     },
     onSubmit(values) {
@@ -349,31 +400,31 @@ export default {
       } else {
         this.message["files"] = "";
       }
-      // const { firstName } = values;
-      // const { lastName } = values;
-      // const { dateOfBirth } = values;
-      // const { email } = values;
-      // const { panNumber } = values;
-      // const { currentAddress } = values;
-      // const { accountNumber } = values;
+      const { firstName } = values;
+      const { lastName } = values;
+      const { dateOfBirth } = values;
+      const { email } = values;
+      const { panNumber } = values;
+      const { currentAddress } = values;
+      const { accountNumber } = values;
 
       let formData = new FormData();
       for (let i = 0; i < this.files.length; i++) {
         formData.append("documents[]", this.files[i]);
       }
-      formData.append("first_name", "sunita");
-      formData.append("last_name", "gurau");
-      formData.append("email", "sunita567@gmail.com");
-      formData.append("date_of_birth", "2056-02-15");
-      formData.append("pan_number", 123456789);
-      formData.append("current_address", "nakhipot");
-      formData.append("bank_account_number", "12345687895214");
-      formData.append("contact_number", "1234567895");
+      formData.append("first_name", firstName);
+      formData.append("last_name", lastName);
+      formData.append("email", email);
+      formData.append("date_of_birth", dateOfBirth);
+      formData.append("pan_number", panNumber);
+      formData.append("current_address", currentAddress);
+      formData.append("bank_account_number", accountNumber);
+      formData.append("contact_number", this.$refs.phoneNo.phone);
       formData.append("avatar", this.avatar);
 
       this.isLoading = true;
       axios
-        .post("employees/profile-update/1", formData)
+        .post("employees", formData)
         .then((response) => {
           const { employeeId } = response.data;
           this.employeeId = employeeId;
@@ -385,16 +436,7 @@ export default {
         })
         .finally(() => (this.isLoading = false));
     },
-    // onSubmit(values) {
-    //   this.isLoading = true;
-    //   axios
-    //     .post("employees/key-employment-details", {})
-    //     .then(() => {})
-    //     .catch((error) => {
-    //       console.log("error:", error);
-    //     })
-    //     .finally(() => (this.isLoading = false));
-    // },
+
     toggleShow() {
       this.show = !this.show;
     },
@@ -418,11 +460,24 @@ export default {
 
   created() {
     axios
-      .get(`employees/profile/1`)
+      .get(`employees/profile/37`)
       .then(({ data }) => {
         const personalDetailList = data.data;
         this.firstName = personalDetailList.first_name;
-        console.log(data, "datttttttaaaaaa");
+        this.lastName = personalDetailList.last_name;
+        this.email = personalDetailList.email;
+        this.dateOfBirth = personalDetailList.date_of_birth;
+        this.currentAddress = personalDetailList.current_address;
+        this.panNumber = personalDetailList.pan_number;
+        this.accountNumber = personalDetailList.bank_account_number;
+        this.files = personalDetailList.documents;
+        console.log(personalDetailList, "filessssssss");
+        console.log(personalDetailList.contact_number);
+
+        // console.log(this.$refs.phoneNo, "refssss");
+        this.avatar = personalDetailList.avatar;
+        // console.log(personalDetailList.documents, "dociumentsss");
+        // console.log(data, "datttttttaaaaaa");
       })
       .catch((error) => console.log(error));
   },

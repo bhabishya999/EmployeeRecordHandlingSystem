@@ -1,7 +1,7 @@
 <script setup>
 import Details from "@/Layouts/Details.vue";
 </script>
-    <template>
+<template>
   <NavBar></NavBar>
   <div class="h-[24px] bg-slate-100"></div>
   <Details>
@@ -13,20 +13,7 @@ import Details from "@/Layouts/Details.vue";
         <router-link
           to="/employees"
           type="button"
-          class="
-            bg-indigo-700
-            p-[7px]
-            rounded-md
-            drop-shadow-[0_10px_15px_rgba(0,0,0,0.1)]
-            flex
-            items-center
-            justify-center
-            text-white
-            font-bold
-            text-base
-            leading-normal
-            font-sans
-          "
+          class="bg-indigo-700 p-[7px] rounded-md drop-shadow-[0_10px_15px_rgba(0,0,0,0.1)] flex items-center justify-center text-white font-bold text-base leading-normal font-sans"
         >
           <svg
             class="mr-[9px]"
@@ -109,16 +96,7 @@ import Details from "@/Layouts/Details.vue";
             <div class="flex flex-row justify-between mb-2.5">
               <div class="w-full mr-10">
                 <p
-                  class="
-                    block
-                    font-normal
-                    text-sm text-gray-900
-                    pb-2.5
-                    leading-normal
-                    placeholder:text-slate-500
-                    placeholder:text-base
-                    placeholder:font-normal
-                  "
+                  class="block font-normal text-sm text-gray-900 pb-2.5 leading-normal placeholder:text-slate-500 placeholder:text-base placeholder:font-normal"
                 >
                   Contact Number*
                 </p>
@@ -157,13 +135,7 @@ import Details from "@/Layouts/Details.vue";
                     </svg>
                   </div>
                   <p
-                    class="
-                      text-red-600
-                      font-normal
-                      text-sm
-                      leading-normal
-                      ml-[8px]
-                    "
+                    class="text-red-600 font-normal text-sm leading-normal ml-[8px]"
                   >
                     {{ message.phone }}
                   </p>
@@ -303,36 +275,13 @@ import Details from "@/Layouts/Details.vue";
                 'opacity-80 cursor-not-allowed': isLoading,
               }"
               type="submit"
-              class="
-                !my-0
-                bg-primary
-                p-[7px]
-                rounded-md
-                drop-shadow-[0_10px_15px_rgba(0,0,0,0.1)]
-                flex
-                items-center
-                justify-center
-                text-white
-                font-bold
-                text-base
-                leading-normal
-                font-sans
-              "
+              class="!my-0 bg-primary p-[7px] rounded-md drop-shadow-[0_10px_15px_rgba(0,0,0,0.1)] flex items-center justify-center text-white font-bold text-base leading-normal font-sans"
             >
               Save and Continue
             </Button>
             <button
               type="button"
-              class="
-                mr-2.5
-                py-[7px]
-                px-2.5
-                bg-slate-100
-                rounded-md
-                shadow
-                text-base
-                font-bold
-              "
+              class="mr-2.5 py-[7px] px-2.5 bg-slate-100 rounded-md shadow text-base font-bold"
             >
               Cancel
             </button>
@@ -349,8 +298,8 @@ import Details from "@/Layouts/Details.vue";
     </div>
   </Details>
 </template>
-    
-    <script>
+
+<script>
 import CustomInput from "@/Components/CustomInput.vue";
 import DropZone from "@/Components/DropZone.vue";
 import EducationalDetail from "@/Components/EducationalDetail.vue";
@@ -456,6 +405,7 @@ export default {
       }
     },
     onSubmit(values) {
+      debugger;
       if (this.$refs.phoneNo.phone.length == 0) {
         this.message["phone"] = "PhoneNumber is a Required Field";
         this.error = true;
@@ -475,7 +425,7 @@ export default {
       const { panNumber } = values;
       const { currentAddress } = values;
       const { accountNumber } = values;
-
+      console.log(this.$refs, "refssss");
       let formData = new FormData();
       for (let i = 0; i < this.files.length; i++) {
         formData.append("documents[]", this.files[i]);
@@ -527,8 +477,8 @@ export default {
   },
 };
 </script>
-    
-    <style>
+
+<style>
 .vue-tel-input {
   background: #ffffff;
   border: 2px solid #e2e8f0;
@@ -581,4 +531,3 @@ export default {
     rgba(0,0,0,.075),0 0 8px
     rgba(102,175,233,.6);border-color:#66afe9} */
 </style>
-    

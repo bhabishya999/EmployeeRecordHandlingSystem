@@ -7,7 +7,8 @@ import LinkExpired from "@/Pages/Auth/LinkExpired.vue"
 import EmployeeDetail from "@/Pages/Employees/EmployeeDetail.vue"
 import ImportDataFromExcel from "@/pages/Auth/ImportDataFromExcel.vue"
 import { createRouter, createWebHistory } from "vue-router";
-
+import ImportDataFromExcel from "@/Pages/Auth/ImportDataFromExcel.vue"
+import EditPersonalDetailPage from "@/pages/Auth/EditPersonalDetailPage.vue"
 const routes = [
     {
         name: "Home",
@@ -37,7 +38,14 @@ const routes = [
             requiresAuth: true,
         }
     },
-
+    {
+        name: "EditPersonalDetailPage",
+        path: "/employees/editpersonaldetail",
+        component: EditPersonalDetailPage,
+        meta: {
+            requiresAuth: true,
+        }
+    },
     {
         name: "Employees",
         path: "/employees",
