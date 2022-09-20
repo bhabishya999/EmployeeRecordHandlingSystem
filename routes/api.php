@@ -34,11 +34,11 @@ Route::group(['prefix' => 'employees', 'middleware' => ['auth:sanctum']], functi
     Route::get('/managers',[ManagerListController::class,'index']);
     Route::get('/',[EmployeeController::class,'index']);
     Route::post('/key-employment-details', [KeyEmploymentDetailsController::class, 'store']);
-    Route::get('/educations/{employee_id}', [EducationalDetailsController::class, 'show']);
-    Route::get('/profile/{employee_id}', [EmployeeController::class, 'show']);
-    Route::get('/key-employment-details/{employee_id}', [KeyEmploymentDetailsController::class, 'show']);
+    Route::get('/educations/{employeeId}', [EducationalDetailsController::class, 'show']);
+    Route::get('/profile/{employeeId}', [EmployeeController::class, 'show']);
+    Route::get('/key-employment-details/{employeeId}', [KeyEmploymentDetailsController::class, 'show']);
     Route::post('/import', [ImportController::class,'import']);
-    Route::put('/education-update/{employee_id}',[EducationalDetailsController::class,'update']);
+    Route::put('/education-update/{employeId}',[EducationalDetailsController::class,'update']);
 
 });
 
