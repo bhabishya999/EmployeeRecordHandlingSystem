@@ -38,7 +38,7 @@
               id="status"
               :key="status"
               @change="filterstatus($event)"
-              class="border-transparent focus:border-transparent focus:ring-0 outline-0 scroll-smooth border drop-shadow justify-between rounded-md h-[37px] w-[130px] text-primary text-center justify-center items-center pr-16"
+              class="border-transparent focus:border-transparent focus:ring-0 outline-0 scroll-smooth border drop-shadow justify-between rounded-md h-[37px] w-[175px] text-primary pr-16"
             >
               &nbsp;&nbsp;
 
@@ -126,6 +126,24 @@ export default {
         },
         {
           status: "Alumni",
+        },
+        {
+          status: "Development",
+        },
+        {
+          status: "QA",
+        },
+        {
+          status: "Product",
+        },
+        {
+          status: "Sales",
+        },
+        {
+          status: "Design",
+        },
+        {
+          status: "Marketing",
         },
       ],
     };
