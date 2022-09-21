@@ -123,7 +123,11 @@ import { ref } from "vue";
             />
           </div>
         </div>
-        <DropZone v-model="files" @update="fileChanges"></DropZone>
+        <DropZone
+          v-model="files"
+          @update="fileChanges"
+          @change="fieldchange"
+        ></DropZone>
         <UploadList
           :items="files"
           @deleteComplete="deleteComplete"
@@ -273,7 +277,7 @@ import { ref } from "vue";
     >
       <TogglePopUp
         :togglePopUp="togglePopUp"
-        @close="togglePopUp = !togglePopUp"
+        @close="togglePopUp"
         class="absolute z-10"
       >
         <svg
@@ -310,7 +314,7 @@ import { VueTelInput } from "vue3-tel-input";
 import "vue3-tel-input/dist/vue3-tel-input.css";
 import * as Yup from "yup";
 import myUpload from "vue-image-crop-upload";
-
+import TogglePopUp from "@/Components/TogglePopUp.vue";
 export default {
   name: "AddEmployeeDetails",
   components: {
@@ -322,7 +326,7 @@ export default {
     "vue-tel-input": VueTelInput,
     Form,
     Yup,
-
+    TogglePopUp,
     EducationalDetail,
     KeyDetail,
     "my-upload": myUpload,
@@ -330,8 +334,6 @@ export default {
   mixins: [dataToFileMixin],
 
   data() {
-    const togglePopUp = ref(false);
-    const phone = ref(null);
     const {
       firstName,
       lastName,
@@ -353,7 +355,7 @@ export default {
     });
     return {
       employeeId: 1,
-
+      phone: null,
       isLoading: false,
       schema,
       files: [],
@@ -372,8 +374,7 @@ export default {
       currentAddress,
       panNumber,
       accountNumber,
-      togglePopUp,
-      phone,
+      togglePopUp: false,
     };
   },
 
@@ -405,6 +406,12 @@ export default {
   },
 
   methods: {
+    togglePopUp() {
+      this.togglePopUp = !this.togglePopUp;
+      this.$router.push({
+        path: "/employees",
+      });
+    },
     deleteComplete(event) {
       this.document_id.push(event);
       console.log(this.document_id, " document_id");
@@ -419,15 +426,15 @@ export default {
       //   this.files.push(data.files[i]);
       // }
     },
-    // fieldChange(e) {
-    //   let selectedFiles = e.target.files;
-    //   if (!selectedFiles.length) {
-    //     return false;
-    //   }
-    //   for (let i = 0; i < selectedFiles.length; i++) {
-    //     this.files.push(selectedFiles[i]);
-    //   }
-    // },
+    fieldChange(e) {
+      let selectedFiles = e.target.files;
+      if (!selectedFiles.length) {
+        return false;
+      }
+      for (let i = 0; i < selectedFiles.length; i++) {
+        this.files.push(selectedFiles[i]);
+      }
+    },
     avatarUrl() {
       if (this.avatar) {
         let dataUrl = "";
@@ -465,8 +472,12 @@ export default {
         formData.append("documents[]", this.files[i]);
       }
       // for (let i = 0; i < this.document_id.length; i++) {
-      //   formData.append("documents[]", this.document_id[i]);
+      //   formData.append("document_id[]", this.document_id[i]);
+      //   console.log(this.document_id[i]);
       // }
+      for (let i = 0; i < this.document_id.length; i++) {
+        formData.append("document_id[]", this.document_id[i]);
+      }
       formData.append("first_name", firstName);
       formData.append("last_name", lastName);
       formData.append("email", email);
@@ -476,7 +487,8 @@ export default {
       formData.append("bank_account_number", accountNumber);
       formData.append("contact_number", this.$refs.phoneNo.phone);
       formData.append("avatar", this.avatar);
-      formData.append("document_id", this.document_id);
+      // formData.append("document_id", this.document_id);
+      // formData.append("documents", this.files);
 
       this.isLoading = true;
       axios
@@ -524,12 +536,12 @@ export default {
         this.panNumber = personalDetailList.pan_number;
         this.accountNumber = personalDetailList.bank_account_number;
         this.files = personalDetailList.documents;
-        this.phone = personalDetailList.contact_number;
         console.log(personalDetailList, "filessssssss");
         console.log(personalDetailList.documents);
-        // console.log(thisvalue, "refssss");
+        // console.log(this.$refs.phoneNo, "refssss");
         this.avatar = personalDetailList.avatar;
-        // console.log(personalDetailList.documents, "dociumentsss");
+        this.phone = personalDetailList.contact_number;
+        console.log(this.$refs.phoneNo.phone, "refsssssss");
         // console.log(data, "datttttttaaaaaa");
       })
       .catch((error) => console.log(error));

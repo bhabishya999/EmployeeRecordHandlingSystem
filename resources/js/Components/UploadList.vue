@@ -29,7 +29,7 @@
           <p class="leading-normal font-normal text-base text-black truncate">
             {{ file.name }}
           </p>
-          <p class="text-slate-600 font-normal text-[6px]">
+          <p class="text-slate-600 font-normal text-[6px] truncate">
             {{ file.type }}
           </p>
         </div>
