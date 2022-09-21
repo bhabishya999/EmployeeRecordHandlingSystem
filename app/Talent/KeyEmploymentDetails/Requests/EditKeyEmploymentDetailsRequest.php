@@ -32,7 +32,7 @@ class EditKeyEmploymentDetailsRequest extends FormRequest
             'manager' => 'required|exists:employees,id',
             'manages' => 'sometimes',
             'manages.*.manages_id' => 'sometimes',
-            'manages.*.employee_id' => 'sometimes',
+            'manages.*.employee_id' => 'sometimes|exists:employees,id',
             'superpowers' => 'required|array'
         ];
     }
