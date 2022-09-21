@@ -27,7 +27,7 @@
         </div>
         <div class="w-2/3 flex flex-col">
           <p class="leading-normal font-normal text-base text-black truncate">
-            {{ file.original_name }}
+            {{ file.name }}
           </p>
           <p class="text-slate-600 font-normal text-[6px]">
             {{ file.type }}
@@ -118,10 +118,12 @@ export default {
   },
   methods: {
     deleteDocument(index) {
-      this.items.splice(index, 1);
+      let removedItem = this.items.splice(index, 1);
+      let document_id = removedItem[0].document_id;
+      this.$emit("deleteComplete", document_id);
     },
     getFileExt(file) {
-      const fileExt = file.original_name.split(".").pop();
+      const fileExt = file.name.split(".").pop();
       return fileExt.toLowerCase();
     },
     // getExtenationIcon(value) {

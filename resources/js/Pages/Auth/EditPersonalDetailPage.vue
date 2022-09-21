@@ -32,15 +32,16 @@ import Details from "@/Layouts/Details.vue";
         </div>
         <div class="mt-[30px] mb-5">
           <ul class="flex">
-            <li class="font-bold leading-normal text-lg py-2.5 px-1.5 mr-7">
+            <li
+              class="mr-7 font-semibold leading-normal text-lg py-2.5 px-1.5 bg-indigo-700 rounded-lg font-sans text-white"
+            >
               Personal Details
             </li>
             <li class="font-bold leading-normal text-lg mr-7 py-2.5 px-1.5">
               Educational Details
             </li>
-            <li
-              class="font-semibold leading-normal text-lg py-2.5 px-1.5 bg-indigo-700 rounded-lg font-sans text-white"
-            >
+
+            <li class="font-bold leading-normal text-lg py-2.5 px-1.5 mr-7">
               Key Employment Details
             </li>
           </ul>
