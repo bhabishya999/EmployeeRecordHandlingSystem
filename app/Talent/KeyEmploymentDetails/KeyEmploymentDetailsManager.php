@@ -25,4 +25,7 @@ class KeyEmploymentDetailsManager
         return $this->employee->with(['keyEmploymentDetail','keyEmploymentDetail.manages'])->findOrFail($employeeId);
     }
 
+    public function update($employmentArray,$employeeId){
+        return $this->keyEmploymentDetails->where('employee_id',$employeeId)->update($employmentArray);
+    }
 }
