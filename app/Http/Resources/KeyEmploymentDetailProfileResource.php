@@ -2,7 +2,6 @@
 
 namespace App\Http\Resources;
 
-use App\Talent\Employee\Model\Employee;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class KeyEmploymentDetailProfileResource extends JsonResource
@@ -16,7 +15,7 @@ class KeyEmploymentDetailProfileResource extends JsonResource
             'organization' =>$this->organization,
             'join_date' => $this->join_date,
             'work_schedule' => $this->work_schedule,
-            'manager' =>Employee::with('keyEmploymentDetail:id,employee_id')->find($this->manager,['id','first_name','last_name']),
+            'manager' =>$this->employeeManager,
             'superpowers' => $this->superpowers,
             'team' => $this->team,
             'current_position' => $this->current_position,

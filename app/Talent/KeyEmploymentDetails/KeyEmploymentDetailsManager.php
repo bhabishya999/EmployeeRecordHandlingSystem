@@ -22,7 +22,12 @@ class KeyEmploymentDetailsManager
 
     public function keyEmploymentProfile($employeeId)
     {
-        return $this->employee->with(['keyEmploymentDetail','keyEmploymentDetail.manages'])->findOrFail($employeeId);
+        return $this->employee->with([
+            'keyEmploymentDetail',
+            'keyEmploymentDetail.manages',
+            'keyEmploymentDetail.employeeManager:id,first_name,last_name'
+        ])
+            ->findOrFail($employeeId);
     }
 
     public function update($employmentArray,$employeeId){

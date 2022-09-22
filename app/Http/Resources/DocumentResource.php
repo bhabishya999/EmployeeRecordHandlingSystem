@@ -16,7 +16,7 @@ class DocumentResource extends JsonResource
     {
         return [
             'document_id' => $this->id,
-            'original_name' =>$this->original_name,
+            'name' =>$this->original_name,
             'type' => $this->type,
             'path'=>$this->when(!empty($this->path),fn()=>asset('/storage/'.$this->path),null)
         ];
