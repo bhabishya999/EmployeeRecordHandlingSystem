@@ -466,18 +466,10 @@ export default {
     },
     deleteComplete(event) {
       this.document_id.push(event);
-      console.log(this.document_id, " document_id");
     },
     fileChanges(files) {
       this.files = [...this.files, ...files];
-      console.log(files, "files");
       this.fileUploaded = true;
-
-      // this.files.push(files);
-      // console.log(this.files, "concate");
-      // for (let i = 0; i < data.files.length; i++) {
-      //   this.files.push(data.files[i]);
-      // }
     },
     fieldChange() {
       let selectedFiles = this.files;
@@ -522,10 +514,8 @@ export default {
       const { accountNumber } = values;
 
       let formData = new FormData();
-      console.log(this.files, "sun");
 
       for (let i = 0; i < this.files.length; i++) {
-        console.log(this.files[i].File, "bha");
         if (!this.files[i].path) {
           formData.append("documents[]", this.files[i]);
         }
@@ -597,8 +587,6 @@ export default {
         this.files = personalDetailList.documents;
         this.avatar = personalDetailList.avatar;
         this.phone = personalDetailList.contact_number;
-        console.log(personalDetailList.documents, "inputvaluedoc");
-        console.log(this.$refs.phoneNo.phone, "refsssssss");
       })
       .catch((error) => console.log(error));
   },

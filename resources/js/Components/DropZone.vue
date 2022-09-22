@@ -73,7 +73,6 @@ export default {
       const inputValue =
         e.target.files || e.dataTransfer.files || this.$refs.dropzoneFile.files;
       this.$emit("update", inputValue);
-      console.log(inputValue, "inputvalue");
     },
   },
 };

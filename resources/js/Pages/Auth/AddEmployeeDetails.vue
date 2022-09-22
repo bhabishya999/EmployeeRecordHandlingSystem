@@ -413,7 +413,6 @@ export default {
       }
     },
     onSubmit(values) {
-      debugger;
       if (this.$refs.phoneNo.phone.length == 0) {
         this.message["phone"] = "PhoneNumber is a Required Field";
         this.error = true;
@@ -433,7 +432,6 @@ export default {
       const { panNumber } = values;
       const { currentAddress } = values;
       const { accountNumber } = values;
-      console.log(this.$refs, "refssss");
       let formData = new FormData();
       for (let i = 0; i < this.files.length; i++) {
         formData.append("documents[]", this.files[i]);

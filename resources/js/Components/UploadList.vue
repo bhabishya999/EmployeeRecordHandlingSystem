@@ -126,23 +126,6 @@ export default {
       const fileExt = file.name.split(".").pop();
       return fileExt.toLowerCase();
     },
-    // getExtenationIcon(value) {
-    //   if (value == "pdf") {
-    //     console.log("pdfqwedrftgyhujikl");
-    //     // return require("../../images/pdf.png");
-    //     return "'../../images/pdf.png'";
-    //   } else if (value == "png") {
-    //     console.log("pnggggggggggg");
-    //     // return require("../../images/png.png");
-    //     return "'../../images/png.png'";
-    //   } else if (value == "jpg") {
-    //     console.log("jpggggggg");
-    //     // return require("../../images/jpg.png");
-    //     return "'../../images/jpg.png'";
-    //   } else {
-    //     return;
-    //   }
-    // },
   },
 };
 </script>
