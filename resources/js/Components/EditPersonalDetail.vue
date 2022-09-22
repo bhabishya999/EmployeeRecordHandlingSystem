@@ -278,11 +278,11 @@ import { ref } from "vue";
       <div
         class="h-[342px] w-[772px] flex !items-stretch !justify-between absolute z-10 top-1/2 left-1/2 !transform !-translate-x-1/2 !-translate-y-1/2"
       >
-        <div class="p-9 bg-white h-[342px] w-[772px] rounded-md">
+        <div
+          class="p-9 bg-white w-[515px] h-[395px] bg-white rounded-md flex items-center"
+        >
           <div>
-            <div
-              class="flex flex-col justify-end items-center px-9 py-2.5 mt-24"
-            >
+            <div class="flex flex-col px-9 py-2.5 items-center">
               <svg
                 width="120"
                 height="120"
@@ -458,9 +458,10 @@ export default {
 
   methods: {
     togglePopUp() {
+      const id = this.$route.params.id;
       this.showPopUp = !this.showPopUp;
       this.$router.push({
-        path: "/employees/40",
+        path: `/employees/${id}`,
       });
     },
     deleteComplete(event) {
@@ -499,6 +500,7 @@ export default {
       }
     },
     onSubmit(values) {
+      const employeeId = this.$route.params.id;
       if (this.$refs.phoneNo.phone.length == 0) {
         this.message["phone"] = "PhoneNumber is a Required Field";
         this.error = true;
@@ -547,7 +549,7 @@ export default {
       formData.append("contact_number", this.$refs.phoneNo.phone);
       this.isLoading = true;
       axios
-        .post("employees/40", formData)
+        .post(`employees/${employeeId}`, formData)
         .then(() => {
           this.showPopUp = true;
         })
@@ -579,8 +581,10 @@ export default {
   },
 
   created() {
+    const employeeId = this.$route.params.id;
+
     axios
-      .get(`employees/profile/40`)
+      .get(`employees/profile/${employeeId}`)
       .then(({ data }) => {
         const personalDetailList = data.data;
         this.firstName = personalDetailList.first_name;
