@@ -435,7 +435,8 @@ export default {
     };
   },
   created() {
-    const employeeId = this.$route.params;
+    const employeeId = this.$route.params.id;
+
     this.personalDetail(employeeId);
   },
   methods: {

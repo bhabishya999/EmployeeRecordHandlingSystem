@@ -8,7 +8,8 @@ window._ = _;
  */
 
 import axios from 'axios';
-const token = localStorage.getItem("talent_token") ?? "";
+const token = localStorage.getItem("talent_token");
+
  
   const axiosInstance = axios.create({
   baseURL: `http://talent.local/api`,

@@ -28,12 +28,12 @@
           :class="[
             'pagination-button',
 
-            page_Number + index == $route.query.page ? 'active' : '',
+            index + 1 == $route.query.page ? 'active' : '',
           ]"
           v-on:click="buttons(page_Number + index)"
           class="text-light_cyanblue ml-7 h-[35px] w-[55px] text-center justify-center items-center rounded not-italic font-bold text-sm border border-solid border-slate-200"
         >
-          {{ page_Number + index }}
+          {{ index + 1 }}
         </button>
       </div>
 
@@ -69,7 +69,7 @@ export default {
   data() {
     return {
       pageNumber: 1,
-      row_per_page: 6,
+      row_per_page: 15,
     };
   },
   computed: {

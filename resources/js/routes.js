@@ -5,6 +5,7 @@ import Login from "@/Pages/Auth/Login.vue";
 import Employees from "@/Pages/Employees/Employees.vue";
 import LinkExpired from "@/Pages/Auth/LinkExpired.vue"
 import EmployeeDetail from "@/Pages/Employees/EmployeeDetail.vue"
+import ImportDataFromExcel from "@/pages/Auth/ImportDataFromExcel.vue"
 import { createRouter, createWebHistory } from "vue-router";
 
 const routes = [

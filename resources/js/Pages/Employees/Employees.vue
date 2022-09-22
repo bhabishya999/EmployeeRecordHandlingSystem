@@ -28,11 +28,7 @@
 
     <div class="min-h-screen bg-light_blue px-40">
       <div
-        class="
-          bg-white
-          w-full
-          drop-shadow-[0_1px_2px_rgba(0,0,0,0.06)_0_10px_15px_rgba(0,0,0,0.1)]
-        "
+        class="bg-white w-full drop-shadow-[0_1px_2px_rgba(0,0,0,0.06)_0_10px_15px_rgba(0,0,0,0.1)]"
       >
         <EmployeeListHeader>
           <template v-slot:total :total="total">{{ total }}</template>
@@ -42,22 +38,7 @@
               id="status"
               :key="status"
               @change="filterstatus($event)"
-              class="
-                border-transparent
-                focus:border-transparent focus:ring-0
-                outline-0
-                scroll-smooth
-                border
-                drop-shadow
-                justify-between
-                rounded-md
-                h-[37px]
-                w-[130px]
-                text-primary text-center
-                justify-center
-                items-center
-                pr-16
-              "
+              class="border-transparent focus:border-transparent focus:ring-0 outline-0 scroll-smooth border drop-shadow justify-between rounded-md h-[37px] w-[175px] text-primary pr-16"
             >
               &nbsp;&nbsp;
 
@@ -65,6 +46,7 @@
                 v-for="status in status"
                 v-bind:key="status.status"
                 v-bind:value="status.status"
+                class="border-transparent hover:bg-primary_blue focus:border-transparent focus:ring-0 border-0 outline-0 scroll-smooth text-light_iris shadow-md rounded-sm"
               >
                 {{ status.status }}
               </option>
@@ -72,23 +54,7 @@
           </template>
 
           <div
-            class="
-              h-[37px]
-              w-[220px]
-              pl-2
-              border border-primary
-              shadow-sm
-              rounded-md
-              flex
-              justify-center
-              items-center
-              text-center
-              bg-white
-              font-sans
-              not-italic
-              font-bold
-              text-base
-            "
+            class="h-[37px] w-[220px] pl-2 border border-primary shadow-sm rounded-md flex justify-center items-center text-center bg-white font-sans not-italic font-bold text-base"
           >
             <button type="submit">
               <svg
@@ -110,23 +76,13 @@
               v-model="search"
               type="text"
               placeholder="Search by name"
-              v-on:keyup.enter="onSubmit"
-              class="
-                border-0
-                h-[20px]
-                w-[160px]
-                placeholder:text-light_cyanblue
-                pl-2
-                text-black
-                rounded-md
-                border-transparent
-                focus:border-transparent focus:ring-0
-              "
+              v-on:keyup.enter="filterSearch"
+              class="border-0 h-[20px] w-[160px] placeholder:text-light_cyanblue pl-2 text-black rounded-md border-transparent focus:border-transparent focus:ring-0"
             />
           </div>
         </EmployeeListHeader>
 
-        <EmployeeList v-for="list in filteredlist" :key="list.id" :list="list">
+        <EmployeeList v-for="list in employeeList" :key="list.id" :list="list">
         </EmployeeList>
       </div>
 
@@ -154,13 +110,12 @@ export default {
     return {
       showSuccess: false,
       employeeList: [],
-      el: "#hide",
+
       total: [],
       pageNumber: this.$route.query.pageNumber
         ? parseInt(this.$route.query.pageNumber)
         : 1,
       search: "",
-      seen: false,
 
       status: [
         {
@@ -172,23 +127,26 @@ export default {
         {
           status: "Alumni",
         },
+        {
+          status: "Development",
+        },
+        {
+          status: "QA",
+        },
+        {
+          status: "Product",
+        },
+        {
+          status: "Sales",
+        },
+        {
+          status: "Design",
+        },
+        {
+          status: "Marketing",
+        },
       ],
     };
-  },
-  computed: {
-    filteredlist() {
-      return this.employeeList.filter((list) => {
-        var fullname = list.first_name.trim() + " " + list.last_name.trim();
-        return (
-          list.first_name.toLowerCase().match(this.search.toLowerCase()) ||
-          list.last_name.toLowerCase().match(this.search.toLowerCase()) ||
-          fullname
-            .toLowerCase()
-            .match(this.search.toLowerCase().replace(/\s+/g, " ")) ||
-          list.email.toLowerCase().match(this.search.toLowerCase())
-        );
-      });
-    },
   },
 
   components: {
@@ -218,11 +176,11 @@ export default {
       this.getData();
     },
 
-    onSubmit() {
+    filterSearch() {
       axios
         .get(`/employees?search=${this.search}`)
         .then((result) => {
-          this.filteredlist = result.data.data;
+          this.employeeList = result.data.data;
         })
         .catch((error) => {
           alert(error);
@@ -251,7 +209,7 @@ export default {
         .get(`/employees?page=${this.pageNumber}`)
         .then((result) => {
           this.employeeList = result.data.data;
-          this.total = result.data.data.length;
+          this.total = result.data.meta.total;
         })
 
         .catch((error) => {
@@ -269,6 +227,4 @@ export default {
 };
 </script>
 
-<style>
-@import url(https://cdn.syncfusion.com/ej2/material.css);
-</style>
+<style></style>
