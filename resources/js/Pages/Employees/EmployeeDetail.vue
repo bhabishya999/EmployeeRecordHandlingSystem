@@ -376,6 +376,7 @@ import Details from "@/Layouts/Details.vue";
                     </p>
                     <p class="leading-normal font-bold text-base">
                       {{ keyEmpList.manager.first_name }}
+                      {{ keyEmpList.manager.last_name }}
                     </p>
                   </div>
                   <div>
