@@ -24,6 +24,7 @@ class EditKeyEmploymentDetailsRequest extends FormRequest
     public function rules()
     {
         return [
+            'id'=>'required|exists:key_employment_details,id',  //This is keyemployment details primary key of the particular employee
             'organization' => 'required',
             'join_date' => 'required|date',
             'current_position' => 'required|string',

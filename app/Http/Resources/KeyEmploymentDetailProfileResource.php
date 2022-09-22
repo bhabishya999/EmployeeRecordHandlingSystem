@@ -16,7 +16,7 @@ class KeyEmploymentDetailProfileResource extends JsonResource
             'organization' =>$this->organization,
             'join_date' => $this->join_date,
             'work_schedule' => $this->work_schedule,
-            'manager' =>Employee::find($this->manager,['id','first_name','last_name']),
+            'manager' =>Employee::with('keyEmploymentDetail:id,employee_id')->find($this->manager,['id','first_name','last_name']),
             'superpowers' => $this->superpowers,
             'team' => $this->team,
             'current_position' => $this->current_position,

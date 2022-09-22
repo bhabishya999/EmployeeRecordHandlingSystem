@@ -81,14 +81,14 @@ class KeyEmploymentDetailsController extends Controller
         return responseHelper('Key-employment Details updated successfully');
     }
 
-    public function managesUpdate($validated, $employeeId)
+    public function managesUpdate($validated)
     {
-        DB::transaction(function () use ($validated, $employeeId) {
+        DB::transaction(function () use ($validated) {
         //There is no option to delete manages field in design so,I haven't implemented that here
             foreach ($validated['manages'] as $manage) {
                 if (empty($manage['manages_id'])) {
                     $managesArray = [
-                        'key_employment_details_id' => $employeeId,
+                        'key_employment_details_id' => $validated['id'],
                         'employee_id' => $manage['employee_id']
                     ];
                     $managesUpdate=$this->managesManager->createManages($managesArray);
