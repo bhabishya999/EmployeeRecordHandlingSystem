@@ -176,7 +176,11 @@ import Details from "@/Layouts/Details.vue";
                 />
               </div>
             </div>
-            <DropZone v-model="files" @change="fieldChange"></DropZone>
+            <DropZone
+              v-model="files"
+              @change="fieldChange"
+              @update="fileChanges"
+            ></DropZone>
             <UploadList :items="files"></UploadList>
             <div v-if="message.files" class="flex items-center w-full mt-[9px]">
               <div>
@@ -390,6 +394,10 @@ export default {
       this.keyempActive = event;
       this.educationalActive = this.personalActive = false;
     },
+    fileChanges(files) {
+      this.files = [...this.files, ...files];
+      console.log(files, "files");
+    },
     fieldChange(e) {
       let selectedFiles = e.target.files;
       if (!selectedFiles.length) {
@@ -439,7 +447,6 @@ export default {
       formData.append("bank_account_number", accountNumber);
       formData.append("contact_number", this.$refs.phoneNo.phone);
       formData.append("avatar", this.avatar);
-
       this.isLoading = true;
       axios
         .post("employees", formData)

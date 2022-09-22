@@ -272,32 +272,83 @@ import { ref } from "vue";
       </div>
     </div>
     <div
-      v-if="togglePopUp"
-      class="z-50 fixed inset-0 w-full h-screen flex items-center justify-center bg-black bg-opacity-50"
+      v-if="showPopUp"
+      class="fixed inset-0 w-full h-screen bg-black bg-opacity-50"
     >
-      <TogglePopUp
-        :togglePopUp="togglePopUp"
-        @close="togglePopUp"
-        class="absolute z-10"
+      <div
+        class="h-[342px] w-[772px] flex !items-stretch !justify-between absolute z-10 top-1/2 left-1/2 !transform !-translate-x-1/2 !-translate-y-1/2"
       >
-        <svg
-          width="120"
-          height="120"
-          viewBox="0 0 120 120"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="M119.56 59.78C119.56 92.7957 92.7957 119.56 59.78 119.56C26.7643 119.56 0 92.7957 0 59.78C0 26.7643 26.7643 0 59.78 0C92.7957 0 119.56 26.7643 119.56 59.78ZM52.8653 91.4331L97.2182 47.0801C98.7243 45.5741 98.7243 43.132 97.2182 41.6259L91.764 36.1717C90.258 34.6654 87.8159 34.6654 86.3096 36.1717L50.1381 72.343L33.2505 55.4554C31.7444 53.9493 29.3023 53.9493 27.796 55.4554L22.3418 60.9096C20.8357 62.4157 20.8357 64.8577 22.3418 66.3638L47.4109 91.4328C48.9172 92.9391 51.359 92.9391 52.8653 91.4331Z"
-            fill="#4D966F"
-          />
-        </svg>
+        <div class="p-9 bg-white h-[342px] w-[772px] rounded-md">
+          <div>
+            <div
+              class="flex flex-col justify-end items-center px-9 py-2.5 mt-24"
+            >
+              <svg
+                width="120"
+                height="120"
+                viewBox="0 0 120 120"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M119.56 59.78C119.56 92.7957 92.7957 119.56 59.78 119.56C26.7643 119.56 0 92.7957 0 59.78C0 26.7643 26.7643 0 59.78 0C92.7957 0 119.56 26.7643 119.56 59.78ZM52.8653 91.4331L97.2182 47.0801C98.7243 45.5741 98.7243 43.132 97.2182 41.6259L91.764 36.1717C90.258 34.6654 87.8159 34.6654 86.3096 36.1717L50.1381 72.343L33.2505 55.4554C31.7444 53.9493 29.3023 53.9493 27.796 55.4554L22.3418 60.9096C20.8357 62.4157 20.8357 64.8577 22.3418 66.3638L47.4109 91.4328C48.9172 92.9391 51.359 92.9391 52.8653 91.4331Z"
+                  fill="#4D966F"
+                />
+              </svg>
 
-        <p class="text-indigo-700 leading-normal text-2xl font-bold my-[20px]">
-          Changes have been saved successfully.
-        </p>
-      </TogglePopUp>
+              <p
+                class="text-indigo-700 leading-normal text-2xl font-bold my-[20px]"
+              >
+                Changes have been saved successfully.
+              </p>
+
+              <button
+                @click="togglePopUp"
+                class="font-bold text-base py-[15px] px-[34px] border-indigo-700 text-indigo-700 border rounded-md"
+              >
+                Close
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
+    <!-- 
+    <div
+      v-if="togglePopUp"
+      class="z-10 w-[515px] h-[395px] bg-white shadow-[0_10px_15px_rgba(0,0,0,0.1)] flex flex-col items-center justify-center mt-20"
+    >
+      <div
+        class="z-50 fixed inset-0 w-full h-screen flex items-center justify-center bg-black bg-opacity-50"
+      >
+        <div class="absolute z-10">
+          <svg
+            width="120"
+            height="120"
+            viewBox="0 0 120 120"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M119.56 59.78C119.56 92.7957 92.7957 119.56 59.78 119.56C26.7643 119.56 0 92.7957 0 59.78C0 26.7643 26.7643 0 59.78 0C92.7957 0 119.56 26.7643 119.56 59.78ZM52.8653 91.4331L97.2182 47.0801C98.7243 45.5741 98.7243 43.132 97.2182 41.6259L91.764 36.1717C90.258 34.6654 87.8159 34.6654 86.3096 36.1717L50.1381 72.343L33.2505 55.4554C31.7444 53.9493 29.3023 53.9493 27.796 55.4554L22.3418 60.9096C20.8357 62.4157 20.8357 64.8577 22.3418 66.3638L47.4109 91.4328C48.9172 92.9391 51.359 92.9391 52.8653 91.4331Z"
+              fill="#4D966F"
+            />
+          </svg>
+
+          <p
+            class="text-indigo-700 leading-normal text-2xl font-bold my-[20px]"
+          >
+            Changes have been saved successfully.
+          </p>
+        </div>
+      </div>
+      <button
+        @click="togglePopUp"
+        class="font-bold text-base py-[15px] px-[34px] border-indigo-700 text-indigo-700 border rounded-md"
+      >
+        Close
+      </button>
+    </div> -->
   </Form>
 </template>
 <script>
@@ -314,7 +365,6 @@ import { VueTelInput } from "vue3-tel-input";
 import "vue3-tel-input/dist/vue3-tel-input.css";
 import * as Yup from "yup";
 import myUpload from "vue-image-crop-upload";
-import TogglePopUp from "@/Components/TogglePopUp.vue";
 export default {
   name: "AddEmployeeDetails",
   components: {
@@ -326,7 +376,7 @@ export default {
     "vue-tel-input": VueTelInput,
     Form,
     Yup,
-    TogglePopUp,
+
     EducationalDetail,
     KeyDetail,
     "my-upload": myUpload,
@@ -366,7 +416,7 @@ export default {
       personalActive: true,
       educationalActive: false,
       message: [],
-      document_id: [],
+      document_id: null,
       firstName,
       lastName,
       email,
@@ -374,7 +424,8 @@ export default {
       currentAddress,
       panNumber,
       accountNumber,
-      togglePopUp: false,
+      showPopUp: false,
+      fileUploaded: false,
     };
   },
 
@@ -407,9 +458,9 @@ export default {
 
   methods: {
     togglePopUp() {
-      this.togglePopUp = !this.togglePopUp;
+      this.showPopUp = !this.showPopUp;
       this.$router.push({
-        path: "/employees",
+        path: "/employees/40",
       });
     },
     deleteComplete(event) {
@@ -419,6 +470,7 @@ export default {
     fileChanges(files) {
       this.files = [...this.files, ...files];
       console.log(files, "files");
+      this.fileUploaded = true;
 
       // this.files.push(files);
       // console.log(this.files, "concate");
@@ -426,8 +478,8 @@ export default {
       //   this.files.push(data.files[i]);
       // }
     },
-    fieldChange(e) {
-      let selectedFiles = e.target.files;
+    fieldChange() {
+      let selectedFiles = this.files;
       if (!selectedFiles.length) {
         return false;
       }
@@ -468,15 +520,22 @@ export default {
       const { accountNumber } = values;
 
       let formData = new FormData();
+      console.log(this.files, "sun");
+
       for (let i = 0; i < this.files.length; i++) {
-        formData.append("documents[]", this.files[i]);
+        console.log(this.files[i].File, "bha");
+        if (!this.files[i].path) {
+          formData.append("documents[]", this.files[i]);
+        }
       }
-      // for (let i = 0; i < this.document_id.length; i++) {
-      //   formData.append("document_id[]", this.document_id[i]);
-      //   console.log(this.document_id[i]);
-      // }
-      for (let i = 0; i < this.document_id.length; i++) {
-        formData.append("document_id[]", this.document_id[i]);
+
+      if (this.document_id?.length) {
+        for (let i = 0; i < this.document_id.length; i++) {
+          formData.append("document_id[]", this.document_id[i]);
+        }
+      }
+      if (typeof this.avatar !== "string" && this.avatar !== null) {
+        formData.append("avatar", this.avatar);
       }
       formData.append("first_name", firstName);
       formData.append("last_name", lastName);
@@ -486,15 +545,11 @@ export default {
       formData.append("current_address", currentAddress);
       formData.append("bank_account_number", accountNumber);
       formData.append("contact_number", this.$refs.phoneNo.phone);
-      formData.append("avatar", this.avatar);
-      // formData.append("document_id", this.document_id);
-      // formData.append("documents", this.files);
-
       this.isLoading = true;
       axios
-        .post("employees/37", formData)
+        .post("employees/40", formData)
         .then(() => {
-          this.togglePopUp = true;
+          this.showPopUp = true;
         })
         .catch((error) => {
           alert(error);
@@ -525,7 +580,7 @@ export default {
 
   created() {
     axios
-      .get(`employees/profile/37`)
+      .get(`employees/profile/40`)
       .then(({ data }) => {
         const personalDetailList = data.data;
         this.firstName = personalDetailList.first_name;
@@ -536,13 +591,10 @@ export default {
         this.panNumber = personalDetailList.pan_number;
         this.accountNumber = personalDetailList.bank_account_number;
         this.files = personalDetailList.documents;
-        console.log(personalDetailList, "filessssssss");
-        console.log(personalDetailList.documents);
-        // console.log(this.$refs.phoneNo, "refssss");
         this.avatar = personalDetailList.avatar;
         this.phone = personalDetailList.contact_number;
+        console.log(personalDetailList.documents, "inputvaluedoc");
         console.log(this.$refs.phoneNo.phone, "refsssssss");
-        // console.log(data, "datttttttaaaaaa");
       })
       .catch((error) => console.log(error));
   },
