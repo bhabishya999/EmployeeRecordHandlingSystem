@@ -47,8 +47,8 @@
     </div>
     <div>
       <div class="flex py-6 items-center text-center">
-        <div class="mr-2 h-[44px] w-[44px] rounded-full">
-          <img :src="userdetail.employees" alt="" />
+        <div class="mr-2 h-[44px] w-[44px]">
+          <img :src="profile.avatar" alt="aa" class="rounded-full" />
         </div>
         <p
           class="text-[#1A202C] text-base font-medium leading-[150.69%] mr-3.5"
@@ -87,7 +87,8 @@ export default {
   components: {},
   data() {
     return {
-      userdetail: {},
+      userdetail: [],
+      profile: [],
     };
   },
   methods: {
@@ -95,7 +96,6 @@ export default {
       axios
         .post("logout")
         .then(() => {
-          //  localStoragea.removeItem("token");
           localStorage.clear();
           this.$router.push({
             path: "/login",
@@ -110,6 +110,7 @@ export default {
         .get("/user/me")
         .then((result) => {
           this.userdetail = result.data.data;
+          this.profile = this.userdetail.employees;
         })
 
         .catch((error) => {

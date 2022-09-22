@@ -90,52 +90,13 @@
             </MenuItems>
           </transition>
         </Menu>
-        <!-- <div
-          class="pl-1 flex flex-row text-sm w-[110px] h-[23px] text-primary border border-solid border-bordergray box-border rounded-md"
-        >
-          View Detail &nbsp;
-          <button v-on:click="seen = !seen" class="pt-[2px] z-auto">
-            <svg
-              width="11"
-              height="7"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="m1.5 1.5 4 4 4-4"
-                stroke="#4C51BF"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              />
-            </svg>
-          </button>
-        </div> -->
-        <!-- <div
-          v-if="seen"
-          id="hide"
-          class="bg-white text-light_iris border rounded-sm w-[109px] h-[60px] shadow-lg fixed z-40"
-        >
-          <router-link
-            :to="'/employees/' + list.id"
-            class="flex flex-col text-light_iris text-xs w-[108px] px-3 pt-2 pb-1 font-normal hover:bg-primary_blue font-sans not-italic"
-          >
-            View Details
-          </router-link>
-          <button
-            v-on:click="list.status = 'Alumni'"
-            class="flex flex-col text-light_iris text-xs w-[108px] h-[32px] px-3 pt-1 font-normal hover:bg-primary_blue font-sans not-italic"
-          >
-            Set as Alumni
-          </button>
-        </div> -->
       </div>
     </div>
   </div>
 </template>
 <script>
 import { Menu, MenuButton, MenuItems, MenuItem } from "@headlessui/vue";
-// import { ChevronDownIcon } from "@heroicons/vue/20/solid";
+
 export default {
   name: "EmployeeList",
   el: "#hide",
@@ -144,7 +105,6 @@ export default {
     MenuButton,
     MenuItems,
     MenuItem,
-    // ChevronDownIcon,
   },
   data() {
     return {

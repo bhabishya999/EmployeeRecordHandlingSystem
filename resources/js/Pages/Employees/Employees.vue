@@ -76,7 +76,7 @@
               v-model="search"
               type="text"
               placeholder="Search by name"
-              v-on:keyup.enter="onSubmit"
+              v-on:keyup.enter="filterSearch"
               class="border-0 h-[20px] w-[160px] placeholder:text-light_cyanblue pl-2 text-black rounded-md border-transparent focus:border-transparent focus:ring-0"
             />
           </div>
@@ -148,21 +148,6 @@ export default {
       ],
     };
   },
-  // computed: {
-  //   filteredlist() {
-  //     return this.employeeList.filter((list) => {
-  //       var fullname = list.first_name.trim() + " " + list.last_name.trim();
-  //       return (
-  //         list.first_name.toLowerCase().match(this.search.toLowerCase()) ||
-  //         list.last_name.toLowerCase().match(this.search.toLowerCase()) ||
-  //         fullname
-  //           .toLowerCase()
-  //           .match(this.search.toLowerCase().replace(/\s+/g, " ")) ||
-  //         list.email.toLowerCase().match(this.search.toLowerCase())
-  //       );
-  //     });
-  //   },
-  // },
 
   components: {
     Details,
@@ -191,7 +176,7 @@ export default {
       this.getData();
     },
 
-    onSubmit() {
+    filterSearch() {
       axios
         .get(`/employees?search=${this.search}`)
         .then((result) => {
@@ -223,7 +208,6 @@ export default {
       axios
         .get(`/employees?page=${this.pageNumber}`)
         .then((result) => {
-          console.log(result);
           this.employeeList = result.data.data;
           this.total = result.data.meta.total;
         })
