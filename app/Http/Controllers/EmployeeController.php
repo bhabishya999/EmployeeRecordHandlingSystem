@@ -166,7 +166,7 @@ class EmployeeController extends Controller
                     $documentCreate = $this->document->create($documentArray);
                 }
                 //When user wants to delete only old document
-            } else {
+            } elseif(!empty($validated['document_id'])) {
                 $documentIds = collect($validated['document_id']);
                 Document::query()->whereIn('id', $documentIds)->delete();
             }

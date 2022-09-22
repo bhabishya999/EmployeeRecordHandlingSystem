@@ -15,7 +15,7 @@ class KeyEmploymentDetailProfileResource extends JsonResource
             'organization' =>$this->organization,
             'join_date' => $this->join_date,
             'work_schedule' => $this->work_schedule,
-            'manager' => $this->manager,
+            'manager' =>$this->employeeManager,
             'superpowers' => $this->superpowers,
             'team' => $this->team,
             'current_position' => $this->current_position,

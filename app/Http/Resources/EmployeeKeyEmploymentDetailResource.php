@@ -11,7 +11,7 @@ class EmployeeKeyEmploymentDetailResource extends JsonResource
     {
         return [
             'employee_id' =>$this->id,
-            'key_employment_details' => new KeyEmploymentDetailProfileResource($this->whenLoaded('keyEmploymentDetail'))
+            'key_employment_details' => new KeyEmploymentDetailProfileResource($this->keyEmploymentDetail)
         ];
     }
 }
