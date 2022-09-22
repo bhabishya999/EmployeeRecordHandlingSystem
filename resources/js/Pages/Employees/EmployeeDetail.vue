@@ -28,19 +28,58 @@ import Details from "@/Layouts/Details.vue";
           <div class="flex bg-indigo-100">
             <Tab
               @click="personalDetail(personalList.employee_id)"
-              class="border-0 outline-0 font-bold leading-normal text-lg py-2.5 px-1.5 mr-7 focus:bg-indigo-700 focus:rounded-lg focus:font-sans focus:text-white"
+              class="
+                border-0
+                outline-0
+                font-bold
+                leading-normal
+                text-lg
+                py-2.5
+                px-1.5
+                mr-7
+                focus:bg-indigo-700
+                focus:rounded-lg
+                focus:font-sans
+                focus:text-white
+              "
             >
               Personal Details
             </Tab>
             <Tab
               @click="educationlDetail(personalList.employee_id)"
-              class="border-0 outline-0 font-bold leading-normal text-lg py-2.5 px-1.5 mr-7 focus:bg-indigo-700 focus:rounded-lg focus:font-sans focus:text-white"
+              class="
+                border-0
+                outline-0
+                font-bold
+                leading-normal
+                text-lg
+                py-2.5
+                px-1.5
+                mr-7
+                focus:bg-indigo-700
+                focus:rounded-lg
+                focus:font-sans
+                focus:text-white
+              "
             >
               Educational Details
             </Tab>
             <Tab
               @click="employmentDetail(personalList.employee_id)"
-              class="border-0 outline-0 font-bold leading-normal text-lg py-2.5 px-1.5 mr-7 focus:bg-indigo-700 focus:rounded-lg focus:font-sans focus:text-white"
+              class="
+                border-0
+                outline-0
+                font-bold
+                leading-normal
+                text-lg
+                py-2.5
+                px-1.5
+                mr-7
+                focus:bg-indigo-700
+                focus:rounded-lg
+                focus:font-sans
+                focus:text-white
+              "
             >
               Key Employment Details
             </Tab>
@@ -49,7 +88,14 @@ import Details from "@/Layouts/Details.vue";
         <TabPanels>
           <TabPanel>
             <div
-              class="flex justify-between items-center text-center bg-slate-100 h-[60px]"
+              class="
+                flex
+                justify-between
+                items-center
+                text-center
+                bg-slate-100
+                h-[60px]
+              "
             >
               <p class="leading-normal font-bold text-base text-indigo-700">
                 Personal Details
@@ -79,7 +125,12 @@ import Details from "@/Layouts/Details.vue";
 
                 <div
                   @click="editProfile"
-                  class="leading-normal font-bold text-base text-indigo-700 ml-2.5"
+                  class="
+                    leading-normal
+                    font-bold
+                    text-base text-indigo-700
+                    ml-2.5
+                  "
                 >
                   Edit
                 </div>
@@ -87,12 +138,23 @@ import Details from "@/Layouts/Details.vue";
             </div>
             <div class="h-52 p-8">
               <div
-                class="flex justify-between mb-12 rounded-md drop-shadow-[0_1px_2px_rgba(0,0,0,0.06)_0_10px_15px_rgba(0,0,0,0.1)]"
+                class="
+                  flex
+                  justify-between
+                  mb-12
+                  rounded-md
+                  drop-shadow-[0_1px_2px_rgba(0,0,0,0.06)_0_10px_15px_rgba(0,0,0,0.1)]
+                "
               >
                 <div class="flex flex-col">
                   <div class="mb-12">
                     <p
-                      class="block font-normal text-sm text-slate-500 leading-normal"
+                      class="
+                        block
+                        font-normal
+                        text-sm text-slate-500
+                        leading-normal
+                      "
                     >
                       Email Address
                     </p>
@@ -102,7 +164,12 @@ import Details from "@/Layouts/Details.vue";
                   </div>
                   <div>
                     <p
-                      class="block font-normal text-sm text-slate-500 leading-normal"
+                      class="
+                        block
+                        font-normal
+                        text-sm text-slate-500
+                        leading-normal
+                      "
                     >
                       PAN Number
                     </p>
@@ -114,7 +181,12 @@ import Details from "@/Layouts/Details.vue";
                 <div class="flex flex-col">
                   <div class="mb-12">
                     <p
-                      class="block font-normal text-sm text-slate-500 leading-normal"
+                      class="
+                        block
+                        font-normal
+                        text-sm text-slate-500
+                        leading-normal
+                      "
                     >
                       Current Address
                     </p>
@@ -124,7 +196,12 @@ import Details from "@/Layouts/Details.vue";
                   </div>
                   <div>
                     <p
-                      class="block font-normal text-sm text-slate-500 leading-normal"
+                      class="
+                        block
+                        font-normal
+                        text-sm text-slate-500
+                        leading-normal
+                      "
                     >
                       Bank Account Number
                     </p>
@@ -136,7 +213,12 @@ import Details from "@/Layouts/Details.vue";
                 <div class="flex flex-col">
                   <div class="mb-12">
                     <p
-                      class="block font-normal text-sm text-slate-500 leading-normal"
+                      class="
+                        block
+                        font-normal
+                        text-sm text-slate-500
+                        leading-normal
+                      "
                     >
                       Date of Birth
                     </p>
@@ -146,7 +228,12 @@ import Details from "@/Layouts/Details.vue";
                   </div>
                   <div>
                     <p
-                      class="block font-normal text-sm text-slate-500 leading-normal"
+                      class="
+                        block
+                        font-normal
+                        text-sm text-slate-500
+                        leading-normal
+                      "
                     >
                       Contact Number
                     </p>
@@ -167,7 +254,16 @@ import Details from "@/Layouts/Details.vue";
                 <div
                   v-for="document in documents"
                   :key="document"
-                  class="border-2 border-[#E2E8F0] rounded my-2 flex flex-row justify-between p-1.5 mr-6 w-52"
+                  class="
+                    border-2 border-[#E2E8F0]
+                    rounded
+                    my-2
+                    flex flex-row
+                    justify-between
+                    p-1.5
+                    mr-6
+                    w-52
+                  "
                 >
                   <img
                     class="h-7 w-7"
@@ -190,7 +286,13 @@ import Details from "@/Layouts/Details.vue";
 
                   <div class="flex flex-col w-48 px-4">
                     <p
-                      class="leading-normal font-normal text-base text-black truncate mr-2"
+                      class="
+                        leading-normal
+                        font-normal
+                        text-base text-black
+                        truncate
+                        mr-2
+                      "
                     >
                       {{ document.name }}
                     </p>
@@ -204,7 +306,14 @@ import Details from "@/Layouts/Details.vue";
           </TabPanel>
           <TabPanel>
             <div
-              class="flex justify-between items-center text-center bg-slate-100 h-[60px]"
+              class="
+                flex
+                justify-between
+                items-center
+                text-center
+                bg-slate-100
+                h-[60px]
+              "
             >
               <p class="leading-normal font-bold text-base text-indigo-700">
                 Education Details
@@ -232,8 +341,13 @@ import Details from "@/Layouts/Details.vue";
                   />
                 </svg>
                 <div
-                  @click="editProfile"
-                  class="leading-normal font-bold text-base text-indigo-700 ml-2.5"
+                  @click="editEducation"
+                  class="
+                    leading-normal
+                    font-bold
+                    text-base text-indigo-700
+                    ml-2.5
+                  "
                 >
                   Edit
                 </div>
@@ -243,7 +357,13 @@ import Details from "@/Layouts/Details.vue";
             <div v-for="(education, index) in educationlList" :key="index">
               <div class="h-40 p-8 flex flex-col">
                 <p
-                  class="mb-4 text-indigo-700 leading-normal font-bold text-base"
+                  class="
+                    mb-4
+                    text-indigo-700
+                    leading-normal
+                    font-bold
+                    text-base
+                  "
                 >
                   Education {{ index + 1 }}
                 </p>
@@ -251,7 +371,12 @@ import Details from "@/Layouts/Details.vue";
                 <div class="flex flex-row justify-between">
                   <div class="mb-12 w-1/3">
                     <p
-                      class="block font-normal text-sm text-slate-500 leading-normal"
+                      class="
+                        block
+                        font-normal
+                        text-sm text-slate-500
+                        leading-normal
+                      "
                     >
                       Education Level
                     </p>
@@ -261,7 +386,12 @@ import Details from "@/Layouts/Details.vue";
                   </div>
                   <div class="mb-12 w-1/3">
                     <p
-                      class="block font-normal text-sm text-slate-500 leading-normal"
+                      class="
+                        block
+                        font-normal
+                        text-sm text-slate-500
+                        leading-normal
+                      "
                     >
                       Institution
                     </p>
@@ -271,7 +401,12 @@ import Details from "@/Layouts/Details.vue";
                   </div>
                   <div class="mb-12 w-1/3">
                     <p
-                      class="block font-normal text-sm text-slate-500 leading-normal"
+                      class="
+                        block
+                        font-normal
+                        text-sm text-slate-500
+                        leading-normal
+                      "
                     >
                       Passed Year
                     </p>
@@ -286,7 +421,14 @@ import Details from "@/Layouts/Details.vue";
           </TabPanel>
           <TabPanel>
             <div
-              class="flex justify-between items-center text-center bg-slate-100 h-[60px]"
+              class="
+                flex
+                justify-between
+                items-center
+                text-center
+                bg-slate-100
+                h-[60px]
+              "
             >
               <p class="leading-normal font-bold text-base text-indigo-700">
                 Key Employment Details
@@ -315,7 +457,12 @@ import Details from "@/Layouts/Details.vue";
                 </svg>
                 <div
                   @click="editProfile"
-                  class="leading-normal font-bold text-base text-indigo-700 ml-2.5"
+                  class="
+                    leading-normal
+                    font-bold
+                    text-base text-indigo-700
+                    ml-2.5
+                  "
                 >
                   Edit
                 </div>
@@ -323,12 +470,22 @@ import Details from "@/Layouts/Details.vue";
             </div>
             <div class="px-8 py-16">
               <div
-                class="flex justify-between rounded-md drop-shadow-[0_1px_2px_rgba(0,0,0,0.06)_0_10px_15px_rgba(0,0,0,0.1)]"
+                class="
+                  flex
+                  justify-between
+                  rounded-md
+                  drop-shadow-[0_1px_2px_rgba(0,0,0,0.06)_0_10px_15px_rgba(0,0,0,0.1)]
+                "
               >
                 <div class="flex flex-col">
                   <div class="mb-12">
                     <p
-                      class="block font-normal text-sm text-slate-500 leading-normal"
+                      class="
+                        block
+                        font-normal
+                        text-sm text-slate-500
+                        leading-normal
+                      "
                     >
                       Organization
                     </p>
@@ -338,7 +495,12 @@ import Details from "@/Layouts/Details.vue";
                   </div>
                   <div class="mb-12">
                     <p
-                      class="block font-normal text-sm text-slate-500 leading-normal"
+                      class="
+                        block
+                        font-normal
+                        text-sm text-slate-500
+                        leading-normal
+                      "
                     >
                       Work Scedule
                     </p>
@@ -348,7 +510,12 @@ import Details from "@/Layouts/Details.vue";
                   </div>
                   <div>
                     <p
-                      class="block font-normal text-sm text-slate-500 leading-normal"
+                      class="
+                        block
+                        font-normal
+                        text-sm text-slate-500
+                        leading-normal
+                      "
                     >
                       Superpowers
                     </p>
@@ -360,7 +527,12 @@ import Details from "@/Layouts/Details.vue";
                 <div class="flex flex-col">
                   <div class="mb-12">
                     <p
-                      class="block font-normal text-sm text-slate-500 leading-normal"
+                      class="
+                        block
+                        font-normal
+                        text-sm text-slate-500
+                        leading-normal
+                      "
                     >
                       Join Date
                     </p>
@@ -370,7 +542,12 @@ import Details from "@/Layouts/Details.vue";
                   </div>
                   <div class="mb-12">
                     <p
-                      class="block font-normal text-sm text-slate-500 leading-normal"
+                      class="
+                        block
+                        font-normal
+                        text-sm text-slate-500
+                        leading-normal
+                      "
                     >
                       Manager
                     </p>
@@ -381,7 +558,12 @@ import Details from "@/Layouts/Details.vue";
                   </div>
                   <div>
                     <p
-                      class="block font-normal text-sm text-slate-500 leading-normal"
+                      class="
+                        block
+                        font-normal
+                        text-sm text-slate-500
+                        leading-normal
+                      "
                     >
                       Team
                     </p>
@@ -393,7 +575,12 @@ import Details from "@/Layouts/Details.vue";
                 <div class="flex flex-col">
                   <div class="mb-12">
                     <p
-                      class="block font-normal text-sm text-slate-500 leading-normal"
+                      class="
+                        block
+                        font-normal
+                        text-sm text-slate-500
+                        leading-normal
+                      "
                     >
                       Current Position
                     </p>
@@ -403,7 +590,12 @@ import Details from "@/Layouts/Details.vue";
                   </div>
                   <div>
                     <p
-                      class="block font-normal text-sm text-slate-500 leading-normal"
+                      class="
+                        block
+                        font-normal
+                        text-sm text-slate-500
+                        leading-normal
+                      "
                     >
                       Manages
                     </p>
@@ -452,6 +644,14 @@ export default {
         },
       });
     },
+    editEducation() {
+      this.$router.push({
+        name: "EditEducationPage",
+        params: {
+          id: this.personalList.employee_id,
+        },
+      });
+    },
     getFileExt(document) {
       const fileExt = document.name.split(".").pop();
       return fileExt.toLowerCase();
@@ -461,7 +661,7 @@ export default {
         .get(`/employees/profile/${employeeId}`)
         .then((result) => {
           this.personalList = result.data.data;
-          if (this.personalList.documents.length > 1) {
+          if (this.personalList.documents.length > 0) {
             this.documents = this.personalList.documents;
           }
         })
