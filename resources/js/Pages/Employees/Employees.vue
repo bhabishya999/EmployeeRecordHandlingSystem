@@ -25,6 +25,30 @@
         </p>
       </div>
     </div>
+    <div class="h-10 w-full bg-light_blue">
+      <div
+        v-show="importSuccess"
+        class="w-full h-10 flex justify-center items-center bg-dark_green"
+      >
+        <svg
+          width="20"
+          height="12"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M18.51 1 6.472 10.625 1 6.25"
+            stroke="#fff"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+        </svg>
+        <p class="font-bold pl-2 text-lg text-white">
+          Data has been imported sucessfully.
+        </p>
+      </div>
+    </div>
 
     <div class="min-h-screen bg-light_blue px-40">
       <div
@@ -109,6 +133,7 @@ export default {
   data() {
     return {
       showSuccess: false,
+      importSuccess: false,
       employeeList: [],
 
       total: [],
@@ -219,6 +244,8 @@ export default {
   },
 
   mounted() {
+    this.importSuccess = localStorage.getItem("importSuccess");
+    localStorage.removeItem("importSuccess");
     this.showSuccess = localStorage.getItem("showSuccess");
     localStorage.removeItem("showSuccess");
     this.pageNumber = 1;

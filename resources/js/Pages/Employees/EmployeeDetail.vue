@@ -76,11 +76,13 @@ import Details from "@/Layouts/Details.vue";
                     stroke-linejoin="round"
                   />
                 </svg>
-                <p
+
+                <div
+                  @click="editProfile"
                   class="leading-normal font-bold text-base text-indigo-700 ml-2.5"
                 >
                   Edit
-                </p>
+                </div>
               </div>
             </div>
             <div class="h-52 p-8">
@@ -190,7 +192,7 @@ import Details from "@/Layouts/Details.vue";
                     <p
                       class="leading-normal font-normal text-base text-black truncate mr-2"
                     >
-                      {{ document.original_name }}
+                      {{ document.name }}
                     </p>
                     <p class="text-[#4A5568] font-normal text-[6px]">
                       {{ document.type }}
@@ -229,11 +231,12 @@ import Details from "@/Layouts/Details.vue";
                     stroke-linejoin="round"
                   />
                 </svg>
-                <p
+                <div
+                  @click="editProfile"
                   class="leading-normal font-bold text-base text-indigo-700 ml-2.5"
                 >
                   Edit
-                </p>
+                </div>
               </div>
             </div>
 
@@ -310,11 +313,12 @@ import Details from "@/Layouts/Details.vue";
                     stroke-linejoin="round"
                   />
                 </svg>
-                <p
+                <div
+                  @click="editProfile"
                   class="leading-normal font-bold text-base text-indigo-700 ml-2.5"
                 >
                   Edit
-                </p>
+                </div>
               </div>
             </div>
             <div class="px-8 py-16">
@@ -371,7 +375,8 @@ import Details from "@/Layouts/Details.vue";
                       Manager
                     </p>
                     <p class="leading-normal font-bold text-base">
-                      {{ keyEmpList.manager }}
+                      {{ keyEmpList.manager.first_name }}
+                      {{ keyEmpList.manager.last_name }}
                     </p>
                   </div>
                   <div>
@@ -436,12 +441,19 @@ export default {
   },
   created() {
     const employeeId = this.$route.params.id;
-
     this.personalDetail(employeeId);
   },
   methods: {
+    editProfile() {
+      this.$router.push({
+        name: "editProfile",
+        params: {
+          id: this.personalList.employee_id,
+        },
+      });
+    },
     getFileExt(document) {
-      const fileExt = document.original_name.split(".").pop();
+      const fileExt = document.name.split(".").pop();
       return fileExt.toLowerCase();
     },
     personalDetail(employeeId) {

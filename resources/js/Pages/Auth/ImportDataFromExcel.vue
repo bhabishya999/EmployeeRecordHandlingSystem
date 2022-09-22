@@ -125,13 +125,11 @@ import Details from "@/Layouts/Details.vue";
                 <div>
                   <div class="flex justify-end items-center px-9 py-2.5 mt-24">
                     <Button
-                      @click="importData"
-                      :isLoading="isLoading"
                       :disabled="isLoading"
-                      :class="{
-                        'opacity-80 cursor-not-allowed': isLoading,
-                      }"
+                      :class="{ 'opacity-80 cursor-not-allowed': isLoading }"
                       type="submit"
+                      :isLoading="isLoading"
+                      @click="importData"
                       class="!my-0 bg-fuchsia-600 py-[7px] px-2.5 rounded-md drop-shadow-[0_10px_15px_rgba(0,0,0,0.1)] flex items-center justify-center text-white font-bold text-base leading-normal font-sans"
                     >
                       Import data
@@ -184,11 +182,13 @@ export default {
   },
   methods: {
     importData() {
+      this.isLoading = true;
       let formData = new FormData();
       formData.append("file", this.files[0]);
       axios
         .post("employees/import", formData)
         .then(() => {
+          localStorage.setItem("importSuccess", true);
           this.$router.push({
             path: "/employees",
           });
@@ -196,7 +196,8 @@ export default {
         .catch((error) => {
           const { message } = error.response.data;
           this.message = message;
-        });
+        })
+        .finally(() => (this.isLoading = false));
     },
   },
 };
