@@ -268,6 +268,7 @@ export default {
       { label: "QA" },
       { label: "Sales" },
       { label: "Design" },
+      { label: "Marketing" },
     ];
     const organization = null;
     const workschedule = null;

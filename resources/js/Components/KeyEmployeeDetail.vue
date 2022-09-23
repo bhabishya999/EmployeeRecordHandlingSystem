@@ -194,13 +194,13 @@ export default {
       superpower: [],
       isLoading: false,
       organizations: [
-        { label: "Introcep Nepal" },
+        { label: "Introcept Nepal" },
         { label: "Introcept Australia" },
       ],
-      managesSelected: null,
+      managesSelected: [],
       workschedules: [
         { label: "Monday-Friday(Full time)" },
-        { label: "Monday-Friday(Part time) " },
+        { label: "Monday-Friday(Part time)" },
       ],
       teams: [
         { label: "Development" },
@@ -208,6 +208,7 @@ export default {
         { label: "QA" },
         { label: "Sales" },
         { label: "Design" },
+        { label: "Marketing" },
       ],
       managerList: [],
     };
