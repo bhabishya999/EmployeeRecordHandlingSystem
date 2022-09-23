@@ -42,13 +42,23 @@ import { ref } from "vue";
         <div class="flex flex-row justify-between mb-2.5">
           <div class="w-full mr-10">
             <p
-              class="block font-normal text-sm text-gray-900 pb-2.5 leading-normal placeholder:text-slate-500 placeholder:text-base placeholder:font-normal"
+              class="
+                block
+                font-normal
+                text-sm text-gray-900
+                pb-2.5
+                leading-normal
+                placeholder:text-slate-500
+                placeholder:text-base
+                placeholder:font-normal
+              "
             >
               Contact Number*
             </p>
             <vue-tel-input
+              class="text-slate-500 text-sm"
               :class="[error ? 'border-red ' : 'vue-tel-input']"
-              v-model="phone"
+              :value="phone"
               ref="phoneNo"
               mode="international"
             ></vue-tel-input>
@@ -259,13 +269,36 @@ import { ref } from "vue";
             'opacity-80 cursor-not-allowed': isLoading,
           }"
           type="submit"
-          class="!my-0 bg-primary p-[7px] rounded-md drop-shadow-[0_10px_15px_rgba(0,0,0,0.1)] flex items-center justify-center text-white font-bold text-base leading-normal font-sans"
+          class="
+            !my-0
+            bg-primary
+            p-[7px]
+            rounded-md
+            drop-shadow-[0_10px_15px_rgba(0,0,0,0.1)]
+            flex
+            items-center
+            justify-center
+            text-white
+            font-bold
+            text-base
+            leading-normal
+            font-sans
+          "
         >
           Save and Continue
         </Button>
         <button
           type="button"
-          class="mr-2.5 py-[7px] px-2.5 bg-slate-100 rounded-md shadow text-base font-bold"
+          class="
+            mr-2.5
+            py-[7px]
+            px-2.5
+            bg-slate-100
+            rounded-md
+            shadow
+            text-base
+            font-bold
+          "
         >
           Cancel
         </button>
@@ -276,10 +309,31 @@ import { ref } from "vue";
       class="fixed inset-0 w-full h-screen bg-black bg-opacity-50"
     >
       <div
-        class="h-[342px] w-[772px] flex !items-stretch !justify-between absolute z-10 top-1/2 left-1/2 !transform !-translate-x-1/2 !-translate-y-1/2"
+        class="
+          h-[342px]
+          w-[772px]
+          flex
+          !items-stretch
+          !justify-between
+          absolute
+          z-10
+          top-1/2
+          left-1/2
+          !transform
+          !-translate-x-1/2 !-translate-y-1/2
+        "
       >
         <div
-          class="p-9 bg-white w-[515px] h-[395px] bg-white rounded-md flex items-center"
+          class="
+            p-9
+            bg-white
+            w-[515px]
+            h-[395px]
+            bg-white
+            rounded-md
+            flex
+            items-center
+          "
         >
           <div>
             <div class="flex flex-col px-9 py-2.5 items-center">
@@ -297,14 +351,29 @@ import { ref } from "vue";
               </svg>
 
               <p
-                class="text-indigo-700 leading-normal text-2xl font-bold my-[20px]"
+                class="
+                  text-indigo-700
+                  leading-normal
+                  text-2xl
+                  font-bold
+                  my-[20px]
+                "
               >
                 Changes have been saved successfully.
               </p>
 
               <button
                 @click="togglePopUp"
-                class="font-bold text-base py-[15px] px-[34px] border-indigo-700 text-indigo-700 border rounded-md"
+                class="
+                  font-bold
+                  text-base
+                  py-[15px]
+                  px-[34px]
+                  border-indigo-700
+                  text-indigo-700
+                  border
+                  rounded-md
+                "
               >
                 Close
               </button>
