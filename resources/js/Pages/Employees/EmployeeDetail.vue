@@ -2,10 +2,18 @@
 import Details from "@/Layouts/Details.vue";
 </script>
 <template>
+  <NavBar />
   <Details>
     <div class="flex flex-col">
       <div
-        class="bg-indigo-100 h-[365px] drop-shadow-4xl flex flex-col relative"
+        class="
+          bg-indigo-100
+          pt-10
+          h-[365px]
+          drop-shadow-4xl
+          flex flex-col
+          relative
+        "
       >
         <div class="flex flex-col items-center text-center">
           <div class="w-[185px] h-[185px] rounded-full mt-5">
@@ -15,8 +23,8 @@ import Details from "@/Layouts/Details.vue";
               :alt="personalList.first_name"
             />
           </div>
-          <h1 class="text-gray-900 leading-normal font-semibold text-lg">
-            {{ personalList.first_name }}{{ personalList.last_name }}
+          <h1 class="text-gray-900 pt-3 leading-normal font-semibold text-lg">
+            {{ personalList.first_name }} {{ personalList.last_name }}
           </h1>
           <p class="text-slate-600 leading-normal font-medium text-base">
             {{ keyEmpList.current_position }}
@@ -130,6 +138,7 @@ import Details from "@/Layouts/Details.vue";
                     font-bold
                     text-base text-indigo-700
                     ml-2.5
+                    cursor-pointer
                   "
                 >
                   Edit
@@ -347,6 +356,7 @@ import Details from "@/Layouts/Details.vue";
                     font-bold
                     text-base text-indigo-700
                     ml-2.5
+                    cursor-pointer
                   "
                 >
                   Edit
@@ -462,6 +472,7 @@ import Details from "@/Layouts/Details.vue";
                     font-bold
                     text-base text-indigo-700
                     ml-2.5
+                    cursor-pointer
                   "
                 >
                   Edit
@@ -612,10 +623,11 @@ import Details from "@/Layouts/Details.vue";
 </template>
 <script>
 import { TabGroup, TabList, Tab, TabPanels, TabPanel } from "@headlessui/vue";
-
+import NavBar from "@/Components/NavBar.vue";
 export default {
   name: "EmployeeDetail",
   Components: {
+    NavBar,
     Details,
   },
   data() {
