@@ -9,6 +9,7 @@ import EmployeeDetail from "@/Pages/Employees/EmployeeDetail.vue"
 import ImportDataFromExcel from "@/Pages/Auth/ImportDataFromExcel.vue"
 import { createRouter, createWebHistory } from "vue-router";
 import EditPersonalDetailPage from "@/Pages/Auth/EditPersonalDetailPage.vue"
+import EditKeyDetailPage from "@/Pages/Auth/EditKeyEmployeeDetail.vue"
 const routes = [
     {
         name: "Home",
@@ -73,6 +74,14 @@ const routes = [
         component: EditEducationPage,
         meta: {
         requiresAuth: true,
+        }
+    },
+    {
+        name: "editKeyDetail",
+        path: "/employees/:id/editkeydetail",
+        component: EditKeyDetailPage,
+        meta: {
+            requiresAuth: true,
         }
     },
 

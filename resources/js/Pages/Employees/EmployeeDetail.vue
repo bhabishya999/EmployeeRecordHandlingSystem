@@ -456,7 +456,7 @@ import Details from "@/Layouts/Details.vue";
                   />
                 </svg>
                 <div
-                  @click="editProfile"
+                  @click="editKeyEmployee"
                   class="
                     leading-normal
                     font-bold
@@ -647,6 +647,14 @@ export default {
     editEducation() {
       this.$router.push({
         name: "EditEducationPage",
+        params: {
+          id: this.personalList.employee_id,
+        },
+      });
+    },
+    editKeyEmployee() {
+      this.$router.push({
+        name: "editKeyDetail",
         params: {
           id: this.personalList.employee_id,
         },
