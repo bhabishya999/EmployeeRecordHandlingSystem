@@ -41,12 +41,12 @@ Route::group(['prefix' => 'employees', 'middleware' => ['auth:sanctum']], functi
     Route::put('/education-update/{employeeId}',[EducationalDetailsController::class,'update']);
     Route::post('/{employeeId}', [EmployeeController::class,'userUpdate']);
     Route::put('/key-employment-details/{employeeId}', [KeyEmploymentDetailsController::class,'employmentUpdate']);
-
+    Route::put('/status/{employeeId}',[EmployeeController::class,'statusUpdate']);
 });
 Route::group(['prefix' => 'user', 'middleware' => ['auth:sanctum']], function(){
     Route::get('/me',[UserController::class,'show']);
 });
-Route::post('/forget-password', [ForgotPasswordController::class,'resetEmail']);
+Route::post('/forgot-password', [ForgotPasswordController::class,'resetEmail']);
 Route::post('/reset-password',[PasswordResetController::class, 'reset']);
 Route::get('/validate-token', [PasswordResetController::class, 'validateToken']);
 

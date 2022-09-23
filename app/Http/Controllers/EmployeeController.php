@@ -88,6 +88,17 @@ class EmployeeController extends Controller
         return new EmployeeProfileResource($employeeDetails);
     }
 
+    public function statusUpdate(int $employeeId)
+    {
+        try {
+            $this->employee->findOrFail($employeeId);
+        } catch (\Throwable) {
+            return responseHelper('Sorry,could not found this user', Response::HTTP_NOT_FOUND, 'Failed');
+        }
+        $status = $this->employee->where('id', $employeeId)->update(['status' => 'Alumni']);
+        return responseHelper('Employee status changed successfully');
+    }
+
     public function userUpdate(EmployeeEditRequest $request, int $employeeId)
     {
         try {
@@ -166,7 +177,7 @@ class EmployeeController extends Controller
                     $documentCreate = $this->document->create($documentArray);
                 }
                 //When user wants to delete only old document
-            } elseif(!empty($validated['document_id'])) {
+            } elseif (!empty($validated['document_id'])) {
                 $documentIds = collect($validated['document_id']);
                 Document::query()->whereIn('id', $documentIds)->delete();
             }
