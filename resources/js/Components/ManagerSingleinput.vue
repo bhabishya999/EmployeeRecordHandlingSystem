@@ -42,7 +42,17 @@
           leave-from-class="opacity-100"
           leave-to-class="opacity-0"
         >
-          <ListboxOptions class="shadow-lg bg-white w-full z-50 absolute">
+          <ListboxOptions
+            class="
+              shadow-lg
+              max-h-48
+              overflow-auto
+              bg-white
+              w-full
+              z-50
+              absolute
+            "
+          >
             <ListboxOption
               v-slot="{ active }"
               v-for="option in options"
