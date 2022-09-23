@@ -234,11 +234,12 @@
           </Button>
           <button
             type="button"
+            @click="togglePopUp"
             class="
               mr-2.5
-              py-[7px]
-              px-2.5
-              bg-slate-100
+              py-3
+              px-12
+              bg-slate-200
               rounded-md
               shadow
               text-base

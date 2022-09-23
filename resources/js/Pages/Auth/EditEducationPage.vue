@@ -11,7 +11,8 @@ import Details from "@/Layouts/Details.vue";
           <h1 class="text-black leading-normal text-2xl font-medium font-sans">
             EMPLOYEE DETAILS
           </h1>
-          <button
+          <router-link
+            to="/employees"
             type="button"
             class="
               bg-indigo-700
@@ -41,7 +42,7 @@ import Details from "@/Layouts/Details.vue";
               />
             </svg>
             Back to List
-          </button>
+          </router-link>
         </div>
         <div class="mt-[30px] mb-5">
           <ul class="flex">

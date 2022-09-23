@@ -289,11 +289,12 @@ import { ref } from "vue";
         </Button>
         <button
           type="button"
+          @click="togglePopUp"
           class="
             mr-2.5
-            py-[7px]
-            px-2.5
-            bg-slate-100
+            py-3
+            px-12
+            bg-slate-200
             rounded-md
             shadow
             text-base
@@ -382,42 +383,6 @@ import { ref } from "vue";
         </div>
       </div>
     </div>
-    <!-- 
-    <div
-      v-if="togglePopUp"
-      class="z-10 w-[515px] h-[395px] bg-white shadow-[0_10px_15px_rgba(0,0,0,0.1)] flex flex-col items-center justify-center mt-20"
-    >
-      <div
-        class="z-50 fixed inset-0 w-full h-screen flex items-center justify-center bg-black bg-opacity-50"
-      >
-        <div class="absolute z-10">
-          <svg
-            width="120"
-            height="120"
-            viewBox="0 0 120 120"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M119.56 59.78C119.56 92.7957 92.7957 119.56 59.78 119.56C26.7643 119.56 0 92.7957 0 59.78C0 26.7643 26.7643 0 59.78 0C92.7957 0 119.56 26.7643 119.56 59.78ZM52.8653 91.4331L97.2182 47.0801C98.7243 45.5741 98.7243 43.132 97.2182 41.6259L91.764 36.1717C90.258 34.6654 87.8159 34.6654 86.3096 36.1717L50.1381 72.343L33.2505 55.4554C31.7444 53.9493 29.3023 53.9493 27.796 55.4554L22.3418 60.9096C20.8357 62.4157 20.8357 64.8577 22.3418 66.3638L47.4109 91.4328C48.9172 92.9391 51.359 92.9391 52.8653 91.4331Z"
-              fill="#4D966F"
-            />
-          </svg>
-
-          <p
-            class="text-indigo-700 leading-normal text-2xl font-bold my-[20px]"
-          >
-            Changes have been saved successfully.
-          </p>
-        </div>
-      </div>
-      <button
-        @click="togglePopUp"
-        class="font-bold text-base py-[15px] px-[34px] border-indigo-700 text-indigo-700 border rounded-md"
-      >
-        Close
-      </button>
-    </div> -->
   </Form>
 </template>
 <script>

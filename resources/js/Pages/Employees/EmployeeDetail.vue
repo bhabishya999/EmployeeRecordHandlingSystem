@@ -108,7 +108,16 @@ import Details from "@/Layouts/Details.vue";
               <p class="leading-normal font-bold text-base text-indigo-700">
                 Personal Details
               </p>
-              <div class="flex justify-between items-center text-center">
+              <div
+                @click="editProfile"
+                class="
+                  flex
+                  justify-between
+                  items-center
+                  text-center
+                  cursor-pointer
+                "
+              >
                 <svg
                   width="14"
                   height="14"
@@ -132,13 +141,11 @@ import Details from "@/Layouts/Details.vue";
                 </svg>
 
                 <div
-                  @click="editProfile"
                   class="
                     leading-normal
                     font-bold
                     text-base text-indigo-700
                     ml-2.5
-                    cursor-pointer
                   "
                 >
                   Edit
@@ -327,7 +334,16 @@ import Details from "@/Layouts/Details.vue";
               <p class="leading-normal font-bold text-base text-indigo-700">
                 Education Details
               </p>
-              <div class="flex justify-between items-center text-center">
+              <div
+                @click="editEducation"
+                class="
+                  flex
+                  justify-between
+                  items-center
+                  text-center
+                  cursor-pointer
+                "
+              >
                 <svg
                   width="14"
                   height="14"
@@ -350,13 +366,11 @@ import Details from "@/Layouts/Details.vue";
                   />
                 </svg>
                 <div
-                  @click="editEducation"
                   class="
                     leading-normal
                     font-bold
                     text-base text-indigo-700
                     ml-2.5
-                    cursor-pointer
                   "
                 >
                   Edit
@@ -443,7 +457,16 @@ import Details from "@/Layouts/Details.vue";
               <p class="leading-normal font-bold text-base text-indigo-700">
                 Key Employment Details
               </p>
-              <div class="flex justify-between items-center text-center">
+              <div
+                @click="editKeyEmployee"
+                class="
+                  flex
+                  justify-between
+                  items-center
+                  text-center
+                  cursor-pointer
+                "
+              >
                 <svg
                   width="14"
                   height="14"
@@ -466,13 +489,11 @@ import Details from "@/Layouts/Details.vue";
                   />
                 </svg>
                 <div
-                  @click="editKeyEmployee"
                   class="
                     leading-normal
                     font-bold
                     text-base text-indigo-700
                     ml-2.5
-                    cursor-pointer
                   "
                 >
                   Edit

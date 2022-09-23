@@ -11,9 +11,23 @@ import Details from "@/Layouts/Details.vue";
           <h1 class="text-black leading-normal text-2xl font-medium font-sans">
             EMPLOYEE DETAILS
           </h1>
-          <button
+          <router-link
+            to="/employees"
             type="button"
-            class="bg-indigo-700 p-[7px] rounded-md drop-shadow-[0_10px_15px_rgba(0,0,0,0.1)] flex items-center justify-center text-white font-bold text-base leading-normal font-sans"
+            class="
+              bg-indigo-700
+              p-[7px]
+              rounded-md
+              drop-shadow-[0_10px_15px_rgba(0,0,0,0.1)]
+              flex
+              items-center
+              justify-center
+              text-white
+              font-bold
+              text-base
+              leading-normal
+              font-sans
+            "
           >
             <svg
               class="mr-[9px]"
@@ -28,12 +42,23 @@ import Details from "@/Layouts/Details.vue";
               />
             </svg>
             Back to List
-          </button>
+          </router-link>
         </div>
         <div class="mt-[30px] mb-5">
           <ul class="flex">
             <li
-              class="mr-7 font-semibold leading-normal text-lg py-2.5 px-1.5 bg-indigo-700 rounded-lg font-sans text-white"
+              class="
+                mr-7
+                font-semibold
+                leading-normal
+                text-lg
+                py-2.5
+                px-1.5
+                bg-indigo-700
+                rounded-lg
+                font-sans
+                text-white
+              "
             >
               Personal Details
             </li>

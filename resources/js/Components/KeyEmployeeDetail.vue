@@ -140,21 +140,22 @@ const manager = ref(null);
         >
           Save and Continue
         </Button>
-        <button
+        <router-link
+          to="/employees"
           type="button"
           class="
             mr-2.5
-            py-[7px]
-            px-2.5
-            bg-[#F4F7FA]
+            py-3
+            px-12
+            bg-slate-200
             rounded-md
             shadow
             text-base
             font-bold
           "
         >
-          Cancel
-        </button>
+          <p>Cancel</p>
+        </router-link>
       </div>
     </div>
   </Form>
