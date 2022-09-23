@@ -24,8 +24,7 @@
           Employee has been sucessfully added.
         </p>
       </div>
-    </div>
-    <div class="h-10 w-full bg-light_blue">
+
       <div
         v-show="importSuccess"
         class="w-full h-10 flex justify-center items-center bg-dark_green"
@@ -52,7 +51,11 @@
 
     <div class="min-h-screen bg-light_blue px-40">
       <div
-        class="bg-white w-full drop-shadow-[0_1px_2px_rgba(0,0,0,0.06)_0_10px_15px_rgba(0,0,0,0.1)]"
+        class="
+          bg-white
+          w-full
+          drop-shadow-[0_1px_2px_rgba(0,0,0,0.06)_0_10px_15px_rgba(0,0,0,0.1)]
+        "
       >
         <EmployeeListHeader>
           <template v-slot:total :total="total">{{ total }}</template>
@@ -62,7 +65,20 @@
               id="status"
               :key="status"
               @change="filterstatus($event)"
-              class="border-transparent focus:border-transparent focus:ring-0 outline-0 scroll-smooth border drop-shadow justify-between rounded-md h-[37px] w-[175px] text-primary pr-16"
+              class="
+                border-transparent
+                focus:border-transparent focus:ring-0
+                outline-0
+                scroll-smooth
+                border
+                drop-shadow
+                justify-between
+                rounded-md
+                h-[37px]
+                w-[175px]
+                text-primary
+                pr-16
+              "
             >
               &nbsp;&nbsp;
 
@@ -70,7 +86,17 @@
                 v-for="status in status"
                 v-bind:key="status.status"
                 v-bind:value="status.status"
-                class="border-transparent hover:bg-primary_blue focus:border-transparent focus:ring-0 border-0 outline-0 scroll-smooth text-light_iris shadow-md rounded-sm"
+                class="
+                  border-transparent
+                  hover:bg-primary_blue
+                  focus:border-transparent focus:ring-0
+                  border-0
+                  outline-0
+                  scroll-smooth
+                  text-light_iris
+                  shadow-md
+                  rounded-sm
+                "
               >
                 {{ status.status }}
               </option>
@@ -78,7 +104,23 @@
           </template>
 
           <div
-            class="h-[37px] w-[220px] pl-2 border border-primary shadow-sm rounded-md flex justify-center items-center text-center bg-white font-sans not-italic font-bold text-base"
+            class="
+              h-[37px]
+              w-[220px]
+              pl-2
+              border border-primary
+              shadow-sm
+              rounded-md
+              flex
+              justify-center
+              items-center
+              text-center
+              bg-white
+              font-sans
+              not-italic
+              font-bold
+              text-base
+            "
           >
             <button type="submit">
               <svg
@@ -101,7 +143,17 @@
               type="text"
               placeholder="Search by name"
               v-on:keyup.enter="filterSearch"
-              class="border-0 h-[20px] w-[160px] placeholder:text-light_cyanblue pl-2 text-black rounded-md border-transparent focus:border-transparent focus:ring-0"
+              class="
+                border-0
+                h-[20px]
+                w-[160px]
+                placeholder:text-light_cyanblue
+                pl-2
+                text-black
+                rounded-md
+                border-transparent
+                focus:border-transparent focus:ring-0
+              "
             />
           </div>
         </EmployeeListHeader>
