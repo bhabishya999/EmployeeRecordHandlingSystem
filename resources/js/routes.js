@@ -3,11 +3,12 @@ import ForgotPassword from "@/Pages/Auth/ForgotPassword.vue";
 import ResetPassword from "@/Pages/Auth/ResetPassword.vue";
 import Login from "@/Pages/Auth/Login.vue";
 import Employees from "@/Pages/Employees/Employees.vue";
+import EditEducationPage from "@/Pages/Auth/EditEducationPage.vue";
 import LinkExpired from "@/Pages/Auth/LinkExpired.vue"
 import EmployeeDetail from "@/Pages/Employees/EmployeeDetail.vue"
-import ImportDataFromExcel from "@/pages/Auth/ImportDataFromExcel.vue"
+import ImportDataFromExcel from "@/Pages/Auth/ImportDataFromExcel.vue"
 import { createRouter, createWebHistory } from "vue-router";
-import EditPersonalDetailPage from "@/pages/Auth/EditPersonalDetailPage.vue"
+import EditPersonalDetailPage from "@/Pages/Auth/EditPersonalDetailPage.vue"
 const routes = [
     {
         name: "Home",
@@ -28,6 +29,9 @@ const routes = [
         name: "EmployeeDetail",
         path: "/employees/:id",
         component: EmployeeDetail,
+        meta: {
+            requiresAuth: true,
+        }
     },
     {
         name: "AddEmployeeDetails",
@@ -58,9 +62,20 @@ const routes = [
         name: "ImportDataFromExcel",
         path: "/employees/import",
         component: ImportDataFromExcel,
-
+        meta: {
+            requiresAuth: true,
+        }
 
     },
+    {
+        name: "EditEducationPage",
+        path: "/employees/:id/editeducationdetailpage",
+        component: EditEducationPage,
+        meta: {
+        requiresAuth: true,
+        }
+    },
+
     {
         name: 'LinkExpired',
         path: '/link-expired',
