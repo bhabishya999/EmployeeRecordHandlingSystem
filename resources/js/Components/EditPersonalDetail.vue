@@ -306,13 +306,11 @@ import { ref } from "vue";
       </div>
     </div>
     <div
-      v-if="showPopUp"
-      class="fixed inset-0 w-full h-screen bg-black bg-opacity-50"
+      v-show="showPopUp"
+      class="fixed z-50 inset-0 w-full h-screen bg-black bg-opacity-50"
     >
       <div
         class="
-          h-[342px]
-          w-[772px]
           flex
           !items-stretch
           !justify-between
@@ -325,19 +323,10 @@ import { ref } from "vue";
         "
       >
         <div
-          class="
-            p-9
-            bg-white
-            w-[515px]
-            h-[395px]
-            bg-white
-            rounded-md
-            flex
-            items-center
-          "
+          class="p-10 bg-white w-[515px] h-[395px] bg-white flex items-center"
         >
           <div>
-            <div class="flex flex-col px-9 py-2.5 items-center">
+            <div class="flex flex-col py-3 items-center">
               <svg
                 width="120"
                 height="120"
