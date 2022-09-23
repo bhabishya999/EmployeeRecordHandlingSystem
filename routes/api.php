@@ -46,7 +46,7 @@ Route::group(['prefix' => 'employees', 'middleware' => ['auth:sanctum']], functi
 Route::group(['prefix' => 'user', 'middleware' => ['auth:sanctum']], function(){
     Route::get('/me',[UserController::class,'show']);
 });
-Route::post('/forget-password', [ForgotPasswordController::class,'resetEmail']);
+Route::post('/forgot-password', [ForgotPasswordController::class,'resetEmail']);
 Route::post('/reset-password',[PasswordResetController::class, 'reset']);
 Route::get('/validate-token', [PasswordResetController::class, 'validateToken']);
 
