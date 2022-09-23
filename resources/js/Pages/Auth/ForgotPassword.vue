@@ -157,7 +157,7 @@ export default {
       this.email = email;
       this.isLoading = true;
       axios
-        .post("forget-password", {
+        .post("forgot-password", {
           email: email,
         })
         .then(() => {
