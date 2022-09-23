@@ -68,7 +68,15 @@
         </Form>
         <router-link
           to="/login"
-          class="text-md flex items-center justify-center mt-1 font-bold text-indigo-700"
+          class="
+            text-md
+            flex
+            items-center
+            justify-center
+            mt-1
+            font-bold
+            text-indigo-700
+          "
         >
           <div class="mr-2">
             <svg
@@ -96,7 +104,13 @@
         <img src="../../../images/email.png" alt="Email" />
 
         <div
-          class="mb-8 mt-5 font-bold font-sans text-2xl text-gray-900 not-italic"
+          class="
+            mb-8
+            mt-5
+            font-bold font-sans
+            text-2xl text-gray-900
+            not-italic
+          "
         >
           Verify your email address
         </div>
@@ -143,7 +157,7 @@ export default {
       this.email = email;
       this.isLoading = true;
       axios
-        .post("forgot-password", {
+        .post("forget-password", {
           email: email,
         })
         .then(() => {
