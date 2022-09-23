@@ -21,12 +21,12 @@ class KeyEmploymentDetailsFactory extends Factory
     public function definition(): array
     {
         return [
-            'organization'=> $this->faker->randomElement(['IntroceptNepal', 'IntroceptAustralia']),
+            'organization'=> $this->faker->randomElement(['Introcept Nepal', 'Introcept Australia']),
             'join_date' => $this->faker->date(),
             'current_position' => $this->faker->randomElement(['Intern', 'Software Engineering', 'QA', 'Product Management']),
-            'work_schedule' => $this->faker->randomElement(['mon-fri(full-time)', 'mon-fri(part-time)']),
-            'team' => $this->faker->randomElement([ 'Software Engineering', 'QA', 'Product Management']),
-            'superpowers' => $this->faker->randomElement([ 'Hard Working', 'Good Communication', 'Responsible', 'Professional'])
+            'work_schedule' => $this->faker->randomElement(['Mon-Fri(Full-time)', 'Mon-Fri(Part-time)']),
+            'team' => $this->faker->randomElement([ 'Development', 'QA', 'Design']),
+            'superpowers' => $this->faker->randomElement([ 'Friendly', 'Communication', 'Responsible', 'Professional'])
         ];
     }
 }
