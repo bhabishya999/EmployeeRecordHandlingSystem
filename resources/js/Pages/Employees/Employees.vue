@@ -74,10 +74,9 @@
                 drop-shadow
                 justify-between
                 rounded-md
-                h-[37px]
-                w-[175px]
                 text-primary
                 pr-16
+                font-bold
               "
             >
               &nbsp;&nbsp;

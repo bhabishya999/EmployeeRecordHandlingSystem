@@ -1,14 +1,12 @@
 <template>
   <div class="">
-    <div
-      class="grid grid-cols-10 pl-8 items-start font-sans content-around justify-around not-italic font-normal py-3"
-    >
-      <div class="flex flex-row col-span-2">
-        <div class="pr-1 h-[36px] w-[36px] rounded-full">
+    <div class="grid grid-cols-12 font-sans not-italic font-normal py-3 px-10">
+      <div class="flex flex-row col-span-3">
+        <div class="h-[40px] w-[40px] rounded-full">
           <img :src="list.avatar" alt="" class="rounded-full" />
         </div>
 
-        <div class="flex flex-col w-[145px] h-[39px] truncate">
+        <div class="pl-2">
           <h1 class="text-sm text-dark_cyanblue">
             {{ list.first_name }} {{ list.last_name }}
           </h1>
@@ -16,27 +14,50 @@
         </div>
       </div>
 
-      <div class="text-dark_cyanblue text-sm pl-4 col-span-2">
+      <div class="text-dark_cyanblue text-sm col-span-2">
         {{ list.keyEmploymentDetail.current_position }}
         <h1 class="text-xs">{{ list.keyEmploymentDetail.work_schedule }}</h1>
       </div>
 
-      <div class="text-xs text-dark_cyanblue pl-5">
+      <div class="text-xs text-dark_cyanblue col-span-2">
         {{ list.contact_number }}
       </div>
 
-      <div class="Status text-sm text-light_green pl-20" :class="list.status">
+      <div
+        class="Status text-sm text-light_green col-span-2"
+        :class="list.status"
+      >
         {{ list.status }}
       </div>
 
-      <div class="text-sm text-black items-start pl-28 ml-1">
+      <div class="text-sm col-span-2 text-black items-start">
         {{ list.keyEmploymentDetail.team }}
       </div>
-      <div class="pl-36">
+      <div class="">
         <Menu as="div" class="relative inline-block text-left">
           <div>
             <MenuButton
-              class="text-sm w-[123px] h-[30px] text-primary border border-solid border-bordergray box-border rounded-md inline-flex justify-center bg-white px-3 pt-1 font-medium hover:bg-primary_blue focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75"
+              class="
+                text-sm
+                w-32
+                h-8
+                font-semibold
+                text-primary
+                border border-solid border-bordergray
+                box-border
+                rounded-md
+                inline-flex
+                justify-center
+                bg-white
+                px-3
+                pt-1
+                font-medium
+                hover:bg-primary_blue
+                focus:outline-none
+                focus-visible:ring-2
+                focus-visible:ring-white
+                focus-visible:ring-opacity-75
+              "
             >
               View Details &nbsp;
               <div class="pt-[6px] pl-1">
@@ -67,13 +88,38 @@
             leave-to-class="transform scale-95 opacity-0"
           >
             <MenuItems
-              class="absolute bg-white text-light_iris border rounded-sm w-[123px] h-[63px] shadow-lg z-40 divide-gray-100 focus:outline-none"
+              class="
+                absolute
+                bg-white
+                text-light_iris
+                border
+                rounded-sm
+                w-[123px]
+                h-[63px]
+                shadow-lg
+                z-40
+                divide-gray-100
+                focus:outline-none
+              "
             >
               <div class="">
                 <MenuItem>
                   <router-link
                     :to="'/employees/' + list.id"
-                    class="flex flex-col text-light_iris text-xs w-[121px] h-[30px] pl-5 pt-2 pb-1 font-normal hover:bg-primary_blue font-sans not-italic"
+                    class="
+                      flex flex-col
+                      text-light_iris
+                      text-xs
+                      w-[121px]
+                      h-[30px]
+                      pl-5
+                      pt-2
+                      pb-1
+                      font-normal
+                      hover:bg-primary_blue
+                      font-sans
+                      not-italic
+                    "
                   >
                     View Details
                   </router-link>
@@ -81,7 +127,20 @@
                 <MenuItem>
                   <button
                     v-on:click="setAlumni(list.id)"
-                    class="flex flex-col text-light_iris text-xs w-[121px] h-[31px] pl-5 pt-2 pb-1 font-normal hover:bg-primary_blue font-sans not-italic"
+                    class="
+                      flex flex-col
+                      text-light_iris
+                      text-xs
+                      w-[121px]
+                      h-[31px]
+                      pl-5
+                      pt-2
+                      pb-1
+                      font-normal
+                      hover:bg-primary_blue
+                      font-sans
+                      not-italic
+                    "
                   >
                     Set as Alumni
                   </button>
