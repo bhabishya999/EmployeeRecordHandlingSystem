@@ -30,7 +30,7 @@
 
             index + 1 == $route.query.page ? 'active' : '',
           ]"
-          v-on:click="buttons(page_Number + index)"
+          v-on:click="buttons(index + 1)"
           class="text-light_cyanblue ml-7 h-[35px] w-[55px] text-center justify-center items-center rounded not-italic font-bold text-sm border border-solid border-slate-200"
         >
           {{ index + 1 }}

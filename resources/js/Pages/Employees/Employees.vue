@@ -206,6 +206,7 @@ export default {
         .get(`/employees?search=${this.search}`)
         .then((result) => {
           this.employeeList = result.data.data;
+          this.total = result.data.data.length;
         })
         .catch((error) => {
           alert(error);

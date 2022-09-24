@@ -80,7 +80,7 @@
                 </MenuItem>
                 <MenuItem>
                   <button
-                    v-on:click="list.status = 'Alumni'"
+                    v-on:click="setAlumni(list.id)"
                     class="flex flex-col text-light_iris text-xs w-[121px] h-[31px] pl-5 pt-2 pb-1 font-normal hover:bg-primary_blue font-sans not-italic"
                   >
                     Set as Alumni
@@ -115,6 +115,19 @@ export default {
     list: {
       required: true,
       type: Object,
+    },
+  },
+  methods: {
+    setAlumni(empId) {
+      axios
+        .put(`/employees/status/${empId}`)
+        .then(() => {
+          this.list.status = "Alumni";
+        })
+
+        .catch((error) => {
+          alert(error);
+        });
     },
   },
 };
