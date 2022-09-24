@@ -410,7 +410,9 @@ export default {
               this.team = this.teams[index];
             }
           });
-          this.manager = this.managerList[KeyDetaiList.manager.id];
+          const managerId = KeyDetaiList.manager.id;
+          this.manager = this.managerList[managerId - 1];
+          console.log(this.manager);
           // this.managesSelected = KeyDetaiList.manages.map(
           // ({ employee_id }) => employee_id
           // );
