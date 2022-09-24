@@ -63,7 +63,7 @@
     <div
       class="h-[49px] w-full grid grid-cols-6 pl-8 gap-4 content-around justify-around items-center bg-dark_gray text-dark_blue font-sans not-italic font-bold text-sm"
     >
-      <h1>FullName/Email</h1>
+      <h1 class="pl-9">FullName/Email</h1>
       <h1 class="pl-12">Desigination</h1>
       <h1 class="pl-20">Phone</h1>
       <h1 class="pl-16 ml-1">Status</h1>
