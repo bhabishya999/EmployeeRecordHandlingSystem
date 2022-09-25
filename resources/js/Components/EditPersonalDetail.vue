@@ -416,7 +416,7 @@ export default {
       personalActive: true,
       educationalActive: false,
       message: [],
-      document_id: null,
+      document_id: [],
       firstName,
       lastName,
       email,

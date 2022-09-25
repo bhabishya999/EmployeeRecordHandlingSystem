@@ -33,7 +33,11 @@
             {{ file.type }}
           </p>
         </div>
-        <button class="absolute top-0 right-0" @click="deleteDocument(index)">
+        <button
+          class="absolute top-0 right-0"
+          type="button"
+          @click="deleteDocument(index)"
+        >
           <svg
             width="19"
             height="19"
