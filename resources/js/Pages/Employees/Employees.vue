@@ -274,7 +274,6 @@ export default {
         .get(`/employees?filter=${filterdata}`)
         .then((result) => {
           this.employeeList = result.data.data;
-          this.total = result.data.data.length;
         })
         .catch((error) => {
           alert(error);
