@@ -3,7 +3,7 @@ import Details from "@/Layouts/Details.vue";
 </script>
 <template>
   <NavBar></NavBar>
-  <div class="h-[24px] bg-slate-100"></div>
+  <div class="h-10 bg-slate-100"></div>
   <Details>
     <div class="p-9">
       <div class="flex justify-between items-center">
