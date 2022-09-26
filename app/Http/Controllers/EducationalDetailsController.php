@@ -71,8 +71,10 @@ class EducationalDetailsController extends Controller
                 }
             }
             $educationDetailsIds = collect($educationDetails['educational_details'])->pluck('education_id');
-            EducationalDetails::query()->whereNotIn('id', $educationDetailsIds)->delete();
-        });
+            EducationalDetails::query()->whereNotIn('id', $educationDetailsIds)->where(function($query) use ($employeeId) {
+                $query->where('employee_id',$employeeId);
+        })->delete();
+    });
         return responseHelper('Educational details updated successfully');
     }
 }
