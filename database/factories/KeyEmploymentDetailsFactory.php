@@ -26,7 +26,7 @@ class KeyEmploymentDetailsFactory extends Factory
             'current_position' => $this->faker->randomElement(['Intern', 'Software Engineering', 'QA', 'Product Management']),
             'work_schedule' => $this->faker->randomElement(['Mon-Fri(Full-time)', 'Mon-Fri(Part-time)']),
             'team' => $this->faker->randomElement([ 'Development', 'QA', 'Design']),
-            'superpowers' => $this->faker->randomElement([ 'Friendly', 'Communication', 'Responsible', 'Professional'])
+            'superpowers' => $this->faker->randomElement([ ['Friendly','Communication'], ['Communication','Professional'], ['Responsible','Positive'], ['Professional']])
         ];
     }
 }
