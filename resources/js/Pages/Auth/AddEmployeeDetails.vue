@@ -3,7 +3,7 @@ import Details from "@/Layouts/Details.vue";
 </script>
 <template>
   <NavBar></NavBar>
-  <div class="h-[24px] bg-slate-100"></div>
+  <div class="h-10 bg-slate-100"></div>
   <Details>
     <div class="p-9">
       <div class="flex justify-between items-center">
@@ -13,7 +13,20 @@ import Details from "@/Layouts/Details.vue";
         <router-link
           to="/employees"
           type="button"
-          class="bg-indigo-700 p-[7px] rounded-md drop-shadow-[0_10px_15px_rgba(0,0,0,0.1)] flex items-center justify-center text-white font-bold text-base leading-normal font-sans"
+          class="
+            bg-indigo-700
+            p-[7px]
+            rounded-md
+            drop-shadow-[0_10px_15px_rgba(0,0,0,0.1)]
+            flex
+            items-center
+            justify-center
+            text-white
+            font-bold
+            text-base
+            leading-normal
+            font-sans
+          "
         >
           <svg
             class="mr-[9px]"
@@ -96,7 +109,16 @@ import Details from "@/Layouts/Details.vue";
             <div class="flex flex-row justify-between mb-2.5">
               <div class="w-full mr-10">
                 <p
-                  class="block font-normal text-sm text-gray-900 pb-2.5 leading-normal placeholder:text-slate-500 placeholder:text-base placeholder:font-normal"
+                  class="
+                    block
+                    font-normal
+                    text-sm text-gray-900
+                    pb-2.5
+                    leading-normal
+                    placeholder:text-slate-500
+                    placeholder:text-base
+                    placeholder:font-normal
+                  "
                 >
                   Contact Number*
                 </p>
@@ -135,7 +157,13 @@ import Details from "@/Layouts/Details.vue";
                     </svg>
                   </div>
                   <p
-                    class="text-red-600 font-normal text-sm leading-normal ml-[8px]"
+                    class="
+                      text-red-600
+                      font-normal
+                      text-sm
+                      leading-normal
+                      ml-[8px]
+                    "
                   >
                     {{ message.phone }}
                   </p>
@@ -279,16 +307,40 @@ import Details from "@/Layouts/Details.vue";
                 'opacity-80 cursor-not-allowed': isLoading,
               }"
               type="submit"
-              class="!my-0 bg-primary p-[7px] rounded-md drop-shadow-[0_10px_15px_rgba(0,0,0,0.1)] flex items-center justify-center text-white font-bold text-base leading-normal font-sans"
+              class="
+                !my-0
+                bg-primary
+                p-[7px]
+                rounded-md
+                drop-shadow-[0_10px_15px_rgba(0,0,0,0.1)]
+                flex
+                items-center
+                justify-center
+                text-white
+                font-bold
+                text-base
+                leading-normal
+                font-sans
+              "
             >
               Save and Continue
             </Button>
-            <button
+            <router-link
+              to="/employees"
               type="button"
-              class="mr-2.5 py-[7px] px-2.5 bg-slate-100 rounded-md shadow text-base font-bold"
+              class="
+                mr-2.5
+                py-4
+                px-12
+                bg-slate-200
+                rounded-md
+                shadow
+                text-base
+                font-bold
+              "
             >
-              Cancel
-            </button>
+              <p>Cancel</p>
+            </router-link>
           </div>
         </div>
       </Form>

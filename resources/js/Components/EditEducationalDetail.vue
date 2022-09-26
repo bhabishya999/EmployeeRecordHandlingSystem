@@ -1,6 +1,6 @@
 <template>
   <div class="px-2 py-5">
-    <Form @submit="onSubmit">
+    <Form @submit="onSubmit" :validation-schema="schema">
       <div class="flex flex-col w-2/3 mr-10">
         <div v-for="(edutionalList, index) in edutionalList" v-bind:key="index">
           <div class="flex justify-between">
@@ -66,7 +66,7 @@
                 for="education"
                 >Education</label
               >
-              <input
+              <Field
                 type="text"
                 class="
                   bg-white
@@ -86,7 +86,11 @@
                 "
                 v-model="edutionalList.education_level"
                 placeholder="Higher Secondary Level"
-                name="education_level"
+                :name="`edutionalList[${index}].education_level`"
+              />
+              <ErrorMessage
+                :name="`edutionalList[${index}].education_level`"
+                class="text-red-600"
               />
             </div>
             <div class="w-full">
@@ -104,7 +108,7 @@
                 for="passedYear"
                 >Passed Year(A.D)</label
               >
-              <input
+              <Field
                 class="
                   bg-white
                   pb-3.5
@@ -123,8 +127,12 @@
                 "
                 type="text"
                 v-model="edutionalList.passed_year"
-                name="passed_year"
+                :name="`edutionalList[${index}].passed_year`"
                 placeholder="2017"
+              />
+              <ErrorMessage
+                :name="`edutionalList[${index}].education_level`"
+                class="text-red-600"
               />
             </div>
           </div>
@@ -143,7 +151,7 @@
               for="institution"
               >Institution</label
             >
-            <input
+            <Field
               class="
                 bg-white
                 pb-3.5
@@ -162,8 +170,12 @@
               "
               type="text"
               v-model="edutionalList.institution"
-              name="institution"
+              :name="`edutionalList[${index}].institution`"
               placeholder="United Academy"
+            />
+            <ErrorMessage
+              :name="`edutionalList[${index}].institution`"
+              class="text-red-600"
             />
           </div>
           <div class="border-b-2 border-slate-100 w-full my-5"></div>
@@ -234,11 +246,12 @@
           </Button>
           <button
             type="button"
+            @click="togglePopUp"
             class="
               mr-2.5
-              py-[7px]
-              px-2.5
-              bg-slate-100
+              py-3
+              px-12
+              bg-slate-200
               rounded-md
               shadow
               text-base
@@ -319,10 +332,10 @@
     </Form>
   </div>
 </template>
-
-<script>
+  
+  <script>
 import Button from "@/Components/Button.vue";
-import { Form } from "vee-validate";
+import { ErrorMessage, Field, Form } from "vee-validate";
 import * as Yup from "yup";
 export default {
   name: "EditEducationalDetail",
@@ -330,10 +343,26 @@ export default {
     Form,
     Button,
     Yup,
+    ErrorMessage,
+    Field,
   },
   data() {
+    const schema = Yup.object().shape({
+      edutionalList: Yup.array()
+        .of(
+          Yup.object().shape({
+            education_level: Yup.string().required().label("Education"),
+            passed_year: Yup.string().max(4).required().label("Year"),
+            institution: Yup.string().required().label("Institution"),
+          })
+        )
+        .strict(),
+    });
     return {
+      schema,
       edutionalList: [],
+      educationId: [],
+      eid: [],
       showPopUp: false,
       isLoading: false,
     };
@@ -358,7 +387,6 @@ export default {
     },
     onSubmit() {
       const employeeId = this.$route.params.id;
-      console.log(employeeId);
       const educational_details = this.edutionalList.map((edu) => {
         return edu;
       });

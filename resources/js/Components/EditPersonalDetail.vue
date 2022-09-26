@@ -42,13 +42,23 @@ import { ref } from "vue";
         <div class="flex flex-row justify-between mb-2.5">
           <div class="w-full mr-10">
             <p
-              class="block font-normal text-sm text-gray-900 pb-2.5 leading-normal placeholder:text-slate-500 placeholder:text-base placeholder:font-normal"
+              class="
+                block
+                font-normal
+                text-sm text-gray-900
+                pb-2.5
+                leading-normal
+                placeholder:text-slate-500
+                placeholder:text-base
+                placeholder:font-normal
+              "
             >
               Contact Number*
             </p>
             <vue-tel-input
+              class="text-slate-500 text-sm"
               :class="[error ? 'border-red ' : 'vue-tel-input']"
-              v-model="phone"
+              :value="phone"
               ref="phoneNo"
               mode="international"
             ></vue-tel-input>
@@ -259,30 +269,64 @@ import { ref } from "vue";
             'opacity-80 cursor-not-allowed': isLoading,
           }"
           type="submit"
-          class="!my-0 bg-primary p-[7px] rounded-md drop-shadow-[0_10px_15px_rgba(0,0,0,0.1)] flex items-center justify-center text-white font-bold text-base leading-normal font-sans"
+          class="
+            !my-0
+            bg-primary
+            p-[7px]
+            rounded-md
+            drop-shadow-[0_10px_15px_rgba(0,0,0,0.1)]
+            flex
+            items-center
+            justify-center
+            text-white
+            font-bold
+            text-base
+            leading-normal
+            font-sans
+          "
         >
           Save and Continue
         </Button>
         <button
           type="button"
-          class="mr-2.5 py-[7px] px-2.5 bg-slate-100 rounded-md shadow text-base font-bold"
+          @click="togglePopUp"
+          class="
+            mr-2.5
+            py-3
+            px-12
+            bg-slate-200
+            rounded-md
+            shadow
+            text-base
+            font-bold
+          "
         >
           Cancel
         </button>
       </div>
     </div>
     <div
-      v-if="showPopUp"
-      class="fixed inset-0 w-full h-screen bg-black bg-opacity-50"
+      v-show="showPopUp"
+      class="fixed z-50 inset-0 w-full h-screen bg-black bg-opacity-50"
     >
       <div
-        class="h-[342px] w-[772px] flex !items-stretch !justify-between absolute z-10 top-1/2 left-1/2 !transform !-translate-x-1/2 !-translate-y-1/2"
+        class="
+          flex
+          !items-stretch
+          !justify-between
+          absolute
+          z-10
+          top-1/2
+          left-1/2
+          !transform
+          !-translate-x-1/2 !-translate-y-1/2
+        "
       >
         <div
-          class="p-9 bg-white w-[515px] h-[395px] bg-white rounded-md flex items-center"
+          class="p-10 bg-white w-[515px] h-[395px] bg-white flex items-center"
         >
           <div>
-            <div class="flex flex-col px-9 py-2.5 items-center">
+            <div class="flex flex-col py-3 items-center">
               <svg
                 width="120"
                 height="120"
@@ -297,14 +341,29 @@ import { ref } from "vue";
               </svg>
 
               <p
-                class="text-indigo-700 leading-normal text-2xl font-bold my-[20px]"
+                class="
+                  text-indigo-700
+                  leading-normal
+                  text-2xl
+                  font-bold
+                  my-[20px]
+                "
               >
                 Changes have been saved successfully.
               </p>
 
               <button
                 @click="togglePopUp"
-                class="font-bold text-base py-[15px] px-[34px] border-indigo-700 text-indigo-700 border rounded-md"
+                class="
+                  font-bold
+                  text-base
+                  py-[15px]
+                  px-[34px]
+                  border-indigo-700
+                  text-indigo-700
+                  border
+                  rounded-md
+                "
               >
                 Close
               </button>
@@ -313,42 +372,6 @@ import { ref } from "vue";
         </div>
       </div>
     </div>
-    <!-- 
-    <div
-      v-if="togglePopUp"
-      class="z-10 w-[515px] h-[395px] bg-white shadow-[0_10px_15px_rgba(0,0,0,0.1)] flex flex-col items-center justify-center mt-20"
-    >
-      <div
-        class="z-50 fixed inset-0 w-full h-screen flex items-center justify-center bg-black bg-opacity-50"
-      >
-        <div class="absolute z-10">
-          <svg
-            width="120"
-            height="120"
-            viewBox="0 0 120 120"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M119.56 59.78C119.56 92.7957 92.7957 119.56 59.78 119.56C26.7643 119.56 0 92.7957 0 59.78C0 26.7643 26.7643 0 59.78 0C92.7957 0 119.56 26.7643 119.56 59.78ZM52.8653 91.4331L97.2182 47.0801C98.7243 45.5741 98.7243 43.132 97.2182 41.6259L91.764 36.1717C90.258 34.6654 87.8159 34.6654 86.3096 36.1717L50.1381 72.343L33.2505 55.4554C31.7444 53.9493 29.3023 53.9493 27.796 55.4554L22.3418 60.9096C20.8357 62.4157 20.8357 64.8577 22.3418 66.3638L47.4109 91.4328C48.9172 92.9391 51.359 92.9391 52.8653 91.4331Z"
-              fill="#4D966F"
-            />
-          </svg>
-
-          <p
-            class="text-indigo-700 leading-normal text-2xl font-bold my-[20px]"
-          >
-            Changes have been saved successfully.
-          </p>
-        </div>
-      </div>
-      <button
-        @click="togglePopUp"
-        class="font-bold text-base py-[15px] px-[34px] border-indigo-700 text-indigo-700 border rounded-md"
-      >
-        Close
-      </button>
-    </div> -->
   </Form>
 </template>
 <script>

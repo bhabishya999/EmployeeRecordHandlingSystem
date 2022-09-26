@@ -1,7 +1,7 @@
 <script setup>
 import Details from "@/Layouts/Details.vue";
 </script>
-<template>
+    <template>
   <div>
     <NavBar />
     <div class="h-10 bg-slate-100"></div>
@@ -46,9 +46,14 @@ import Details from "@/Layouts/Details.vue";
         </div>
         <div class="mt-[30px] mb-5">
           <ul class="flex">
+            <li class="font-bold leading-normal text-lg py-2.5 px-1.5 mr-7">
+              Personal Details
+            </li>
+            <li class="font-bold leading-normal text-lg mr-7 py-2.5 px-1.5">
+              Educational Details
+            </li>
             <li
               class="
-                mr-7
                 font-semibold
                 leading-normal
                 text-lg
@@ -60,30 +65,23 @@ import Details from "@/Layouts/Details.vue";
                 text-white
               "
             >
-              Personal Details
-            </li>
-            <li class="font-bold leading-normal text-lg mr-7 py-2.5 px-1.5">
-              Educational Details
-            </li>
-
-            <li class="font-bold leading-normal text-lg py-2.5 px-1.5 mr-7">
               Key Employment Details
             </li>
           </ul>
         </div>
-        <EditPersonalDetail />
+        <EditKeyDetail />
       </div>
     </Details>
   </div>
 </template>
-<script>
+    <script>
 import NavBar from "@/Components/NavBar.vue";
-import EditPersonalDetail from "@/Components/EditPersonalDetail.vue";
+import EditKeyDetail from "@/Components/EditKeyDetail.vue";
 export default {
-  name: "EditPersonalDetailPage",
+  name: "EditKeyDetailPage",
   Components: {
     NavBar,
-    EditPersonalDetail,
+    EditKeyDetail,
   },
 };
 </script>

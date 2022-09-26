@@ -1,11 +1,7 @@
 <script setup>
 import { ref } from "vue";
-const organization = ref(null);
-const workschedule = ref(null);
-const team = ref(null);
-const manager = ref(null);
 </script>
-  <template>
+    <template>
   <Form @submit="onSubmit" :validation-schema="schema">
     <div class="flex">
       <div class="w-2/3 mr-10">
@@ -23,6 +19,7 @@ const manager = ref(null);
             </div>
             <div class="w-full">
               <custom-input
+                v-model="joindates"
                 type="date"
                 name="joinDate"
                 label="Join Date*"
@@ -34,6 +31,7 @@ const manager = ref(null);
         <div class="flex flex-row justify-between mb-2.5">
           <div class="w-full mr-10">
             <custom-input
+              v-model="position"
               type="text"
               label="Curent Position*"
               name="position"
@@ -63,7 +61,7 @@ const manager = ref(null);
         </div>
         <div class="mb-2.5">
           <manager-singleselect
-            :options="managers"
+            :options="managerList"
             name="manager"
             v-model="manager"
             key-prop="label"
@@ -80,7 +78,7 @@ const manager = ref(null);
             placeholder="Enter Manages"
             :close-on-select="true"
             :searchable="true"
-            :options="manages"
+            :options="managesList"
             :value="managesSelect"
             :classes="{
               tag: 'bg-[#F5F5F5] font-bold text-primary text-sm font-semibold py-0.5 pl-2 rounded mr-1 mb-1 flex items-center whitespace-nowrap rtl:pl-0 rtl:pr-2 rtl:mr-0 rtl:ml-1',
@@ -93,7 +91,7 @@ const manager = ref(null);
           >
             <template v-slot:option="{ option }">
               <span class="flex items-center">
-                <img :src="option.avatar" class="rounded-full w-10 h-10 mr-3" />
+                <img :src="option.avatar" class="rounded-full w-12 h-12 mr-3" />
                 <div>
                   <p>{{ option.label }}</p>
                   <p class="text-sm text-primary">
@@ -106,6 +104,7 @@ const manager = ref(null);
         </div>
         <div class="mb-2.5">
           <CustomInput
+            v-model="powersList"
             type="text"
             label="Superpowers"
             name="superpowers"
@@ -138,11 +137,11 @@ const manager = ref(null);
             font-sans
           "
         >
-          Save and Continue
+          Save Changes
         </Button>
-        <router-link
-          to="/employees"
+        <button
           type="button"
+          @click="togglePopUp"
           class="
             mr-2.5
             py-3
@@ -154,13 +153,80 @@ const manager = ref(null);
             font-bold
           "
         >
-          <p>Cancel</p>
-        </router-link>
+          Cancel
+        </button>
+      </div>
+    </div>
+    <div
+      v-show="showPopUp"
+      class="fixed z-50 inset-0 w-full h-screen bg-black bg-opacity-50"
+    >
+      <div
+        class="
+          flex
+          !items-stretch
+          !justify-between
+          absolute
+          z-10
+          top-1/2
+          left-1/2
+          !transform
+          !-translate-x-1/2 !-translate-y-1/2
+        "
+      >
+        <div
+          class="p-10 bg-white w-[515px] h-[395px] bg-white flex items-center"
+        >
+          <div>
+            <div class="flex flex-col py-3 items-center">
+              <svg
+                width="120"
+                height="120"
+                viewBox="0 0 120 120"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M119.56 59.78C119.56 92.7957 92.7957 119.56 59.78 119.56C26.7643 119.56 0 92.7957 0 59.78C0 26.7643 26.7643 0 59.78 0C92.7957 0 119.56 26.7643 119.56 59.78ZM52.8653 91.4331L97.2182 47.0801C98.7243 45.5741 98.7243 43.132 97.2182 41.6259L91.764 36.1717C90.258 34.6654 87.8159 34.6654 86.3096 36.1717L50.1381 72.343L33.2505 55.4554C31.7444 53.9493 29.3023 53.9493 27.796 55.4554L22.3418 60.9096C20.8357 62.4157 20.8357 64.8577 22.3418 66.3638L47.4109 91.4328C48.9172 92.9391 51.359 92.9391 52.8653 91.4331Z"
+                  fill="#4D966F"
+                />
+              </svg>
+
+              <p
+                class="
+                  text-indigo-700
+                  leading-normal
+                  text-2xl
+                  font-bold
+                  my-[20px]
+                "
+              >
+                Changes have been saved successfully.
+              </p>
+
+              <button
+                @click="togglePopUp"
+                class="
+                  font-bold
+                  text-base
+                  py-[15px]
+                  px-[34px]
+                  border-indigo-700
+                  text-indigo-700
+                  border
+                  rounded-md
+                "
+              >
+                Close
+              </button>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </Form>
 </template>
-  <script>
+    <script>
 import CustomInput from "@/Components/CustomInput.vue";
 import Button from "@/Components/Button.vue";
 import SingleSelect from "@/Components/SingleSelect.vue";
@@ -168,7 +234,7 @@ import ManagerSingleselect from "@/Components/ManagerSingleinput.vue";
 import { Form } from "vee-validate";
 import * as Yup from "yup";
 import Multiselect from "@vueform/multiselect";
-import { ref } from "vue";
+import axios from "axios";
 export default {
   name: "KeyEmployeeDetails",
   Components: {
@@ -189,29 +255,49 @@ export default {
       team: Yup.object().required(),
       manager: Yup.object().required(),
     });
+    const organizations = [
+      { label: "Introcept Nepal" },
+      { label: "Introcept Australia" },
+    ];
+    const workschedules = [
+      { label: "Monday-Friday(Full time)" },
+      { label: "Monday-Friday(Part time)" },
+    ];
+    const teams = [
+      { label: "Development" },
+      { label: "Product" },
+      { label: "QA" },
+      { label: "Sales" },
+      { label: "Design" },
+      { label: "Marketing" },
+    ];
+    const organization = null;
+    const workschedule = null;
+    const team = null;
+    const manager = null;
+    const managesSelected = [];
+    const position = null;
+    const joinDate = null;
     return {
       schema,
+      showPopUp: false,
       managesSelect: [],
       superpower: [],
       isLoading: false,
-      organizations: [
-        { label: "Introcept Nepal" },
-        { label: "Introcept Australia" },
-      ],
-      managesSelected: [],
-      workschedules: [
-        { label: "Monday-Friday(Full time)" },
-        { label: "Monday-Friday(Part time)" },
-      ],
-      teams: [
-        { label: "Development" },
-        { label: "Product" },
-        { label: "QA" },
-        { label: "Sales" },
-        { label: "Design" },
-        { label: "Marketing" },
-      ],
+      organization,
+      organizations,
+      workschedule,
+      workschedules,
+      team,
+      teams,
+      manager,
+      managesSelected,
+      position,
+      joinDate,
+      powers: [],
       managerList: [],
+      managesList: [],
+      employeeList: [],
     };
   },
   props: {
@@ -219,6 +305,13 @@ export default {
   },
 
   methods: {
+    togglePopUp() {
+      const id = this.$route.params.id;
+      this.showPopUp = !this.showPopUp;
+      this.$router.push({
+        path: `/employees/${id}`,
+      });
+    },
     onSubmit(values) {
       const {
         organization,
@@ -230,70 +323,104 @@ export default {
         superpowers,
       } = values;
       this.superpower = superpowers.split(" ").map((s) => s.trim());
-      this.isLoading = true;
+      const employeeId = this.$route.params.id;
       axios
-        .post("employees/key-employment-details", {
-          employee_id: this.userId,
+        .put(`/api/employees/key-employment-details/${employeeId}`, {
+          id: employeeId,
           organization: organization.label,
           join_date: joinDate,
-          current_position: position,
           work_schedule: workschedule.label,
+          manager: manager.id,
+          superpowers: this.employeeSuperpower,
           team: team.label,
+          current_position: position,
           manager: manager.id,
           manages: this.selectedManages,
-          superpowers: this.employeeSuperpower,
         })
         .then(() => {
-          localStorage.setItem("showSuccess", true);
-          this.$router.push({
-            path: "/employees",
-          });
+          this.showPopUp = true;
         })
         .catch((error) => {
-          console.log("error:", error);
+          alert(error);
         })
         .finally(() => (this.isLoading = false));
     },
   },
   computed: {
-    managers() {
-      return this.managerList.map(
-        ({ id, first_name, last_name, email, avatar }) => ({
-          id: id,
-          label: `${first_name} ${last_name}`,
-          email: email,
-          avatar: avatar,
-        })
-      );
-    },
-    manages() {
-      return this.managerList.map(
-        ({ id, first_name, last_name, email, avatar }) => ({
-          value: { id },
-          label: `${first_name} ${last_name}`,
-          email: email,
-          avatar: avatar,
-        })
-      );
-    },
     selectedManages() {
-      return this.managesSelected.map((manages) => manages.id);
+      return this.managesSelected.map((manages) => manages);
     },
     employeeSuperpower() {
       return this.superpower.map((power) => power);
     },
+    joindates() {
+      this.joindate = new Date().toISOString().slice(0, 10);
+      return this.joindate;
+    },
+    powersList() {
+      return this.powers.join(" ");
+    },
   },
   created() {
+    const employeeId = this.$route.params.id;
     axios
-      .get(`employees/managers?exclude_ids=${this.userId}`)
-      .then(({ data }) => {
-        this.managerList = data.data;
-      })
+      .all([
+        axios.get(`/api/employees/managers?exclude_ids=${employeeId}`),
+        axios.get(`/api/employees/key-employment-details/${employeeId}`),
+      ])
+
+      .then(
+        axios.spread((manages, KeyEmployeeDetail) => {
+          this.employeeList = manages.data.data;
+          console.log(this.employeeList);
+          this.managerList = this.employeeList.map(
+            ({ id, first_name, last_name, email, avatar }) => ({
+              id: id,
+              label: `${first_name} ${last_name}`,
+              email: email,
+              avatar: `${avatar}`,
+            })
+          );
+          this.managesList = this.employeeList.map(
+            ({ id, first_name, last_name, email, avatar }) => ({
+              value: {
+                employee_id: id,
+              },
+              label: `${first_name} ${last_name}`,
+              email: email,
+              avatar: `${avatar}`,
+            })
+          );
+          const KeyDetaiList =
+            KeyEmployeeDetail.data.data.key_employment_details;
+          this.organizations.forEach((org, index) => {
+            if (KeyDetaiList.organization == org.label) {
+              this.organization = this.organizations[index];
+            }
+          });
+          this.joinDate = KeyDetaiList.join_data;
+          this.position = KeyDetaiList.current_position;
+          this.workschedules.forEach((schedule, index) => {
+            if (KeyDetaiList.work_schedule == schedule.label) {
+              this.workschedule = this.workschedules[index];
+            }
+          });
+          this.teams.forEach((teamData, index) => {
+            if (KeyDetaiList.team == teamData.label) {
+              this.team = this.teams[index];
+            }
+          });
+          const managerId = KeyDetaiList.manager.id;
+          this.manager = this.managerList[managerId - 1];
+          console.log(this.manager);
+          this.powers = KeyDetaiList.superpowers;
+        })
+      )
       .catch((error) => console.log(error));
   },
 };
 </script>
-  <style>
+    <style>
 .multiselect-tag.is-user {
   padding: 5px 8px;
   border-radius: 22px;
@@ -320,7 +447,4 @@ export default {
   height: 22px;
 }
 </style>
-  
-  <style src="@vueform/multiselect/themes/default.css"></style>
-  
-  
+    <style src="@vueform/multiselect/themes/default.css"></style>

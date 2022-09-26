@@ -1,8 +1,19 @@
 <template>
   <div
-    class="h-[87px] w-full flex flex-row justify-between items-center px-40 bg-white"
+    class="
+      h-[87px]
+      w-full
+      flex flex-row
+      justify-between
+      items-center
+      px-40
+      bg-white
+    "
   >
-    <div class="flex flex-col py-6 items-center justify-center text-center">
+    <router-link
+      to="/employees"
+      class="flex flex-col py-6 items-center justify-center text-center"
+    >
       <svg
         width="33"
         height="33"
@@ -44,21 +55,35 @@
         IntroCept Employee <br />
         Portal
       </p>
-    </div>
+    </router-link>
     <div>
       <div class="flex py-6 items-center text-center">
         <div class="mr-2 h-[44px] w-[44px]">
           <img :src="profile.avatar" alt="aa" class="rounded-full" />
         </div>
         <p
-          class="text-[#1A202C] text-base font-medium leading-[150.69%] mr-3.5"
+          class="
+            text-[#1A202C] text-base
+            font-semibold
+            leading-[150.69%]
+            mr-3.5
+          "
         >
           {{ userdetail.name }}
         </p>
         <button
           @click="logout"
           type="button"
-          class="bg-[#4C51BF] p-[7px] rounded-md drop-shadow-[0_10px_15px_rgba(0,0,0,0.1)] flex items-center justify-center text-white font-bold text-base leading-[150%] font-sans"
+          class="
+            bg-[#4C51BF]
+            p-2
+            rounded-md
+            drop-shadow-[0_10px_15px_rgba(0,0,0,0.1)]
+            flex
+            items-center
+            justify-center
+            text-white
+          "
         >
           <svg
             width="18"
@@ -74,7 +99,7 @@
               stroke-linejoin="round"
             />
           </svg>
-          Logout
+          <p class="pl-2 font-bold">Logout</p>
         </button>
       </div>
     </div>
