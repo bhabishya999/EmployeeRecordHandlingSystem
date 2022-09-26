@@ -257,7 +257,7 @@ export default {
         .get(`/employees?search=${this.search}`)
         .then((result) => {
           this.employeeList = result.data.data;
-          this.total = result.data.data.length;
+          this.total = result.data.meta.total;
         })
         .catch((error) => {
           alert(error);
@@ -274,6 +274,7 @@ export default {
         .get(`/employees?filter=${filterdata}`)
         .then((result) => {
           this.employeeList = result.data.data;
+          this.total = result.data.meta.total;
         })
         .catch((error) => {
           alert(error);
