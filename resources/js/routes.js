@@ -3,8 +3,13 @@ import ForgotPassword from "@/Pages/Auth/ForgotPassword.vue";
 import ResetPassword from "@/Pages/Auth/ResetPassword.vue";
 import Login from "@/Pages/Auth/Login.vue";
 import Employees from "@/Pages/Employees/Employees.vue";
+import EditEducationPage from "@/Pages/Auth/EditEducationPage.vue";
 import LinkExpired from "@/Pages/Auth/LinkExpired.vue"
+import EmployeeDetail from "@/Pages/Employees/EmployeeDetail.vue"
+import ImportDataFromExcel from "@/Pages/Auth/ImportDataFromExcel.vue"
 import { createRouter, createWebHistory } from "vue-router";
+import EditPersonalDetailPage from "@/Pages/Auth/EditPersonalDetailPage.vue"
+import EditKeyDetailPage from "@/Pages/Auth/EditKeyEmployeeDetail.vue"
 const routes = [
     {
         name: "Home",
@@ -22,6 +27,14 @@ const routes = [
     },
 
     {
+        name: "EmployeeDetail",
+        path: "/employees/:id",
+        component: EmployeeDetail,
+        meta: {
+            requiresAuth: true,
+        }
+    },
+    {
         name: "AddEmployeeDetails",
         path: "/employees/add",
         component: AddEmployeeDetails,
@@ -29,7 +42,14 @@ const routes = [
             requiresAuth: true,
         }
     },
-
+    {
+        name: "editProfile",
+        path: "/employees/:id/editpersonaldetail",
+        component: EditPersonalDetailPage,
+        meta: {
+            requiresAuth: true,
+        }
+    },
     {
         name: "Employees",
         path: "/employees",
@@ -39,6 +59,32 @@ const routes = [
         }
 
     },
+    {
+        name: "ImportDataFromExcel",
+        path: "/employees/import",
+        component: ImportDataFromExcel,
+        meta: {
+            requiresAuth: true,
+        }
+
+    },
+    {
+        name: "EditEducationPage",
+        path: "/employees/:id/editeducationdetailpage",
+        component: EditEducationPage,
+        meta: {
+        requiresAuth: true,
+        }
+    },
+    {
+        name: "editKeyDetail",
+        path: "/employees/:id/editkeydetail",
+        component: EditKeyDetailPage,
+        meta: {
+            requiresAuth: true,
+        }
+    },
+
     {
         name: 'LinkExpired',
         path: '/link-expired',

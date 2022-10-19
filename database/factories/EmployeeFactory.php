@@ -22,7 +22,7 @@ class EmployeeFactory extends Factory
             'contact_number' => $this->faker->phoneNumber(),
             'date_of_birth' => $this->faker->date(),
             'current_address' => $this->faker->address(),
-            'pan_number' => $this->faker->numerify('##########'),
+            'pan_number' => $this->faker->numerify('#########'),
             'bank_account_number'=> $this->faker->numerify('##########'),
             'avatar' => 'employeeimages/yVs34WuQI23LeQSbzVo9L3ppeyVjPj5j7UPXyJC9.png',
         ];

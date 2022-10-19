@@ -24,6 +24,29 @@
           Employee has been sucessfully added.
         </p>
       </div>
+
+      <div
+        v-show="importSuccess"
+        class="w-full h-10 flex justify-center items-center bg-dark_green"
+      >
+        <svg
+          width="20"
+          height="12"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M18.51 1 6.472 10.625 1 6.25"
+            stroke="#fff"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+        </svg>
+        <p class="font-bold pl-2 text-lg text-white">
+          Data has been imported sucessfully.
+        </p>
+      </div>
     </div>
 
     <div class="min-h-screen bg-light_blue px-40">
@@ -51,12 +74,9 @@
                 drop-shadow
                 justify-between
                 rounded-md
-                h-[37px]
-                w-[130px]
-                text-primary text-center
-                justify-center
-                items-center
+                text-primary
                 pr-16
+                font-bold
               "
             >
               &nbsp;&nbsp;
@@ -65,6 +85,17 @@
                 v-for="status in status"
                 v-bind:key="status.status"
                 v-bind:value="status.status"
+                class="
+                  border-transparent
+                  hover:bg-primary_blue
+                  focus:border-transparent focus:ring-0
+                  border-0
+                  outline-0
+                  scroll-smooth
+                  text-light_iris
+                  shadow-md
+                  rounded-sm
+                "
               >
                 {{ status.status }}
               </option>
@@ -110,7 +141,7 @@
               v-model="search"
               type="text"
               placeholder="Search by name"
-              v-on:keyup.enter="onSubmit"
+              v-on:keyup.enter="filterSearch"
               class="
                 border-0
                 h-[20px]
@@ -126,7 +157,7 @@
           </div>
         </EmployeeListHeader>
 
-        <EmployeeList v-for="list in filteredlist" :key="list.id" :list="list">
+        <EmployeeList v-for="list in employeeList" :key="list.id" :list="list">
         </EmployeeList>
       </div>
 
@@ -153,14 +184,14 @@ export default {
   data() {
     return {
       showSuccess: false,
+      importSuccess: false,
       employeeList: [],
-      el: "#hide",
+
       total: [],
       pageNumber: this.$route.query.pageNumber
         ? parseInt(this.$route.query.pageNumber)
         : 1,
       search: "",
-      seen: false,
 
       status: [
         {
@@ -172,23 +203,26 @@ export default {
         {
           status: "Alumni",
         },
+        {
+          status: "Development",
+        },
+        {
+          status: "QA",
+        },
+        {
+          status: "Product",
+        },
+        {
+          status: "Sales",
+        },
+        {
+          status: "Design",
+        },
+        {
+          status: "Marketing",
+        },
       ],
     };
-  },
-  computed: {
-    filteredlist() {
-      return this.employeeList.filter((list) => {
-        var fullname = list.first_name.trim() + " " + list.last_name.trim();
-        return (
-          list.first_name.toLowerCase().match(this.search.toLowerCase()) ||
-          list.last_name.toLowerCase().match(this.search.toLowerCase()) ||
-          fullname
-            .toLowerCase()
-            .match(this.search.toLowerCase().replace(/\s+/g, " ")) ||
-          list.email.toLowerCase().match(this.search.toLowerCase())
-        );
-      });
-    },
   },
 
   components: {
@@ -218,11 +252,12 @@ export default {
       this.getData();
     },
 
-    onSubmit() {
+    filterSearch() {
       axios
         .get(`/employees?search=${this.search}`)
         .then((result) => {
-          this.filteredlist = result.data.data;
+          this.employeeList = result.data.data;
+          this.total = result.data.meta.total;
         })
         .catch((error) => {
           alert(error);
@@ -239,7 +274,7 @@ export default {
         .get(`/employees?filter=${filterdata}`)
         .then((result) => {
           this.employeeList = result.data.data;
-          this.total = result.data.data.length;
+          this.total = result.data.meta.total;
         })
         .catch((error) => {
           alert(error);
@@ -251,7 +286,7 @@ export default {
         .get(`/employees?page=${this.pageNumber}`)
         .then((result) => {
           this.employeeList = result.data.data;
-          this.total = result.data.data.length;
+          this.total = result.data.meta.total;
         })
 
         .catch((error) => {
@@ -261,6 +296,8 @@ export default {
   },
 
   mounted() {
+    this.importSuccess = localStorage.getItem("importSuccess");
+    localStorage.removeItem("importSuccess");
     this.showSuccess = localStorage.getItem("showSuccess");
     localStorage.removeItem("showSuccess");
     this.pageNumber = 1;
@@ -269,6 +306,4 @@ export default {
 };
 </script>
 
-<style>
-@import url(https://cdn.syncfusion.com/ej2/material.css);
-</style>
+<style></style>

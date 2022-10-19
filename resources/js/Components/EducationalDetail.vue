@@ -265,21 +265,22 @@
           >
             Save and Continue
           </Button>
-          <button
+          <router-link
+            to="/employees"
             type="button"
             class="
               mr-2.5
-              py-[7px]
-              px-2.5
-              bg-slate-100
+              py-3
+              px-12
+              bg-slate-200
               rounded-md
               shadow
               text-base
               font-bold
             "
           >
-            Cancel
-          </button>
+            <p>Cancel</p>
+          </router-link>
         </div>
       </div>
     </Form>
@@ -355,16 +356,3 @@ export default {
   },
 };
 </script>
-<style>
-/* Chrome, Safari, Edge, Opera */
-input::-webkit-outer-spin-button,
-input::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
-}
-
-/* Firefox */
-input[type="number"] {
-  -moz-appearance: textfield;
-}
-</style>

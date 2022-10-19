@@ -1,12 +1,10 @@
 <template>
   <div>
-    <div
-      class="flex h-[80px] flex-row justify-between text-center justify-center items-center px-9"
-    >
+    <div class="flex pt-9 pb-5 flex-row justify-between items-center px-9">
       <div class="flex flex-row space-x-6">
-        <div class="flex flex-col font-sans not-italic font-medium">
-          <h1 class="text-xl text-black">EMPLOYEES</h1>
-          <h3 class="text-base text-light_iris">
+        <div class="flex flex-col font-sans not-italic">
+          <h1 class="text-2xl font-bold">EMPLOYEES</h1>
+          <h3 class="text-base font-semibold text-light_iris">
             Total
             <slot name="total"></slot>
             results
@@ -22,23 +20,72 @@
           <slot />
         </div>
         <div
-          class="h-[38px] w-full flex justify-center items-center text-center bg-white font-sans not-italic font-bold text-base"
+          class="
+            h-[38px]
+            w-full
+            flex
+            justify-center
+            items-center
+            text-center
+            bg-white
+            font-sans
+            not-italic
+            font-bold
+            text-base
+          "
         >
           <router-link
             to="/employees/add"
             type="button"
-            class="bg-primary p-[7px] rounded-md drop-shadow-[0_10px_15px_rgba(0,0,0,0.1)] flex items-center justify-center text-white font-bold text-base font-sans"
+            class="
+              bg-primary
+              p-[7px]
+              rounded-md
+              drop-shadow-[0_10px_15px_rgba(0,0,0,0.1)]
+              flex
+              items-center
+              justify-center
+              text-white
+              font-bold
+              text-base
+              font-sans
+            "
           >
             + Add Employee
           </router-link>
         </div>
         <div
-          class="h-[38px] w-full flex justify-center items-center text-center bg-white font-sans not-italic font-bold text-base"
+          class="
+            h-[38px]
+            w-full
+            flex
+            justify-center
+            items-center
+            text-center
+            bg-white
+            font-sans
+            not-italic
+            font-bold
+            text-base
+          "
         >
           <router-link
             to="/employees/import"
             type="button"
-            class="bg-dark_pink p-[7px] w-[180px] rounded-md drop-shadow-[0_10px_15px_rgba(0,0,0,0.1)] flex items-center justify-center text-white font-bold text-base font-sans"
+            class="
+              bg-dark_pink
+              p-[7px]
+              w-[180px]
+              rounded-md
+              drop-shadow-[0_10px_15px_rgba(0,0,0,0.1)]
+              flex
+              items-center
+              justify-center
+              text-white
+              font-bold
+              text-base
+              font-sans
+            "
           >
             <svg
               width="12"
@@ -61,14 +108,26 @@
     </div>
 
     <div
-      class="h-[49px] w-full grid grid-cols-6 pl-8 gap-4 content-around justify-around items-center bg-dark_gray text-dark_blue font-sans not-italic font-bold text-sm"
+      class="
+        w-full
+        py-4
+        grid grid-cols-12
+        items-center
+        bg-dark_gray
+        text-dark_blue
+        font-sans
+        not-italic
+        font-bold
+        text-sm
+        px-10
+      "
     >
-      <h1>FullName/Email</h1>
-      <h1 class="pl-2">Desigination</h1>
-      <h1 class="pl-12">Phone</h1>
-      <h1 class="pl-11">Status</h1>
-      <h1 class="pl-4">Team</h1>
-      <h1 class="pl-10">Actions</h1>
+      <h1 class="col-span-3">FullName/Email</h1>
+      <h1 class="col-span-2">Desigination</h1>
+      <h1 class="col-span-2">Phone</h1>
+      <h1 class="col-span-2">Status</h1>
+      <h1 class="col-span-2">Team</h1>
+      <h1 class="">Actions</h1>
     </div>
   </div>
 </template>

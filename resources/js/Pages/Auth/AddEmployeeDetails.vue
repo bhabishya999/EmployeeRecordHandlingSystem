@@ -1,9 +1,9 @@
 <script setup>
 import Details from "@/Layouts/Details.vue";
 </script>
-    <template>
+<template>
   <NavBar></NavBar>
-  <div class="h-[24px] bg-slate-100"></div>
+  <div class="h-10 bg-slate-100"></div>
   <Details>
     <div class="p-9">
       <div class="flex justify-between items-center">
@@ -204,7 +204,11 @@ import Details from "@/Layouts/Details.vue";
                 />
               </div>
             </div>
-            <DropZone v-model="files" @change="fieldChange"></DropZone>
+            <DropZone
+              v-model="files"
+              @change="fieldChange"
+              @update="fileChanges"
+            ></DropZone>
             <UploadList :items="files"></UploadList>
             <div v-if="message.files" class="flex items-center w-full mt-[9px]">
               <div>
@@ -321,21 +325,22 @@ import Details from "@/Layouts/Details.vue";
             >
               Save and Continue
             </Button>
-            <button
+            <router-link
+              to="/employees"
               type="button"
               class="
                 mr-2.5
-                py-[7px]
-                px-2.5
-                bg-slate-100
+                py-4
+                px-12
+                bg-slate-200
                 rounded-md
                 shadow
                 text-base
                 font-bold
               "
             >
-              Cancel
-            </button>
+              <p>Cancel</p>
+            </router-link>
           </div>
         </div>
       </Form>
@@ -349,8 +354,8 @@ import Details from "@/Layouts/Details.vue";
     </div>
   </Details>
 </template>
-    
-    <script>
+
+<script>
 import CustomInput from "@/Components/CustomInput.vue";
 import DropZone from "@/Components/DropZone.vue";
 import EducationalDetail from "@/Components/EducationalDetail.vue";
@@ -441,6 +446,10 @@ export default {
       this.keyempActive = event;
       this.educationalActive = this.personalActive = false;
     },
+    fileChanges(files) {
+      this.files = [...this.files, ...files];
+      console.log(files, "files");
+    },
     fieldChange(e) {
       let selectedFiles = e.target.files;
       if (!selectedFiles.length) {
@@ -475,7 +484,6 @@ export default {
       const { panNumber } = values;
       const { currentAddress } = values;
       const { accountNumber } = values;
-
       let formData = new FormData();
       for (let i = 0; i < this.files.length; i++) {
         formData.append("documents[]", this.files[i]);
@@ -489,7 +497,6 @@ export default {
       formData.append("bank_account_number", accountNumber);
       formData.append("contact_number", this.$refs.phoneNo.phone);
       formData.append("avatar", this.avatar);
-
       this.isLoading = true;
       axios
         .post("employees", formData)
@@ -527,8 +534,8 @@ export default {
   },
 };
 </script>
-    
-    <style>
+
+<style>
 .vue-tel-input {
   background: #ffffff;
   border: 2px solid #e2e8f0;
@@ -581,4 +588,3 @@ export default {
     rgba(0,0,0,.075),0 0 8px
     rgba(102,175,233,.6);border-color:#66afe9} */
 </style>
-    

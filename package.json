@@ -20,7 +20,7 @@
         "vue": "^3.2.31"
     },
     "dependencies": {
-        "@headlessui/vue": "^1.6.7",
+        "@headlessui/vue": "^1.7.0",
         "@vueform/multiselect": "^2.5.2",
         "esbuild-windows-64": "^0.15.7",
         "image-upload-vue": "^0.2.5",

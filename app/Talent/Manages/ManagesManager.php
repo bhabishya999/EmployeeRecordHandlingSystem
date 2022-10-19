@@ -8,12 +8,12 @@ class ManagesManager
 {
     public function __construct(private Manages $manages)
     {
-        
+
     }
 
-    public function createManager(array $managerId)
-    {  
-        $managers = $this->manages->updateOrCreate($managerId);
+    public function createManages(array $managerId)
+    {
+        $managers = $this->manages->create($managerId);
         return $managers;
     }
 }
