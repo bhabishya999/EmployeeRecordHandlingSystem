@@ -10,6 +10,8 @@ import ImportDataFromExcel from "@/Pages/Auth/ImportDataFromExcel.vue"
 import { createRouter, createWebHistory } from "vue-router";
 import EditPersonalDetailPage from "@/Pages/Auth/EditPersonalDetailPage.vue"
 import EditKeyDetailPage from "@/Pages/Auth/EditKeyEmployeeDetail.vue"
+import DashBoard from "@/Pages/Auth/DashBoard.vue"
+import LeaveListingPage from "@/Pages/Auth/LeaveListingPage.vue"
 const routes = [
     {
         name: "Home",
@@ -58,6 +60,24 @@ const routes = [
             requiresAuth: true,
         }
 
+    },
+    {
+        name: "Dashboard",
+        path: "/dashboard",
+        component: DashBoard,
+        meta: {
+            requiresAuth: true,
+        }
+
+    },
+    {
+
+        name:"LeaveListingPage",
+        path: "/leave",
+        component: LeaveListingPage,
+        meta: {
+            requiresAuth: true,
+        }
     },
     {
         name: "ImportDataFromExcel",
@@ -120,7 +140,7 @@ router.beforeEach((to, from, next) => {
         const pageName = ['Login', 'ForgotPassword', 'ResetPassword', 'LinkExpired'];
         if (authenticated && pageName.includes(to.name)) {
             next({
-                path: "/employees",
+                path: "/dashboard",
                 query: { redirect: to.fullPath },
             });
         } else {
