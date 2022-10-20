@@ -2,7 +2,6 @@
 
 use App\Http\Controllers\EducationalDetailsController;
 use App\Http\Controllers\EmployeeController;
-use App\Http\Controllers\EmployeeImportController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\LogoutController;
 use App\Http\Controllers\ForgotPasswordController;
@@ -12,7 +11,7 @@ use App\Http\Controllers\KeyEmploymentDetailsController;
 use App\Http\Controllers\ManagerListController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ImportController;
-use App\Http\Controllers\LeaveFormSyncController;
+use App\Http\Controllers\LeaveRequestController;
 
 /*
 |--------------------------------------------------------------------------
