@@ -22,7 +22,7 @@ return new class extends Migration
             $table->string('leave_reason');
             $table->date('leave_start_date')->index();
             $table->date('leave_end_date');
-            $table->boolean('leave_approved');
+            $table->string('leave_approved');
             $table->text('douments')->nullable();
             $table->timestamps();
         });
