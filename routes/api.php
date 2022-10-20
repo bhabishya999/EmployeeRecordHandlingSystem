@@ -41,6 +41,7 @@ Route::group(['prefix' => 'employees', 'middleware' => ['auth:sanctum']], functi
     Route::post('/{employeeId}', [EmployeeController::class,'userUpdate']);
     Route::put('/key-employment-details/{employeeId}', [KeyEmploymentDetailsController::class,'employmentUpdate']);
     Route::put('/status/{employeeId}',[EmployeeController::class,'statusUpdate']);
+    Route::get('/leaves', [LeaveRequestController::class,'index']);
 });
 Route::group(['prefix' => 'user', 'middleware' => ['auth:sanctum']], function(){
     Route::get('/me',[UserController::class,'show']);
@@ -49,4 +50,4 @@ Route::post('/forgot-password', [ForgotPasswordController::class,'resetEmail']);
 Route::post('/reset-password',[PasswordResetController::class, 'reset']);
 Route::get('/validate-token', [PasswordResetController::class, 'validateToken']);
 Route::post('/employee-leaves', [LeaveRequestController::class,'store']);
-Route::get('/leaves', [LeaveRequestController::class,'index']);
+
