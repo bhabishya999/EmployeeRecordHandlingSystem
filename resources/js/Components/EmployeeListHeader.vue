@@ -1,20 +1,6 @@
 <template>
   <div>
-    <div class="flex pt-9 pb-5 flex-row justify-between items-center px-9">
-      <div class="flex flex-row space-x-6">
-        <div class="flex flex-col font-sans not-italic">
-          <h1 class="text-2xl font-bold">EMPLOYEES</h1>
-          <h3 class="text-base font-semibold text-light_iris">
-            Total
-            <slot name="total"></slot>
-            results
-          </h3>
-        </div>
-        <div>
-          <slot name="filter"></slot>
-        </div>
-      </div>
-
+    <div class="flex pb-5 flex-row items-center float-right pt-1 px-5">
       <div class="flex flex-row space-x-4">
         <div>
           <slot />
@@ -113,16 +99,15 @@
         py-4
         grid grid-cols-12
         items-center
-        bg-dark_gray
         text-dark_blue
         font-sans
         not-italic
         font-bold
         text-sm
-        px-10
+        px-7
       "
     >
-      <h1 class="col-span-3">FullName/Email</h1>
+      <h1 class="col-span-3">Full Name/Email</h1>
       <h1 class="col-span-2">Desigination</h1>
       <h1 class="col-span-2">Phone</h1>
       <h1 class="col-span-2">Status</h1>
