@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\LeaveRequest;
+use App\Talent\Leaves\Models\LeaveRequest;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Symfony\Component\HttpFoundation\Exception\BadRequestException;
 use Symfony\Component\HttpFoundation\Response;
+
 
 class LeaveRequestController extends Controller
 {
@@ -19,16 +20,20 @@ class LeaveRequestController extends Controller
     public function index(Request $request)
     {
         return LeaveRequest::query()
-                ->where('full_name','LIKE', '%'.$request->query('search').'%')
-                ->where(function($query) use ($request) {
+        ->when(!empty($request->query('search')),function($query) use ($request){
+                $query->where('full_name','LIKE', '%'.$request->query('search').'%');
+        })
+        ->when(!empty($request->query('start_date') && $request->query('end_date')),function($query) use ($request){
+                $query->where(function($query) use ($request) {
                     $query->where('leave_start_date', '>=', $request->query('start_date'))
                         ->where('leave_start_date', '<=', $request->query('end_date'));
                 })
                 ->orWhere(function($query) use ($request) {
                     $query->where('leave_end_date', '<=', $request->query('start_date'))
                         ->where('leave_end_date', '<=', $request->query('end_date'));
-                })
-                ->get();
+                });
+            })
+            ->get();
 
     // SELECT * FROM leave_requests where ( leave_start_date >= $1 and leave_start_date <= $1) or ( leave_end_date <= $1 and leave_end_date <= $1)
     }
