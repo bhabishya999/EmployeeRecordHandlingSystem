@@ -42,7 +42,6 @@ class LeaveRequestController extends Controller
             ->get();
             return LeaveListResource::collection($leaveRequest);
 
-    // SELECT * FROM leave_requests where ( leave_start_date >= $1 and leave_start_date <= $1) or ( leave_end_date <= $1 and leave_end_date <= $1)
     }
 
     public function store(Request $request)
@@ -57,11 +56,8 @@ class LeaveRequestController extends Controller
         $leaveRequest->setAttribute('leave_end_date', new Carbon($request->input('Leave End Date')));
         $leaveRequest->setAttribute('leave_approved', $request->input('Approved by Team Leader'));
         $leaveRequest->setAttribute('douments', $request->input('Supporting Documents'));
-
-        
-
+ 
         throw_if(!$leaveRequest->save(), new BadRequestException());
-
 
         return new JsonResponse([], Response::HTTP_NO_CONTENT);
     }
