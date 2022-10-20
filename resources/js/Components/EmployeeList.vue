@@ -1,6 +1,6 @@
 <template>
   <div class="">
-    <div class="grid grid-cols-12 font-sans not-italic font-normal py-3 px-10">
+    <div class="grid grid-cols-12 font-sans not-italic font-normal py-3 px-7">
       <div class="flex flex-row col-span-3">
         <div class="h-[40px] w-[40px] rounded-full">
           <img :src="list.avatar" alt="" class="rounded-full" />
@@ -51,7 +51,6 @@
                 bg-white
                 px-3
                 pt-1
-                font-medium
                 hover:bg-primary_blue
                 focus:outline-none
                 focus-visible:ring-2

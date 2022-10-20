@@ -5,59 +5,9 @@
     </div>
     <div class="w-full">
       <NavBar>
-        <template v-slot:headerName :headerName="headerName"
-          >EMPLOYEES</template
-        >
+        <template v-slot:headerName :headerName="headerName">LEAVE</template>
       </NavBar>
-      <div class="h-7">
-        <div
-          v-show="showSuccess"
-          class="w-full h-7 flex justify-center items-center bg-dark_green"
-        >
-          <svg
-            width="20"
-            height="12"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M18.51 1 6.472 10.625 1 6.25"
-              stroke="#fff"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            />
-          </svg>
-          <p class="font-bold pl-2 text-lg text-white">
-            Employee has been sucessfully added.
-          </p>
-        </div>
-
-        <div
-          v-show="importSuccess"
-          class="w-full h-7 flex justify-center items-center bg-dark_green"
-        >
-          <svg
-            width="20"
-            height="12"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M18.51 1 6.472 10.625 1 6.25"
-              stroke="#fff"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            />
-          </svg>
-          <p class="font-bold pl-2 text-lg text-white">
-            Data has been imported sucessfully.
-          </p>
-        </div>
-      </div>
-
-      <div class="px-10">
+      <div class="pt-7 px-5">
         <div
           class="
             bg-white
@@ -65,7 +15,7 @@
             drop-shadow-[0_1px_2px_rgba(0,0,0,0.06)_0_10px_15px_rgba(0,0,0,0.1)]
           "
         >
-          <EmployeeListHeader>
+          <LeaveListingHeader>
             <div
               class="
                 h-[37px]
@@ -119,14 +69,9 @@
                 "
               />
             </div>
-          </EmployeeListHeader>
-
-          <EmployeeList
-            v-for="list in employeeList"
-            :key="list.id"
-            :list="list"
-          >
-          </EmployeeList>
+          </LeaveListingHeader>
+          <LeaveList v-for="list in employeeList" :key="list.id" :list="list">
+          </LeaveList>
         </div>
 
         <div class="flex justify-center">
@@ -142,11 +87,11 @@
     </div>
   </div>
 </template>
-<script>
+  <script>
 import Details from "@/Layouts/Details.vue";
 import NavBar from "@/Components/NavBar.vue";
-import EmployeeList from "@/Components/EmployeeList.vue";
-import EmployeeListHeader from "@/Components/EmployeeListHeader.vue";
+import LeaveList from "@/Components/LeaveList.vue";
+import LeaveListingHeader from "@/Components/LeaveListingHeader.vue";
 import Pagination from "@/Components/Pagination.vue";
 import SideNavigationBar from "@/Components/SideNavigationBar.vue";
 export default {
@@ -154,53 +99,20 @@ export default {
 
   data() {
     return {
-      showSuccess: false,
-      importSuccess: false,
       employeeList: [],
 
       total: [],
       pageNumber: this.$route.query.pageNumber
         ? parseInt(this.$route.query.pageNumber)
         : 1,
-      search: "",
-
-      status: [
-        {
-          status: "All",
-        },
-        {
-          status: "Active",
-        },
-        {
-          status: "Alumni",
-        },
-        {
-          status: "Development",
-        },
-        {
-          status: "QA",
-        },
-        {
-          status: "Product",
-        },
-        {
-          status: "Sales",
-        },
-        {
-          status: "Design",
-        },
-        {
-          status: "Marketing",
-        },
-      ],
     };
   },
 
   components: {
     Details,
     NavBar,
-    EmployeeList,
-    EmployeeListHeader,
+    LeaveList,
+    LeaveListingHeader,
     Pagination,
     SideNavigationBar,
   },
@@ -224,35 +136,6 @@ export default {
       this.getData();
     },
 
-    filterSearch() {
-      axios
-        .get(`/employees?search=${this.search}`)
-        .then((result) => {
-          this.employeeList = result.data.data;
-          this.total = result.data.meta.total;
-        })
-        .catch((error) => {
-          alert(error);
-        });
-    },
-
-    filterstatus(status) {
-      var filterdata = status.target.value;
-
-      if (filterdata == "All") {
-        filterdata = "";
-      }
-      axios
-        .get(`/employees?filter=${filterdata}`)
-        .then((result) => {
-          this.employeeList = result.data.data;
-          this.total = result.data.meta.total;
-        })
-        .catch((error) => {
-          alert(error);
-        });
-    },
-
     getData() {
       axios
         .get(`/employees?page=${this.pageNumber}`)
@@ -268,14 +151,11 @@ export default {
   },
 
   mounted() {
-    this.importSuccess = localStorage.getItem("importSuccess");
-    localStorage.removeItem("importSuccess");
-    this.showSuccess = localStorage.getItem("showSuccess");
-    localStorage.removeItem("showSuccess");
     this.pageNumber = 1;
     this.getData();
   },
 };
 </script>
-
-<style></style>
+  
+  <style></style>
+  

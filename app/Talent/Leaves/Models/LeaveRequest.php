@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Models;
+namespace App\Talent\Leaves\Models;
 
+use App\Talent\Employee\Model\Employee;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -22,4 +23,8 @@ class LeaveRequest extends Model
         'documents'
 
     ];
+    public function employee()
+    {
+        return $this->belongsTo(Employee::class);
+    }
 }

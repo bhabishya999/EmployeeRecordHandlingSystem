@@ -2,85 +2,94 @@
 import Details from "@/Layouts/Details.vue";
 </script>
     <template>
-  <div>
-    <NavBar />
-    <div class="h-10 bg-slate-100"></div>
-    <Details>
-      <div class="p-9">
-        <div class="flex justify-between items-center">
-          <h1 class="text-black leading-normal text-2xl font-medium font-sans">
-            EMPLOYEE DETAILS
-          </h1>
-          <router-link
-            to="/employees"
-            type="button"
-            class="
-              bg-indigo-700
-              p-[7px]
-              rounded-md
-              drop-shadow-[0_10px_15px_rgba(0,0,0,0.1)]
-              flex
-              items-center
-              justify-center
-              text-white
-              font-bold
-              text-base
-              leading-normal
-              font-sans
-            "
-          >
-            <svg
-              class="mr-[9px]"
-              width="8"
-              height="14"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
+  <div class="flex">
+    <div class="w-[237px]">
+      <SideNavigationBar />
+    </div>
+    <div class="w-full">
+      <NavBar />
+      <Details>
+        <div class="p-9">
+          <div class="flex justify-between items-center">
+            <h1
+              class="text-black leading-normal text-2xl font-semibold font-sans"
             >
-              <path
-                d="M0 13.152V.848C0 .657.129.5.287.5h1.147c.158 0 .287.157.287.348v5.119L6.392.715c.493-.496 1.255-.081 1.255.714V12.57c0 .795-.762 1.21-1.255.714l-4.671-5.22v5.087c0 .191-.13.348-.287.348H.287c-.158 0-.287-.157-.287-.348Z"
-                fill="#fff"
-              />
-            </svg>
-            Back to List
-          </router-link>
-        </div>
-        <div class="mt-[30px] mb-5">
-          <ul class="flex">
-            <li class="font-bold leading-normal text-lg py-2.5 px-1.5 mr-7">
-              Personal Details
-            </li>
-            <li class="font-bold leading-normal text-lg mr-7 py-2.5 px-1.5">
-              Educational Details
-            </li>
-            <li
+              EMPLOYEE DETAILS
+            </h1>
+            <router-link
+              to="/employees"
+              type="button"
               class="
-                font-semibold
-                leading-normal
-                text-lg
-                py-2.5
-                px-1.5
                 bg-indigo-700
-                rounded-lg
-                font-sans
+                p-[7px]
+                rounded-md
+                drop-shadow-[0_10px_15px_rgba(0,0,0,0.1)]
+                flex
+                items-center
+                justify-center
                 text-white
+                font-bold
+                text-base
+                leading-normal
+                font-sans
               "
             >
-              Key Employment Details
-            </li>
-          </ul>
+              <svg
+                class="mr-[9px]"
+                width="8"
+                height="14"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M0 13.152V.848C0 .657.129.5.287.5h1.147c.158 0 .287.157.287.348v5.119L6.392.715c.493-.496 1.255-.081 1.255.714V12.57c0 .795-.762 1.21-1.255.714l-4.671-5.22v5.087c0 .191-.13.348-.287.348H.287c-.158 0-.287-.157-.287-.348Z"
+                  fill="#fff"
+                />
+              </svg>
+              Back to List
+            </router-link>
+          </div>
+          <div class="mt-[30px] mb-5">
+            <ul class="flex">
+              <li class="font-bold leading-normal text-lg py-2.5 px-1.5 mr-7">
+                Personal Details
+              </li>
+              <li class="font-bold leading-normal text-lg mr-7 py-2.5 px-1.5">
+                Educational Details
+              </li>
+              <li
+                class="
+                  font-semibold
+                  leading-normal
+                  text-lg
+                  py-2.5
+                  px-1.5
+                  bg-indigo-700
+                  rounded-lg
+                  font-sans
+                  text-white
+                "
+              >
+                Key Employment Details
+              </li>
+            </ul>
+          </div>
+          <EditKeyDetail />
         </div>
-        <EditKeyDetail />
-      </div>
-    </Details>
+      </Details>
+    </div>
   </div>
 </template>
     <script>
 import NavBar from "@/Components/NavBar.vue";
 import EditKeyDetail from "@/Components/EditKeyDetail.vue";
+import SideNavigationBar from "@/Components/SideNavigationBar.vue";
+
 export default {
   name: "EditKeyDetailPage",
   Components: {
     NavBar,
+    SideNavigationBar,
     EditKeyDetail,
   },
 };
