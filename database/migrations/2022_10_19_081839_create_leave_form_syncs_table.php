@@ -15,9 +15,8 @@ return new class extends Migration
     {
         Schema::create('leave_requests', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('employee_id')->constrained('employees')->restrictOnDelete();
             $table->string('form_id');
-            $table->string('email')->index();
-            $table->string('full_name')->index();
             $table->enum('leave_type', ['Annual Leave', 'Sick Leave', 'Maternity Leave', 'Mourning Leave','Unpaid Leave']);
             $table->string('leave_reason');
             $table->date('leave_start_date')->index();

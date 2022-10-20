@@ -5,6 +5,7 @@ namespace App\Talent\Employee\Model;
 use App\Talent\Documents\Model\Document;
 use App\Talent\EducationalDetails\Models\EducationalDetails;
 use App\Talent\KeyEmploymentDetails\Models\KeyEmploymentDetails;
+use App\Talent\Leaves\Models\LeaveRequest;
 use App\Talent\Manages\Models\Manages;
 use Database\Factories\EmployeeFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -48,6 +49,11 @@ class Employee extends Model
     public function manages(): HasMany
     {
         return $this->hasMany(Manages::class, 'employee_id', 'id');
+    }
+
+    public function leaves():HasMany
+    {
+        return $this->hasMany(LeaveRequest::class);
     }
 
     protected static  function newFactory(): EmployeeFactory
