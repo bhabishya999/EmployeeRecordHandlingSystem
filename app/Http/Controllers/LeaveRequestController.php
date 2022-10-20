@@ -48,7 +48,7 @@ class LeaveRequestController extends Controller
         $leaveRequest->setAttribute('leave_reason', $request->input('Reason for leave'));
         $leaveRequest->setAttribute('leave_start_date', new Carbon($request->input('Leave Start Date')));
         $leaveRequest->setAttribute('leave_end_date', new Carbon($request->input('Leave End Date')));
-        $leaveRequest->setAttribute('leave_approved', $request->input('Approved by Team Leader') === 'Yes' ? true : false);
+        $leaveRequest->setAttribute('leave_approved', $request->input('Approved by Team Leader'));
         $leaveRequest->setAttribute('douments', $request->input('Supporting Documents'));
 
         
