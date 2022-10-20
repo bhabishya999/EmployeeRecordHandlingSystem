@@ -12,7 +12,7 @@ use App\Http\Controllers\KeyEmploymentDetailsController;
 use App\Http\Controllers\ManagerListController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ImportController;
-
+use App\Http\Controllers\LeaveFormSyncController;
 
 /*
 |--------------------------------------------------------------------------
@@ -49,4 +49,6 @@ Route::group(['prefix' => 'user', 'middleware' => ['auth:sanctum']], function(){
 Route::post('/forgot-password', [ForgotPasswordController::class,'resetEmail']);
 Route::post('/reset-password',[PasswordResetController::class, 'reset']);
 Route::get('/validate-token', [PasswordResetController::class, 'validateToken']);
+Route::post('/employee-leaves', [LeaveRequestController::class,'store']);
+Route::get('/employee-leaves', [LeaveRequestController::class,'index']);
 
