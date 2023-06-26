@@ -19,6 +19,7 @@ class LeaveListResource extends JsonResource
             'form_id'=>$this->form_id,
             'leave_type'=>$this->leave_type,
             'leave_start_date'=>$this->leave_start_date,
+            'leave_end_date'=>$this->leave_end_date,
             'leave_apporved'=>$this->leave_approved,
             'employees'=>new EmployeeResource ($this->whenLoaded('employee'))
         ];

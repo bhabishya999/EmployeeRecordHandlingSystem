@@ -35,7 +35,7 @@ class LeaveRequestController extends Controller
                         ->where('leave_start_date', '<=', $request->query('end_date'));
                 })
                 ->orWhere(function($query) use ($request) {
-                    $query->where('leave_end_date', '<=', $request->query('start_date'))
+                    $query->where('leave_end_date', '>=', $request->query('start_date'))
                         ->where('leave_end_date', '<=', $request->query('end_date'));
                 });
             })
@@ -47,7 +47,7 @@ class LeaveRequestController extends Controller
     public function store(Request $request)
     {
         $leaveRequest = new LeaveRequest();
-        $employeeId=Employee::where('email',$request->input('Email'))->first();
+        $employeeId=Employee::where('email',$request->input('Email'))->firstOrFail();
         $leaveRequest->setAttribute('employee_id',$employeeId->id);
         $leaveRequest->setAttribute('form_id', $request->input('Form Id'));
         $leaveRequest->setAttribute('leave_type', $request->input('What leave do you want to apply for?'));
